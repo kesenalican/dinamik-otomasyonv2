@@ -1,0 +1,1 @@
+# dinamik-otomasyonv2
