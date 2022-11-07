@@ -11,11 +11,41 @@ import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+// class Login extends StatefulWidget {
+//   bool remember = false;
+//   bool isChecked = false;
+//   Login({super.key});
+
+//   @override
+//   State<Login> createState() => _LoginState();
+// }
+
+// class _LoginState extends State<Login> {
+//   late TextEditingController firmaController;
+//   late TextEditingController kullaniciController;
+//   late TextEditingController passwordController;
+
+//   @override
+//   void initState() {
+//     // TODO: implement initState
+//     super.initState();
+//     firmaController = TextEditingController();
+//     kullaniciController = TextEditingController();
+//     passwordController = TextEditingController();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container();
+//   }
+// }
 
 // ignore: must_be_immutable
 class Login extends HookConsumerWidget {
-  bool? rememberMe = false;
-
+  bool remember = false;
+  bool isChecked = false;
   Login({super.key});
   set value(bool? value) {}
 
@@ -101,12 +131,13 @@ class Login extends HookConsumerWidget {
                 ),
               ),
               Expanded(
-                child: _buildRememberMe(),
+                child: _buildRememberMe(firmaController, kullaniciController),
               ),
               Expanded(
                 flex: 1,
                 child: _buildLoginButton(
-                  Constants.GIRIS_YAP, firmaController,
+                  Constants.GIRIS_YAP, firmaController, kullaniciController,
+                  passwordController,
                   context, dynamicHeight, dynamicWidth,
                   // () {
                   //   if (kullaniciController.text != "" &&
@@ -160,6 +191,7 @@ class Login extends HookConsumerWidget {
             shadowColor: Colors.black87,
             color: Colors.transparent,
             child: TextFormField(
+              readOnly: true,
               controller: firmaController,
               textAlignVertical: TextAlignVertical.bottom,
               cursorColor: Color(MyColors.bg01),
@@ -228,6 +260,7 @@ class Login extends HookConsumerWidget {
             borderRadius: BorderRadius.circular(10),
             child: TextFormField(
               controller: userController,
+              readOnly: true,
               textAlignVertical: TextAlignVertical.bottom,
               cursorColor: Color(MyColors.bg01),
               style: TextStyle(
@@ -414,15 +447,36 @@ class Login extends HookConsumerWidget {
     );
   }
 
-  _buildRememberMe() {
+  void _loadLoginInfo() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var company = prefs.getString("company_name");
+      var user = prefs.getString("user_name");
+      var password = prefs.getString("password");
+      if (remember) {
+        isChecked = true;
+      }
+    } catch (e) {
+      print("hata");
+    }
+  }
+
+  _buildRememberMe(TextEditingController companyController,
+      TextEditingController userController) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Checkbox(
           checkColor: Colors.white,
           activeColor: Colors.white,
-          value: rememberMe,
-          onChanged: (bool? value) {},
+          value: isChecked,
+          onChanged: (bool? value) async {
+            await SharedPreferences.getInstance().then((prefs) {
+              prefs.setBool("remember_me", value!);
+              prefs.setString("company_name", companyController.text);
+              prefs.setString("user_name", userController.text);
+            });
+          },
         ),
         const Text(
           Constants.BENI_HATIRLA,
@@ -443,15 +497,59 @@ class Login extends HookConsumerWidget {
     );
   }
 
-  _buildLoginButton(String title, TextEditingController firmaController,
-      context, double dynamicHeight, double dynamicWidth) {
+  _buildLoginButton(
+      String title,
+      TextEditingController firmaController,
+      TextEditingController userController,
+      TextEditingController passwordController,
+      context,
+      double dynamicHeight,
+      double dynamicWidth) {
     return ElevatedButton(
       onPressed: () {
-        Navigator.push(
+        if (userController.text != "" &&
+            passwordController.text != "" &&
+            firmaController.text != "" &&
+            passwordController.text == "123") {
+          Future.delayed(
+            const Duration(seconds: 1),
+            () {
+              showAlertDialog(
+                  context: context,
+                  hataBaslik: firmaController.text,
+                  hataIcerik:
+                      "Dinamik Otomasyon Mobil Uygulamasına Hoşgeldiniz.");
+            },
+          );
+          Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) =>
-                    HomePage(sirketAdi: firmaController.text)));
+              builder: (context) => HomePage(
+                sirketAdi: firmaController.text,
+              ),
+            ),
+          );
+        } else if (passwordController.text != "123") {
+          Future.delayed(
+            const Duration(seconds: 1),
+            () {
+              showAlertDialog(
+                  context: context,
+                  hataBaslik: "Şifre Yanlış",
+                  hataIcerik: "Girdiğiniz şifre eksik ya da yanlış.");
+            },
+          );
+        } else {
+          Future.delayed(
+            const Duration(seconds: 1),
+            () {
+              showAlertDialog(
+                  context: context,
+                  hataBaslik: "Giriş Hatası",
+                  hataIcerik: "Girdiğiniz bilgiler eksik ya da yanlış.");
+            },
+          );
+        }
       },
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.symmetric(

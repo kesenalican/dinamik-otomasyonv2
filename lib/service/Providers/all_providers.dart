@@ -3,10 +3,7 @@ import 'package:dinamik_otomasyon/Model/firma_model.dart';
 import 'package:dinamik_otomasyon/Model/kasa_model.dart';
 import 'package:dinamik_otomasyon/Model/vergi_daire_model.dart';
 import 'package:dinamik_otomasyon/core/base/service/base_provider.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cariler.dart';
-import 'package:dinamik_otomasyon/view/screens/stokIslemleri/model/stoklar_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:dio/dio.dart';
 
 //#region Depo
 final depolarProvider = FutureProvider<List<Depo>>((ref) async {
@@ -17,6 +14,7 @@ final depolarProvider = FutureProvider<List<Depo>>((ref) async {
   return cariList;
 });
 //#endregion
+
 //#region Depo
 final kasalarProvider = FutureProvider<List<KasaModel>>((ref) async {
   final dio = ref.watch(httpClientProvider);

@@ -11,7 +11,8 @@ import '../styles/colors.dart';
 import '../../core/components/menu_components.dart';
 
 class DrawerMenu extends StatefulWidget {
-  const DrawerMenu({Key? key}) : super(key: key);
+  final String sirketAdi;
+  const DrawerMenu({Key? key, required this.sirketAdi}) : super(key: key);
 
   @override
   State<DrawerMenu> createState() => _DrawerMenuState();
@@ -22,9 +23,9 @@ class _DrawerMenuState extends State<DrawerMenu> {
 
   @override
   void initState() {
-    dataList.forEach((element) {
+    for (var element in dataList) {
       data.add(Menu.fromJson(element));
-    });
+    }
     super.initState();
   }
 
@@ -33,10 +34,10 @@ class _DrawerMenuState extends State<DrawerMenu> {
     return Drawer(
       child: Column(
         children: [
-          Container(
+          SizedBox(
             height: context.dynamicHeight * 0.15,
             child: UserAccountsDrawerHeader(
-              accountName: const Text(Constants.DINAMIK_OTOMASYON),
+              accountName: Text(widget.sirketAdi),
               accountEmail: null,
               decoration: BoxDecoration(
                 color: Color(MyColors.bg01),

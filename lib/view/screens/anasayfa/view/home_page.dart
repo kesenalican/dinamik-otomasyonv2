@@ -9,6 +9,7 @@ import 'package:dinamik_otomasyon/view/screens/module_card.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/view/stok_karti.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class HomePage extends StatefulWidget {
   String? sirketAdi;
 
@@ -26,7 +27,7 @@ class _HomePageState extends BaseState<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppbar(whichPage: Constants.ANASAYFA),
-      drawer: const DrawerMenu(),
+      drawer: DrawerMenu(sirketAdi: widget.sirketAdi!),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: dynamicWidth(0.02)),
         child: ListView(
