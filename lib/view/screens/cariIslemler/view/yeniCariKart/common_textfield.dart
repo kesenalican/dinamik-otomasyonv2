@@ -8,14 +8,19 @@ class CommonTextField extends StatelessWidget {
   final String? field;
   final IconData? icon;
   final TextInputType? textInputType;
-  final Function validator;
+  final bool? isMandatory;
+  final Function? validator;
+  final bool? readOnly;
+
   const CommonTextField({
     Key? key,
     this.controller,
     this.field,
     this.icon,
     this.textInputType,
-    required this.validator,
+    this.readOnly,
+    this.validator,
+    this.isMandatory,
   }) : super(key: key);
 
   @override
@@ -23,10 +28,10 @@ class CommonTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: TextFormField(
-        validator: (value) => value!.isEmpty ? "$field Boş Olamaz!" : null,
-        readOnly: field == "Vergi Dairesi" || field == "Vergi Daire Kodu"
-            ? true
-            : false,
+        validator: isMandatory!
+            ? (value) => value!.isEmpty ? "$field Boş Olamaz!" : null
+            : null,
+        readOnly: readOnly ?? false,
         controller: controller,
         keyboardType: textInputType,
         cursorColor: Color(MyColors.bg01),

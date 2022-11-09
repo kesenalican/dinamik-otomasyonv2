@@ -10,23 +10,19 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 class CariViewModel {
   saveCari(CariModel cari) async {
-    try {
+    // try {
       final result = await Dio().post(
         "${ConstantProvider.BASE_URL}CariBilgiler",
         data: cari.toMap().toString(),
-        options: Options(
-          headers: {"Content-Type": "application/json"},
-          responseType: ResponseType.json,
-        ),
       );
       if (result.statusCode == 200) {
         return result;
       }
-    } on DioError catch (e) {
-      print("Type: ${e.type.toString()}");
-      print("Message: ${e.message}");
-      print("Error: ${e.error}");
-    }
+    // } on DioError catch (e) {
+    //   print("Type: ${e.type.toString()}");
+    //   print("Message: ${e.message}");
+    //   print("Error: ${e.error}");
+    // }
   }
 }
 

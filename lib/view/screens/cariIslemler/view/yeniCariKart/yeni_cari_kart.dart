@@ -8,12 +8,11 @@ import 'package:dinamik_otomasyon/view/common/common_input_border.dart';
 import 'package:dinamik_otomasyon/view/common/common_loading.dart';
 import 'package:dinamik_otomasyon/view/common/search_input.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_save.model.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cariler.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/common/common_dropdown.dart';
+import 'package:dinamik_otomasyon/view/screens/cariIslemler/service/cari_services.dart';
+import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/cari_kartlar.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/common/common_types.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/common/list_of_types.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/yeniCariKart/common_textfield.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_model.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +25,7 @@ class YeniCariKart extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     final cariKoduController = useTextEditingController(text: '');
     final cariUnvanController = useTextEditingController(text: '');
     final verginoController = useTextEditingController(text: '');
@@ -40,7 +40,6 @@ class YeniCariKart extends HookConsumerWidget {
     final ulkeController = useTextEditingController(text: '');
     final ulkeKoduController = useTextEditingController(text: '(90)');
     final telefon1Controller = useTextEditingController(text: '');
-    final telefon2Controller = useTextEditingController(text: '');
     final faxController = useTextEditingController(text: '');
     final mailController = useTextEditingController(text: '');
 
@@ -49,12 +48,14 @@ class YeniCariKart extends HookConsumerWidget {
       appBar: CommonAppbar(whichPage: Constants.YENI_CARI_OLUSTUR),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          CariViewModel cari = CariViewModel();
-          await cari.saveCari(CariModel(
-            cariKod: cariKoduController.text,
-            cariUnvan1: cariUnvanController.text,
-            cariUnvan2: cariUnvanController.text,
-          ));
+          return buildSaveButton(
+              context,
+              formKey,
+              ref,
+              cariKoduController,
+              cariUnvanController,
+              vergiDaireController,
+              vergiDaireKoduController);
         },
         backgroundColor: Color(MyColors.bg01),
         child: const Icon(
@@ -63,6 +64,7 @@ class YeniCariKart extends HookConsumerWidget {
       ),
       body: SingleChildScrollView(
         child: Form(
+          key: formKey,
           child: Column(
             children: [
               CommonTextField(
@@ -70,18 +72,14 @@ class YeniCariKart extends HookConsumerWidget {
                 field: Constants.CARI_KODU,
                 icon: Icons.code,
                 textInputType: TextInputType.name,
-                validator: (value) {
-                  EmailValidator.validate(value);
-                },
+                isMandatory: true,
               ),
               CommonTextField(
                 controller: cariUnvanController,
                 field: Constants.CARI_UNVANI,
                 icon: Icons.person,
                 textInputType: TextInputType.name,
-                validator: (value) {
-                  EmailValidator.validate(value);
-                },
+                isMandatory: false,
               ),
               list.when(
                   error: (err, stack) => showAlertDialog(
@@ -97,10 +95,12 @@ class YeniCariKart extends HookConsumerWidget {
                 controller: vergiDaireKoduController,
                 field: Constants.VERGI_DAIRE,
                 icon: Icons.account_balance,
+                readOnly: true,
                 textInputType: TextInputType.number,
                 validator: (value) {
                   EmailValidator.validate(value);
                 },
+                isMandatory: true,
               ),
               CommonTextField(
                 controller: verginoController,
@@ -110,105 +110,84 @@ class YeniCariKart extends HookConsumerWidget {
                 validator: (value) {
                   EmailValidator.validate(value);
                 },
+                isMandatory: true,
               ),
               CommonTextField(
                 controller: yetkiliAdiController,
                 field: Constants.YETKILI_ADI,
                 icon: Icons.person,
                 textInputType: TextInputType.name,
-                validator: (value) {
-                  EmailValidator.validate(value);
-                },
+                isMandatory: false,
               ),
               CommonTextField(
                 controller: yetkiliSoyAdiController,
                 field: Constants.YETKILI_SOYADI,
                 icon: Icons.person,
                 textInputType: TextInputType.name,
-                validator: (value) {
-                  EmailValidator.validate(value);
-                },
+                isMandatory: false,
               ),
               CommonTextField(
                 controller: adres1Controller,
                 field: Constants.ADRES1,
                 icon: Icons.location_city,
                 textInputType: TextInputType.streetAddress,
-                validator: (value) {
-                  EmailValidator.validate(value);
-                },
+                isMandatory: false,
               ),
               CommonTextField(
                 controller: adres2Controller,
                 field: Constants.ADRES2,
                 icon: Icons.location_city,
                 textInputType: TextInputType.streetAddress,
-                validator: (value) {
-                  EmailValidator.validate(value);
-                },
+                isMandatory: false,
               ),
               CommonTextField(
                 controller: ilController,
                 field: Constants.IL,
                 icon: Icons.map,
                 textInputType: TextInputType.name,
-                validator: (value) {
-                  EmailValidator.validate(value);
-                },
+                isMandatory: false,
               ),
               CommonTextField(
                 controller: ilceController,
                 field: Constants.ILCE,
                 icon: Icons.maps_home_work,
                 textInputType: TextInputType.name,
-                validator: (value) {
-                  EmailValidator.validate(value);
-                },
+                isMandatory: false,
               ),
               CommonTextField(
                 controller: ulkeController,
                 field: Constants.ULKE,
                 icon: Icons.maps_home_work_sharp,
                 textInputType: TextInputType.name,
-                validator: (value) {
-                  EmailValidator.validate(value);
-                },
+                isMandatory: false,
               ),
               CommonTextField(
                 controller: ulkeKoduController,
                 field: Constants.ULKE_KODU,
                 icon: Icons.maps_home_work_sharp,
                 textInputType: TextInputType.number,
-                validator: (value) {
-                  EmailValidator.validate(value);
-                },
+                isMandatory: false,
               ),
               CommonTextField(
                 controller: telefon1Controller,
                 field: Constants.TELEFON,
                 icon: Icons.phone,
                 textInputType: TextInputType.phone,
-                validator: (value) {
-                  EmailValidator.validate(value);
-                },
+                isMandatory: false,
               ),
               CommonTextField(
                 controller: faxController,
                 field: Constants.FAX,
                 icon: Icons.fax,
                 textInputType: TextInputType.name,
-                validator: (value) {
-                  EmailValidator.validate(value);
-                },
+                isMandatory: false,
               ),
               CommonTextField(
                 controller: mailController,
                 field: Constants.EMAIL,
                 icon: Icons.mail,
                 textInputType: TextInputType.emailAddress,
-                validator: (value) {
-                  EmailValidator.validate(value);
-                },
+                isMandatory: false,
               ),
               CommonTypes(
                 hareketTipi: Constants.HAREKET_TIPI,
@@ -241,6 +220,107 @@ class YeniCariKart extends HookConsumerWidget {
     );
   }
 
+  Future<void> buildSaveButton(
+    BuildContext context,
+    GlobalKey<FormState> formKey,
+    WidgetRef ref,
+    TextEditingController cariKoduController,
+    TextEditingController cariUnvanController,
+    TextEditingController vergiDaireAdiController,
+    TextEditingController vergiDaireKoduController,
+  ) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            "Cariyi kayıt etmek istiyor musunuz?",
+            style: purpleTxtStyle,
+          ),
+          actions: [
+            Row(
+              children: [
+                TextButton(
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(Color(MyColors.bg01)),
+                  ),
+                  child: const Text(
+                    "Evet",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
+                    //Navigator.pop(context);
+                    if (!formKey.currentState!.validate()) {
+                      Navigator.pop(context);
+                      return;
+                    }
+                    ref
+                        .watch(cariSaveProvider(
+                      CariModel(
+                        cariKod: cariKoduController.text,
+                        cariUnvan1: cariUnvanController.text,
+                        cariUnvan2: cariUnvanController.text,
+                        cariVdaireAdi: vergiDaireAdiController.text,
+                        cariVdaireNo: vergiDaireKoduController.text,
+                      ),
+                    ).future)
+                        .then((value) {
+                      return showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Text(
+                              "Cari Başarıyla Kaydedildi!",
+                              style: purpleTxtStyle,
+                            ),
+                            actions: [
+                              TextButton(
+                                style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Color(MyColors.bg01)),
+                                ),
+                                onPressed: () => Navigator.pop(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const CariKartlar())),
+                                child: const Text(
+                                  Constants.OK,
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    });
+                  },
+                ),
+                SizedBox(
+                  width: context.dynamicWidth * 0.05,
+                ),
+                TextButton(
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(Color(MyColors.bg01)),
+                  ),
+                  child: const Text(
+                    "Hayır",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   _buildVergiDairesiTextField(
       TextEditingController vergiDaireController,
       context,
@@ -253,6 +333,7 @@ class YeniCariKart extends HookConsumerWidget {
         controller: vergiDaireController,
         keyboardType: TextInputType.name,
         cursorColor: Color(MyColors.bg01),
+        readOnly: true,
         style: TextStyle(
             color: Color(
           MyColors.bg01,

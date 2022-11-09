@@ -8,21 +8,54 @@ import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/muhasebe_hesap
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CariService {
-  saveCari(CariModel cari) async {
-    try {
-      final result = await Dio()
-          .post("${ConstantProvider.BASE_URL}CariBilgiler", data: cari);
-      if (result.statusCode == 200) {
-        return result;
-      }
-    } on DioError catch (e) {
-      print("Type: ${e.type.toString()}");
-      print("Message: ${e.message}");
-      print("Error: ${e.error}");
-    }
+// class CariService {
+//   saveCari(CariModel cari) async {
+//     try {
+//       final result =
+//           await Dio().post("${ConstantProvider.BASE_URL}CariBilgiler", data: {
+//         "cari_kod": cari.cariKod,
+//         "cari_unvan1": cari.cariUnvan1,
+//         "cari_unvan2": cari.cariUnvan2
+//       });
+//       if (result.statusCode == 500) {
+//         return "Girilen Cari Kodu Zaten Tanımlı!";
+//       } else if (result.statusCode == 200) {
+//         return result;
+//       } else {
+//         return "Bilinmeyen bir hata oluştu!";
+//       }
+//     } on DioError catch (e) {
+//       print("Type: ${e.type.toString()}");
+//       print("Message: ${e.message}");
+//       print("Error: ${e.error}");
+//     }
+//   }
+// }
+
+//#region Cariler
+final cariSaveProvider = FutureProvider.autoDispose
+    .family<List<Cariler>, CariModel>((ref, cari) async {
+  final dio = ref.watch(httpClientProvider);
+  final result = await dio.post("CariBilgiler", data: {
+    "cari_kod": cari.cariKod,
+    "cari_unvan1": cari.cariUnvan1,
+    "cari_unvan2": cari.cariUnvan2,
+    "cari_vdaire_adi": cari.cariVdaireAdi,
+    "cari_vdaire_kodu": cari.cariVergidairekodu,
+  });
+  if (result.statusCode == 200) {
+    print("Cari Başarıyla kaydedildi");
+  } else if (result.statusCode == 500) {
+    print("Bu cari kodu kullanılmış");
+  } else if (result.statusCode == 400) {
+  } else {
+    print("bilinmeyen bir hata oluştu");
   }
-}
+  List<Map<String, dynamic>> mapData = List.from(result.data);
+  List<Cariler> cariList = mapData.map((e) => Cariler.fromMap(e)).toList();
+  return cariList;
+});
+//#endregion
 
 //#region Cariler
 final carilerProvider = FutureProvider.autoDispose

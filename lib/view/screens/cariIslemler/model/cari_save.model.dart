@@ -4,8 +4,10 @@
 
 import 'dart:convert';
 
+// ignore: non_constant_identifier_names
 CariModel CariModelFromMap(String str) => CariModel.fromMap(json.decode(str));
 
+// ignore: non_constant_identifier_names
 String CariModelToMap(CariModel data) => json.encode(data.toMap());
 
 class CariModel {
@@ -15,6 +17,9 @@ class CariModel {
     required this.cariKod,
     required this.cariUnvan1,
     required this.cariUnvan2,
+    required this.cariVdaireAdi,
+    required this.cariVdaireNo,
+
     // required this.cariHareketTipi,
     // required this.cariBaglantiTipi,
     // required this.cariStokAlimCinsi,
@@ -30,9 +35,9 @@ class CariModel {
   final bool? cariKilitli = false;
   final bool? cariDegisti = false;
   final int? cariChecksum = 0;
-  // final int? cariCreateUser;
+  final int? cariCreateUser = 0;
   final DateTime? cariCreateDate = DateTime.now();
-  // final int? cariLastupUser;
+  final int? cariLastupUser = 0;
   final DateTime? cariLastupDate = DateTime.now();
   final String? cariSpecial1 = "";
   final String? cariSpecial2 = "";
@@ -40,22 +45,22 @@ class CariModel {
   final String? cariKod;
   final String? cariUnvan1;
   final String? cariUnvan2;
-  // final int? cariHareketTipi;
-  // final int? cariBaglantiTipi;
-  // final int? cariStokAlimCinsi;
-  // final int? cariStokSatimCinsi;
+  final int? cariHareketTipi = 0;
+  final int? cariBaglantiTipi = 0;
+  final int? cariStokAlimCinsi = 0;
+  final int? cariStokSatimCinsi = 0;
   final String? cariMuhKod = "";
   final String? cariMuhKod1 = "";
   final String? cariMuhKod2 = "";
   final int? cariDovizCinsi = 0;
   final int? cariDovizCinsi1 = 255;
   final int? cariDovizCinsi2 = 255;
-  // final int? cariVadeFarkYuz;
+  final int? cariVadeFarkYuz = 0;
   final int? cariVadeFarkYuz1 = 0;
   final int? cariVadeFarkYuz2 = 0;
   final int? cariKurHesapSekli = 0;
-  final String? cariVdaireAdi = "";
-  final String? cariVdaireNo = "";
+  final String? cariVdaireAdi;
+  final String? cariVdaireNo;
   final String? cariSicilNo = "";
   final String? cariVergiKimlikNo = "";
   final int? cariSatisFk = 0;
@@ -239,6 +244,8 @@ class CariModel {
         cariKod: json["cari_kod"],
         cariUnvan1: json["cari_unvan1"],
         cariUnvan2: json["cari_unvan2"],
+        cariVdaireAdi: json["cari_vdaire_adi"],
+        cariVdaireNo: json["cari_vdaire_no"],
       );
   Map<String, dynamic> toMap() => {
         "cari_DBCno": cariDbCno,

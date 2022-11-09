@@ -122,5 +122,5 @@ class Constants {
 }
 
 class ConstantProvider {
-  static const String BASE_URL = "http://192.168.5.21:5239/api/";
+  static const String BASE_URL = "http://192.168.5.23:5239/api/";
 }
