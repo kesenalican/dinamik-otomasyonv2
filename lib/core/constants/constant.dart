@@ -80,7 +80,7 @@ class Constants {
   static const String HIZMET_KARTI = "Hizmet Kartı";
   static const String URUN_ARA = "Ürün Ara";
   static const String YENI_CARI_OLUSTUR = "Yeni Cari Oluştur";
-
+  static const String YENI_CARI_ADRES_OLUSTUR = "Yeni Cari Adres Oluştur";
   //STOK DETAY => RAPORLAR
   static const String STOK_BAKIYE_LISTESI = "Stok Bakiye Listesi";
   static const String STOK_ENVANTER_RAPORU = "Stok Envanter Raporu";

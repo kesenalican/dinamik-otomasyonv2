@@ -7,12 +7,15 @@ import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
 import 'package:dinamik_otomasyon/view/common/common_input_border.dart';
 import 'package:dinamik_otomasyon/view/common/common_loading.dart';
 import 'package:dinamik_otomasyon/view/common/search_input.dart';
+import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_adres_model.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_save.model.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/service/cari_services.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/cari_kartlar.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/common/common_types.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/common/list_of_types.dart';
+import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/yeniCariKart/cari_adres_button.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/yeniCariKart/common_textfield.dart';
+import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/yeniCariKart/yeni_cari_adres.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
@@ -93,7 +96,7 @@ class YeniCariKart extends HookConsumerWidget {
                   }),
               CommonTextField(
                 controller: vergiDaireKoduController,
-                field: Constants.VERGI_DAIRE,
+                field: Constants.VERGI_DAIRE_KODU,
                 icon: Icons.account_balance,
                 readOnly: true,
                 textInputType: TextInputType.number,
@@ -126,16 +129,41 @@ class YeniCariKart extends HookConsumerWidget {
                 textInputType: TextInputType.name,
                 isMandatory: false,
               ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  controller: adres1Controller,
+                  keyboardType: TextInputType.name,
+                  cursorColor: Color(MyColors.bg01),
+                  readOnly: true,
+                  style: TextStyle(
+                      color: Color(
+                    MyColors.bg01,
+                  )),
+                  decoration: InputDecoration(
+                    labelText: Constants.ADRES1,
+                    labelStyle: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400,
+                        color: Color(
+                          MyColors.bg01,
+                        )),
+                    prefixIcon: Icon(
+                      Icons.location_city,
+                      color: Color(MyColors.bg01),
+                    ),
+                    suffix: CariNewAdressButton(
+                      adresKoduController: adres1Controller,
+                      cariKoduController: cariKoduController,
+                    ),
+                    enabledBorder: CommonInputBorder.border,
+                    focusedBorder: CommonInputBorder.border,
+                  ),
+                ),
+              ),
               CommonTextField(
                 controller: adres1Controller,
                 field: Constants.ADRES1,
-                icon: Icons.location_city,
-                textInputType: TextInputType.streetAddress,
-                isMandatory: false,
-              ),
-              CommonTextField(
-                controller: adres2Controller,
-                field: Constants.ADRES2,
                 icon: Icons.location_city,
                 textInputType: TextInputType.streetAddress,
                 isMandatory: false,
@@ -339,7 +367,7 @@ class YeniCariKart extends HookConsumerWidget {
           MyColors.bg01,
         )),
         decoration: InputDecoration(
-          labelText: "Vergi Dairesi*",
+          labelText: Constants.VERGI_DAIRESI_SECINIZ,
           labelStyle: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w400,
@@ -414,30 +442,3 @@ class YeniCariKart extends HookConsumerWidget {
     );
   }
 }
-
-
-
-// ListView.builder(
-//           itemBuilder: (context, index) {
-//             return SimpleDialog(
-//                 title: const Text('Vergi Dairesi Seç'),
-//                 children: [
-//                   Text(list[index].vergiDaireAdi),
-//                 ]);
-//           },
-//         );
-/**
- * 
- * <Widget>[
-            SimpleDialogOption(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Text one'),
-            ),
-            SimpleDialogOption(
-              onPressed: () {},
-              child: const Text('Text two'),
-            ),
-          ],
- */

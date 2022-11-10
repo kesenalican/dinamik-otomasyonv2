@@ -1,5 +1,5 @@
 import 'package:dinamik_otomasyon/core/base/service/base_provider.dart';
-import 'package:dinamik_otomasyon/core/constants/constant.dart';
+import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_adres_model.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_grup.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_save.model.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_sektor.dart';
@@ -57,6 +57,37 @@ final cariSaveProvider = FutureProvider.autoDispose
 });
 //#endregion
 
+final cariAdresSaveProvider = FutureProvider.autoDispose
+    .family<List<Cariler>, CariAdresModel>((ref, cariAdres) async {
+  final dio = ref.watch(httpClientProvider);
+  final result = await dio.post("CariAdres", data: {
+    "adr_create_user": 0,
+    "adr_cari_kod": cariAdres.adrCariKod,
+    "adr_adres_no": cariAdres.adrAdresNo,
+    "adr_cadde": cariAdres.adrCadde,
+    "adr_mahalle": cariAdres.adrMahalle,
+    "adr_sokak": cariAdres.adrSokak,
+    "adr_ilce": cariAdres.adrIlce,
+    "adr_il": cariAdres.adrIl,
+    "adr_ulke": cariAdres.adrUlke,
+    "adr_tel_ulke_kodu": cariAdres.adrTelUlkeKodu,
+    "adr_tel_modem": cariAdres.adrTelModem,
+  });
+  if (result.statusCode == 200) {
+    print("Cari Adres başarıyla kaydedildi");
+  } else if (result.statusCode == 500) {
+    print("Bu adres kodu kullanılmış");
+  } else if (result.statusCode == 400) {
+    print("request hatası");
+  } else {
+    print("bilinmeyen bir hata oluştu");
+  }
+  List<Map<String, dynamic>> mapData = List.from(result.data);
+  List<Cariler> cariList = mapData.map((e) => Cariler.fromMap(e)).toList();
+  return cariList;
+});
+//#endregion
+
 //#region Cariler
 final carilerProvider = FutureProvider.autoDispose
     .family<List<Cariler>, int>((ref, pageCount) async {
@@ -105,3 +136,16 @@ final cariSektorProvider =
 });
 //#endregion
 
+final cariAdresProvider = FutureProvider.autoDispose
+    .family<List<CariAdresModel>, String>((ref, cariKod) async {
+  final dio = ref.watch(httpClientProvider);
+  final result = await dio.get("CariAdres", queryParameters: {
+    "cariKod": cariKod.toString(),
+  });
+
+  List<Map<String, dynamic>> mapData = List.from(result.data);
+  List<CariAdresModel> cariList =
+      mapData.map((e) => CariAdresModel.fromMap(e)).toList();
+
+  return cariList;
+});
