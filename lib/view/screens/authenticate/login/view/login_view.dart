@@ -52,9 +52,8 @@ class _LoginState extends ConsumerState<Login> {
       Future.delayed(const Duration(milliseconds: 500), () {
         return showAlertDialog(
             context: context,
-            hataBaslik: "Shared Hatası",
-            hataIcerik:
-                "Kaynaklar getirilirken bir hata oluştu ${e.toString()}");
+            hataBaslik: Constants.sharedHatasi,
+            hataIcerik: Constants.sharedHataIcerik + e.toString());
       });
     }
   }
@@ -86,7 +85,9 @@ class _LoginState extends ConsumerState<Login> {
                 child: firmaList.when(
                   loading: () => const CommonLoading(),
                   error: (error, stackTrace) => showAlertDialog(
-                      context: context, hataBaslik: "Hata", hataIcerik: "Hata"),
+                      context: context,
+                      hataBaslik: Constants.HATA_BASLIK,
+                      hataIcerik: Constants.HATA_ICERIK),
                   data: (data) {
                     List<FirmaModel> firmaList = data.map((e) => e).toList();
                     return _buildFirmaField(
@@ -107,7 +108,9 @@ class _LoginState extends ConsumerState<Login> {
                 child: userList.when(
                   loading: () => const CommonLoading(),
                   error: (error, stackTrace) => showAlertDialog(
-                      context: context, hataBaslik: "Hata", hataIcerik: "Hata"),
+                      context: context,
+                      hataBaslik: Constants.HATA_BASLIK,
+                      hataIcerik: Constants.HATA_ICERIK),
                   data: (data) {
                     List<UserModel> userList = data.map((e) => e).toList();
                     return _buildUserField(
@@ -129,7 +132,7 @@ class _LoginState extends ConsumerState<Login> {
                   context: context,
                   dynamicHeight: context.dynamicHeight,
                   dynamicWidth: context.dynamicWidth,
-                  hint: "Şifre",
+                  hint: Constants.SIFRE,
                   passwordController: passwordController,
                   prefixIcon: Icons.password,
                 ),
@@ -141,18 +144,9 @@ class _LoginState extends ConsumerState<Login> {
                   ),
                   activeColor: Colors.white,
                   value: remember,
-                  onChanged: (bool? value) async {
-                    await SharedPreferences.getInstance().then((prefs) {
-                      prefs.setBool("remember_me", value!);
-                      prefs.setString("company_name", firmaController.text);
-                      prefs.setString("user_name", kullaniciController.text);
-                    });
-                    setState(() {
-                      remember = value!;
-                    });
-                  },
+                  onChanged: buildRememberMeShared,
                   title: const Text(
-                    "Remember me",
+                    Constants.BENI_HATIRLA,
                     style: TextStyle(color: Colors.white),
                   ),
                   controlAffinity: ListTileControlAffinity.leading,
@@ -176,6 +170,17 @@ class _LoginState extends ConsumerState<Login> {
         ),
       ),
     );
+  }
+
+  void buildRememberMeShared(bool? value) async {
+    await SharedPreferences.getInstance().then((prefs) {
+      prefs.setBool("remember_me", value!);
+      prefs.setString("company_name", firmaController.text);
+      prefs.setString("user_name", kullaniciController.text);
+    });
+    setState(() {
+      remember = value!;
+    });
   }
 }
 
@@ -380,7 +385,7 @@ showUsers(context, List<UserModel> list, TextEditingController userController,
     builder: (context) {
       return SimpleDialog(
         title: Text(
-          "Kullanıcı Seçiniz",
+          Constants.kullaniciSeciniz,
           style: purpleBoldTxtStyle,
         ),
         children: [
@@ -425,7 +430,7 @@ showFirmalar(
     builder: (context) {
       return SimpleDialog(
         title: Text(
-          "Firma Seçiniz",
+          Constants.firmaSeciniz,
           style: purpleBoldTxtStyle,
         ),
         children: [
@@ -477,15 +482,14 @@ _buildLoginButton(
       if (userController.text != "" &&
           passwordController.text != "" &&
           firmaController.text != "" &&
-          passwordController.text == "123") {
+          passwordController.text == Constants.password) {
         Future.delayed(
           const Duration(seconds: 1),
           () {
             showAlertDialog(
                 context: context,
                 hataBaslik: firmaController.text,
-                hataIcerik:
-                    "Dinamik Otomasyon Mobil Uygulamasına Hoşgeldiniz.");
+                hataIcerik: Constants.hosGeldiniz);
           },
         );
         Navigator.push(
@@ -496,14 +500,14 @@ _buildLoginButton(
             ),
           ),
         );
-      } else if (passwordController.text != "123") {
+      } else if (passwordController.text != Constants.password) {
         Future.delayed(
           const Duration(seconds: 1),
           () {
             showAlertDialog(
                 context: context,
-                hataBaslik: "Şifre Yanlış",
-                hataIcerik: "Girdiğiniz şifre eksik ya da yanlış.");
+                hataBaslik: Constants.sifreYanlis,
+                hataIcerik: Constants.sifreYanlis2);
           },
         );
       } else {
@@ -512,8 +516,8 @@ _buildLoginButton(
           () {
             showAlertDialog(
                 context: context,
-                hataBaslik: "Giriş Hatası",
-                hataIcerik: "Girdiğiniz bilgiler eksik ya da yanlış.");
+                hataBaslik: Constants.girisHatasi,
+                hataIcerik: Constants.girisHatasi2);
           },
         );
       }

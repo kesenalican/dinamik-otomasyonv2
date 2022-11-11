@@ -1,8 +1,17 @@
 class Constants {
+  static const String hosGeldiniz =
+      "Dinamik Otomasyon Mobil Uygulamasına Hoşgeldiniz.";
   static const String ANASAYFA = "Anasayfa";
   static const String SIRKET_ADI = "Şirket Adı";
   static const String KULLANICI_ADI = "Kullanıcı Adı";
+  static const String kullaniciSeciniz = "Kullanıcı Seçiniz";
+  static const String firmaSeciniz = "Firma Seçiniz";
   static const String SIFRE = "Şifre";
+  static const String sifreYanlis = "Şifre Yanlış!";
+  static const String sifreYanlis2 = "Girdiğiniz şifre eksik ya da yanlış!";
+  static const String girisHatasi = "Giriş Hatası!";
+  static const String girisHatasi2 = "Girdiğiniz bilgiler eksik ya da yanlış.";
+  static const String password = "123";
   static const String GIRIS_YAP = "Giriş Yap";
   static const String BENI_HATIRLA = "Beni Hatırla";
   static const String LOGO = "assets/logo.png";
@@ -119,8 +128,20 @@ class Constants {
   static const String FAX = "Fax";
 
   static const String VERGI_DAIRESI_SECINIZ = "Vergi Dairesi Seçiniz";
+  static const String sharedHatasi = "Shared Hatası";
+  static const String sharedHataIcerik =
+      "Kaynaklar getirilirken bir hata oluştu";
+  static const String cariKayitBasarili = "Cari başarıyla kaydedildi";
 }
 
 class ConstantProvider {
   static const String BASE_URL = "http://192.168.43.224:5239/api/";
+  static const String user = "User";
+  static const String vergiDaireleri = "VergiDaireleri";
+  static const String stoklar = "Stoklar";
+  static const String stokAlisFiyatlari = "StokAlisFiyatlari";
+  static const String stokSatisFiyatlari = "StokSatisFiyatlari";
+  static const String enCokAlinanUrunler = "EnCokSatilanUrunler";
+  static const String cariBilgiler = "CariBilgiler";
+  static const String cariAdres = "CariAdres";
 }

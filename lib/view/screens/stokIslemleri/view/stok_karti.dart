@@ -6,7 +6,6 @@ import 'package:dinamik_otomasyon/view/screens/stokIslemleri/model/stoklar_model
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/service/stok_service.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/view/open_barcode.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/view/stok_detay.dart';
-import 'package:dinamik_otomasyon/view/screens/stokIslemleri/viewmodel/stok_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../styles/colors.dart';
@@ -51,65 +50,65 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
     super.dispose();
   }
 
-  // void _runFilter(String query) {
-  //   List<Stoklar> dummySearchList = [];
-  //   dummySearchList.addAll(fullList);
-  //   if (query.isNotEmpty) {
-  //     List<Stoklar> dummyListData = [];
-  //     for (var stok in dummySearchList) {
-  //       var sorgu = stok.stokKodu.toLowerCase();
-  //       if (sorgu.contains(query)) {
-  //         dummyListData.add(stok);
-  //       }
-  //     }
-  //     setState(() {
-  //       searchedEmptyList.clear();
-  //       searchedEmptyList.addAll(dummyListData);
-  //     });
-  //     return;
-  //   } else {
-  //     setState(() {
-  //       searchedEmptyList.clear();
-  //       searchedEmptyList.addAll(fullList);
-  //     });
-  //   }
-  //   print("DUMMY LİST LENGTH" + searchedEmptyList.length.toString());
+  void _runFilter(String query) {
+    List<Stoklar> dummySearchList = [];
+    dummySearchList.addAll(fullList);
+    if (query.isNotEmpty) {
+      List<Stoklar> dummyListData = [];
+      for (var stok in dummySearchList) {
+        var sorgu = stok.stokKodu.toLowerCase();
+        if (sorgu.contains(query)) {
+          dummyListData.add(stok);
+        }
+      }
+      setState(() {
+        searchedEmptyList.clear();
+        searchedEmptyList.addAll(dummyListData);
+      });
+      return;
+    } else {
+      setState(() {
+        searchedEmptyList.clear();
+        searchedEmptyList.addAll(fullList);
+      });
+    }
+    print("DUMMY LİST LENGTH" + searchedEmptyList.length.toString());
+  }
+
+  // _runFilter(String searchQuery) async {
+  //   Future.delayed(
+  //     const Duration(seconds: 2),
+  //     () {
+  //       setState(() {
+  //         searchFilter == true;
+  //         searchedEmptyList = fullList;
+  //         fullList.clear();
+  //         fullList = searchedEmptyList
+  //             .where((value) => value.stokIsim
+  //                 .toLowerCase()
+  //                 .contains(searchQuery.toLowerCase()))
+  //             .toList();
+  //       });
+  //     },
+  //   );
+  //   print("aramadan sonra fulllist == " + fullList.length.toString());
+
+  //   return fullList;
   // }
 
-  //_runFilter(String searchQuery) async {
-  // Future.delayed(
-  //   const Duration(seconds: 2),
-  //   () {
+  // _runFilter(String searchKeyword) {
+  //   Future.delayed(const Duration(seconds: 2), () {
   //     setState(() {
-  //       searchFilter == true;
-  //       searchedEmptyList = fullList;
-  //       fullList.clear();
-  //       fullList = searchedEmptyList
-  //           .where((value) => value.stokIsim
+  //       searchedEmptyList = fullList
+  //           .where((value) => value.stokKodu
   //               .toLowerCase()
-  //               .contains(searchQuery.toLowerCase()))
+  //               .contains(searchKeyword.toLowerCase()))
   //           .toList();
+  //       fullList.clear();
   //     });
-  //   },
-  // );
-  // print("aramadan sonra fulllist == " + fullList.length.toString());
-
-  // return fullList;
-  //}
-
-  _runFilter(String searchKeyword) {
-    Future.delayed(const Duration(seconds: 2), () {
-      setState(() {
-        searchedEmptyList = fullList
-            .where((value) => value.stokKodu
-                .toLowerCase()
-                .contains(searchKeyword.toLowerCase()))
-            .toList();
-        fullList.clear();
-      });
-    });
-    return searchedEmptyList;
-  }
+  //   });
+  //   return searchedEmptyList;
+  // }
 
   @override
   Widget build(BuildContext context) {

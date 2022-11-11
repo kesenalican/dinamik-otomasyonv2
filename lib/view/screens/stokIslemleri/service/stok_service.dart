@@ -76,8 +76,8 @@ class StokService {
 final stoklarProvider = FutureProvider.autoDispose
     .family<List<Stoklar>, int>((ref, pageCount) async {
   final dio = ref.watch(httpClientProvider);
-  final result =
-      await dio.get("Stoklar", queryParameters: {'offset': pageCount});
+  final result = await dio
+      .get(ConstantProvider.stoklar, queryParameters: {'offset': pageCount});
   if (result.statusCode == 200) {
     List<Map<String, dynamic>> mapData = List.from(result.data);
     List<Stoklar> stoklist = mapData.map((e) => Stoklar.fromMap(e)).toList();
@@ -93,8 +93,8 @@ final stokAlisFiyatlariProvider =
     FutureProvider.family<List<StokAlisFiyatlari>, String>(
         (ref, stokKodu) async {
   final dio = ref.watch(httpClientProvider);
-  final result =
-      await dio.post("StokAlisFiyatlari", data: {'stokKodu': stokKodu});
+  final result = await dio
+      .post(ConstantProvider.stokAlisFiyatlari, data: {'stokKodu': stokKodu});
   if (result.statusCode == 200) {
     List<Map<String, dynamic>> mapData = List.from(result.data);
     List<StokAlisFiyatlari> stokAlisFiyatlari =
@@ -113,8 +113,8 @@ final stokSatisFiyatlariProvider =
     FutureProvider.family<List<StokAlisFiyatlari>, String>(
         (ref, stokKodu) async {
   final dio = ref.watch(httpClientProvider);
-  final result =
-      await dio.post("StokSatisFiyatlari", data: {'stokKodu': stokKodu});
+  final result = await dio
+      .post(ConstantProvider.stokSatisFiyatlari, data: {'stokKodu': stokKodu});
   if (result.statusCode == 200) {
     List<Map<String, dynamic>> mapData = List.from(result.data);
     List<StokAlisFiyatlari> stokAlisFiyatlari =
@@ -133,8 +133,8 @@ final enCokSatilanUrunlerProvider =
     FutureProvider.family<List<EnCokSatilanUrunlerModel>, String>(
         (ref, baslangicTarihi) async {
   final dio = ref.watch(httpClientProvider);
-  final result = await dio
-      .post("EnCokSatilanUrunler", data: {'baslangic': baslangicTarihi});
+  final result = await dio.post(ConstantProvider.enCokAlinanUrunler,
+      data: {'baslangic': baslangicTarihi});
   if (result.statusCode == 200) {
     List<Map<String, dynamic>> mapData = List.from(result.data);
     List<EnCokSatilanUrunlerModel> enCokSatilanUrunler =

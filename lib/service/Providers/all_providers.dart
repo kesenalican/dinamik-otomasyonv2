@@ -3,6 +3,7 @@ import 'package:dinamik_otomasyon/Model/firma_model.dart';
 import 'package:dinamik_otomasyon/Model/kasa_model.dart';
 import 'package:dinamik_otomasyon/Model/vergi_daire_model.dart';
 import 'package:dinamik_otomasyon/core/base/service/base_provider.dart';
+import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 //#region Depo
@@ -29,7 +30,7 @@ final kasalarProvider = FutureProvider<List<KasaModel>>((ref) async {
 final vergiDaireleriProvider =
     FutureProvider<List<VergiDaireModel>>((ref) async {
   final dio = ref.watch(httpClientProvider);
-  final result = await dio.get("VergiDaireleri");
+  final result = await dio.get(ConstantProvider.vergiDaireleri);
   List<Map<String, dynamic>> mapData = List.from(result.data);
   List<VergiDaireModel> vergiDaireList =
       mapData.map((e) => VergiDaireModel.fromMap(e)).toList();

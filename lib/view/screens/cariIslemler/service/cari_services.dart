@@ -7,7 +7,6 @@ import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_save.mode
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_sektor.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cariler.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/muhasebe_hesap.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -39,8 +38,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final carilerProvider = FutureProvider.autoDispose
     .family<List<Cariler>, int>((ref, pageCount) async {
   final dio = ref.watch(httpClientProvider);
-  final result =
-      await dio.get("CariBilgiler", queryParameters: {'offset': pageCount});
+  final result = await dio.get(ConstantProvider.cariBilgiler,
+      queryParameters: {'offset': pageCount});
   List<Map<String, dynamic>> mapData = List.from(result.data);
   List<Cariler> cariList = mapData.map((e) => Cariler.fromMap(e)).toList();
   return cariList;
@@ -51,7 +50,7 @@ final carilerProvider = FutureProvider.autoDispose
 final cariSaveProvider = FutureProvider.autoDispose
     .family<List<Cariler>, CariModel>((ref, cari) async {
   final dio = ref.watch(httpClientProvider);
-  final result = await dio.post("CariBilgiler", data: {
+  final result = await dio.post(ConstantProvider.cariBilgiler, data: {
     "cari_kod": cari.cariKod,
     "cari_unvan1": cari.cariUnvan1,
     "cari_unvan2": cari.cariUnvan2,
@@ -63,10 +62,9 @@ final cariSaveProvider = FutureProvider.autoDispose
   } else if (result.statusCode == 500) {
     BuildContext? context;
     return showAlertDialog(
-      context: context!,
-      hataBaslik: "Kayıt Hatası",
-      hataIcerik: "Bu cari zaten kayıtlı!"
-    );
+        context: context!,
+        hataBaslik: "Kayıt Hatası",
+        hataIcerik: "Bu cari zaten kayıtlı!");
     print("Bu cari kodu kullanılmış");
   } else if (result.statusCode == 400) {
   } else {
@@ -81,7 +79,7 @@ final cariSaveProvider = FutureProvider.autoDispose
 final cariAdresSaveProvider = FutureProvider.autoDispose
     .family<List<Cariler>, CariAdresModel>((ref, cariAdres) async {
   final dio = ref.watch(httpClientProvider);
-  final result = await dio.post("CariAdres", data: {
+  final result = await dio.post(ConstantProvider.cariAdres, data: {
     "adr_create_user": 0,
     "adr_cari_kod": cariAdres.adrCariKod,
     "adr_adres_no": cariAdres.adrAdresNo,
@@ -112,7 +110,7 @@ final cariAdresSaveProvider = FutureProvider.autoDispose
 final cariAdresProvider = FutureProvider.autoDispose
     .family<List<CariAdresModel>, String>((ref, cariKod) async {
   final dio = ref.watch(httpClientProvider);
-  final result = await dio.get("CariAdres", queryParameters: {
+  final result = await dio.get(ConstantProvider.cariAdres, queryParameters: {
     "cariKod": cariKod.toString(),
   });
   List<Map<String, dynamic>> mapData = List.from(result.data);
