@@ -1,5 +1,6 @@
 import 'package:dinamik_otomasyon/core/base/service/base_provider.dart';
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
+import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_adres_model.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_grup.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_save.model.dart';
@@ -7,6 +8,7 @@ import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_sektor.da
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cariler.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/muhasebe_hesap.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // class CariService {
@@ -59,6 +61,12 @@ final cariSaveProvider = FutureProvider.autoDispose
   if (result.statusCode == 200) {
     print("Cari Başarıyla kaydedildi");
   } else if (result.statusCode == 500) {
+    BuildContext? context;
+    return showAlertDialog(
+      context: context!,
+      hataBaslik: "Kayıt Hatası",
+      hataIcerik: "Bu cari zaten kayıtlı!"
+    );
     print("Bu cari kodu kullanılmış");
   } else if (result.statusCode == 400) {
   } else {

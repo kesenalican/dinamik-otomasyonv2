@@ -28,24 +28,6 @@ class _LoginState extends ConsumerState<Login> {
   late TextEditingController kullaniciController;
   late TextEditingController passwordController;
 
-  void loadUserEmail() async {
-    print("Load Email");
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      var company = prefs.getString("company_name") ?? "";
-      var user = prefs.getString("user_name") ?? "";
-      var rememberMe = prefs.getBool("remember_me") ?? false;
-      print(rememberMe);
-      print(company);
-      if (remember) {
-        firmaController.text = company;
-        kullaniciController.text = user;
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
   @override
   void initState() {
     super.initState();
@@ -60,13 +42,12 @@ class _LoginState extends ConsumerState<Login> {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var company = prefs.getString("company_name") ?? "";
       var user = prefs.getString("user_name") ?? "";
-      if (remember) {
-        setState(() {
-          isChecked = true;
-          firmaController.text = company;
-          kullaniciController.text = user;
-        });
-      }
+      remember = prefs.getBool("remember_me")!;
+      setState(() {
+        remember = true;
+        firmaController.text = company;
+        kullaniciController.text = user;
+      });
     } catch (e) {
       Future.delayed(const Duration(milliseconds: 500), () {
         return showAlertDialog(
