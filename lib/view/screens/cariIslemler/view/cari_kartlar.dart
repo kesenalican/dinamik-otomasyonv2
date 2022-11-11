@@ -69,7 +69,7 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
         const Duration(seconds: 2),
         () {
           ref.refresh(carilerProvider(currentPage));
-          refresh = false;
+          refresh = true;
         },
       );
     }

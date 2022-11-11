@@ -1,5 +1,6 @@
 import 'package:dinamik_otomasyon/View/styles/colors.dart';
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
+import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_adres_model.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_save.model.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cariler.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/service/cari_services.dart';
@@ -11,13 +12,13 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 class CariViewModel {
   saveCari(CariModel cari) async {
     // try {
-      final result = await Dio().post(
-        "${ConstantProvider.BASE_URL}CariBilgiler",
-        data: cari.toMap().toString(),
-      );
-      if (result.statusCode == 200) {
-        return result;
-      }
+    final result = await Dio().post(
+      "${ConstantProvider.BASE_URL}CariBilgiler",
+      data: cari.toMap().toString(),
+    );
+    if (result.statusCode == 200) {
+      return result;
+    }
     // } on DioError catch (e) {
     //   print("Type: ${e.type.toString()}");
     //   print("Message: ${e.message}");

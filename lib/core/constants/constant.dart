@@ -109,7 +109,7 @@ class Constants {
   static const String CARI_EFATURA_CINSI = "Cari E-Fatura Cinsi";
   static const String YETKILI_ADI = "Yetkili Adı";
   static const String YETKILI_SOYADI = "Yetkili Soyadı";
-  static const String ADRES1 = "Adres1";
+  static const String ADRES = "Adres";
   static const String ADRES2 = "Adres2";
   static const String IL = "İl";
   static const String ILCE = "İlçe";

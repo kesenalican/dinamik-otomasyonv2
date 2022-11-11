@@ -31,7 +31,6 @@ class CariNewAdressButton extends ConsumerWidget {
         }
         var cariAdresList =
             ref.watch(cariAdresProvider(cariKoduController.text));
-
         showDialog(
             context: context,
             builder: (context) {
@@ -55,21 +54,15 @@ class CariNewAdressButton extends ConsumerWidget {
                       color: Color(MyColors.bg01),
                     ),
                   ),
-                  cariAdresList.when(
-                    error: (err, stack) => showAlertDialog(
-                      context: context,
-                      hataBaslik: "hata",
-                      hataIcerik: "hata",
-                    ),
-                    loading: () => const CommonLoading(),
-                    data: (data) {
-                      List<CariAdresModel> cariAdresler =
-                          data.map((e) => e).toList();
-                      print("CARI ADRESLER ===== " + cariAdresler.toString());
-                      return SizedBox(
-                        height: context.dynamicHeight * 0.4,
-                        width: context.dynamicWidth * 0.5,
-                        child: ListView.builder(
+                  SizedBox(
+                    height: context.dynamicHeight * 0.4,
+                    width: context.dynamicWidth * 0.5,
+                    child: cariAdresList.when(
+                      data: (data) {
+                        List<CariAdresModel> cariAdresler =
+                            data.map((e) => e).toList();
+                        // if (cariAdresler.isNotEmpty) {
+                        return ListView.builder(
                           itemCount: cariAdresler.length,
                           itemBuilder: (context, index) {
                             return SimpleDialogOption(
@@ -100,9 +93,18 @@ class CariNewAdressButton extends ConsumerWidget {
                               ),
                             );
                           },
-                        ),
-                      );
-                    },
+                        );
+                        // } else {
+                        //   return Text("Cari Adres Ekle");
+                        // }
+                      },
+                      error: (err, stack) => showAlertDialog(
+                        context: context,
+                        hataBaslik: "hata",
+                        hataIcerik: "hata",
+                      ),
+                      loading: () => const CommonLoading(),
+                    ),
                   ),
                 ],
               );

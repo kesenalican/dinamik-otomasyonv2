@@ -1,4 +1,5 @@
 import 'package:dinamik_otomasyon/core/base/service/base_provider.dart';
+import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_adres_model.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_grup.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_save.model.dart';
@@ -31,6 +32,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //     }
 //   }
 // }
+
+//#region Cariler
+final carilerProvider = FutureProvider.autoDispose
+    .family<List<Cariler>, int>((ref, pageCount) async {
+  final dio = ref.watch(httpClientProvider);
+  final result =
+      await dio.get("CariBilgiler", queryParameters: {'offset': pageCount});
+  List<Map<String, dynamic>> mapData = List.from(result.data);
+  List<Cariler> cariList = mapData.map((e) => Cariler.fromMap(e)).toList();
+  return cariList;
+});
+//#endregion
 
 //#region Cariler
 final cariSaveProvider = FutureProvider.autoDispose
@@ -88,17 +101,17 @@ final cariAdresSaveProvider = FutureProvider.autoDispose
 });
 //#endregion
 
-//#region Cariler
-final carilerProvider = FutureProvider.autoDispose
-    .family<List<Cariler>, int>((ref, pageCount) async {
+final cariAdresProvider = FutureProvider.autoDispose
+    .family<List<CariAdresModel>, String>((ref, cariKod) async {
   final dio = ref.watch(httpClientProvider);
-  final result =
-      await dio.get("CariBilgiler", queryParameters: {'offset': pageCount});
+  final result = await dio.get("CariAdres", queryParameters: {
+    "cariKod": cariKod.toString(),
+  });
   List<Map<String, dynamic>> mapData = List.from(result.data);
-  List<Cariler> cariList = mapData.map((e) => Cariler.fromMap(e)).toList();
+  List<CariAdresModel> cariList =
+      mapData.map((e) => CariAdresModel.fromMap(e)).toList();
   return cariList;
 });
-//#endregion
 
 //#region Cariler
 final muhHesapProvider =
@@ -136,16 +149,3 @@ final cariSektorProvider =
 });
 //#endregion
 
-final cariAdresProvider = FutureProvider.autoDispose
-    .family<List<CariAdresModel>, String>((ref, cariKod) async {
-  final dio = ref.watch(httpClientProvider);
-  final result = await dio.get("CariAdres", queryParameters: {
-    "cariKod": cariKod.toString(),
-  });
-
-  List<Map<String, dynamic>> mapData = List.from(result.data);
-  List<CariAdresModel> cariList =
-      mapData.map((e) => CariAdresModel.fromMap(e)).toList();
-
-  return cariList;
-});

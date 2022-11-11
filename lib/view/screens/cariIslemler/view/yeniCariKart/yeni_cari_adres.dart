@@ -65,6 +65,8 @@ class YeniCariAdres extends HookConsumerWidget {
                               MaterialStateProperty.all(Color(MyColors.bg01)),
                         ),
                         onPressed: () {
+                          ref.refresh(
+                              cariAdresProvider(cariKoduController.text));
                           Navigator.of(context).pop(
                             CariAdresModel(
                                 adrCreateUser: 0,

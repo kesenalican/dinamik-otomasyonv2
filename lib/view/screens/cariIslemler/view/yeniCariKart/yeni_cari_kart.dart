@@ -47,6 +47,7 @@ class YeniCariKart extends HookConsumerWidget {
     final mailController = useTextEditingController(text: '');
 
     var list = ref.watch(vergiDaireleriProvider);
+
     return Scaffold(
       appBar: CommonAppbar(whichPage: Constants.YENI_CARI_OLUSTUR),
       floatingActionButton: FloatingActionButton(
@@ -141,7 +142,7 @@ class YeniCariKart extends HookConsumerWidget {
                     MyColors.bg01,
                   )),
                   decoration: InputDecoration(
-                    labelText: Constants.ADRES1,
+                    labelText: Constants.ADRES,
                     labelStyle: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w400,
@@ -152,56 +153,135 @@ class YeniCariKart extends HookConsumerWidget {
                       Icons.location_city,
                       color: Color(MyColors.bg01),
                     ),
-                    suffix: CariNewAdressButton(
-                      adresKoduController: adres1Controller,
-                      cariKoduController: cariKoduController,
+                    suffix: InkWell(
+                      child: Icon(Icons.add,
+                          color: Color(
+                            MyColors.bg01,
+                          )),
+                      onTap: () {
+                        var cariAdresList = ref.watch(cariAdresProvider(
+                            cariKoduController.text.toString()));
+                        if (cariKoduController.text == "") {
+                          showAlertDialog(
+                            context: context,
+                            hataBaslik: "Hata",
+                            hataIcerik: "Önce Cari Kodu Giriniz!",
+                          );
+                          return;
+                        }
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return SizedBox(
+                                height: context.dynamicHeight * 0.4,
+                                width: context.dynamicWidth * 0.5,
+                                child: SimpleDialog(
+                                  title: Text(
+                                    "Adres Kartları",
+                                    style: purpleBoldTxtStyle,
+                                  ),
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => YeniCariAdres(
+                                              cariKoduController:
+                                                  cariKoduController,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      icon: Icon(
+                                        Icons.add,
+                                        color: Color(MyColors.bg01),
+                                      ),
+                                    ),
+                                    cariAdresList.hasValue
+                                        ? SizedBox(
+                                            height: context.dynamicHeight * 0.4,
+                                            width: context.dynamicWidth * 0.5,
+                                            child: cariAdresList.when(
+                                              data: (data) {
+                                                List<CariAdresModel>
+                                                    cariAdresler =
+                                                    data.map((e) => e).toList();
+                                                // if (cariAdresler.isNotEmpty) {
+                                                return ListView.builder(
+                                                  itemCount:
+                                                      cariAdresler.length,
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    return SimpleDialogOption(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop(
+                                                          adres1Controller
+                                                                  .text =
+                                                              cariAdresler[
+                                                                      index]
+                                                                  .adrAdresNo
+                                                                  .toString(),
+                                                        );
+                                                      },
+                                                      child: Row(
+                                                        children: [
+                                                          Expanded(
+                                                            child: Text(
+                                                              cariAdresler[
+                                                                      index]
+                                                                  .adrAdresNo
+                                                                  .toString(),
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            child: Text(
+                                                              cariAdresler[
+                                                                      index]
+                                                                  .adrUlke,
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            child: Text(
+                                                              cariAdresler[
+                                                                      index]
+                                                                  .adrIl,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+                                                // } else {
+                                                //   return Text("Cari Adres Ekle");
+                                                // }
+                                              },
+                                              error: (err, stack) =>
+                                                  showAlertDialog(
+                                                context: context,
+                                                hataBaslik: "hata",
+                                                hataIcerik: "hata",
+                                              ),
+                                              loading: () =>
+                                                  const CommonLoading(),
+                                            ),
+                                          )
+                                        : Text(
+                                            "Cari Adres için butona basın",
+                                            style: purpleTxtStyle,
+                                          ),
+                                  ],
+                                ),
+                              );
+                            });
+                      },
                     ),
                     enabledBorder: CommonInputBorder.border,
                     focusedBorder: CommonInputBorder.border,
                   ),
                 ),
-              ),
-              CommonTextField(
-                controller: adres1Controller,
-                field: Constants.ADRES1,
-                icon: Icons.location_city,
-                textInputType: TextInputType.streetAddress,
-                isMandatory: false,
-              ),
-              CommonTextField(
-                controller: ilController,
-                field: Constants.IL,
-                icon: Icons.map,
-                textInputType: TextInputType.name,
-                isMandatory: false,
-              ),
-              CommonTextField(
-                controller: ilceController,
-                field: Constants.ILCE,
-                icon: Icons.maps_home_work,
-                textInputType: TextInputType.name,
-                isMandatory: false,
-              ),
-              CommonTextField(
-                controller: ulkeController,
-                field: Constants.ULKE,
-                icon: Icons.maps_home_work_sharp,
-                textInputType: TextInputType.name,
-                isMandatory: false,
-              ),
-              CommonTextField(
-                controller: ulkeKoduController,
-                field: Constants.ULKE_KODU,
-                icon: Icons.maps_home_work_sharp,
-                textInputType: TextInputType.number,
-                isMandatory: false,
-              ),
-              CommonTextField(
-                controller: telefon1Controller,
-                field: Constants.TELEFON,
-                icon: Icons.phone,
-                textInputType: TextInputType.phone,
-                isMandatory: false,
               ),
               CommonTextField(
                 controller: faxController,
