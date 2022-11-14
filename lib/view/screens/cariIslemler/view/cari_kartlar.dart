@@ -48,18 +48,33 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
     super.dispose();
   }
 
+  // _runFilter(String searchKeyword) {
+  //   Future.delayed(const Duration(seconds: 2), () {
+  //     setState(() {
+  //       fullList = fullList
+  //           .where((value) => value.cariKodu
+  //               .toLowerCase()
+  //               .contains(searchKeyword.toLowerCase()))
+  //           .toList();
+  //       searchedEmptyList = fullList;
+  //     });
+  //   });
+  //   return searchedEmptyList;
+  // }
+
   _runFilter(String searchKeyword) {
     Future.delayed(const Duration(seconds: 2), () {
       setState(() {
-        fullList = fullList
+        searchedEmptyList = fullList;
+        fullList.clear();
+        fullList = searchedEmptyList
             .where((value) => value.cariKodu
                 .toLowerCase()
                 .contains(searchKeyword.toLowerCase()))
             .toList();
-        searchedEmptyList = fullList;
       });
     });
-    return searchedEmptyList;
+    return fullList;
   }
 
   @override
@@ -246,8 +261,8 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
           Expanded(
             child: TextField(
               onTap: () {},
-              //onChanged: (value) => _runFilter(value),
-              onSubmitted: (value) => _runFilter(value),
+              onChanged: (value) => _runFilter(value),
+              // onSubmitted: (value) => _runFilter(value),
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: Constants.ARA,

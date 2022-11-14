@@ -47,7 +47,6 @@ class YeniCariKart extends HookConsumerWidget {
     final mailController = useTextEditingController(text: '');
 
     var list = ref.watch(vergiDaireleriProvider);
-    var cariAdresList = ref.watch(cariAdresProvider("003"));
 
     return Scaffold(
       appBar: CommonAppbar(whichPage: Constants.YENI_CARI_OLUSTUR),
@@ -160,6 +159,8 @@ class YeniCariKart extends HookConsumerWidget {
                             MyColors.bg01,
                           )),
                       onTap: () {
+                        var cariAdresList = ref.watch(cariAdresProvider("003"));
+
                         if (cariKoduController.text == "") {
                           showAlertDialog(
                             context: context,

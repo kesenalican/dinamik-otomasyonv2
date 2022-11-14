@@ -77,7 +77,7 @@ final stoklarProvider = FutureProvider.autoDispose
     .family<List<Stoklar>, int>((ref, pageCount) async {
   final dio = ref.watch(httpClientProvider);
   final result = await dio
-      .get(ConstantProvider.stoklar, queryParameters: {'offset': pageCount});
+      .get("Stoklar", queryParameters: {'offset': pageCount});
   if (result.statusCode == 200) {
     List<Map<String, dynamic>> mapData = List.from(result.data);
     List<Stoklar> stoklist = mapData.map((e) => Stoklar.fromMap(e)).toList();

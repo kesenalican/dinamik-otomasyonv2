@@ -126,7 +126,7 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: CommonAppbar(
-        whichPage: "Stoklar",
+        whichPage: "Stock List",
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -136,14 +136,14 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
                 SizedBox(
                   width: context.dynamicWidth * 0.03,
                 ),
-                Expanded(flex: 6, child: _buildSearchInput()),
-                const Expanded(
-                  flex: 1,
-                  child: OpenBarcod(),
-                ),
+                //Expanded(flex: 6, child: _buildSearchInput()),
+                // const Expanded(
+                //   flex: 1,
+                //   child: OpenBarcod(),
+                // ),
               ],
             ),
-            _buildListeleButton(),
+            // _buildListeleButton(),
             liste.when(
                 data: (data) {
                   emptyList = data.map((e) => e).toList();
@@ -168,7 +168,7 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
 
   SizedBox _buildStokKarti(List<Stoklar> stokList) {
     return SizedBox(
-      height: context.dynamicHeight * 0.75,
+      height: context.dynamicHeight * 0.90,
       child: ListView.builder(
         controller: scrollController,
         itemBuilder: (context, index) {
