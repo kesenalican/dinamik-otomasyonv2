@@ -136,11 +136,11 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
                 SizedBox(
                   width: context.dynamicWidth * 0.03,
                 ),
-                //Expanded(flex: 6, child: _buildSearchInput()),
-                // const Expanded(
-                //   flex: 1,
-                //   child: OpenBarcod(),
-                // ),
+                Expanded(flex: 6, child: _buildSearchInput()),
+                const Expanded(
+                  flex: 1,
+                  child: OpenBarcod(),
+                ),
               ],
             ),
             // _buildListeleButton(),

@@ -1,3 +1,4 @@
+import 'package:dinamik_otomasyon/core/routing/not_found_widget.dart';
 import 'package:dinamik_otomasyon/core/routing/route_constants.dart';
 import 'package:dinamik_otomasyon/view/screens/anasayfa/view/home_page.dart';
 import 'package:dinamik_otomasyon/view/screens/authenticate/login/view/login_view.dart';
@@ -68,6 +69,9 @@ class RouteGenerator {
         return _createRoute(
             SonSatisFiyatlari(stokModel: settings.arguments as Stoklar),
             settings);
+      default:
+        return MaterialPageRoute(
+            builder: (context) => const NotFoundNavigationWidget());
     }
   }
 }

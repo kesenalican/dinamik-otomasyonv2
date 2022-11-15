@@ -13,9 +13,8 @@ import 'package:dinamik_otomasyon/view/screens/cariIslemler/service/cari_service
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/cari_kartlar.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/common/common_types.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/common/list_of_types.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/yeniCariKart/cari_adres_button.dart';
+import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/yeniCariKart/cari_adres_list.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/yeniCariKart/common_textfield.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/yeniCariKart/yeni_cari_adres.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
@@ -37,12 +36,6 @@ class YeniCariKart extends HookConsumerWidget {
     final yetkiliAdiController = useTextEditingController(text: '');
     final yetkiliSoyAdiController = useTextEditingController(text: '');
     final adres1Controller = useTextEditingController(text: '');
-    final adres2Controller = useTextEditingController(text: '');
-    final ilController = useTextEditingController(text: '');
-    final ilceController = useTextEditingController(text: '');
-    final ulkeController = useTextEditingController(text: '');
-    final ulkeKoduController = useTextEditingController(text: '(90)');
-    final telefon1Controller = useTextEditingController(text: '');
     final faxController = useTextEditingController(text: '');
     final mailController = useTextEditingController(text: '');
 
@@ -159,117 +152,12 @@ class YeniCariKart extends HookConsumerWidget {
                             MyColors.bg01,
                           )),
                       onTap: () {
-                        var cariAdresList = ref.watch(cariAdresProvider("003"));
-
-                        if (cariKoduController.text == "") {
-                          showAlertDialog(
-                            context: context,
-                            hataBaslik: "Hata",
-                            hataIcerik: "Önce Cari Kodu Giriniz!",
-                          );
-                          return;
-                        }
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return SizedBox(
-                                height: context.dynamicHeight * 0.4,
-                                width: context.dynamicWidth * 0.5,
-                                child: SimpleDialog(
-                                  title: Text(
-                                    "Adres Kartları",
-                                    style: purpleBoldTxtStyle,
-                                  ),
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {
-                                        Navigator.pushNamed(
-                                            context, '/yeniCariAdres',
-                                            arguments: cariKoduController);
-                                      },
-                                      icon: Icon(
-                                        Icons.add,
-                                        color: Color(MyColors.bg01),
-                                      ),
-                                    ),
-                                    cariAdresList.hasValue
-                                        ? SizedBox(
-                                            height: context.dynamicHeight * 0.4,
-                                            width: context.dynamicWidth * 0.5,
-                                            child: cariAdresList.when(
-                                              data: (data) {
-                                                List<CariAdresModel>
-                                                    cariAdresler =
-                                                    data.map((e) => e).toList();
-                                                // if (cariAdresler.isNotEmpty) {
-                                                return ListView.builder(
-                                                  itemCount:
-                                                      cariAdresler.length,
-                                                  itemBuilder:
-                                                      (context, index) {
-                                                    return SimpleDialogOption(
-                                                      onPressed: () {
-                                                        Navigator.of(context)
-                                                            .pop(
-                                                          adres1Controller
-                                                                  .text =
-                                                              cariAdresler[
-                                                                      index]
-                                                                  .adrAdresNo
-                                                                  .toString(),
-                                                        );
-                                                      },
-                                                      child: Row(
-                                                        children: [
-                                                          Expanded(
-                                                            child: Text(
-                                                              cariAdresler[
-                                                                      index]
-                                                                  .adrAdresNo
-                                                                  .toString(),
-                                                            ),
-                                                          ),
-                                                          Expanded(
-                                                            child: Text(
-                                                              cariAdresler[
-                                                                      index]
-                                                                  .adrUlke,
-                                                            ),
-                                                          ),
-                                                          Expanded(
-                                                            child: Text(
-                                                              cariAdresler[
-                                                                      index]
-                                                                  .adrIl,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    );
-                                                  },
-                                                );
-                                                // } else {
-                                                //   return Text("Cari Adres Ekle");
-                                                // }
-                                              },
-                                              error: (err, stack) =>
-                                                  showAlertDialog(
-                                                context: context,
-                                                hataBaslik: "hata",
-                                                hataIcerik: "hata",
-                                              ),
-                                              loading: () =>
-                                                  const CommonLoading(),
-                                            ),
-                                          )
-                                        : Text(
-                                            "Cari Adres için butona basın",
-                                            style: purpleTxtStyle,
-                                          ),
-                                  ],
-                                ),
-                              );
-                            });
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CariAdresList(
+                                    cariKoduController: cariKoduController)));
+                      
                       },
                     ),
                     enabledBorder: CommonInputBorder.border,

@@ -7,6 +7,7 @@ import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_save.mode
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_sektor.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cariler.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/muhasebe_hesap.dart';
+import 'package:dio/src/response.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -50,29 +51,34 @@ final carilerProvider = FutureProvider.autoDispose
 final cariSaveProvider = FutureProvider.autoDispose
     .family<List<Cariler>, CariModel>((ref, cari) async {
   final dio = ref.watch(httpClientProvider);
-  final result = await dio.post(ConstantProvider.cariBilgiler, data: {
-    "cari_kod": cari.cariKod,
-    "cari_unvan1": cari.cariUnvan1,
-    "cari_unvan2": cari.cariUnvan2,
-    "cari_vdaire_adi": cari.cariVdaireAdi,
-    "cari_vdaire_kodu": cari.cariVergidairekodu,
-  });
-  if (result.statusCode == 200) {
-    print("Cari Başarıyla kaydedildi");
-  } else if (result.statusCode == 500) {
-    BuildContext? context;
-    return showAlertDialog(
-        context: context!,
-        hataBaslik: "Kayıt Hatası",
-        hataIcerik: "Bu cari zaten kayıtlı!");
-    print("Bu cari kodu kullanılmış");
-  } else if (result.statusCode == 400) {
-  } else {
-    print("bilinmeyen bir hata oluştu");
+  Future<List<Cariler>> cariler;
+  late final Response result;
+  try {
+    result = await dio.post(ConstantProvider.cariBilgiler, data: {
+      "cari_kod": cari.cariKod,
+      "cari_unvan1": cari.cariUnvan1,
+      "cari_unvan2": cari.cariUnvan2,
+      "cari_vdaire_adi": cari.cariVdaireAdi,
+      "cari_vdaire_kodu": cari.cariVergidairekodu,
+    });
+    if (result.statusCode == 200) {
+      List<Map<String, dynamic>> mapData = List.from(result.data);
+      List<Cariler> cariList = mapData.map((e) => Cariler.fromMap(e)).toList();
+      return cariList;
+    } else if (result.statusCode == 500) {
+      BuildContext? context;
+      return showAlertDialog(
+          context: context!,
+          hataBaslik: "Kayıt Hatası",
+          hataIcerik: "Bu cari zaten kayıtlı!");
+    } else if (result.statusCode == 400) {
+    } else {
+      print("bilinmeyen bir hata oluştu");
+    }
+  } catch (e) {
+    print(e.toString());
   }
-  List<Map<String, dynamic>> mapData = List.from(result.data);
-  List<Cariler> cariList = mapData.map((e) => Cariler.fromMap(e)).toList();
-  return cariList;
+  return [];
 });
 //#endregion
 
