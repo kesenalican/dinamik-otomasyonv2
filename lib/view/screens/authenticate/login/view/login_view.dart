@@ -479,9 +479,9 @@ _buildLoginButton(
     double dynamicWidth) {
   return ElevatedButton(
     onPressed: () {
-      if (userController.text != "" &&
-          passwordController.text != "" &&
-          firmaController.text != "" &&
+      if (userController.text.isNotEmpty &&
+          passwordController.text.isNotEmpty &&
+          firmaController.text.isNotEmpty &&
           passwordController.text == Constants.password) {
         Future.delayed(
           const Duration(seconds: 1),
@@ -492,14 +492,7 @@ _buildLoginButton(
                 hataIcerik: Constants.hosGeldiniz);
           },
         );
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomePage(
-              sirketAdi: firmaController.text,
-            ),
-          ),
-        );
+        Navigator.pushNamed(context, '/home', arguments: firmaController.text);
       } else if (passwordController.text != Constants.password) {
         Future.delayed(
           const Duration(seconds: 1),

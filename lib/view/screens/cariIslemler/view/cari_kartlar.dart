@@ -159,14 +159,8 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
           if (index < fullList.length) {
             return InkWell(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CariDetay(
-                      cariList: fullList[index],
-                    ),
-                  ),
-                );
+                Navigator.pushNamed(context, '/cariDetay',
+                    arguments: fullList[index]);
               },
               child: Container(
                 margin: context.paddingDefault,

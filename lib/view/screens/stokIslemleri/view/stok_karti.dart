@@ -175,14 +175,8 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
           if (index < stokList.length) {
             return InkWell(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => StokDetay(
-                      stokModel: stokList[index],
-                    ),
-                  ),
-                );
+                Navigator.pushNamed(context, '/stockDetail',
+                    arguments: stokList[index]);
               },
               child: Container(
                 margin: const EdgeInsets.all(5),

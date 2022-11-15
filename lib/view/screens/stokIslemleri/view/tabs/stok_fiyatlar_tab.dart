@@ -41,12 +41,7 @@ class FiyatlarTab extends ConsumerWidget {
   GestureDetector buildSonAlisFiyatButton(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context,
-            CupertinoPageRoute(
-                builder: (context) => SonAlisFiyatlari(
-                      stokModel: stokModel,
-                    )));
+        Navigator.pushNamed(context, '/sonAlisFiyatlari', arguments: stokModel);
       },
       child: Container(
         margin: context.paddingTextField,
@@ -73,12 +68,8 @@ class FiyatlarTab extends ConsumerWidget {
   GestureDetector buildSonSatisFiyatButton(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context,
-            CupertinoPageRoute(
-                builder: (context) => SonSatisFiyatlari(
-                      stokModel: stokModel,
-                    )));
+        Navigator.pushNamed(context, '/sonSatisFiyatlari',
+            arguments: stokModel);
       },
       child: Container(
         margin: context.paddingTextField,

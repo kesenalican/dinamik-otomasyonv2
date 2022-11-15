@@ -71,24 +71,16 @@ Widget _buildList(Menu list) {
           onTap: () {
             switch (list.name) {
               case Constants.AYARLAR:
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Settings()));
+                Navigator.pushNamed(context, '/settings');
                 break;
               case Constants.CIKIS:
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Login()));
+                Navigator.pushNamed(context, '/login');
                 break;
               case "Stok Kart Detay":
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const StokKartlari()));
+                Navigator.pushNamed(context, '/stockList');
                 break;
               case Constants.CARI_DETAY:
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const CariKartlar()));
+                Navigator.pushNamed(context, '/cariKartlar');
                 break;
               case "Satış Faturaları":
                 Navigator.push(

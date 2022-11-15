@@ -1,3 +1,4 @@
+import 'package:dinamik_otomasyon/core/routing/navigation/navigation_service.dart';
 import 'package:dinamik_otomasyon/view/screens/authenticate/login/view/login_view.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/cari_kartlar.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/yeniCariKart/deneme.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: Constants.DINAMIK_OTOMASYON,
+      onGenerateRoute:RouteGenerator.routeGenerator,
       home: Login(),
     );
   }

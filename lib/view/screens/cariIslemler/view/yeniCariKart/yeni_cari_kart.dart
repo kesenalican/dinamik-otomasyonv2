@@ -183,15 +183,9 @@ class YeniCariKart extends HookConsumerWidget {
                                   children: [
                                     IconButton(
                                       onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => YeniCariAdres(
-                                              cariKoduController:
-                                                  cariKoduController,
-                                            ),
-                                          ),
-                                        );
+                                        Navigator.pushNamed(
+                                            context, '/yeniCariAdres',
+                                            arguments: cariKoduController);
                                       },
                                       icon: Icon(
                                         Icons.add,
