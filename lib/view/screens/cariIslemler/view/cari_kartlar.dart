@@ -112,14 +112,10 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
                 SizedBox(
                   width: context.dynamicWidth * 0.03,
                 ),
-                Expanded(flex: 6, child: _buildSearchInput()),
-                const Expanded(
-                  flex: 1,
-                  child: OpenBarcod(),
-                ),
+                Expanded(flex: 4, child: _buildSearchInput()),
               ],
             ),
-            _buildListeleButton(),
+            // _buildListeleButton(),
             cariListe.when(
               data: (data) {
                 currentPage == 0 ? ref.read(carilerProvider(0)) : SizedBox;
@@ -129,7 +125,7 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
                   onRefresh: handleRefresh,
                   color: Color(MyColors.bg01),
                   child: SizedBox(
-                      height: context.dynamicHeight * 0.73,
+                      height: context.dynamicHeight * 0.80,
                       width: double.infinity,
                       child: _buildCariKart()),
                 );
@@ -298,4 +294,3 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
     );
   }
 }
-

@@ -12,4 +12,9 @@ class RouteConstants {
   static const String yeniCariAdres = "/yeniCariAdres";
   static const String sonAlisFiyatlari = "/sonAlisFiyatlari";
   static const String sonSatisFiyatlari = "/sonSatisFiyatlari";
+  static const String cariAdresList = "/cariAdresList";
+  static const String satisSiparisi = "/satisSiparisi";
+  static const String alisSiparisi = "/alimSiparisi";
+
+  static const String satisFaturasi = "/satisFaturasi";
 }

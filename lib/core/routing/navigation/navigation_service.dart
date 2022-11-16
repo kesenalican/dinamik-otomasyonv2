@@ -5,8 +5,12 @@ import 'package:dinamik_otomasyon/view/screens/authenticate/login/view/login_vie
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cariler.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/cari_detay.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/cari_kartlar.dart';
+import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/yeniCariKart/cari_adres_list.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/yeniCariKart/yeni_cari_adres.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/yeniCariKart/yeni_cari_kart.dart';
+import 'package:dinamik_otomasyon/view/screens/faturaIslemleri/satisFaturasi/satis_faturasi.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/alisSiparisi/view/alim_siparisi.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/satis_siparisi.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/model/stoklar_model.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/view/son_alis_fiyatlari.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/view/son_satis_fiyatlari.dart';
@@ -69,6 +73,19 @@ class RouteGenerator {
         return _createRoute(
             SonSatisFiyatlari(stokModel: settings.arguments as Stoklar),
             settings);
+      case RouteConstants.cariAdresList:
+        return _createRoute(
+            CariAdresList(
+                cariKoduController: settings.arguments as TextEditingController,
+                adresNoController: settings.arguments as TextEditingController),
+            settings);
+      case RouteConstants.satisSiparisi:
+        return _createRoute(const SatisSiparisi(), settings);
+      case RouteConstants.alisSiparisi:
+        return _createRoute(const AlisSiparisi(), settings);
+      case RouteConstants.satisFaturasi:
+        return _createRoute(const SatisFaturasi(), settings);
+
       default:
         return MaterialPageRoute(
             builder: (context) => const NotFoundNavigationWidget());

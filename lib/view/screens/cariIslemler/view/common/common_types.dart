@@ -32,7 +32,7 @@ class CommonTypes extends StatelessWidget {
         ),
         Expanded(
           flex: 1,
-          child: CommonDropDown(list: listOfTypes, listName: hareketTipi),
+          child: CommonDropDown(list: listOfTypes, listName: hareketTipi,),
         ),
       ],
     );

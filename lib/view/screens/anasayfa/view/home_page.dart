@@ -1,16 +1,18 @@
 import 'package:dinamik_otomasyon/Model/module_name.dart';
-import 'package:dinamik_otomasyon/core/base/state/base_state.dart';
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
+import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/common/common_appbar.dart';
 import 'package:dinamik_otomasyon/view/common/common_drawer.dart';
 import 'package:dinamik_otomasyon/view/common/module_card_button.dart';
 import 'package:dinamik_otomasyon/view/common/search_input.dart';
+import 'package:dinamik_otomasyon/view/screens/authenticate/login/service/login_service.dart';
 import 'package:dinamik_otomasyon/view/screens/module_card.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/view/stok_karti.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // ignore: must_be_immutable
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   String? sirketAdi;
 
   HomePage({
@@ -19,27 +21,27 @@ class HomePage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends BaseState<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppbar(whichPage: Constants.ANASAYFA),
       drawer: DrawerMenu(sirketAdi: widget.sirketAdi!),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: dynamicWidth(0.02)),
+        padding: EdgeInsets.symmetric(horizontal: context.dynamicWidth * 0.02),
         child: ListView(
           children: [
             //SizedBox(height:dynamicHeight(0.01)),
             const SearchInput(),
             SizedBox(
-              height: dynamicHeight(0.02),
+              height: context.dynamicHeight * 0.02,
             ),
             _buildKartlarText(),
             SizedBox(
-              height: dynamicHeight(0.02),
+              height: context.dynamicHeight * 0.02,
             ),
             ModuleCardButton(
               onTap: () {
@@ -87,6 +89,8 @@ class _HomePageState extends BaseState<HomePage> {
               cardName: Modules[3],
               iconData: const Icon(Icons.warehouse),
             ),
+
+            //Text(ref.read(userCodeValue).toString()),
           ],
         ),
       ),
@@ -99,7 +103,7 @@ class _HomePageState extends BaseState<HomePage> {
       children: [
         Text(
           Constants.KARTLAR,
-          style: theme.textTheme.headline6,
+          style: context.theme.textTheme.headline6,
         ),
       ],
     );

@@ -14,3 +14,11 @@ final usersProvider = FutureProvider.autoDispose<List<UserModel>>((ref) async {
 });
 //#endregion
 
+final userCodeProvider = Provider.family((ref, userCode) {
+  return userCode.toString();
+});
+
+// final userCodeValue = Provider((ref) {
+//   var userCode = ref.read<String>(userCodeProvider);
+//   return userCode;
+// });

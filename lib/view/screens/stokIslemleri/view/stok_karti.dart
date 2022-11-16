@@ -5,7 +5,6 @@ import 'package:dinamik_otomasyon/view/common/common_loading.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/model/stoklar_model.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/service/stok_service.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/view/open_barcode.dart';
-import 'package:dinamik_otomasyon/view/screens/stokIslemleri/view/stok_detay.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../styles/colors.dart';
@@ -126,7 +125,7 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: CommonAppbar(
-        whichPage: "Stock List",
+        whichPage: "Stoklar",
       ),
       body: SingleChildScrollView(
         child: Column(

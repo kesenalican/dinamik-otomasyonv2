@@ -7,6 +7,7 @@ import 'package:dinamik_otomasyon/view/styles/colors.dart';
 
 // ignore: must_be_immutable
 class CommonDropDown extends StatefulWidget {
+  String? selectedItem;
   List<String> list;
   String listName;
   CommonDropDown({
@@ -20,11 +21,10 @@ class CommonDropDown extends StatefulWidget {
 }
 
 class _CommonDropDownState extends State<CommonDropDown> {
-  String? _selectedItem;
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
-      // validator: (value) => "${widget.listName} boş olamaz!",
+      validator: (value) => "${widget.listName} boş olamaz!",
       borderRadius: BorderRadius.circular(10),
       elevation: 3,
       dropdownColor: Color(MyColors.bg),
@@ -42,7 +42,7 @@ class _CommonDropDownState extends State<CommonDropDown> {
       ),
       onChanged: (String? selectedItem) {
         setState(() {
-          _selectedItem = selectedItem;
+          widget.selectedItem = selectedItem;
         });
       },
       items: widget.list
@@ -54,7 +54,7 @@ class _CommonDropDownState extends State<CommonDropDown> {
                 ),
               ))
           .toList(),
-      value: _selectedItem,
+      value: widget.selectedItem,
     );
   }
 }

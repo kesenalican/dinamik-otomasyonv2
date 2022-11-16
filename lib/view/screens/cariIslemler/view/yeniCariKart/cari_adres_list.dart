@@ -11,7 +11,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CariAdresList extends ConsumerWidget {
   final TextEditingController cariKoduController;
-  const CariAdresList({required this.cariKoduController, super.key});
+  final TextEditingController adresNoController;
+  const CariAdresList(
+      {required this.cariKoduController,
+      required this.adresNoController,
+      super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -44,8 +48,11 @@ class CariAdresList extends ConsumerWidget {
                           itemBuilder: (context, index) {
                             return InkWell(
                               onTap: () {
+                                adresNoController.text =
+                                    cariAdresList[index].adrAdresNo.toString();
+
                                 Navigator.of(context).pop(
-                                  cariAdresList[index].adrAdresNo.toString(),
+                                  adresNoController.text,
                                 );
                               },
                               child: Container(

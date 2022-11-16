@@ -83,10 +83,13 @@ Widget _buildList(Menu list) {
                 Navigator.pushNamed(context, '/cariKartlar');
                 break;
               case "Satış Faturaları":
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const SatisFaturasi()));
+                Navigator.pushNamed(context, "/satisFaturasi");
+                break;
+              case Constants.satisSiparisi:
+                Navigator.pushNamed(context, "/satisSiparisi");
+                break;
+              case Constants.alimSiparisi:
+                Navigator.pushNamed(context, "/alimSiparisi");
                 break;
               default:
                 Navigator.push(

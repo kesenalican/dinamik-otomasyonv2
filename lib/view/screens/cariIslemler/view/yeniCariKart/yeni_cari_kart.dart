@@ -152,12 +152,17 @@ class YeniCariKart extends HookConsumerWidget {
                             MyColors.bg01,
                           )),
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CariAdresList(
-                                    cariKoduController: cariKoduController)));
-                      
+                        cariKoduController.text.isEmpty
+                            ? showAlertDialog(
+                                context: context,
+                                hataBaslik: "Hata",
+                                hataIcerik: "Önce Cari Kodu Giriniz!",
+                              )
+                            : Navigator.pushNamed(context, "/cariAdresList",
+                                arguments: {
+                                    cariKoduController,
+                                    adres1Controller,
+                                  });
                       },
                     ),
                     enabledBorder: CommonInputBorder.border,
@@ -270,11 +275,10 @@ class YeniCariKart extends HookConsumerWidget {
                                   backgroundColor: MaterialStateProperty.all(
                                       Color(MyColors.bg01)),
                                 ),
-                                onPressed: () => Navigator.pop(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const CariKartlar())),
+                                onPressed: () {
+                                  Navigator.of(context).popUntil((route) =>
+                                      route.settings.name == '/cariKartlar');
+                                },
                                 child: const Text(
                                   Constants.OK,
                                   style: TextStyle(color: Colors.white),

@@ -132,6 +132,8 @@ class Constants {
   static const String sharedHataIcerik =
       "Kaynaklar getirilirken bir hata oluştu";
   static const String cariKayitBasarili = "Cari başarıyla kaydedildi";
+  static const String satisSiparisi = "Satış Siparişi";
+  static const String alimSiparisi = "Alım Siparişi";
 }
 
 class ConstantProvider {
