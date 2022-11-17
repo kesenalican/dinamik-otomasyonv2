@@ -4,11 +4,9 @@ import 'package:dinamik_otomasyon/view/common/common_appbar.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cariler.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/service/cari_services.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/yeniCariKart/yeni_cari_kart.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../styles/colors.dart';
-import 'cari_detay.dart';
 
 class CariKartlar extends ConsumerStatefulWidget {
   const CariKartlar({Key? key}) : super(key: key);
@@ -25,7 +23,7 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
   bool refresh = false;
   List<Cariler> emptyList = [];
   List<Cariler> fullList = [];
-  List<Cariler> searchedEmptyList = [];
+  List<Cariler> searchedList = [];
 
   void handleNext() {
     scrollController.addListener(() async {
@@ -56,18 +54,18 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
   //               .toLowerCase()
   //               .contains(searchKeyword.toLowerCase()))
   //           .toList();
-  //       searchedEmptyList = fullList;
+  //       searchedList = fullList;
   //     });
   //   });
-  //   return searchedEmptyList;
+  //   return searchedList;
   // }
 
   _runFilter(String searchKeyword) {
     Future.delayed(const Duration(seconds: 2), () {
       setState(() {
-        searchedEmptyList = fullList;
+        searchedList = fullList;
         fullList.clear();
-        fullList = searchedEmptyList
+        fullList = searchedList
             .where((value) => value.cariKodu
                 .toLowerCase()
                 .contains(searchKeyword.toLowerCase()))
@@ -92,8 +90,7 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
     var cariListe = ref.watch(carilerProvider(currentPage));
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.push(
-            context, MaterialPageRoute(builder: (context) => YeniCariKart())),
+        onPressed: () => Navigator.pushNamed(context, "/yeniCariKart"),
         backgroundColor: Color(MyColors.bg01),
         child: const Icon(
           Icons.add,
@@ -110,9 +107,12 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
             Row(
               children: [
                 SizedBox(
-                  width: context.dynamicWidth * 0.03,
+                  width: context.dynamicWidth * 0.05,
                 ),
-                Expanded(flex: 4, child: _buildSearchInput()),
+                Expanded(flex: 1, child: _buildSearchInput()),
+                SizedBox(
+                  width: context.dynamicWidth * 0.05,
+                ),
               ],
             ),
             // _buildListeleButton(),

@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
+import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/common/common_input_border.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_save.model.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_model.dart';
@@ -31,7 +32,10 @@ class CommonTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.all(8),
+        padding: EdgeInsets.symmetric(
+          horizontal: context.dynamicWidth * 0.03,
+          vertical: context.dynamicHeight * 0.02,
+        ),
         child: TextFormField(
           validator: validator,
           readOnly: readOnly ?? false,
@@ -61,5 +65,4 @@ class CommonTextField extends StatelessWidget {
           ),
         ));
   }
-
 }

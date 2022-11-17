@@ -8,12 +8,14 @@ import 'package:dinamik_otomasyon/view/styles/colors.dart';
 // ignore: must_be_immutable
 class CommonDropDown extends StatefulWidget {
   String? selectedItem;
+  int selectedItemIndex;
   List<String> list;
   String listName;
   CommonDropDown({
     Key? key,
     required this.list,
     required this.listName,
+    required this.selectedItemIndex,
   }) : super(key: key);
 
   @override
@@ -43,6 +45,9 @@ class _CommonDropDownState extends State<CommonDropDown> {
       onChanged: (String? selectedItem) {
         setState(() {
           widget.selectedItem = selectedItem;
+          widget.selectedItemIndex =
+              widget.list.indexOf(selectedItem.toString());
+          print("SEÇİLEN İNDEX == ${widget.selectedItemIndex}");
         });
       },
       items: widget.list
@@ -55,6 +60,10 @@ class _CommonDropDownState extends State<CommonDropDown> {
               ))
           .toList(),
       value: widget.selectedItem,
+      autovalidateMode: AutovalidateMode.always,
+      onSaved: (newValue) {
+        widget.selectedItemIndex = widget.list.indexOf(newValue.toString());
+      },
     );
   }
 }

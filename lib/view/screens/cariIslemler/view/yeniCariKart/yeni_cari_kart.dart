@@ -19,9 +19,9 @@ import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+// ignore: must_be_immutable
 class YeniCariKart extends HookConsumerWidget {
   CariViewModel cariViewModel = CariViewModel();
   YeniCariKart({super.key});
@@ -29,6 +29,7 @@ class YeniCariKart extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+    final GlobalKey<FormState> dropdownKey = GlobalKey<FormState>();
     final cariKoduController = useTextEditingController(text: '');
     final cariUnvanController = useTextEditingController(text: '');
     final verginoController = useTextEditingController(text: '');
@@ -39,7 +40,14 @@ class YeniCariKart extends HookConsumerWidget {
     final adres1Controller = useTextEditingController(text: '');
     final faxController = useTextEditingController(text: '');
     final mailController = useTextEditingController(text: '');
-
+    final hareketTipiSelectedItemIndex = useState(0);
+    final baglantiTipiSelectedItemIndex = useState(0);
+    final stokAlimCinsiSelectedItemIndex = useState(0);
+    final stokSatisCinsiSelectedItemIndex = useState(0);
+    final cariOdemeSekliSelectedItemIndex = useState(0);
+    final cariFaturaCinsiTipiSelectedItemIndex = useState(0);
+    final selectedItemDropDown = useState("Hareket Tipi");
+    
     var list = ref.watch(vergiDaireleriProvider);
     var currentUser = ref.watch(currentUserProvider);
     var cariControl = ref.watch(cariKayitliMi);
@@ -234,27 +242,37 @@ class YeniCariKart extends HookConsumerWidget {
               CommonTypes(
                 hareketTipi: Constants.HAREKET_TIPI,
                 listOfTypes: ListOfTypes.hareketTipi,
+                selectedItemIndex: hareketTipiSelectedItemIndex.value,
               ),
-              CommonTypes(
-                hareketTipi: Constants.BAGLANTI_TIPI,
-                listOfTypes: ListOfTypes.baglantiTipi,
+              const SizedBox(
+                height: 200,
               ),
-              CommonTypes(
-                hareketTipi: Constants.STOK_ALIM_CINSI,
-                listOfTypes: ListOfTypes.stokAlimCinsi,
-              ),
-              CommonTypes(
-                hareketTipi: Constants.STOK_SATIS_CINSI,
-                listOfTypes: ListOfTypes.stokSatimCinsi,
-              ),
-              CommonTypes(
-                hareketTipi: Constants.CARI_ODEME_SEKLI,
-                listOfTypes: ListOfTypes.cariOdemeSekli,
-              ),
-              CommonTypes(
-                hareketTipi: Constants.CARI_EFATURA_CINSI,
-                listOfTypes: ListOfTypes.cariEfaturaCinsi,
-              ),
+              
+              // CommonTypes(
+              //   hareketTipi: Constants.BAGLANTI_TIPI,
+              //   listOfTypes: ListOfTypes.baglantiTipi,
+              //   selectedItemIndex: baglantiTipiSelectedItemIndex.value,
+              // ),
+              // CommonTypes(
+              //   hareketTipi: Constants.STOK_ALIM_CINSI,
+              //   listOfTypes: ListOfTypes.stokAlimCinsi,
+              //   selectedItemIndex: stokAlimCinsiSelectedItemIndex.value,
+              // ),
+              // CommonTypes(
+              //   hareketTipi: Constants.STOK_SATIS_CINSI,
+              //   listOfTypes: ListOfTypes.stokSatimCinsi,
+              //   selectedItemIndex: stokSatisCinsiSelectedItemIndex.value,
+              // ),
+              // CommonTypes(
+              //   hareketTipi: Constants.CARI_ODEME_SEKLI,
+              //   listOfTypes: ListOfTypes.cariOdemeSekli,
+              //   selectedItemIndex: cariOdemeSekliSelectedItemIndex.value,
+              // ),
+              // CommonTypes(
+              //   hareketTipi: Constants.CARI_EFATURA_CINSI,
+              //   listOfTypes: ListOfTypes.cariEfaturaCinsi,
+              //   selectedItemIndex: cariFaturaCinsiTipiSelectedItemIndex.value,
+              // ),
             ],
           ),
         ),
@@ -374,7 +392,8 @@ class YeniCariKart extends HookConsumerWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
-        validator: (value) => value!.isEmpty ? "Vergi No Boş Olamaz!" : null,
+        validator: (value) =>
+            value!.isEmpty ? "Vergi Dairesi Boş Olamaz!" : null,
         controller: vergiDaireController,
         keyboardType: TextInputType.name,
         cursorColor: Color(MyColors.bg01),

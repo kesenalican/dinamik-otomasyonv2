@@ -1,7 +1,6 @@
 import 'package:dinamik_otomasyon/core/base/service/base_provider.dart';
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/view/screens/authenticate/login/model/user_model.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 //#region Users

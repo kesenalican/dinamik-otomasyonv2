@@ -46,12 +46,14 @@ class _LoginState extends ConsumerState<Login> {
       var company = prefs.getString("company_name") ?? "";
       var user = prefs.getString("user_name") ?? "";
       var password = prefs.getString("password") ?? "";
+      var userCode = prefs.getString("user_code") ?? "";
       remember = prefs.getBool("remember_me")!;
       setState(() {
         remember = true;
         companyController.text = company;
         userController.text = user;
         passwordController.text = password;
+        userCodeController.text = userCode;
       });
     } catch (e) {
       Future.delayed(const Duration(milliseconds: 500), () {
@@ -160,7 +162,7 @@ class _LoginState extends ConsumerState<Login> {
               Expanded(
                 flex: 1,
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (userController.text.isNotEmpty &&
                         passwordController.text.isNotEmpty &&
                         companyController.text.isNotEmpty &&
@@ -174,6 +176,7 @@ class _LoginState extends ConsumerState<Login> {
                               hataIcerik: Constants.hosGeldiniz);
                         },
                       );
+
                       currentUser.setCurrentUser(UserModel(
                           kullaniciNo: int.parse(userCodeController.text),
                           kullaniciKisaAdi: userController.text,
@@ -314,75 +317,6 @@ _buildFirmaField({
   );
 }
 
-// _buildUserField({
-//   List<UserModel>? userList,
-//   TextEditingController? userController,
-//   TextEditingController? userCodeController,
-//   double? dynamicHeight,
-//   double? dynamicWidth,
-//   context,
-//   String? hint,
-//   IconData? prefixIcon,
-//   IconData? suffixIcon,
-// }) {
-//   return Padding(
-//     padding: EdgeInsets.symmetric(
-//         horizontal: dynamicWidth! * 0.02, vertical: dynamicHeight! * 0.002),
-//     child: Form(
-//       child: Material(
-//           elevation: 8,
-//           shadowColor: Colors.black87,
-//           color: Colors.transparent,
-//           borderRadius: BorderRadius.circular(10),
-//           child: TextFormField(
-//             controller: userController,
-//             readOnly: true,
-//             textAlignVertical: TextAlignVertical.bottom,
-//             cursorColor: Color(MyColors.bg01),
-//             style: TextStyle(
-//               color: Color(
-//                 MyColors.bg01,
-//               ),
-//               fontSize: 15,
-//             ),
-//             decoration: InputDecoration(
-//               hintStyle: TextStyle(
-//                 fontSize: 15,
-//                 color: Color(
-//                   MyColors.bg01,
-//                 ),
-//               ),
-//               border: OutlineInputBorder(
-//                 borderRadius: BorderRadius.circular(10),
-//                 borderSide: BorderSide.none,
-//               ),
-//               filled: true,
-//               fillColor: Colors.white,
-//               hintText: hint,
-//               focusColor: Color(MyColors.primary),
-//               prefixIcon: Icon(
-//                 prefixIcon,
-//                 color: Color(
-//                   MyColors.bg01,
-//                 ),
-//               ),
-//               suffix: InkWell(
-//                   onTap: () {
-//                     showUsers(context, userList!, userController!,
-//                         dynamicHeight, dynamicWidth, userCodeController!);
-//                   },
-//                   child: Icon(
-//                     suffixIcon,
-//                     color: Color(
-//                       MyColors.bg01,
-//                     ),
-//                   )),
-//             ),
-//           )),
-//     ),
-//   );
-// }
-
 _buildPasswordField({
   TextEditingController? passwordController,
   double? dynamicHeight,
@@ -440,55 +374,6 @@ _buildPasswordField({
   );
 }
 
-// showUsers(
-//     context,
-//     List<UserModel> list,
-//     TextEditingController userController,
-//     double dynamicHeight,
-//     double dynamicWidth,
-//     TextEditingController userCodeController) {
-//   return showDialog(
-//     context: context,
-//     builder: (context) {
-//       return SimpleDialog(
-//         title: Text(
-//           Constants.kullaniciSeciniz,
-//           style: purpleBoldTxtStyle,
-//         ),
-//         children: [
-//           SizedBox(
-//             height: dynamicHeight * 0.4,
-//             width: dynamicWidth * 0.5,
-//             child: ListView.builder(
-//               itemCount: list.length,
-//               itemBuilder: (context, index) {
-//                 return SimpleDialogOption(
-//                   onPressed: () {
-//                     userController.text = list[index].kullaniciAdi;
-//                     userCodeController.text =
-//                         list[index].kullaniciNo.toString();
-
-//                     Navigator.of(context).pop(UserModel(
-//                       kullaniciNo: list[index].kullaniciNo,
-//                       kullaniciKisaAdi: list[index].kullaniciKisaAdi,
-//                       kullaniciUzunAdi: list[index].kullaniciUzunAdi,
-//                       kullaniciAdi: list[index].kullaniciAdi,
-//                     ));
-//                   },
-//                   child: Text(
-//                     list[index].kullaniciAdi,
-//                     style: purpleTxtStyle,
-//                   ),
-//                 );
-//               },
-//             ),
-//           ),
-//         ],
-//       );
-//     },
-//   );
-// }
-
 showFirmalar(
     context,
     List<FirmaModel> list,
@@ -536,71 +421,5 @@ _buildLogo(context, double dynamicHeight, double dynamicWidth) {
     image: const AssetImage(Constants.LOGO),
     width: dynamicHeight * 0.3,
     height: dynamicWidth * 0.8,
-  );
-}
-
-_buildLoginButton(
-    String title,
-    TextEditingController companyController,
-    TextEditingController userController,
-    TextEditingController passwordController,
-    context,
-    double dynamicHeight,
-    double dynamicWidth) {
-  return ElevatedButton(
-    onPressed: () {
-      if (userController.text.isNotEmpty &&
-          passwordController.text.isNotEmpty &&
-          companyController.text.isNotEmpty &&
-          passwordController.text == Constants.password) {
-        Future.delayed(
-          const Duration(seconds: 1),
-          () {
-            showAlertDialog(
-                context: context,
-                hataBaslik: companyController.text,
-                hataIcerik: Constants.hosGeldiniz);
-          },
-        );
-        Navigator.pushNamed(context, '/home',
-            arguments: companyController.text);
-      } else if (passwordController.text != Constants.password) {
-        Future.delayed(
-          const Duration(seconds: 1),
-          () {
-            showAlertDialog(
-                context: context,
-                hataBaslik: Constants.sifreYanlis,
-                hataIcerik: Constants.sifreYanlis2);
-          },
-        );
-      } else {
-        Future.delayed(
-          const Duration(seconds: 1),
-          () {
-            showAlertDialog(
-                context: context,
-                hataBaslik: Constants.girisHatasi,
-                hataIcerik: Constants.girisHatasi2);
-          },
-        );
-      }
-    },
-    style: ElevatedButton.styleFrom(
-      padding: EdgeInsets.symmetric(
-          horizontal: dynamicWidth * 0.15, vertical: dynamicHeight * 0.02),
-      shape: const StadiumBorder(),
-      backgroundColor: Color(MyColors.header01),
-      elevation: 8,
-      shadowColor: Colors.black87,
-    ),
-    child: Text(
-      title,
-      style: const TextStyle(
-        color: Colors.white,
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
   );
 }
