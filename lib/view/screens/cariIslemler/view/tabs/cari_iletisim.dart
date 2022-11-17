@@ -63,7 +63,7 @@ class CariIletisimTab extends ConsumerWidget {
           Expanded(
               flex: 3,
               child: Text(
-                cariler.cariCepTel,
+                cariler.cariCepTel!,
                 style: purpleTxtStyle,
               )),
           const Expanded(

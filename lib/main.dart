@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: Constants.DINAMIK_OTOMASYON,
-      onGenerateRoute:RouteGenerator.routeGenerator,
+      onGenerateRoute: RouteGenerator.routeGenerator,
       home: Login(),
     );
   }

@@ -55,7 +55,7 @@ class RouteGenerator {
       case RouteConstants.cariKartlar:
         return _createRoute(const CariKartlar(), settings);
       case RouteConstants.yeniCariKart:
-        return _createRoute(const YeniCariKart(), settings);
+        return _createRoute(YeniCariKart(), settings);
       case RouteConstants.cariDetay:
         return _createRoute(
             CariDetay(cariList: settings.arguments as Cariler), settings);

@@ -7,23 +7,24 @@ import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
 import 'package:dinamik_otomasyon/view/common/common_input_border.dart';
 import 'package:dinamik_otomasyon/view/common/common_loading.dart';
 import 'package:dinamik_otomasyon/view/common/search_input.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_adres_model.dart';
+import 'package:dinamik_otomasyon/view/screens/authenticate/login/viewmodel/login_view_model.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_save.model.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/service/cari_services.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/cari_kartlar.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/common/common_types.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/common/list_of_types.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/yeniCariKart/cari_adres_list.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/yeniCariKart/common_textfield.dart';
+import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_model.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:email_validator/email_validator.dart';
 
 class YeniCariKart extends HookConsumerWidget {
-  const YeniCariKart({super.key});
+  CariViewModel cariViewModel = CariViewModel();
+  YeniCariKart({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -40,44 +41,82 @@ class YeniCariKart extends HookConsumerWidget {
     final mailController = useTextEditingController(text: '');
 
     var list = ref.watch(vergiDaireleriProvider);
-
+    var currentUser = ref.watch(currentUserProvider);
+    var cariControl = ref.watch(cariKayitliMi);
     return Scaffold(
       appBar: CommonAppbar(whichPage: Constants.YENI_CARI_OLUSTUR),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           return buildSaveButton(
-              context,
-              formKey,
-              ref,
-              cariKoduController,
-              cariUnvanController,
-              vergiDaireController,
-              vergiDaireKoduController);
+            context,
+            formKey,
+            ref,
+            cariKoduController,
+            cariUnvanController,
+            vergiDaireController,
+            vergiDaireKoduController,
+            currentUser.currentUser!.kullaniciNo,
+            currentUser.currentUser!.kullaniciNo,
+          );
         },
         backgroundColor: Color(MyColors.bg01),
         child: const Icon(
           Icons.save,
         ),
       ),
+      //CARİ KOD
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
           child: Column(
             children: [
+              Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: TextFormField(
+                    onFieldSubmitted: (value) {
+                      cariControl.getAndControlCari(value, context);
+                    },
+                    onChanged: (value) {
+                      cariViewModel.validateString(value);
+                    },
+                    validator: (value) {
+                      return cariViewModel.validateString(value!);
+                    },
+                    readOnly: false,
+                    controller: cariKoduController,
+                    keyboardType: TextInputType.text,
+                    cursorColor: Color(MyColors.bg01),
+                    style: TextStyle(
+                      color: Color(
+                        MyColors.bg01,
+                      ),
+                    ),
+                    decoration: InputDecoration(
+                      labelText: "Cari Kod",
+                      labelStyle: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400,
+                        color: Color(
+                          MyColors.bg01,
+                        ),
+                      ),
+                      prefixIcon: Icon(
+                        Icons.abc,
+                        color: Color(MyColors.bg01),
+                      ),
+                      enabledBorder: CommonInputBorder.border,
+                      focusedBorder: CommonInputBorder.border,
+                    ),
+                  )),
               CommonTextField(
-                controller: cariKoduController,
-                field: Constants.CARI_KODU,
-                icon: Icons.code,
-                textInputType: TextInputType.name,
-                isMandatory: true,
-              ),
-              CommonTextField(
-                controller: cariUnvanController,
-                field: Constants.CARI_UNVANI,
-                icon: Icons.person,
-                textInputType: TextInputType.name,
-                isMandatory: false,
-              ),
+                  controller: cariUnvanController,
+                  field: Constants.CARI_UNVANI,
+                  icon: Icons.person,
+                  textInputType: TextInputType.name,
+                  isMandatory: false,
+                  validator: (value) {
+                    return cariViewModel.validateString(value!);
+                  }),
               list.when(
                   error: (err, stack) => showAlertDialog(
                       context: context, hataBaslik: "hata", hataIcerik: "hata"),
@@ -94,35 +133,36 @@ class YeniCariKart extends HookConsumerWidget {
                 icon: Icons.account_balance,
                 readOnly: true,
                 textInputType: TextInputType.number,
-                validator: (value) {
-                  EmailValidator.validate(value);
-                },
                 isMandatory: true,
+                validator: null,
               ),
               CommonTextField(
-                controller: verginoController,
-                field: Constants.VERGINO,
-                icon: Icons.account_balance,
-                textInputType: TextInputType.number,
-                validator: (value) {
-                  EmailValidator.validate(value);
-                },
-                isMandatory: true,
-              ),
+                  controller: verginoController,
+                  field: Constants.VERGINO,
+                  icon: Icons.account_balance,
+                  textInputType: TextInputType.number,
+                  isMandatory: true,
+                  validator: (value) {
+                    return cariViewModel.validateVergiTcNo(value!);
+                  }),
               CommonTextField(
-                controller: yetkiliAdiController,
-                field: Constants.YETKILI_ADI,
-                icon: Icons.person,
-                textInputType: TextInputType.name,
-                isMandatory: false,
-              ),
+                  controller: yetkiliAdiController,
+                  field: Constants.YETKILI_ADI,
+                  icon: Icons.person,
+                  textInputType: TextInputType.name,
+                  isMandatory: false,
+                  validator: (value) {
+                    return cariViewModel.validateString(value!);
+                  }),
               CommonTextField(
-                controller: yetkiliSoyAdiController,
-                field: Constants.YETKILI_SOYADI,
-                icon: Icons.person,
-                textInputType: TextInputType.name,
-                isMandatory: false,
-              ),
+                  controller: yetkiliSoyAdiController,
+                  field: Constants.YETKILI_SOYADI,
+                  icon: Icons.person,
+                  textInputType: TextInputType.name,
+                  isMandatory: false,
+                  validator: (value) {
+                    return cariViewModel.validateString(value!);
+                  }),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
@@ -158,11 +198,14 @@ class YeniCariKart extends HookConsumerWidget {
                                 hataBaslik: "Hata",
                                 hataIcerik: "Önce Cari Kodu Giriniz!",
                               )
-                            : Navigator.pushNamed(context, "/cariAdresList",
-                                arguments: {
-                                    cariKoduController,
-                                    adres1Controller,
-                                  });
+                            : Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CariAdresList(
+                                      cariKoduController: cariKoduController,
+                                      adresNoController: adres1Controller),
+                                ),
+                              );
                       },
                     ),
                     enabledBorder: CommonInputBorder.border,
@@ -171,19 +214,23 @@ class YeniCariKart extends HookConsumerWidget {
                 ),
               ),
               CommonTextField(
-                controller: faxController,
-                field: Constants.FAX,
-                icon: Icons.fax,
-                textInputType: TextInputType.name,
-                isMandatory: false,
-              ),
+                  controller: faxController,
+                  field: Constants.FAX,
+                  icon: Icons.fax,
+                  textInputType: TextInputType.name,
+                  isMandatory: false,
+                  validator: (value) {
+                    return cariViewModel.validateString(value!);
+                  }),
               CommonTextField(
-                controller: mailController,
-                field: Constants.EMAIL,
-                icon: Icons.mail,
-                textInputType: TextInputType.emailAddress,
-                isMandatory: false,
-              ),
+                  controller: mailController,
+                  field: Constants.EMAIL,
+                  icon: Icons.mail,
+                  textInputType: TextInputType.emailAddress,
+                  isMandatory: false,
+                  validator: (value) {
+                    return cariViewModel.validateEmail(value!);
+                  }),
               CommonTypes(
                 hareketTipi: Constants.HAREKET_TIPI,
                 listOfTypes: ListOfTypes.hareketTipi,
@@ -223,6 +270,8 @@ class YeniCariKart extends HookConsumerWidget {
     TextEditingController cariUnvanController,
     TextEditingController vergiDaireAdiController,
     TextEditingController vergiDaireKoduController,
+    int createUser,
+    int lastUpUser,
   ) {
     return showDialog(
       context: context,
@@ -258,6 +307,8 @@ class YeniCariKart extends HookConsumerWidget {
                         cariUnvan2: cariUnvanController.text,
                         cariVdaireAdi: vergiDaireAdiController.text,
                         cariVdaireNo: vergiDaireKoduController.text,
+                        cariCreateUser: createUser,
+                        cariLastupUser: lastUpUser,
                       ),
                     ).future)
                         .then((value) {

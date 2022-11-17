@@ -1,8 +1,10 @@
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/view/common/common_appbar.dart';
+import 'package:dinamik_otomasyon/view/screens/authenticate/login/viewmodel/login_view_model.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_adres_model.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/service/cari_services.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/yeniCariKart/common_textfield.dart';
+import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_model.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +13,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class YeniCariAdres extends HookConsumerWidget {
   final TextEditingController cariKoduController;
-  const YeniCariAdres({super.key, required this.cariKoduController});
+  CariViewModel cariViewModel = CariViewModel();
+  YeniCariAdres({super.key, required this.cariKoduController});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,7 +28,7 @@ class YeniCariAdres extends HookConsumerWidget {
     final ulkeController = useTextEditingController(text: '');
     final ulkeKoduController = useTextEditingController(text: '90');
     final telefon1Controller = useTextEditingController(text: '');
-
+    var currentUser = ref.watch(currentUserProvider);
     return Scaffold(
       appBar: CommonAppbar(whichPage: Constants.YENI_CARI_ADRES_OLUSTUR),
       floatingActionButton: FloatingActionButton(
@@ -37,7 +40,7 @@ class YeniCariAdres extends HookConsumerWidget {
               .watch(cariAdresSaveProvider(CariAdresModel(
             adrAdresNo: int.parse(adresNoController.text),
             adrCariKod: cariKoduController.text,
-            adrCreateUser: 0,
+            adrCreateUser: currentUser.currentUser!.kullaniciNo,
             adrCadde: caddeController.text,
             adrIl: ilController.text,
             adrIlce: ilceController.text,
@@ -131,12 +134,14 @@ class YeniCariAdres extends HookConsumerWidget {
           child: Column(
             children: [
               CommonTextField(
-                controller: adresNoController,
-                field: "Adres No",
-                icon: Icons.map,
-                textInputType: TextInputType.number,
-                isMandatory: true,
-              ),
+                  controller: adresNoController,
+                  field: "Adres No",
+                  icon: Icons.map,
+                  textInputType: TextInputType.number,
+                  isMandatory: true,
+                  validator: (value) {
+                    return cariViewModel.validateAdresNo(value!);
+                  }),
               CommonTextField(
                 controller: cariKoduController,
                 field: Constants.CARI_KODU,
@@ -144,6 +149,7 @@ class YeniCariAdres extends HookConsumerWidget {
                 textInputType: TextInputType.name,
                 isMandatory: true,
                 readOnly: true,
+                validator: null,
               ),
               CommonTextField(
                 controller: caddeController,
@@ -151,6 +157,7 @@ class YeniCariAdres extends HookConsumerWidget {
                 icon: Icons.map,
                 textInputType: TextInputType.name,
                 isMandatory: false,
+                validator: null,
               ),
               CommonTextField(
                 controller: mahalleController,
@@ -158,6 +165,7 @@ class YeniCariAdres extends HookConsumerWidget {
                 icon: Icons.map,
                 textInputType: TextInputType.name,
                 isMandatory: false,
+                validator: null,
               ),
               CommonTextField(
                 controller: sokakController,
@@ -165,45 +173,55 @@ class YeniCariAdres extends HookConsumerWidget {
                 icon: Icons.map,
                 textInputType: TextInputType.name,
                 isMandatory: false,
+                validator: null,
               ),
               InkWell(
                 onTap: () async {},
                 child: CommonTextField(
-                  controller: ilController,
-                  field: Constants.IL,
-                  icon: Icons.map,
+                    controller: ilController,
+                    field: Constants.IL,
+                    icon: Icons.map,
+                    textInputType: TextInputType.name,
+                    isMandatory: true,
+                    validator: (value) {
+                      return cariViewModel.validateString(value!);
+                    }),
+              ),
+              CommonTextField(
+                  controller: ilceController,
+                  field: Constants.ILCE,
+                  icon: Icons.maps_home_work,
                   textInputType: TextInputType.name,
                   isMandatory: true,
-                ),
-              ),
+                  validator: (value) {
+                    return cariViewModel.validateString(value!);
+                  }),
               CommonTextField(
-                controller: ilceController,
-                field: Constants.ILCE,
-                icon: Icons.maps_home_work,
-                textInputType: TextInputType.name,
-                isMandatory: true,
-              ),
-              CommonTextField(
-                controller: ulkeController,
-                field: Constants.ULKE,
-                icon: Icons.maps_home_work_sharp,
-                textInputType: TextInputType.name,
-                isMandatory: true,
-              ),
+                  controller: ulkeController,
+                  field: Constants.ULKE,
+                  icon: Icons.maps_home_work_sharp,
+                  textInputType: TextInputType.name,
+                  isMandatory: true,
+                  validator: (value) {
+                    return cariViewModel.validateString(value!);
+                  }),
               CommonTextField(
                 controller: ulkeKoduController,
                 field: Constants.ULKE_KODU,
                 icon: Icons.maps_home_work_sharp,
                 textInputType: TextInputType.number,
                 isMandatory: false,
+                validator: null,
               ),
               CommonTextField(
-                controller: telefon1Controller,
-                field: Constants.TELEFON,
-                icon: Icons.phone,
-                textInputType: TextInputType.phone,
-                isMandatory: false,
-              ),
+                  controller: telefon1Controller,
+                  field: Constants.TELEFON,
+                  icon: Icons.phone,
+                  textInputType: TextInputType.phone,
+                  isMandatory: false,
+                  validator: (value) {
+                    return cariViewModel.validateMobile(value!);
+                  }),
             ],
           ),
         ),

@@ -12,6 +12,7 @@ class UserTextField extends ConsumerStatefulWidget {
   List<UserModel> userList;
   TextEditingController userController;
   TextEditingController userCodeController;
+  TextEditingController userNameController;
   String hint;
   IconData prefixIcon;
   IconData suffixIcon;
@@ -20,6 +21,7 @@ class UserTextField extends ConsumerStatefulWidget {
     required this.userList,
     required this.userController,
     required this.userCodeController,
+    required this.userNameController,
     required this.hint,
     required this.prefixIcon,
     required this.suffixIcon,
@@ -99,6 +101,9 @@ class _UserTextFieldState extends ConsumerState<UserTextField> {
                                           widget.userCodeController.text =
                                               widget.userList[index].kullaniciNo
                                                   .toString();
+                                          widget.userNameController.text =
+                                              widget
+                                                  .userList[index].kullaniciAdi;
                                         });
                                         Navigator.of(context).pop(UserModel(
                                           kullaniciNo: widget

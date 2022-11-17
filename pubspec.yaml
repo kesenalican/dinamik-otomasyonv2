@@ -31,7 +31,6 @@ environment:
 dependencies:
   cupertino_icons: ^1.0.2
   dio: ^4.0.6
-  shared_preferences: any
   email_validator: ^2.1.17
   fl_chart: ^0.55.2
   flutter:
@@ -40,6 +39,7 @@ dependencies:
   flutter_hooks: ^0.18.5+1
   flutter_map: ^0.14.0
   flutter_riverpod: ^2.0.2
+  fluttertoast: ^8.1.1
   freezed_annotation: ^2.2.0
   get_it: ^7.2.0
   hooks_riverpod: ^2.0.2
@@ -48,6 +48,7 @@ dependencies:
   json_annotation: ^4.7.0
   liquid_pull_to_refresh: ^3.0.1
   pull_to_refresh: ^2.0.0
+  shared_preferences: any
   url_launcher: ^6.1.6
 
 dev_dependencies:

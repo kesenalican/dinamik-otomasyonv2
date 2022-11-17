@@ -92,8 +92,8 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
     var cariListe = ref.watch(carilerProvider(currentPage));
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const YeniCariKart())),
+        onPressed: () => Navigator.push(
+            context, MaterialPageRoute(builder: (context) => YeniCariKart())),
         backgroundColor: Color(MyColors.bg01),
         child: const Icon(
           Icons.add,
@@ -204,7 +204,7 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          fullList[index].cariUnvani1,
+          fullList[index].cariUnvani1!,
           style: TextStyle(
             color: Color(MyColors.bg01),
             fontWeight: FontWeight.w600,

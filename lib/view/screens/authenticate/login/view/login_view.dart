@@ -7,6 +7,7 @@ import 'package:dinamik_otomasyon/view/common/common_loading.dart';
 import 'package:dinamik_otomasyon/view/screens/authenticate/login/model/user_model.dart';
 import 'package:dinamik_otomasyon/view/screens/authenticate/login/service/login_service.dart';
 import 'package:dinamik_otomasyon/view/screens/authenticate/login/view/user_text_field.dart';
+import 'package:dinamik_otomasyon/view/screens/authenticate/login/viewmodel/login_view_model.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
@@ -64,8 +65,7 @@ class _LoginState extends ConsumerState<Login> {
 
   @override
   Widget build(BuildContext context) {
-    var userCode = ref.read<String>(userCodeProvider(userCodeController.text));
-    print("user kodum === " + userCode);
+    var currentUser = ref.watch(currentUserProvider);
     var firmaList = ref.watch(firmaProvider);
     var userList = ref.watch(usersProvider);
     return Scaffold(
@@ -122,6 +122,7 @@ class _LoginState extends ConsumerState<Login> {
                     return UserTextField(
                       userController: userController,
                       userCodeController: userCodeController,
+                      userNameController: userController,
                       userList: userList,
                       hint: Constants.KULLANICI_ADI,
                       prefixIcon: Icons.person,
@@ -158,14 +159,68 @@ class _LoginState extends ConsumerState<Login> {
               ),
               Expanded(
                 flex: 1,
-                child: _buildLoginButton(
-                  Constants.GIRIS_YAP,
-                  companyController,
-                  userController,
-                  passwordController,
-                  context,
-                  context.dynamicHeight,
-                  context.dynamicWidth,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (userController.text.isNotEmpty &&
+                        passwordController.text.isNotEmpty &&
+                        companyController.text.isNotEmpty &&
+                        passwordController.text == Constants.password) {
+                      Future.delayed(
+                        const Duration(seconds: 1),
+                        () {
+                          showAlertDialog(
+                              context: context,
+                              hataBaslik: companyController.text,
+                              hataIcerik: Constants.hosGeldiniz);
+                        },
+                      );
+                      currentUser.setCurrentUser(UserModel(
+                          kullaniciNo: int.parse(userCodeController.text),
+                          kullaniciKisaAdi: userController.text,
+                          kullaniciUzunAdi: userCodeController.text,
+                          kullaniciAdi: userController.text));
+
+                      Navigator.pushNamed(context, '/home',
+                          arguments: companyController.text);
+                    } else if (passwordController.text != Constants.password) {
+                      Future.delayed(
+                        const Duration(seconds: 1),
+                        () {
+                          showAlertDialog(
+                              context: context,
+                              hataBaslik: Constants.sifreYanlis,
+                              hataIcerik: Constants.sifreYanlis2);
+                        },
+                      );
+                    } else {
+                      Future.delayed(
+                        const Duration(seconds: 1),
+                        () {
+                          showAlertDialog(
+                              context: context,
+                              hataBaslik: Constants.girisHatasi,
+                              hataIcerik: Constants.girisHatasi2);
+                        },
+                      );
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: context.dynamicWidth * 0.15,
+                        vertical: context.dynamicHeight * 0.02),
+                    shape: const StadiumBorder(),
+                    backgroundColor: Color(MyColors.header01),
+                    elevation: 8,
+                    shadowColor: Colors.black87,
+                  ),
+                  child: const Text(
+                    Constants.GIRIS_YAP,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
               const Spacer(flex: 2),

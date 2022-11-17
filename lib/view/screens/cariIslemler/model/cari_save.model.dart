@@ -12,8 +12,8 @@ String CariModelToMap(CariModel data) => json.encode(data.toMap());
 
 class CariModel {
   CariModel({
-    // required this.cariCreateUser,
-    // required this.cariLastupUser,
+    required this.cariCreateUser,
+    required this.cariLastupUser,
     required this.cariKod,
     required this.cariUnvan1,
     required this.cariUnvan2,
@@ -35,14 +35,14 @@ class CariModel {
   final bool? cariKilitli = false;
   final bool? cariDegisti = false;
   final int? cariChecksum = 0;
-  final int? cariCreateUser = 0;
+  final int cariCreateUser;
   final DateTime? cariCreateDate = DateTime.now();
-  final int? cariLastupUser = 0;
+  final int cariLastupUser;
   final DateTime? cariLastupDate = DateTime.now();
   final String? cariSpecial1 = "";
   final String? cariSpecial2 = "";
   final String? cariSpecial3 = "";
-  final String? cariKod;
+  final String cariKod;
   final String? cariUnvan1;
   final String? cariUnvan2;
   final int? cariHareketTipi = 0;
@@ -60,7 +60,7 @@ class CariModel {
   final int? cariVadeFarkYuz2 = 0;
   final int? cariKurHesapSekli = 0;
   final String? cariVdaireAdi;
-  final String? cariVdaireNo;
+  final String cariVdaireNo;
   final String? cariSicilNo = "";
   final String? cariVergiKimlikNo = "";
   final int? cariSatisFk = 0;
@@ -246,6 +246,8 @@ class CariModel {
         cariUnvan2: json["cari_unvan2"],
         cariVdaireAdi: json["cari_vdaire_adi"],
         cariVdaireNo: json["cari_vdaire_no"],
+        cariCreateUser: json["cari_create_user"],
+        cariLastupUser: json["cari_lastup_user"],
       );
   Map<String, dynamic> toMap() => {
         "cari_DBCno": cariDbCno,

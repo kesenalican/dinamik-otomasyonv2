@@ -7,33 +7,22 @@ import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_save.mode
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_sektor.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cariler.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/muhasebe_hesap.dart';
-import 'package:dio/src/response.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// class CariService {
-//   saveCari(CariModel cari) async {
-//     try {
-//       final result =
-//           await Dio().post("${ConstantProvider.BASE_URL}CariBilgiler", data: {
-//         "cari_kod": cari.cariKod,
-//         "cari_unvan1": cari.cariUnvan1,
-//         "cari_unvan2": cari.cariUnvan2
-//       });
-//       if (result.statusCode == 500) {
-//         return "Girilen Cari Kodu Zaten Tanımlı!";
-//       } else if (result.statusCode == 200) {
-//         return result;
-//       } else {
-//         return "Bilinmeyen bir hata oluştu!";
-//       }
-//     } on DioError catch (e) {
-//       print("Type: ${e.type.toString()}");
-//       print("Message: ${e.message}");
-//       print("Error: ${e.error}");
-//     }
-//   }
-// }
+class CariService extends ChangeNotifier {
+  CariModel? cariModel;
+  BuildContext? context;
+
+  getCari() async {
+    final result = await Dio().get("${ConstantProvider.BASE_URL}CariBilgiler");
+    List<Map<String, dynamic>> mapData = List.from(result.data);
+    List<Cariler> cariList = mapData.map((e) => Cariler.fromMap(e)).toList();
+    notifyListeners();
+    return cariList;
+  }
+}
 
 //#region Cariler
 final carilerProvider = FutureProvider.autoDispose
@@ -49,9 +38,8 @@ final carilerProvider = FutureProvider.autoDispose
 
 //#region Cariler
 final cariSaveProvider = FutureProvider.autoDispose
-    .family<List<Cariler>, CariModel>((ref, cari) async {
+    .family<List<CariModel>, CariModel>((ref, cari) async {
   final dio = ref.watch(httpClientProvider);
-  Future<List<Cariler>> cariler;
   late final Response result;
   try {
     result = await dio.post(ConstantProvider.cariBilgiler, data: {
@@ -59,11 +47,14 @@ final cariSaveProvider = FutureProvider.autoDispose
       "cari_unvan1": cari.cariUnvan1,
       "cari_unvan2": cari.cariUnvan2,
       "cari_vdaire_adi": cari.cariVdaireAdi,
-      "cari_vdaire_kodu": cari.cariVergidairekodu,
+      "cari_vdaire_no": cari.cariVergidairekodu,
+      "cari_create_user": cari.cariCreateUser,
+      "cari_lastup_user": cari.cariLastupUser,
     });
     if (result.statusCode == 200) {
       List<Map<String, dynamic>> mapData = List.from(result.data);
-      List<Cariler> cariList = mapData.map((e) => Cariler.fromMap(e)).toList();
+      List<CariModel> cariList =
+          mapData.map((e) => CariModel.fromMap(e)).toList();
       return cariList;
     } else if (result.statusCode == 500) {
       BuildContext? context;

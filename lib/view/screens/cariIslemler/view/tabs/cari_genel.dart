@@ -29,7 +29,7 @@ class CariGenelTab extends ConsumerWidget {
           DetaySatir(
               hangiOzellik: Constants.BAKIYE,
               urunBilgi: cariList.cariBakiye == 0
-                  ? cariList.cariBakiye.ceil().toString()
+                  ? cariList.cariBakiye!.ceil().toString()
                   : cariList.cariBakiye.toString() + " TL"),
           DetaySatir(
               hangiOzellik: Constants.EFATURA, urunBilgi: "cariList.efatura"),

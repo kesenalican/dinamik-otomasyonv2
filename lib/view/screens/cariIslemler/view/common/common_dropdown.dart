@@ -24,7 +24,7 @@ class _CommonDropDownState extends State<CommonDropDown> {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
-      validator: (value) => "${widget.listName} boş olamaz!",
+      //validator: (value) => "${widget.listName} boş olamaz!",
       borderRadius: BorderRadius.circular(10),
       elevation: 3,
       dropdownColor: Color(MyColors.bg),

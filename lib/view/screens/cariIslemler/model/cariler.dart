@@ -7,23 +7,25 @@ String carilerToMap(Cariler data) => json.encode(data.toMap());
 class Cariler {
   Cariler({
     required this.cariKodu,
-    required this.cariUnvani1,
+    this.cariUnvani1,
     this.cariUnvani2,
-    required this.cariVDaireAdi,
-    required this.cariVDaireNo,
-    required this.cariEmail,
-    required this.cariCepTel,
-    required this.cariBakiye,
+    this.cariVDaireAdi,
+    this.cariVDaireNo,
+    this.cariEmail,
+    this.cariCepTel,
+    this.cariBakiye,
   });
 
+  
   final String cariKodu;
-  final String cariUnvani1;
+  final String? cariUnvani1;
   final String? cariUnvani2;
-  final String cariVDaireAdi;
-  final String cariVDaireNo;
-  final String cariEmail;
-  final String cariCepTel;
-  final double cariBakiye;
+  final String? cariVDaireAdi;
+  final String? cariVDaireNo;
+  final String? cariEmail;
+  final String? cariCepTel;
+  final double? cariBakiye;
+
 
   factory Cariler.fromMap(Map<String, dynamic> json) => Cariler(
         cariKodu: json["CariKodu"],

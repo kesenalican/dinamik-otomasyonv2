@@ -1,15 +1,73 @@
 import 'package:dinamik_otomasyon/View/styles/colors.dart';
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_adres_model.dart';
+import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_save.model.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cariler.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/service/cari_services.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CariViewModel {
+final cariKayitliMi = ChangeNotifierProvider((ref) => CariViewModel());
+
+class CariViewModel extends ChangeNotifier {
+  getAndControlCari(String cariKod, context) async {
+    final result =
+        await Dio().get("${ConstantProvider.BASE_URL}CariBilgiler/fullCari");
+    if (result.statusCode == 200) {
+      List<Map<String, dynamic>> mapData = List.from(result.data);
+      List<Cariler> cariList = mapData.map((e) => Cariler.fromMap(e)).toList();
+      var cariKoduVarmi =
+          cariList.where((element) => element.cariKodu == cariKod).toList();
+      notifyListeners();
+      if (cariKoduVarmi.isNotEmpty) {
+        return Future.delayed(const Duration(milliseconds: 500), () {
+          return showAlertDialog(
+              context: context,
+              hataBaslik: "Hata",
+              hataIcerik: "Bu cari kodu zaten kayıtlı");
+        });
+      }
+    } else {
+      return false;
+    }
+  }
+
+  validateAdresNo(String value) {
+    if (value.isEmpty) {
+      return 'Adres No boş olamaz';
+    }
+  }
+
+  validateVergiTcNo(String value) {
+    if (value.length < 10) {
+      return 'Vergi Numarası 10 haneden az olamaz!';
+    }
+  }
+
+  validateString(String value) {
+    if (value.length < 2) {
+      return 'Değer 2 haneden az olamaz!';
+    }
+  }
+
+  validateMobile(String value) {
+    if (value.length != 10) {
+      return 'Lütfen başında 0 olmadan geçerli bir telefon numarası giriniz!';
+    }
+  }
+
+  validateEmail(String value) {
+    Pattern pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regex = RegExp(pattern.toString());
+    notifyListeners();
+    if (!regex.hasMatch(value)) {
+      return 'Geçerli bir mail adresi giriniz!';
+    }
+  }
+
   saveCari(CariModel cari) async {
     // try {
     final result = await Dio().post(
@@ -19,11 +77,6 @@ class CariViewModel {
     if (result.statusCode == 200) {
       return result;
     }
-    // } on DioError catch (e) {
-    //   print("Type: ${e.type.toString()}");
-    //   print("Message: ${e.message}");
-    //   print("Error: ${e.error}");
-    // }
   }
 }
 
