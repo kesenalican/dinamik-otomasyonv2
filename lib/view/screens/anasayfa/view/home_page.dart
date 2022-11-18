@@ -27,7 +27,6 @@ class HomePage extends ConsumerStatefulWidget {
 class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
-  
     return Scaffold(
       appBar: CommonAppbar(whichPage: Constants.ANASAYFA),
       drawer: DrawerMenu(sirketAdi: widget.sirketAdi!),
@@ -46,22 +45,14 @@ class _HomePageState extends ConsumerState<HomePage> {
             ),
             ModuleCardButton(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const StokKartlari()));
+                Navigator.pushNamed(context, '/stokKartlari');
               },
               cardName: Modules[0],
               iconData: const Icon(Icons.attach_money_rounded),
             ),
             ModuleCardButton(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ScheduleTab(
-                              cardName: Modules[1],
-                            )));
+                Navigator.pushNamed(context, '/cariKartlar');
               },
               cardName: Modules[1],
               iconData: const Icon(Icons.account_tree_sharp),

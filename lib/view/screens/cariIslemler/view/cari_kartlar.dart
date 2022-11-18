@@ -3,7 +3,7 @@ import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/common/common_appbar.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cariler.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/service/cari_services.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/yeniCariKart/yeni_cari_kart.dart';
+import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../styles/colors.dart';
@@ -60,18 +60,21 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
   //   return searchedList;
   // }
 
-  _runFilter(String searchKeyword) {
+  _runFilter(String searchKeyword, CariViewModel cariSearch) {
+    // print("YAZILAN DEĞER $searchKeyword");
+    // Future<dynamic> a = cariSearch.searchCari(searchKeyword);
+    // print("list uzunluğu===" + a.toString());
     Future.delayed(const Duration(seconds: 2), () {
-      setState(() {
-        searchedList = fullList;
-        fullList.clear();
-        fullList = searchedList
-            .where((value) => value.cariKodu
-                .toLowerCase()
-                .contains(searchKeyword.toLowerCase()))
-            .toList();
-      });
+      searchedList = fullList;
+      fullList.clear();
+      fullList = searchedList
+          .where((value) => value.cariKodu
+              .toLowerCase()
+              .contains(searchKeyword.toLowerCase()))
+          .toList();
+      setState(() {});
     });
+    print("Full listim kaç elemanlı === ${fullList.length}");
     return fullList;
   }
 
@@ -88,6 +91,7 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
     }
 
     var cariListe = ref.watch(carilerProvider(currentPage));
+    var cariSearch = ref.watch(cariKayitliMi);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.pushNamed(context, "/yeniCariKart"),
@@ -109,7 +113,7 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
                 SizedBox(
                   width: context.dynamicWidth * 0.05,
                 ),
-                Expanded(flex: 1, child: _buildSearchInput()),
+                Expanded(flex: 1, child: _buildSearchInput(cariSearch)),
                 SizedBox(
                   width: context.dynamicWidth * 0.05,
                 ),
@@ -229,7 +233,7 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
     );
   }
 
-  _buildSearchInput() {
+  _buildSearchInput(CariViewModel cariSearch) {
     return Container(
       decoration: BoxDecoration(
         color: Color(MyColors.bg),
@@ -251,7 +255,7 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
           Expanded(
             child: TextField(
               onTap: () {},
-              onChanged: (value) => _runFilter(value),
+              onChanged: (value) => _runFilter(value, cariSearch),
               // onSubmitted: (value) => _runFilter(value),
               decoration: InputDecoration(
                 border: InputBorder.none,
@@ -264,32 +268,6 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  _buildListeleButton() {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        margin: EdgeInsets.symmetric(
-            horizontal: context.dynamicWidth * 0.03,
-            vertical: context.dynamicHeight * 0.01),
-        padding: context.paddingDefault,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: Color(MyColors.bg01),
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(
-            color: Color(MyColors.bg01),
-          ),
-        ),
-        child: const Center(
-          child: Text(
-            Constants.HEPSINI_LISTELE,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-        ),
       ),
     );
   }

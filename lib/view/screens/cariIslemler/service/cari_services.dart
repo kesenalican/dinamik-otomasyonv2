@@ -15,13 +15,13 @@ class CariService extends ChangeNotifier {
   CariModel? cariModel;
   BuildContext? context;
 
-  getCari() async {
-    final result = await Dio().get("${ConstantProvider.BASE_URL}CariBilgiler");
-    List<Map<String, dynamic>> mapData = List.from(result.data);
-    List<Cariler> cariList = mapData.map((e) => Cariler.fromMap(e)).toList();
-    notifyListeners();
-    return cariList;
-  }
+  // getCari() async {
+  //   final result = await Dio().get("${ConstantProvider.BASE_URL}CariBilgiler");
+  //   List<Map<String, dynamic>> mapData = List.from(result.data);
+  //   List<Cariler> cariList = mapData.map((e) => Cariler.fromMap(e)).toList();
+  //   notifyListeners();
+  //   return cariList;
+  // }
 }
 
 //#region Cariler

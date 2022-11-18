@@ -8,10 +8,9 @@ import 'package:dinamik_otomasyon/view/common/common_input_border.dart';
 import 'package:dinamik_otomasyon/view/common/common_loading.dart';
 import 'package:dinamik_otomasyon/view/common/search_input.dart';
 import 'package:dinamik_otomasyon/view/screens/authenticate/login/viewmodel/login_view_model.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_save.model.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/service/cari_services.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/common/common_types.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/common/list_of_types.dart';
+import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/common/save_button.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/yeniCariKart/cari_adres_list.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/yeniCariKart/common_textfield.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_model.dart';
@@ -47,7 +46,7 @@ class YeniCariKart extends HookConsumerWidget {
     final cariOdemeSekliSelectedItemIndex = useState(0);
     final cariFaturaCinsiTipiSelectedItemIndex = useState(0);
     final selectedItemDropDown = useState("Hareket Tipi");
-    
+
     var list = ref.watch(vergiDaireleriProvider);
     var currentUser = ref.watch(currentUserProvider);
     var cariControl = ref.watch(cariKayitliMi);
@@ -78,44 +77,7 @@ class YeniCariKart extends HookConsumerWidget {
           key: formKey,
           child: Column(
             children: [
-              Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: TextFormField(
-                    onFieldSubmitted: (value) {
-                      cariControl.getAndControlCari(value, context);
-                    },
-                    onChanged: (value) {
-                      cariViewModel.validateString(value);
-                    },
-                    validator: (value) {
-                      return cariViewModel.validateString(value!);
-                    },
-                    readOnly: false,
-                    controller: cariKoduController,
-                    keyboardType: TextInputType.text,
-                    cursorColor: Color(MyColors.bg01),
-                    style: TextStyle(
-                      color: Color(
-                        MyColors.bg01,
-                      ),
-                    ),
-                    decoration: InputDecoration(
-                      labelText: "Cari Kod",
-                      labelStyle: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400,
-                        color: Color(
-                          MyColors.bg01,
-                        ),
-                      ),
-                      prefixIcon: Icon(
-                        Icons.abc,
-                        color: Color(MyColors.bg01),
-                      ),
-                      enabledBorder: CommonInputBorder.border,
-                      focusedBorder: CommonInputBorder.border,
-                    ),
-                  )),
+              cariKoduTextField(cariControl, context, cariKoduController),
               CommonTextField(
                   controller: cariUnvanController,
                   field: Constants.CARI_UNVANI,
@@ -171,56 +133,8 @@ class YeniCariKart extends HookConsumerWidget {
                   validator: (value) {
                     return cariViewModel.validateString(value!);
                   }),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  controller: adres1Controller,
-                  keyboardType: TextInputType.name,
-                  cursorColor: Color(MyColors.bg01),
-                  readOnly: true,
-                  style: TextStyle(
-                      color: Color(
-                    MyColors.bg01,
-                  )),
-                  decoration: InputDecoration(
-                    labelText: Constants.ADRES,
-                    labelStyle: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w400,
-                        color: Color(
-                          MyColors.bg01,
-                        )),
-                    prefixIcon: Icon(
-                      Icons.location_city,
-                      color: Color(MyColors.bg01),
-                    ),
-                    suffix: InkWell(
-                      child: Icon(Icons.add,
-                          color: Color(
-                            MyColors.bg01,
-                          )),
-                      onTap: () {
-                        cariKoduController.text.isEmpty
-                            ? showAlertDialog(
-                                context: context,
-                                hataBaslik: "Hata",
-                                hataIcerik: "Önce Cari Kodu Giriniz!",
-                              )
-                            : Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => CariAdresList(
-                                      cariKoduController: cariKoduController,
-                                      adresNoController: adres1Controller),
-                                ),
-                              );
-                      },
-                    ),
-                    enabledBorder: CommonInputBorder.border,
-                    focusedBorder: CommonInputBorder.border,
-                  ),
-                ),
-              ),
+              buildAdresTextField(
+                  adres1Controller, cariKoduController, context),
               CommonTextField(
                   controller: faxController,
                   field: Constants.FAX,
@@ -247,7 +161,7 @@ class YeniCariKart extends HookConsumerWidget {
               const SizedBox(
                 height: 200,
               ),
-              
+
               // CommonTypes(
               //   hareketTipi: Constants.BAGLANTI_TIPI,
               //   listOfTypes: ListOfTypes.baglantiTipi,
@@ -280,108 +194,100 @@ class YeniCariKart extends HookConsumerWidget {
     );
   }
 
-  Future<void> buildSaveButton(
-    BuildContext context,
-    GlobalKey<FormState> formKey,
-    WidgetRef ref,
-    TextEditingController cariKoduController,
-    TextEditingController cariUnvanController,
-    TextEditingController vergiDaireAdiController,
-    TextEditingController vergiDaireKoduController,
-    int createUser,
-    int lastUpUser,
-  ) {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text(
-            "Cariyi kayıt etmek istiyor musunuz?",
-            style: purpleTxtStyle,
+  Padding buildAdresTextField(TextEditingController adres1Controller,
+      TextEditingController cariKoduController, BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextFormField(
+        controller: adres1Controller,
+        keyboardType: TextInputType.name,
+        cursorColor: Color(MyColors.bg01),
+        readOnly: true,
+        style: TextStyle(
+            color: Color(
+          MyColors.bg01,
+        )),
+        decoration: InputDecoration(
+          labelText: Constants.ADRES,
+          labelStyle: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w400,
+              color: Color(
+                MyColors.bg01,
+              )),
+          prefixIcon: Icon(
+            Icons.location_city,
+            color: Color(MyColors.bg01),
           ),
-          actions: [
-            Row(
-              children: [
-                TextButton(
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(Color(MyColors.bg01)),
-                  ),
-                  child: const Text(
-                    "Evet",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () {
-                    //Navigator.pop(context);
-                    if (!formKey.currentState!.validate()) {
-                      Navigator.pop(context);
-                      return;
-                    }
-                    ref
-                        .watch(cariSaveProvider(
-                      CariModel(
-                        cariKod: cariKoduController.text,
-                        cariUnvan1: cariUnvanController.text,
-                        cariUnvan2: cariUnvanController.text,
-                        cariVdaireAdi: vergiDaireAdiController.text,
-                        cariVdaireNo: vergiDaireKoduController.text,
-                        cariCreateUser: createUser,
-                        cariLastupUser: lastUpUser,
+          suffix: InkWell(
+            child: Icon(Icons.add,
+                color: Color(
+                  MyColors.bg01,
+                )),
+            onTap: () {
+              cariKoduController.text.isEmpty
+                  ? showAlertDialog(
+                      context: context,
+                      hataBaslik: "Hata",
+                      hataIcerik: "Önce Cari Kodu Giriniz!",
+                    )
+                  : Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CariAdresList(
+                            cariKoduController: cariKoduController,
+                            adresNoController: adres1Controller),
                       ),
-                    ).future)
-                        .then((value) {
-                      return showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            content: Text(
-                              "Cari Başarıyla Kaydedildi!",
-                              style: purpleTxtStyle,
-                            ),
-                            actions: [
-                              TextButton(
-                                style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(
-                                      Color(MyColors.bg01)),
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context).popUntil((route) =>
-                                      route.settings.name == '/cariKartlar');
-                                },
-                                child: const Text(
-                                  Constants.OK,
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    });
-                  },
-                ),
-                SizedBox(
-                  width: context.dynamicWidth * 0.05,
-                ),
-                TextButton(
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(Color(MyColors.bg01)),
-                  ),
-                  child: const Text(
-                    "Hayır",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ],
-            ),
-          ],
-        );
-      },
+                    );
+            },
+          ),
+          enabledBorder: CommonInputBorder.border,
+          focusedBorder: CommonInputBorder.border,
+        ),
+      ),
     );
+  }
+
+  Padding cariKoduTextField(CariViewModel cariControl, BuildContext context,
+      TextEditingController cariKoduController) {
+    return Padding(
+        padding: const EdgeInsets.all(8),
+        child: TextFormField(
+          onFieldSubmitted: (value) {
+            cariControl.getAndControlCari(value, context);
+          },
+          onChanged: (value) {
+            cariViewModel.validateString(value);
+          },
+          validator: (value) {
+            return cariViewModel.validateString(value!);
+          },
+          readOnly: false,
+          controller: cariKoduController,
+          keyboardType: TextInputType.text,
+          cursorColor: Color(MyColors.bg01),
+          style: TextStyle(
+            color: Color(
+              MyColors.bg01,
+            ),
+          ),
+          decoration: InputDecoration(
+            labelText: "Cari Kod",
+            labelStyle: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w400,
+              color: Color(
+                MyColors.bg01,
+              ),
+            ),
+            prefixIcon: Icon(
+              Icons.abc,
+              color: Color(MyColors.bg01),
+            ),
+            enabledBorder: CommonInputBorder.border,
+            focusedBorder: CommonInputBorder.border,
+          ),
+        ));
   }
 
   _buildVergiDairesiTextField(

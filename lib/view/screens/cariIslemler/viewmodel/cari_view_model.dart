@@ -12,13 +12,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final cariKayitliMi = ChangeNotifierProvider((ref) => CariViewModel());
 
 class CariViewModel extends ChangeNotifier {
+  late List<Cariler> cariKoduVarmi;
+  late List<Cariler> cariKodSorgula;
   getAndControlCari(String cariKod, context) async {
     final result =
         await Dio().get("${ConstantProvider.BASE_URL}CariBilgiler/fullCari");
     if (result.statusCode == 200) {
       List<Map<String, dynamic>> mapData = List.from(result.data);
       List<Cariler> cariList = mapData.map((e) => Cariler.fromMap(e)).toList();
-      var cariKoduVarmi =
+      cariKoduVarmi =
           cariList.where((element) => element.cariKodu == cariKod).toList();
       notifyListeners();
       if (cariKoduVarmi.isNotEmpty) {
@@ -31,6 +33,21 @@ class CariViewModel extends ChangeNotifier {
       }
     } else {
       return false;
+    }
+  }
+
+  searchCari(String cariKod) async {
+    final result =
+        await Dio().get("${ConstantProvider.BASE_URL}CariBilgiler/fullCari");
+    if (result.statusCode == 200) {
+      List<Map<String, dynamic>> mapData = List.from(result.data);
+      List<Cariler> cariList = mapData.map((e) => Cariler.fromMap(e)).toList();
+      cariKodSorgula = cariList
+          .where((element) => element.cariKodu.contains(cariKod))
+          .toList();
+
+      notifyListeners();
+      return cariKodSorgula;
     }
   }
 
