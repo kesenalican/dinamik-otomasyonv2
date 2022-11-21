@@ -128,6 +128,7 @@ class Constants {
   static const String FAX = "Fax";
 
   static const String VERGI_DAIRESI_SECINIZ = "Vergi Dairesi Seçiniz";
+  static const String dovizKuruSeciniz = "Döviz Kuru Seçiniz";
   static const String sharedHatasi = "Shared Hatası";
   static const String sharedHataIcerik =
       "Kaynaklar getirilirken bir hata oluştu";

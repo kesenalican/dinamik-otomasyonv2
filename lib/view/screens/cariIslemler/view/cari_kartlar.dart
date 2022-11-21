@@ -1,15 +1,26 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/common/common_appbar.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cariler.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/service/cari_services.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_model.dart';
-import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../../styles/colors.dart';
 
 class CariKartlar extends ConsumerStatefulWidget {
-  const CariKartlar({Key? key}) : super(key: key);
+  TextEditingController? cariKodController;
+  TextEditingController? cariIsmiController;
+  bool? detayaGitmesin = false;
+  CariKartlar({
+    super.key,
+    this.detayaGitmesin,
+    this.cariKodController,
+    this.cariIsmiController,
+  });
 
   @override
   ConsumerState<CariKartlar> createState() => _CariKartlarState();
@@ -159,8 +170,21 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
           if (index < fullList.length) {
             return InkWell(
               onTap: () {
-                Navigator.pushNamed(context, '/cariDetay',
-                    arguments: fullList[index]);
+                if (widget.detayaGitmesin == true) {
+                  widget.cariKodController!.text = fullList[index].cariKodu;
+                  widget.cariIsmiController!.text =
+                      fullList[index].cariUnvani1!;
+                  Navigator.pop(
+                    context,
+                    Cariler(
+                      cariKodu: widget.cariKodController!.text,
+                      cariUnvani1: widget.cariIsmiController!.text,
+                    ),
+                  );
+                } else {
+                  Navigator.pushNamed(context, '/cariDetay',
+                      arguments: fullList[index]);
+                }
               },
               child: Container(
                 margin: context.paddingDefault,

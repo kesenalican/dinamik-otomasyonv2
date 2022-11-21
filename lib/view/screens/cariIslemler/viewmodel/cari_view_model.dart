@@ -51,6 +51,12 @@ class CariViewModel extends ChangeNotifier {
     }
   }
 
+  validateIsNotEmpty(String value) {
+    if (value.isEmpty) {
+      return 'Bu alan boş olamaz!';
+    }
+  }
+
   validateAdresNo(String value) {
     if (value.isEmpty) {
       return 'Adres No boş olamaz';

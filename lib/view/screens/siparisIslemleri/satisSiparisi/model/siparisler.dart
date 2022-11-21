@@ -6,12 +6,10 @@ import 'dart:convert';
 
 Siparisler siparislerFromMap(String str) =>
     Siparisler.fromMap(json.decode(str));
-
 String siparislerToMap(Siparisler data) => json.encode(data.toMap());
 
 class Siparisler {
   Siparisler({
-    required this.sipGuid,
     required this.sipDbCno,
     required this.sipSpecReCno,
     required this.sipIptal,
@@ -77,7 +75,6 @@ class Siparisler {
     required this.sipAdresno,
     required this.sipTeslimturu,
     required this.sipCagrilabilirFl,
-    required this.sipProsipUid,
     required this.sipIskonto1,
     required this.sipIskonto2,
     required this.sipIskonto3,
@@ -101,7 +98,6 @@ class Siparisler {
     required this.sipExpImpKodu,
     required this.sipKarOrani,
     required this.sipDurumu,
-    required this.sipStalUid,
     required this.sipPlanlananmiktar,
     required this.sipTeklifUid,
     required this.sipPartiKodu,
@@ -113,9 +109,7 @@ class Siparisler {
     required this.sipOtvtutari,
     required this.sipOtvVergisizFl,
     required this.sipPaketKod,
-    required this.sipRezUid,
     required this.sipHarekettipi,
-    required this.sipYetkiliUid,
     required this.sipKapatmanedenkod,
     required this.sipGecerlilikTarihi,
     required this.sipOnodemeEvrakTip,
@@ -138,7 +132,6 @@ class Siparisler {
     required this.sipEticaretKanalKodu,
   });
 
-  final String sipGuid;
   final int sipDbCno;
   final int sipSpecReCno;
   final bool sipIptal;
@@ -204,7 +197,7 @@ class Siparisler {
   final int sipAdresno;
   final String sipTeslimturu;
   final bool sipCagrilabilirFl;
-  final String sipProsipUid;
+
   final int sipIskonto1;
   final int sipIskonto2;
   final int sipIskonto3;
@@ -228,7 +221,7 @@ class Siparisler {
   final String sipExpImpKodu;
   final int sipKarOrani;
   final int sipDurumu;
-  final String sipStalUid;
+
   final int sipPlanlananmiktar;
   final String sipTeklifUid;
   final String sipPartiKodu;
@@ -240,9 +233,9 @@ class Siparisler {
   final int sipOtvtutari;
   final int sipOtvVergisizFl;
   final String sipPaketKod;
-  final String sipRezUid;
+
   final int sipHarekettipi;
-  final String sipYetkiliUid;
+
   final String sipKapatmanedenkod;
   final DateTime sipGecerlilikTarihi;
   final int sipOnodemeEvrakTip;
@@ -265,7 +258,6 @@ class Siparisler {
   final String sipEticaretKanalKodu;
 
   factory Siparisler.fromMap(Map<String, dynamic> json) => Siparisler(
-        sipGuid: json["sip_Guid"],
         sipDbCno: json["sip_DBCno"],
         sipSpecReCno: json["sip_SpecRECno"],
         sipIptal: json["sip_iptal"],
@@ -331,7 +323,6 @@ class Siparisler {
         sipAdresno: json["sip_adresno"],
         sipTeslimturu: json["sip_teslimturu"],
         sipCagrilabilirFl: json["sip_cagrilabilir_fl"],
-        sipProsipUid: json["sip_prosip_uid"],
         sipIskonto1: json["sip_iskonto1"],
         sipIskonto2: json["sip_iskonto2"],
         sipIskonto3: json["sip_iskonto3"],
@@ -355,7 +346,6 @@ class Siparisler {
         sipExpImpKodu: json["sip_Exp_Imp_Kodu"],
         sipKarOrani: json["sip_kar_orani"],
         sipDurumu: json["sip_durumu"],
-        sipStalUid: json["sip_stal_uid"],
         sipPlanlananmiktar: json["sip_planlananmiktar"],
         sipTeklifUid: json["sip_teklif_uid"],
         sipPartiKodu: json["sip_parti_kodu"],
@@ -367,9 +357,7 @@ class Siparisler {
         sipOtvtutari: json["sip_otvtutari"],
         sipOtvVergisizFl: json["sip_OtvVergisiz_Fl"],
         sipPaketKod: json["sip_paket_kod"],
-        sipRezUid: json["sip_Rez_uid"],
         sipHarekettipi: json["sip_harekettipi"],
-        sipYetkiliUid: json["sip_yetkili_uid"],
         sipKapatmanedenkod: json["sip_kapatmanedenkod"],
         sipGecerlilikTarihi: DateTime.parse(json["sip_gecerlilik_tarihi"]),
         sipOnodemeEvrakTip: json["sip_onodeme_evrak_tip"],
@@ -393,7 +381,6 @@ class Siparisler {
       );
 
   Map<String, dynamic> toMap() => {
-        "sip_Guid": sipGuid,
         "sip_DBCno": sipDbCno,
         "sip_SpecRECno": sipSpecReCno,
         "sip_iptal": sipIptal,
@@ -459,7 +446,6 @@ class Siparisler {
         "sip_adresno": sipAdresno,
         "sip_teslimturu": sipTeslimturu,
         "sip_cagrilabilir_fl": sipCagrilabilirFl,
-        "sip_prosip_uid": sipProsipUid,
         "sip_iskonto1": sipIskonto1,
         "sip_iskonto2": sipIskonto2,
         "sip_iskonto3": sipIskonto3,
@@ -483,7 +469,6 @@ class Siparisler {
         "sip_Exp_Imp_Kodu": sipExpImpKodu,
         "sip_kar_orani": sipKarOrani,
         "sip_durumu": sipDurumu,
-        "sip_stal_uid": sipStalUid,
         "sip_planlananmiktar": sipPlanlananmiktar,
         "sip_teklif_uid": sipTeklifUid,
         "sip_parti_kodu": sipPartiKodu,
@@ -495,9 +480,7 @@ class Siparisler {
         "sip_otvtutari": sipOtvtutari,
         "sip_OtvVergisiz_Fl": sipOtvVergisizFl,
         "sip_paket_kod": sipPaketKod,
-        "sip_Rez_uid": sipRezUid,
         "sip_harekettipi": sipHarekettipi,
-        "sip_yetkili_uid": sipYetkiliUid,
         "sip_kapatmanedenkod": sipKapatmanedenkod,
         "sip_gecerlilik_tarihi": sipGecerlilikTarihi.toIso8601String(),
         "sip_onodeme_evrak_tip": sipOnodemeEvrakTip,

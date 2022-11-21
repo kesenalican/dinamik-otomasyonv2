@@ -12,7 +12,7 @@ import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/common/common_t
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/common/list_of_types.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/common/save_button.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/yeniCariKart/cari_adres_list.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/yeniCariKart/common_textfield.dart';
+import 'package:dinamik_otomasyon/view/common/common_textfield.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_model.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
@@ -325,7 +325,7 @@ class YeniCariKart extends HookConsumerWidget {
               showVergiDaireleri(context, list, vergiDaireController,
                   vergiDaireKoduController);
             },
-            child: Icon(Icons.replay_outlined,
+            child: Icon(Icons.question_mark,
                 color: Color(
                   MyColors.bg01,
                 )),

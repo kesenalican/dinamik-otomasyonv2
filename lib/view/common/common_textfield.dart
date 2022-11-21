@@ -33,8 +33,8 @@ class CommonTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: context.dynamicWidth * 0.03,
-          vertical: context.dynamicHeight * 0.02,
+          horizontal: context.dynamicWidth * 0.02,
+          vertical: context.dynamicHeight * 0.007,
         ),
         child: TextFormField(
           validator: validator,

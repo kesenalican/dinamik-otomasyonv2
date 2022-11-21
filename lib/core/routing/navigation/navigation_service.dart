@@ -53,7 +53,7 @@ class RouteGenerator {
         return _createRoute(
             StokDetay(stokModel: settings.arguments as Stoklar), settings);
       case RouteConstants.cariKartlar:
-        return _createRoute(const CariKartlar(), settings);
+        return _createRoute(CariKartlar(), settings);
       case RouteConstants.yeniCariKart:
         return _createRoute(YeniCariKart(), settings);
       case RouteConstants.cariDetay:
