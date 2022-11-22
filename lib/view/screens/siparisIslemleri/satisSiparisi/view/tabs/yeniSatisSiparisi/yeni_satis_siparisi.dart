@@ -1,17 +1,18 @@
-import 'package:dinamik_otomasyon/Model/kur_model.dart';
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
-import 'package:dinamik_otomasyon/service/Providers/all_providers.dart';
-import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
 import 'package:dinamik_otomasyon/view/common/common_input_border.dart';
-import 'package:dinamik_otomasyon/view/common/common_loading.dart';
 import 'package:dinamik_otomasyon/view/common/common_textfield.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/cari_kartlar.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_model.dart';
-import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/common/cari_kod_text_field.dart';
-import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/common/kur_text_field.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/cari_kod_text_field.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/cari_personel_text_field.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/depo_text_field.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/kur_text_field.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/odeme_plani_text_field.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/proje_text_field.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/siparis_tarihi_text_field.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/sorm_merkezi_text_field.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/teslim_turu_text_field.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
-import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -23,6 +24,7 @@ class YeniSatisSiparisi extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     CariViewModel cariViewModel = CariViewModel();
+
     final evrakSeriController = useTextEditingController(text: '');
     final evrakNoController = useTextEditingController(text: '');
     final belgeNoController = useTextEditingController(text: '');
@@ -35,6 +37,7 @@ class YeniSatisSiparisi extends HookConsumerWidget {
     final depoController = useTextEditingController(text: '');
     final saticiController = useTextEditingController(text: '');
     final teslimTuruController = useTextEditingController(text: '');
+    final siparisTarihiController = useTextEditingController(text: '');
     final isk1Controller = useTextEditingController(text: '');
     final isk2Controller = useTextEditingController(text: '');
     final isk3Controller = useTextEditingController(text: '');
@@ -84,40 +87,49 @@ class YeniSatisSiparisi extends HookConsumerWidget {
               textInputType: TextInputType.name,
             ),
             KurTextField(dovizController: dovizController),
+            ProjeTextField(projeController: projeController),
+            SormMerkeziTextField(sormMerkeziController: sormMerkeziController),
+            OdemePlaniTextField(odemePlaniController: odemePlaniController),
+            DepoTextField(depoController: depoController),
+            CariPersonelTextField(cariPersonelController: saticiController),
+            TeslimTuruTextField(teslimTuruController: teslimTuruController),
+            SiparisTarihiTextField(
+                siparisTarihiController: siparisTarihiController),
           ],
         ),
       ),
     );
   }
 
-  Row buildEvrakNoTextField(TextEditingController evrakSeriController, TextEditingController evrakNoController) {
+  Row buildEvrakNoTextField(TextEditingController evrakSeriController,
+      TextEditingController evrakNoController) {
     return Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: CommonTextField(
-                  validator: (value) => null,
-                  controller: evrakSeriController,
-                  field: "Evrak Seri",
-                  icon: Icons.document_scanner,
-                  isMandatory: false,
-                  readOnly: false,
-                  textInputType: TextInputType.name,
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: CommonTextField(
-                  validator: (value) => null,
-                  controller: evrakNoController,
-                  field: "Evrak no",
-                  icon: Icons.document_scanner,
-                  isMandatory: false,
-                  readOnly: false,
-                  textInputType: TextInputType.name,
-                ),
-              ),
-            ],
-          );
+      children: [
+        Expanded(
+          flex: 1,
+          child: CommonTextField(
+            validator: (value) => null,
+            controller: evrakSeriController,
+            field: "Evrak Seri",
+            icon: Icons.document_scanner,
+            isMandatory: false,
+            readOnly: false,
+            textInputType: TextInputType.name,
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: CommonTextField(
+            validator: (value) => null,
+            controller: evrakNoController,
+            field: "Evrak no",
+            icon: Icons.document_scanner,
+            isMandatory: false,
+            readOnly: false,
+            textInputType: TextInputType.name,
+          ),
+        ),
+      ],
+    );
   }
 }

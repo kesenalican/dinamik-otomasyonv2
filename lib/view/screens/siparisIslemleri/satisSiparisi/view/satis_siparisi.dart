@@ -45,9 +45,9 @@ class SatisSiparisi extends StatelessWidget {
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {},
-        ),
+        // floatingActionButton: FloatingActionButton(
+        //   onPressed: () {},
+        // ),
         body: const TabBarView(
           children: [
             YeniSatisSiparisi(),

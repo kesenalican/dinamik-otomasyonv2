@@ -1,8 +1,3 @@
-// To parse this JSON data, do
-//
-//     final depo = depoFromMap(jsonString);
-
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 Depo depoFromMap(String str) => Depo.fromMap(json.decode(str));

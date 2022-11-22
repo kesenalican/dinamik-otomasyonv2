@@ -1,5 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:dinamik_otomasyon/Model/kur_model.dart';
+import 'package:dinamik_otomasyon/Model/depo_model.dart';
+import 'package:dinamik_otomasyon/Model/sorm_merkezi_model.dart';
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/service/Providers/all_providers.dart';
 import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
@@ -8,30 +8,27 @@ import 'package:dinamik_otomasyon/view/common/common_loading.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
-
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // ignore: must_be_immutable
-class KurTextField extends ConsumerWidget {
-  TextEditingController dovizController;
-  KurTextField({
+class DepoTextField extends ConsumerWidget {
+  TextEditingController depoController;
+  DepoTextField({
     super.key,
-    required this.dovizController,
+    required this.depoController,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var dovizKurlari = ref.watch(kurlarProvider);
-    CariViewModel cariViewModel = CariViewModel();
+    var depolar = ref.watch(depolarProvider);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         validator: (value) {
-          return cariViewModel.validateIsNotEmpty(value!);
+          if (value!.isEmpty) return "Bu alan boş olamaz";
         },
-        controller: dovizController,
+        controller: depoController,
         keyboardType: TextInputType.name,
         cursorColor: Color(MyColors.bg01),
         readOnly: true,
@@ -40,7 +37,7 @@ class KurTextField extends ConsumerWidget {
           MyColors.bg01,
         )),
         decoration: InputDecoration(
-          labelText: Constants.dovizKuruSeciniz,
+          labelText: Constants.DEPO,
           labelStyle: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w400,
@@ -48,20 +45,20 @@ class KurTextField extends ConsumerWidget {
                 MyColors.bg01,
               )),
           prefixIcon: Icon(
-            Icons.monetization_on_outlined,
+            Icons.paste_rounded,
             color: Color(MyColors.bg01),
           ),
           suffix: InkWell(
             onTap: () {
-              dovizKurlari.when(
+              depolar.when(
                 data: (data) {
-                  List<Kurlar> kurList = data.map((e) => e).toList();
+                  List<Depo> depolarList = data.map((e) => e).toList();
                   return showDialog(
                       context: context,
                       builder: (context) {
                         return SimpleDialog(
                           title: Text(
-                            "Döviz Kuru Seçiniz",
+                            Constants.depoSeciniz,
                             style: purpleBoldTxtStyle,
                           ),
                           children: [
@@ -69,44 +66,41 @@ class KurTextField extends ConsumerWidget {
                               height: context.dynamicHeight * 0.4,
                               width: context.dynamicWidth * 0.5,
                               child: ListView.builder(
+                                  itemCount: depolarList.length,
                                   itemBuilder: (context, index) {
-                                return SimpleDialogOption(
-                                  onPressed: () {
-                                    dovizController.text = kurList[index]
-                                        .kurOrjinalIsmi
-                                        .toString();
-                                    Navigator.pop(
-                                      context,
-                                      Kurlar(
-                                        kurNumarasi: kurList[index].kurNumarasi,
-                                        kurSembolu: kurList[index].kurSembolu,
-                                        kurOrjinalIsmi:
-                                            kurList[index].kurOrjinalIsmi,
+                                    return SimpleDialogOption(
+                                      onPressed: () {
+                                        depoController.text = depolarList[index]
+                                            .depAdi
+                                            .toString();
+                                        Navigator.pop(
+                                          context,
+                                        );
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            flex: 1,
+                                            child: Text(
+                                              depolarList[index]
+                                                  .depNo
+                                                  .toString(),
+                                              style: purpleTxtStyle,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 2,
+                                            child: Text(
+                                              depolarList[index].depAdi,
+                                              style: purpleTxtStyle,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     );
-                                  },
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        flex: 1,
-                                        child: Text(
-                                          kurList[index].kurSembolu,
-                                          style: purpleTxtStyle,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                      Expanded(
-                                        flex: 2,
-                                        child: Text(
-                                          kurList[index].kurOrjinalIsmi,
-                                          style: purpleTxtStyle,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              }),
+                                  }),
                             ),
                           ],
                         );

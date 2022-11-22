@@ -65,6 +65,9 @@ class Constants {
   static const String STOK_DETAY = "Stok Detay";
   static const String FIYATLAR = "Fiyatlar";
   static const String DEPO = "Depo";
+  static const String satici = "Satıcı";
+  static const String teslimTuru = "Teslim Türü";
+
   static const String URUN_KODU = "Ürün Kodu";
   static const String URUN_ADI = "Ürün Adı";
   static const String BIRIM = "Birim";
@@ -128,13 +131,20 @@ class Constants {
   static const String FAX = "Fax";
 
   static const String VERGI_DAIRESI_SECINIZ = "Vergi Dairesi Seçiniz";
-  static const String dovizKuruSeciniz = "Döviz Kuru Seçiniz";
+  static const String dovizKuruSeciniz = "Döviz Kuru";
+  static const String projeSeciniz = "Proje";
+  static const String sorumlulukMerkezi = "Sorumluluk Merkezi";
+  static const String depoSeciniz = "Depo Seçiniz";
+  static const String teslimTuruSeciniz = "Teslim Türü Seçiniz";
+
+  static const String odemePlani = "Ödeme Planı";
   static const String sharedHatasi = "Shared Hatası";
   static const String sharedHataIcerik =
       "Kaynaklar getirilirken bir hata oluştu";
   static const String cariKayitBasarili = "Cari başarıyla kaydedildi";
   static const String satisSiparisi = "Satış Siparişi";
   static const String alimSiparisi = "Alım Siparişi";
+  static const int lastDateinApp = 2050;
 }
 
 class ConstantProvider {
