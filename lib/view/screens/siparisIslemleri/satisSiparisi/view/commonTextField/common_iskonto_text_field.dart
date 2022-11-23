@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/common/common_input_border.dart';
@@ -8,7 +7,7 @@ import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class CommonTextField extends StatelessWidget {
+class CommonIskTextField extends StatelessWidget {
   final TextEditingController? controller;
   final String? field;
   final IconData? icon;
@@ -19,7 +18,7 @@ class CommonTextField extends StatelessWidget {
   void Function(String?)? onFieldSubmit;
   CariViewModel? cariViewModel;
 
-  CommonTextField(
+  CommonIskTextField(
       {Key? key,
       this.controller,
       this.field,
@@ -36,36 +35,39 @@ class CommonTextField extends StatelessWidget {
     return Padding(
         padding: EdgeInsets.symmetric(
           horizontal: context.dynamicWidth * 0.02,
-          vertical: context.dynamicHeight * 0.007,
+          vertical: context.dynamicHeight * 0.001,
         ),
-        child: TextFormField(
-          validator: validator,
-          readOnly: readOnly ?? false,
-          onFieldSubmitted: onFieldSubmit,
-          controller: controller,
-          keyboardType: textInputType,
-          cursorColor: Color(MyColors.bg01),
-          style: TextStyle(
-            color: Color(
-              MyColors.bg01,
-            ),
-          ),
-          decoration: InputDecoration(
-            labelText: field,
-            labelStyle: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w400,
+        child: SizedBox(
+          width: context.dynamicWidth * 0.4,
+          child: TextFormField(
+            validator: validator,
+            readOnly: readOnly ?? false,
+            onFieldSubmitted: onFieldSubmit,
+            controller: controller,
+            keyboardType: textInputType,
+            textAlign: TextAlign.start,
+            cursorColor: Color(MyColors.bg01),
+            style: TextStyle(
               color: Color(
                 MyColors.bg01,
               ),
+              height: 1.0,
             ),
-            prefixIcon: Icon(
-              icon,
-              color: Color(MyColors.bg01),
+            decoration: InputDecoration(
+              isDense: true, // Added this
+              contentPadding: context.paddingDefault,
+              labelStyle: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w400,
+                color: Color(
+                  MyColors.bg01,
+                ),
+              ),
+
+              //errorBorder: CommonInputBorder.errorBorder,
+              //enabledBorder: CommonInputBorder.border,
+              //focusedBorder: CommonInputBorder.border,
             ),
-            errorBorder: CommonInputBorder.errorBorder,
-            enabledBorder: CommonInputBorder.border,
-            focusedBorder: CommonInputBorder.border,
           ),
         ));
   }

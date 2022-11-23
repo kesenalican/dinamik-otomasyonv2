@@ -5,9 +5,7 @@ import 'package:dinamik_otomasyon/view/common/common_appbar.dart';
 import 'package:dinamik_otomasyon/view/common/common_drawer.dart';
 import 'package:dinamik_otomasyon/view/common/module_card_button.dart';
 import 'package:dinamik_otomasyon/view/common/search_input.dart';
-import 'package:dinamik_otomasyon/view/screens/authenticate/login/viewmodel/login_view_model.dart';
 import 'package:dinamik_otomasyon/view/screens/module_card.dart';
-import 'package:dinamik_otomasyon/view/screens/stokIslemleri/view/stok_karti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -45,7 +43,7 @@ class _HomePageState extends ConsumerState<HomePage> {
             ),
             ModuleCardButton(
               onTap: () {
-                Navigator.pushNamed(context, '/stokKartlari');
+                Navigator.pushNamed(context, '/stokKartlari', arguments: {});
               },
               cardName: Modules[0],
               iconData: const Icon(Icons.attach_money_rounded),

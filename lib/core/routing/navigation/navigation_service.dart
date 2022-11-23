@@ -48,7 +48,7 @@ class RouteGenerator {
       case RouteConstants.login:
         return _createRoute(const Login(), settings);
       case RouteConstants.stockList:
-        return _createRoute(const StokKartlari(), settings);
+        return _createRoute(StokKartlari(), settings);
       case RouteConstants.stockDetail:
         return _createRoute(
             StokDetay(stokModel: settings.arguments as Stoklar), settings);

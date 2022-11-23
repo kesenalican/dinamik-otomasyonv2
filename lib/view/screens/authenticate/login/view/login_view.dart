@@ -170,10 +170,10 @@ class _LoginState extends ConsumerState<Login> {
                       Future.delayed(
                         const Duration(seconds: 1),
                         () {
-                          showAlertDialog(
-                              context: context,
-                              hataBaslik: companyController.text,
-                              hataIcerik: Constants.hosGeldiniz);
+                          // showAlertDialog(
+                          //     context: context,
+                          //     hataBaslik: companyController.text,
+                          //     hataIcerik: Constants.hosGeldiniz);
                         },
                       );
 

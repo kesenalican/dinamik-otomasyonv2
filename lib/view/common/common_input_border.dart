@@ -32,7 +32,7 @@ class CommonInputBorder extends StatelessWidget {
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: TextStyle(
-            fontSize: 20,
+            fontSize: 15,
             fontWeight: FontWeight.bold,
             color: Color(
               MyColors.bg01,
@@ -46,6 +46,13 @@ class CommonInputBorder extends StatelessWidget {
       ),
     );
   }
+
+  static final errorBorder = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(10),
+    borderSide: const BorderSide(
+      color: Colors.red,
+    ),
+  );
 
   static final border = OutlineInputBorder(
     borderRadius: BorderRadius.circular(10),

@@ -2,20 +2,24 @@
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/common/common_input_border.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/cari_kartlar.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_model.dart';
+import 'package:dinamik_otomasyon/view/screens/stokIslemleri/view/stok_karti.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class CariKodTextField extends StatelessWidget {
-  TextEditingController cariKodController;
-  TextEditingController cariIsimController;
+class StokKodTextField extends StatelessWidget {
   CariViewModel cariViewModel = CariViewModel();
-  CariKodTextField({
+  TextEditingController stokKoduController;
+  TextEditingController stokIsmiController;
+  TextEditingController stokBirimController;
+  TextEditingController stokFiyatController;
+  StokKodTextField({
     super.key,
-    required this.cariKodController,
-    required this.cariIsimController,
+    required this.stokKoduController,
+    required this.stokIsmiController,
+    required this.stokBirimController,
+    required this.stokFiyatController,
   });
 
   @override
@@ -30,7 +34,7 @@ class CariKodTextField extends StatelessWidget {
             return cariViewModel.validateIsNotEmpty(value!);
           },
           readOnly: true,
-          controller: cariKodController,
+          controller: stokKoduController,
           cursorColor: Color(MyColors.bg01),
           style: TextStyle(
             color: Color(
@@ -38,7 +42,7 @@ class CariKodTextField extends StatelessWidget {
             ),
           ),
           decoration: InputDecoration(
-            labelText: Constants.CARI_KODU,
+            labelText: Constants.STOK_KODU,
             labelStyle: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w400,
@@ -47,7 +51,7 @@ class CariKodTextField extends StatelessWidget {
               ),
             ),
             prefixIcon: Icon(
-              Icons.storefront,
+              Icons.production_quantity_limits,
               color: Color(MyColors.bg01),
             ),
             suffix: InkWell(
@@ -55,10 +59,13 @@ class CariKodTextField extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CariKartlar(
-                        detayaGitmesin: true,
-                        cariIsmiController: cariIsimController,
-                        cariKodController: cariKodController),
+                    builder: (context) => StokKartlari(
+                      detayaGitmesin: true,
+                      stokKoduController: stokKoduController,
+                      stokIsmiController: stokIsmiController,
+                      stokBirimController: stokBirimController,
+                      stokFiyatController: stokFiyatController,
+                    ),
                   ),
                 );
               },

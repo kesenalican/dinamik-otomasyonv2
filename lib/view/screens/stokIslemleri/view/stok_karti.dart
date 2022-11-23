@@ -9,8 +9,21 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../styles/colors.dart';
 
+// ignore: must_be_immutable
 class StokKartlari extends ConsumerStatefulWidget {
-  const StokKartlari({super.key});
+  TextEditingController? stokKoduController;
+  TextEditingController? stokIsmiController;
+  TextEditingController? stokBirimController;
+  TextEditingController? stokFiyatController;
+
+  bool? detayaGitmesin = false;
+  StokKartlari(
+      {super.key,
+      this.detayaGitmesin,
+      this.stokKoduController,
+      this.stokIsmiController,
+      this.stokBirimController,
+      this.stokFiyatController});
 
   @override
   ConsumerState<StokKartlari> createState() => _StokKartlariState();
@@ -174,8 +187,34 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
           if (index < stokList.length) {
             return InkWell(
               onTap: () {
-                Navigator.pushNamed(context, '/stockDetail',
-                    arguments: stokList[index]);
+                if (widget.detayaGitmesin == true) {
+                  widget.stokKoduController!.text = stokList[index].stokKodu;
+                  widget.stokIsmiController!.text = stokList[index].stokIsim;
+                  widget.stokBirimController!.text = stokList[index].stokBirim1;
+                  widget.stokFiyatController!.text =
+                      stokList[index].stokFiyat.toString();
+                  Navigator.pop(
+                      context,
+                      Stoklar(
+                          stokKodu: widget.stokKoduController!.text,
+                          stokIsim: widget.stokIsmiController!.text,
+                          stokFiyat:
+                              double.parse(widget.stokFiyatController!.text),
+                          stokKur: stokList[index].stokKur,
+                          stokAnaGrup: stokList[index].stokAnaGrup,
+                          stokSektor: stokList[index].stokSektor,
+                          stokBirim1: widget.stokBirimController!.text,
+                          stokBirim3: stokList[index].stokBirim3,
+                          stokBirim3Katsayi: stokList[index].stokBirim3Katsayi,
+                          stokReyon: stokList[index].stokReyon,
+                          stokMarka: stokList[index].stokMarka,
+                          stokModel: stokList[index].stokModel,
+                          merkez: stokList[index].merkez,
+                          stokMiktar: stokList[index].stokMiktar));
+                } else {
+                  Navigator.pushNamed(context, '/stockDetail',
+                      arguments: stokList[index]);
+                }
               },
               child: Container(
                 margin: const EdgeInsets.all(5),

@@ -126,6 +126,7 @@ class KurTextField extends ConsumerWidget {
                   MyColors.bg01,
                 )),
           ),
+          errorBorder: CommonInputBorder.errorBorder,
           enabledBorder: CommonInputBorder.border,
           focusedBorder: CommonInputBorder.border,
         ),

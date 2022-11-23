@@ -62,6 +62,7 @@ class SiparisTarihiTextField extends HookWidget {
             icon: const Icon(Icons.date_range),
             color: Color(MyColors.bg01),
           ),
+          errorBorder: CommonInputBorder.errorBorder,
           enabledBorder: CommonInputBorder.border,
           focusedBorder: CommonInputBorder.border,
         ),
