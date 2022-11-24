@@ -160,4 +160,5 @@ class ConstantProvider {
   static const String enCokAlinanUrunler = "EnCokSatilanUrunler";
   static const String cariBilgiler = "CariBilgiler";
   static const String cariAdres = "CariAdres";
+  static const String satisSiparisi = "SatisSiparisi";
 }

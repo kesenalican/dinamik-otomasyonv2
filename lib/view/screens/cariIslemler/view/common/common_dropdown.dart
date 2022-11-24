@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
+import 'package:dinamik_otomasyon/view/common/common_input_border.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -25,45 +27,55 @@ class CommonDropDown extends StatefulWidget {
 class _CommonDropDownState extends State<CommonDropDown> {
   @override
   Widget build(BuildContext context) {
-    return DropdownButtonFormField<String>(
-      //validator: (value) => "${widget.listName} boş olamaz!",
-      borderRadius: BorderRadius.circular(10),
-      elevation: 3,
-      dropdownColor: Color(MyColors.bg),
-      icon: Icon(
-        Icons.arrow_downward,
-        color: Color(MyColors.bg01),
+    return Padding(
+      padding: EdgeInsets.only(left: context.dynamicWidth * 0.02),
+      child: DropdownButtonFormField<String>(
+        decoration: InputDecoration(
+          contentPadding: context.paddingDefault,
+          alignLabelWithHint: true,
+          border: CommonInputBorder.border,
+        ),
+        //validator: (value) => "${widget.listName} boş olamaz!",
+        isExpanded: true,
+        borderRadius: BorderRadius.circular(10),
+        elevation: 3,
+        dropdownColor: Color(MyColors.bg),
+        icon: Icon(
+          Icons.arrow_downward,
+          color: Color(MyColors.bg01),
+        ),
+        hint: Text(
+          widget.listName,
+          style: purpleTxtStyle,
+          overflow: TextOverflow.ellipsis,
+        ),
+        style: TextStyle(
+          fontSize: 15,
+          color: Color(MyColors.bg01),
+        ),
+        onChanged: (String? selectedItem) {
+          setState(() {
+            widget.selectedItem = selectedItem;
+            widget.selectedItemIndex =
+                widget.list.indexOf(selectedItem.toString());
+            print("SEÇİLEN İNDEX == ${widget.selectedItemIndex}");
+          });
+        },
+        items: widget.list
+            .map((String? oankiBirim) => DropdownMenuItem(
+                  value: oankiBirim,
+                  child: Text(
+                    oankiBirim!,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ))
+            .toList(),
+        value: widget.selectedItem,
+        autovalidateMode: AutovalidateMode.always,
+        onSaved: (newValue) {
+          widget.selectedItemIndex = widget.list.indexOf(newValue.toString());
+        },
       ),
-      hint: Text(
-        widget.listName,
-        style: purpleTxtStyle,
-      ),
-      style: TextStyle(
-        fontSize: 15,
-        color: Color(MyColors.bg01),
-      ),
-      onChanged: (String? selectedItem) {
-        setState(() {
-          widget.selectedItem = selectedItem;
-          widget.selectedItemIndex =
-              widget.list.indexOf(selectedItem.toString());
-          print("SEÇİLEN İNDEX == ${widget.selectedItemIndex}");
-        });
-      },
-      items: widget.list
-          .map((String? oankiBirim) => DropdownMenuItem(
-                value: oankiBirim,
-                child: Text(
-                  oankiBirim!,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ))
-          .toList(),
-      value: widget.selectedItem,
-      autovalidateMode: AutovalidateMode.always,
-      onSaved: (newValue) {
-        widget.selectedItemIndex = widget.list.indexOf(newValue.toString());
-      },
     );
   }
 }

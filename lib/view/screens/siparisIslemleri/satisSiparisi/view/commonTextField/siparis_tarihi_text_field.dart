@@ -15,7 +15,6 @@ class SiparisTarihiTextField extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateTime dateTimeBaslangic = DateTime.parse(DateTime.now().toString());
     DateTime dateTimeBitis = DateTime.parse(
         "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}");
     final dateTimeBitiss = useState(DateTime.parse(
@@ -45,21 +44,47 @@ class SiparisTarihiTextField extends HookWidget {
               MyColors.bg01,
             ),
           ),
-          prefixIcon: IconButton(
-            onPressed: () async {
-              // siparisTarihiController.text =
-              //     "${dateTimeBitis.year}-${dateTimeBitis.month}-${dateTimeBitis.day}";
+          suffix: InkWell(
+            onTap: () async {
               await showDatePicker(
                       context: context,
                       initialDate: dateTimeBitis,
                       firstDate: DateTime.now(),
+                      builder: (context, child) {
+                        return Theme(
+                          data: Theme.of(context).copyWith(
+                            colorScheme: ColorScheme.light(
+                              primary: Color(
+                                MyColors.bg01,
+                              ),
+                              onPrimary: Colors.white,
+                              onSurface: Color(MyColors.bg01),
+                            ),
+                            textButtonTheme: TextButtonThemeData(
+                              style: TextButton.styleFrom(
+                                foregroundColor: Color(
+                                  MyColors.bg01,
+                                ),
+                              ),
+                            ),
+                          ),
+                          child: child!,
+                        );
+                      },
                       lastDate: DateTime(Constants.lastDateinApp))
                   .then((secilenTarih) {
                 dateTimeBitiss.value = secilenTarih!;
                 siparisTarihiController.text = dateTimeBitiss.value.toString();
               });
             },
-            icon: const Icon(Icons.date_range),
+            child: Icon(Icons.question_mark,
+                size: 20,
+                color: Color(
+                  MyColors.bg01,
+                )),
+          ),
+          prefixIcon: Icon(
+            Icons.date_range,
             color: Color(MyColors.bg01),
           ),
           errorBorder: CommonInputBorder.errorBorder,

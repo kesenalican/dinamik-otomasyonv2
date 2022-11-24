@@ -1,12 +1,14 @@
-import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
+import 'package:dinamik_otomasyon/view/common/common_button.dart';
 import 'package:dinamik_otomasyon/view/common/common_input_border.dart';
 import 'package:dinamik_otomasyon/view/common/common_textfield.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/common/common_dropdown.dart';
+import 'package:dinamik_otomasyon/view/screens/authenticate/login/viewmodel/login_view_model.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_model.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/model/siparisler.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/service/satis_siparisi_service.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/common/iskonto_page.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/cari_kod_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/cari_personel_text_field.dart';
-import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/common_iskonto_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/depo_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/kur_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/odeme_plani_text_field.dart';
@@ -15,6 +17,7 @@ import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/vi
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/sorm_merkezi_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/stok_kod_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/teslim_turu_text_field.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/viewmodel/satis_siparisi_view_model.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
@@ -34,14 +37,16 @@ class YeniSatisSiparisi extends HookConsumerWidget {
     final belgeNoController = useTextEditingController(text: '');
     final cariKodController = useTextEditingController(text: '');
     final cariIsimController = useTextEditingController(text: '');
-    final dovizController = useTextEditingController(text: '');
+    final dovizController = useTextEditingController(text: 'Türk Lirası');
     final projeController = useTextEditingController(text: '');
     final sormMerkeziController = useTextEditingController(text: '');
-    final odemePlaniController = useTextEditingController(text: '');
-    final depoController = useTextEditingController(text: '');
+    final odemePlaniController = useTextEditingController(text: 'PEŞİN');
+    final depoController = useTextEditingController(text: 'Merkez depo');
     final saticiController = useTextEditingController(text: '');
     final teslimTuruController = useTextEditingController(text: '');
-    final siparisTarihiController = useTextEditingController(text: '');
+    final siparisTarihiController = useTextEditingController(
+        text:
+            "${DateTime.now().year} - ${DateTime.now().month} - ${DateTime.now().day}");
     final isk1Controller = useTextEditingController(text: '');
     final isk2Controller = useTextEditingController(text: '');
     final isk3Controller = useTextEditingController(text: '');
@@ -59,10 +64,8 @@ class YeniSatisSiparisi extends HookConsumerWidget {
     final birimFiyatController = useTextEditingController(text: '');
     final sipTutariController = useTextEditingController(text: '');
     final aciklamaController = useTextEditingController(text: '');
-    final miktar = useState(double);
-    final fiyat = useState(double);
-    final tutar = useState(double);
-
+    var viewModel = ref.watch(satisSiparisViewModel);
+    var currentUser = ref.watch(currentUserProvider);
     return SingleChildScrollView(
       child: Form(
         key: formKey,
@@ -102,6 +105,7 @@ class YeniSatisSiparisi extends HookConsumerWidget {
             TeslimTuruTextField(teslimTuruController: teslimTuruController),
             SiparisTarihiTextField(
                 siparisTarihiController: siparisTarihiController),
+            Text("Ürün Bilgisi", style: purpleBoldTxtStyle),
             Divider(
               color: Color(
                 MyColors.bg01,
@@ -110,6 +114,7 @@ class YeniSatisSiparisi extends HookConsumerWidget {
               endIndent: 50,
               thickness: 2,
             ),
+
             StokKodTextField(
               stokKoduController: stokKoduController,
               stokIsmiController: stokIsmiController,
@@ -147,12 +152,8 @@ class YeniSatisSiparisi extends HookConsumerWidget {
               isMandatory: true,
               textInputType: TextInputType.number,
               onFieldSubmit: (value) {
-                if (value!.isNotEmpty && value != null) {
-                  var miktar = double.parse(value);
-                  var fiyat = double.parse(birimFiyatController.text);
-                  var toplam = miktar * fiyat;
-                  sipTutariController.text = toplam.toString();
-                }
+                viewModel.calculateTotalPrice(
+                    value, birimFiyatController, sipTutariController);
               },
             ),
             CommonTextField(
@@ -165,6 +166,56 @@ class YeniSatisSiparisi extends HookConsumerWidget {
               isMandatory: true,
               readOnly: true,
               textInputType: TextInputType.number,
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => IskontoEkle(
+                              isk1Controller: isk1Controller,
+                              isk2Controller: isk2Controller,
+                              isk3Controller: isk3Controller,
+                              isk4Controller: isk4Controller,
+                              isk5Controller: isk5Controller,
+                              isk6Controller: isk6Controller,
+                              sipTutariController: sipTutariController,
+                              mas1Controller: mas1Controller,
+                              mas2Controller: mas2Controller,
+                              mas3Controller: mas3Controller,
+                              mas4Controller: mas4Controller,
+                            )));
+              },
+              child: Container(
+                margin: EdgeInsets.symmetric(
+                    vertical: context.dynamicHeight * 0.006,
+                    horizontal: context.dynamicWidth * 0.05),
+                padding: context.paddingDefault,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Color(MyColors.bg03),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(
+                    color: Color(MyColors.bg01),
+                    width: 2,
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Icon(
+                      Icons.add_box_rounded,
+                      color: Color(
+                        MyColors.bg01,
+                      ),
+                    ),
+                    Text(
+                      "İskonto Ekle",
+                      style: purpleTxtStyle,
+                    ),
+                  ],
+                ),
+              ),
             ),
             Row(
               children: [
@@ -180,296 +231,23 @@ class YeniSatisSiparisi extends HookConsumerWidget {
                     textInputType: TextInputType.name,
                   ),
                 ),
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    children: [
-                      Text(
-                        "İskonto Ekle",
-                        style: purpleTxtStyle,
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return SimpleDialog(
-                                  title: Text(
-                                    "İskontolar",
-                                    style: purpleTxtStyle,
-                                  ),
-                                  children: [
-                                    const Padding(padding: EdgeInsets.all(8)),
-                                    buildIskFirstLine(isk1Controller,
-                                        isk2Controller, isk3Controller),
-                                    buildIskSecondLine(isk4Controller,
-                                        isk5Controller, isk6Controller),
-                                    SizedBox(
-                                      height: context.dynamicHeight * 0.05,
-                                    ),
-                                    Text(
-                                      "Masraflar",
-                                      style: purpleBoldTxtStyle,
-                                    ),
-                                    buildMasFirstLine(mas1Controller, mas2Controller),
-                                    buildMasSecondLine(mas3Controller, mas4Controller),
-                                    Row(
-                                      children: [
-                                        Spacer(),
-                                        Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: TextButton(
-                                              style: ButtonStyle(
-                                                backgroundColor:
-                                                    MaterialStateProperty.all(
-                                                        Color(MyColors.bg)),
-                                              ),
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: Text(
-                                                "Kapat",
-                                                style: purpleTxtStyle,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Expanded(
-                                            child: TextButton(
-                                              style: ButtonStyle(
-                                                backgroundColor:
-                                                    MaterialStateProperty.all(
-                                                        Color(MyColors.bg01)),
-                                              ),
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: const Text(
-                                                "İskontoyu kaydet",
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                );
-                              });
-                        },
-                        icon: Icon(
-                          Icons.add_box_outlined,
-                          color: Color(
-                            MyColors.bg01,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
               ],
+            ),
+            InkWell(
+              onTap: () {
+                if (!formKey.currentState!.validate()) {
+                  Navigator.pop(context);
+                  return;
+                }
+            
+              },
+              child: CommonButton(
+                buttonName: "Siparişi Kaydet",
+              ),
             ),
           ],
         ),
       ),
-    );
-  }
-
-  Row buildMasSecondLine(TextEditingController mas3Controller, TextEditingController mas4Controller) {
-    return Row(
-                                    children: [
-                                      Expanded(
-                                          child: Text(
-                                        "Masraf3%",
-                                        overflow: TextOverflow.ellipsis,
-                                        style: purpleTxtStyle,
-                                      )),
-                                      Expanded(
-                                        child: CommonIskTextField(
-                                          validator: (p0) => null,
-                                          controller: mas3Controller,
-                                          field: "",
-                                          icon: Icons.discount,
-                                          isMandatory: false,
-                                          textInputType: TextInputType.number,
-                                        ),
-                                      ),
-                                      Expanded(
-                                          child: Text(
-                                        "Masraf4%",
-                                        overflow: TextOverflow.ellipsis,
-                                        style: purpleTxtStyle,
-                                      )),
-                                      Expanded(
-                                        child: CommonIskTextField(
-                                          validator: (p0) => null,
-                                          controller: mas4Controller,
-                                          field: "",
-                                          icon: Icons.discount,
-                                          isMandatory: false,
-                                          textInputType: TextInputType.number,
-                                        ),
-                                      ),
-                                    ],
-                                  );
-  }
-
-  Row buildMasFirstLine(TextEditingController mas1Controller, TextEditingController mas2Controller) {
-    return Row(
-                                    children: [
-                                      Expanded(
-                                          child: Text(
-                                        "Masraf1%",
-                                        overflow: TextOverflow.ellipsis,
-                                        style: purpleTxtStyle,
-                                      )),
-                                      Expanded(
-                                        child: CommonIskTextField(
-                                          validator: (p0) => null,
-                                          controller: mas1Controller,
-                                          field: "",
-                                          icon: Icons.discount,
-                                          isMandatory: false,
-                                          textInputType: TextInputType.number,
-                                        ),
-                                      ),
-                                      Expanded(
-                                          child: Text(
-                                        "Masraf2%",
-                                        overflow: TextOverflow.ellipsis,
-                                        style: purpleTxtStyle,
-                                      )),
-                                      Expanded(
-                                        child: CommonIskTextField(
-                                          validator: (p0) => null,
-                                          controller: mas2Controller,
-                                          field: "",
-                                          icon: Icons.discount,
-                                          isMandatory: false,
-                                          textInputType: TextInputType.number,
-                                        ),
-                                      ),
-                                    ],
-                                  );
-  }
-
-  Row buildIskSecondLine(
-      TextEditingController isk4Controller,
-      TextEditingController isk5Controller,
-      TextEditingController isk6Controller) {
-    return Row(
-      children: [
-        Expanded(
-            child: Text(
-          "İsk4%",
-          overflow: TextOverflow.ellipsis,
-          style: purpleTxtStyle,
-        )),
-        Expanded(
-          child: CommonIskTextField(
-            validator: (p0) => null,
-            controller: isk4Controller,
-            field: "İskonto-1 ",
-            icon: Icons.discount,
-            isMandatory: false,
-            textInputType: TextInputType.number,
-          ),
-        ),
-        Expanded(
-            child: Text(
-          "İsk5%",
-          overflow: TextOverflow.ellipsis,
-          style: purpleTxtStyle,
-        )),
-        Expanded(
-          child: CommonIskTextField(
-            validator: (p0) => null,
-            controller: isk5Controller,
-            field: "İskonto-1 ",
-            icon: Icons.discount,
-            isMandatory: false,
-            textInputType: TextInputType.number,
-          ),
-        ),
-        Expanded(
-            child: Text(
-          "İsk6%",
-          overflow: TextOverflow.ellipsis,
-          style: purpleTxtStyle,
-        )),
-        Expanded(
-          child: CommonIskTextField(
-            validator: (p0) => null,
-            controller: isk6Controller,
-            field: "İskonto-1 ",
-            icon: Icons.discount,
-            isMandatory: false,
-            textInputType: TextInputType.number,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Row buildIskFirstLine(
-      TextEditingController isk1Controller,
-      TextEditingController isk2Controller,
-      TextEditingController isk3Controller) {
-    return Row(
-      children: [
-        Expanded(
-            child: Text(
-          "İsk1%",
-          overflow: TextOverflow.ellipsis,
-          style: purpleTxtStyle,
-        )),
-        Expanded(
-          child: CommonIskTextField(
-            validator: (p0) => null,
-            controller: isk1Controller,
-            field: "İskonto-1 ",
-            icon: Icons.discount,
-            isMandatory: false,
-            textInputType: TextInputType.number,
-          ),
-        ),
-        Expanded(
-            child: Text(
-          "İsk2%",
-          overflow: TextOverflow.ellipsis,
-          style: purpleTxtStyle,
-        )),
-        Expanded(
-          child: CommonIskTextField(
-            validator: (p0) => null,
-            controller: isk2Controller,
-            field: "İskonto-1 ",
-            icon: Icons.discount,
-            isMandatory: false,
-            textInputType: TextInputType.number,
-          ),
-        ),
-        Expanded(
-            child: Text(
-          "İsk3%",
-          overflow: TextOverflow.ellipsis,
-          style: purpleTxtStyle,
-        )),
-        Expanded(
-          child: CommonIskTextField(
-            validator: (p0) => null,
-            controller: isk3Controller,
-            field: "İskonto-1 ",
-            icon: Icons.discount,
-            isMandatory: false,
-            textInputType: TextInputType.number,
-          ),
-        ),
-      ],
     );
   }
 

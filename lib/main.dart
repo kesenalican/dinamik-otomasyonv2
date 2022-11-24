@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: [],
       title: Constants.DINAMIK_OTOMASYON,
       onGenerateRoute: RouteGenerator.routeGenerator,
       home: Login(),

@@ -28,6 +28,7 @@ showAlertDialog(
     content: Text(
       hataIcerik!,
       style: purpleTxtStyle,
+      overflow: TextOverflow.ellipsis,
     ),
     actions: [
       okButton,
