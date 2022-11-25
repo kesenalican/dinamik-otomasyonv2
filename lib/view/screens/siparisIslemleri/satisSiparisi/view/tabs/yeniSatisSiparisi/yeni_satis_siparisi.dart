@@ -1,3 +1,4 @@
+import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/common/common_button.dart';
 import 'package:dinamik_otomasyon/view/common/common_input_border.dart';
@@ -10,6 +11,7 @@ import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/vi
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/cari_kod_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/cari_personel_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/depo_text_field.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/evrak_no_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/kur_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/odeme_plani_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/proje_text_field.dart';
@@ -41,12 +43,11 @@ class YeniSatisSiparisi extends HookConsumerWidget {
     final projeController = useTextEditingController(text: '');
     final sormMerkeziController = useTextEditingController(text: '');
     final odemePlaniController = useTextEditingController(text: 'PEŞİN');
-    final depoController = useTextEditingController(text: 'Merkez depo');
+    final depoController = useTextEditingController(text: "1");
     final saticiController = useTextEditingController(text: '');
     final teslimTuruController = useTextEditingController(text: '');
-    final siparisTarihiController = useTextEditingController(
-        text:
-            "${DateTime.now().year} - ${DateTime.now().month} - ${DateTime.now().day}");
+    final siparisTarihiController =
+        useTextEditingController(text: DateTime.now().toString());
     final isk1Controller = useTextEditingController(text: '');
     final isk2Controller = useTextEditingController(text: '');
     final isk3Controller = useTextEditingController(text: '');
@@ -66,13 +67,30 @@ class YeniSatisSiparisi extends HookConsumerWidget {
     final aciklamaController = useTextEditingController(text: '');
     var viewModel = ref.watch(satisSiparisViewModel);
     var currentUser = ref.watch(currentUserProvider);
+    var evrakNo = ref.watch(evrakBilgileriProvider);
+    evrakNo.hasValue
+        ? evrakNoController.text = (evrakNo.value!.length).toString()
+        : null;
+
     return SingleChildScrollView(
       child: Form(
         key: formKey,
         child: Column(
           children: [
             //EVRAK NO
-            buildEvrakNoTextField(evrakSeriController, evrakNoController),
+            CommonTextField(
+              validator: (value) => null,
+              controller: evrakSeriController,
+              field: "Evrak Seri",
+              icon: Icons.document_scanner,
+              isMandatory: false,
+              readOnly: false,
+              textInputType: TextInputType.name,
+            ),
+            EvrakNoTextField(
+              evrakNoController: evrakNoController,
+            ),
+
             CommonTextField(
               validator: (value) => null,
               controller: belgeNoController,
@@ -105,6 +123,12 @@ class YeniSatisSiparisi extends HookConsumerWidget {
             TeslimTuruTextField(teslimTuruController: teslimTuruController),
             SiparisTarihiTextField(
                 siparisTarihiController: siparisTarihiController),
+            InkWell(
+              onTap: () {},
+              child: CommonButton(
+                buttonName: "Ürün Gir",
+              ),
+            ),
             Text("Ürün Bilgisi", style: purpleBoldTxtStyle),
             Divider(
               color: Color(
@@ -239,7 +263,62 @@ class YeniSatisSiparisi extends HookConsumerWidget {
                   Navigator.pop(context);
                   return;
                 }
-            
+                ref
+                    .watch(satisSiparisiSaveProvider(Siparisler(
+                  sipCreateUser: currentUser.currentUser!.kullaniciNo,
+                  sipLastupUser: currentUser.currentUser!.kullaniciNo,
+                  sipTip: 0,
+                  sipEvraknoSira: int.parse(evrakNoController.text),
+                  sipSatirno: 0,
+                  sipSaticiKod: saticiController.text,
+                  sipMusteriKod: cariKodController.text,
+                  sipStokKod: stokKoduController.text,
+                  sipBFiyat: double.parse(birimFiyatController.text),
+                  sipMiktar: int.parse(stokMiktariController.text),
+                  sipTeslimMiktar: int.parse(stokMiktariController.text),
+                  sipTutar: double.parse(sipTutariController.text),
+                  siparislerSipIskonto1: int.parse(isk1Controller.text),
+                  siparislerSipIskonto2: 0,
+                  siparislerSipIskonto3: 0,
+                  siparislerSipIskonto4: 0,
+                  siparislerSipIskonto5: 0,
+                  siparislerSipIskonto6: 0,
+                  siparislerSipMasraf1: 0,
+                  siparislerSipMasraf2: 0,
+                  siparislerSipMasraf3: 0,
+                  siparislerSipMasraf4: 0,
+                  sipAciklama: aciklamaController.text,
+                  sipDepono: int.parse(depoController.text),
+                  sipOnaylayanKulNo: currentUser.currentUser!.kullaniciNo,
+                  sipDovizCinsi: 1,
+                )).future)
+                    .then((value) {
+                  return showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          content: Text(
+                            "Sipariş Başarıyla Kaydedildi!",
+                            style: purpleTxtStyle,
+                          ),
+                          actions: [
+                            TextButton(
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(
+                                    Color(MyColors.bg01)),
+                              ),
+                              onPressed: () {
+                                
+                              },
+                              child: const Text(
+                                Constants.OK,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ],
+                        );
+                      });
+                });
               },
               child: CommonButton(
                 buttonName: "Siparişi Kaydet",
@@ -248,38 +327,6 @@ class YeniSatisSiparisi extends HookConsumerWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Row buildEvrakNoTextField(TextEditingController evrakSeriController,
-      TextEditingController evrakNoController) {
-    return Row(
-      children: [
-        Expanded(
-          flex: 1,
-          child: CommonTextField(
-            validator: (value) => null,
-            controller: evrakSeriController,
-            field: "Evrak Seri",
-            icon: Icons.document_scanner,
-            isMandatory: false,
-            readOnly: false,
-            textInputType: TextInputType.name,
-          ),
-        ),
-        Expanded(
-          flex: 2,
-          child: CommonTextField(
-            validator: (value) => null,
-            controller: evrakNoController,
-            field: "Evrak no",
-            icon: Icons.document_scanner,
-            isMandatory: false,
-            readOnly: false,
-            textInputType: TextInputType.name,
-          ),
-        ),
-      ],
     );
   }
 }

@@ -133,6 +133,7 @@ class Constants {
   static const String VERGI_DAIRESI_SECINIZ = "Vergi Dairesi Seçiniz";
   static const String dovizKuruSeciniz = "Döviz Kuru";
   static const String projeSeciniz = "Proje";
+  static const String evrakNo = "Evrak No";
   static const String sorumlulukMerkezi = "Sorumluluk Merkezi";
   static const String depoSeciniz = "Depo Seçiniz";
   static const String teslimTuruSeciniz = "Teslim Türü Seçiniz";

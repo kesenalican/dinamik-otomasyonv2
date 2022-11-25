@@ -1,10 +1,8 @@
 import 'package:dinamik_otomasyon/core/base/service/base_provider.dart';
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
-import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/model/evrak_bilgileri.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/model/siparisler.dart';
-import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/satis_siparisi.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final satisSiparisiSaveProvider = FutureProvider.autoDispose
@@ -15,7 +13,10 @@ final satisSiparisiSaveProvider = FutureProvider.autoDispose
     result = await dio.post(ConstantProvider.satisSiparisi, data: {
       "sip_create_user": siparis.sipCreateUser,
       "sip_lastup_user": siparis.sipLastupUser,
-      "sip_teslim_tarih": siparis.sipTeslimTarih,
+      "sip_doviz_cinsi": siparis.sipDovizCinsi,
+      "sip_tip": siparis.sipTip,
+      "sip_evrakno_sira": siparis.sipEvraknoSira,
+      "sip_satirno": siparis.sipSatirno,
       "sip_satici_kod": siparis.sipSaticiKod,
       "sip_musteri_kod": siparis.sipMusteriKod,
       "sip_stok_kod": siparis.sipStokKod,
@@ -33,10 +34,9 @@ final satisSiparisiSaveProvider = FutureProvider.autoDispose
       "sip_masraf_2": siparis.siparislerSipMasraf2,
       "sip_masraf_3": siparis.siparislerSipMasraf3,
       "sip_masraf_4": siparis.siparislerSipMasraf4,
-      "sip_vergi": siparis.sipVergi,
       "sip_aciklama": siparis.sipAciklama,
+      "sip_OnaylayanKulNo": siparis.sipOnaylayanKulNo,
       "sip_depono": siparis.sipDepono,
-      "sip_teslimturu": siparis.sipTeslimturu,
     });
     if (result.statusCode == 200) {
       List<Map<String, dynamic>> mapData = List.from(result.data);
@@ -45,12 +45,26 @@ final satisSiparisiSaveProvider = FutureProvider.autoDispose
       return siparisList;
     }
   } catch (e) {
-    BuildContext? context;
-    return showAlertDialog(
-      context: context,
-      hataBaslik: "Sipariş Kayıt Hatası",
-      hataIcerik: e.toString(),
-    );
+    Future.delayed(const Duration(milliseconds: 500), () {
+      print("HATAAA== " + e.toString());
+      // showAlertDialog(
+      //   context: context,
+      //   hataBaslik: "Sipariş Kayıt Hatası",
+      //   hataIcerik: e.toString(),
+      // );
+    });
   }
   return [];
 }));
+
+//#region Cariler
+final evrakBilgileriProvider =
+    FutureProvider.autoDispose<List<EvrakBilgileri>>((ref) async {
+  final dio = ref.watch(httpClientProvider);
+  final result = await dio.get("EvrakBilgileri");
+  List<Map<String, dynamic>> mapData = List.from(result.data);
+  List<EvrakBilgileri> evrakList =
+      mapData.map((e) => EvrakBilgileri.fromMap(e)).toList();
+  return evrakList;
+});
+//#endregion

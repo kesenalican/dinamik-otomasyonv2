@@ -10,38 +10,16 @@ String siparislerToMap(Siparisler data) => json.encode(data.toMap());
 
 class Siparisler {
   Siparisler({
-    required this.sipDbCno,
-    required this.sipSpecReCno,
-    required this.sipIptal,
-    required this.sipFileid,
-    required this.sipHidden,
-    required this.sipKilitli,
-    required this.sipDegisti,
-    required this.sipChecksum,
     required this.sipCreateUser,
-    required this.sipCreateDate,
     required this.sipLastupUser,
-    required this.sipLastupDate,
-    required this.sipSpecial1,
-    required this.sipSpecial2,
-    required this.sipSpecial3,
-    required this.sipFirmano,
-    required this.sipSubeno,
-    required this.sipTarih,
-    required this.sipTeslimTarih,
     required this.sipTip,
-    required this.sipCins,
-    required this.sipEvraknoSeri,
     required this.sipEvraknoSira,
     required this.sipSatirno,
-    required this.sipBelgeno,
-    required this.sipBelgeTarih,
     required this.sipSaticiKod,
     required this.sipMusteriKod,
     required this.sipStokKod,
     required this.sipBFiyat,
     required this.sipMiktar,
-    required this.sipBirimPntr,
     required this.sipTeslimMiktar,
     required this.sipTutar,
     required this.siparislerSipIskonto1,
@@ -54,116 +32,44 @@ class Siparisler {
     required this.siparislerSipMasraf2,
     required this.siparislerSipMasraf3,
     required this.siparislerSipMasraf4,
-    required this.sipVergiPntr,
-    required this.sipVergi,
-    required this.sipMasvergiPntr,
-    required this.sipMasvergi,
-    required this.sipOpno,
     required this.sipAciklama,
-    required this.sipAciklama2,
     required this.sipDepono,
     required this.sipOnaylayanKulNo,
-    required this.sipVergisizFl,
-    required this.sipKapatFl,
-    required this.sipPromosyonFl,
-    required this.sipCariSormerk,
-    required this.sipStokSormerk,
-    required this.sipCariGrupno,
     required this.sipDovizCinsi,
-    required this.sipDovizKuru,
-    required this.sipAltDovizKuru,
-    required this.sipAdresno,
-    required this.sipTeslimturu,
-    required this.sipCagrilabilirFl,
-    required this.sipIskonto1,
-    required this.sipIskonto2,
-    required this.sipIskonto3,
-    required this.sipIskonto4,
-    required this.sipIskonto5,
-    required this.sipIskonto6,
-    required this.sipMasraf1,
-    required this.sipMasraf2,
-    required this.sipMasraf3,
-    required this.sipMasraf4,
-    required this.sipIsk1,
-    required this.sipIsk2,
-    required this.sipIsk3,
-    required this.sipIsk4,
-    required this.sipIsk5,
-    required this.sipIsk6,
-    required this.sipMas1,
-    required this.sipMas2,
-    required this.sipMas3,
-    required this.sipMas4,
-    required this.sipExpImpKodu,
-    required this.sipKarOrani,
-    required this.sipDurumu,
-    required this.sipPlanlananmiktar,
-    required this.sipTeklifUid,
-    required this.sipPartiKodu,
-    required this.sipLotNo,
-    required this.sipProjekodu,
-    required this.sipFiyatListeNo,
-    required this.sipOtvPntr,
-    required this.sipOtvVergi,
-    required this.sipOtvtutari,
-    required this.sipOtvVergisizFl,
-    required this.sipPaketKod,
-    required this.sipHarekettipi,
-    required this.sipKapatmanedenkod,
-    required this.sipGecerlilikTarihi,
-    required this.sipOnodemeEvrakTip,
-    required this.sipOnodemeEvrakSeri,
-    required this.sipOnodemeEvrakSira,
-    required this.sipRezervasyonMiktari,
-    required this.sipRezervedenTeslimEdilen,
-    required this.sipHareketGrupKodu1,
-    required this.sipHareketGrupKodu2,
-    required this.sipHareketGrupKodu3,
-    required this.sipOlcu1,
-    required this.sipOlcu2,
-    required this.sipOlcu3,
-    required this.sipOlcu4,
-    required this.sipOlcu5,
-    required this.sipFormulMiktarNo,
-    required this.sipFormulMiktar,
-    required this.sipSatisFiyatDovizCinsi,
-    required this.sipSatisFiyatDovizKuru,
-    required this.sipEticaretKanalKodu,
   });
 
-  final int sipDbCno;
-  final int sipSpecReCno;
-  final bool sipIptal;
-  final int sipFileid;
-  final bool sipHidden;
-  final bool sipKilitli;
-  final bool sipDegisti;
-  final int sipChecksum;
+  final int? sipDbCno = 0;
+  final int? sipSpecReCno = 0;
+  final bool? sipIptal = false;
+  final int sipFileid = 21;
+  final bool? sipHidden = false;
+  final bool? sipKilitli = false;
+  final bool? sipDegisti = false;
+  final int? sipChecksum = 0;
   final int sipCreateUser;
-  final DateTime sipCreateDate;
+  final DateTime sipCreateDate = DateTime.now();
   final int sipLastupUser;
-  final DateTime sipLastupDate;
-  final String sipSpecial1;
-  final String sipSpecial2;
-  final String sipSpecial3;
-  final int sipFirmano;
-  final int sipSubeno;
-  final DateTime sipTarih;
-  final DateTime sipTeslimTarih;
+  final DateTime? sipLastupDate = DateTime.now();
+  final String? sipSpecial1 = "";
+  final String? sipSpecial2 = "";
+  final String? sipSpecial3 = "";
+  final int? sipFirmano = 0;
+  final int? sipSubeno = 0;
+  final DateTime sipTarih = DateTime.now();
+  final DateTime? sipTeslimTarih = DateTime.now();
   final int sipTip;
-  final int sipCins;
-  final String sipEvraknoSeri;
+  final int? sipCins = 0;
+  final String? sipEvraknoSeri = "";
   final int sipEvraknoSira;
   final int sipSatirno;
-  final String sipBelgeno;
-  final DateTime sipBelgeTarih;
+  final String sipBelgeno = "";
+  final DateTime sipBelgeTarih = DateTime.now();
   final String sipSaticiKod;
   final String sipMusteriKod;
   final String sipStokKod;
   final double sipBFiyat;
   final int sipMiktar;
-  final int sipBirimPntr;
+  final int sipBirimPntr = 0;
   final int sipTeslimMiktar;
   final double sipTutar;
   final int siparislerSipIskonto1;
@@ -176,120 +82,95 @@ class Siparisler {
   final int siparislerSipMasraf2;
   final int siparislerSipMasraf3;
   final int siparislerSipMasraf4;
-  final int sipVergiPntr;
-  final double sipVergi;
-  final int sipMasvergiPntr;
-  final int sipMasvergi;
-  final int sipOpno;
+  final int sipVergiPntr = 0;
+  final double sipVergi = 0;
+  final int sipMasvergiPntr = 0;
+  final int sipMasvergi = 0;
+  final int sipOpno = 0;
   final String sipAciklama;
-  final String sipAciklama2;
+  final String sipAciklama2 = "";
   final int sipDepono;
   final int sipOnaylayanKulNo;
-  final bool sipVergisizFl;
-  final bool sipKapatFl;
-  final bool sipPromosyonFl;
-  final String sipCariSormerk;
-  final String sipStokSormerk;
-  final int sipCariGrupno;
+  final bool sipVergisizFl = false;
+  final bool sipKapatFl = false;
+  final bool sipPromosyonFl = false;
+  final String sipCariSormerk = "";
+  final String sipStokSormerk = "";
+  final int sipCariGrupno = 0;
   final int sipDovizCinsi;
-  final int sipDovizKuru;
-  final double sipAltDovizKuru;
-  final int sipAdresno;
-  final String sipTeslimturu;
-  final bool sipCagrilabilirFl;
+  final int sipDovizKuru = 0;
+  final double sipAltDovizKuru = 0;
+  final int sipAdresno = 0;
+  final String sipTeslimturu = "";
+  final bool sipCagrilabilirFl = false;
+  final int sipIskonto1 = 0;
+  final int sipIskonto2 = 0;
+  final int sipIskonto3 = 0;
+  final int sipIskonto4 = 0;
+  final int sipIskonto5 = 0;
+  final int sipIskonto6 = 0;
+  final int sipMasraf1 = 0;
+  final int sipMasraf2 = 0;
+  final int sipMasraf3 = 0;
+  final int sipMasraf4 = 0;
+  final bool sipIsk1 = false;
+  final bool sipIsk2 = false;
+  final bool sipIsk3 = false;
+  final bool sipIsk4 = false;
+  final bool sipIsk5 = false;
+  final bool sipIsk6 = false;
+  final bool sipMas1 = false;
+  final bool sipMas2 = false;
+  final bool sipMas3 = false;
+  final bool sipMas4 = false;
+  final String sipExpImpKodu = "";
+  final int sipKarOrani = 0;
+  final int sipDurumu = 0;
 
-  final int sipIskonto1;
-  final int sipIskonto2;
-  final int sipIskonto3;
-  final int sipIskonto4;
-  final int sipIskonto5;
-  final int sipIskonto6;
-  final int sipMasraf1;
-  final int sipMasraf2;
-  final int sipMasraf3;
-  final int sipMasraf4;
-  final bool sipIsk1;
-  final bool sipIsk2;
-  final bool sipIsk3;
-  final bool sipIsk4;
-  final bool sipIsk5;
-  final bool sipIsk6;
-  final bool sipMas1;
-  final bool sipMas2;
-  final bool sipMas3;
-  final bool sipMas4;
-  final String sipExpImpKodu;
-  final int sipKarOrani;
-  final int sipDurumu;
-
-  final int sipPlanlananmiktar;
-  final String sipTeklifUid;
-  final String sipPartiKodu;
-  final int sipLotNo;
-  final String sipProjekodu;
-  final int sipFiyatListeNo;
-  final int sipOtvPntr;
-  final int sipOtvVergi;
-  final int sipOtvtutari;
-  final int sipOtvVergisizFl;
-  final String sipPaketKod;
-
-  final int sipHarekettipi;
-
-  final String sipKapatmanedenkod;
-  final DateTime sipGecerlilikTarihi;
-  final int sipOnodemeEvrakTip;
-  final String sipOnodemeEvrakSeri;
-  final int sipOnodemeEvrakSira;
-  final int sipRezervasyonMiktari;
-  final int sipRezervedenTeslimEdilen;
-  final String sipHareketGrupKodu1;
-  final String sipHareketGrupKodu2;
-  final String sipHareketGrupKodu3;
-  final int sipOlcu1;
-  final int sipOlcu2;
-  final int sipOlcu3;
-  final int sipOlcu4;
-  final int sipOlcu5;
-  final int sipFormulMiktarNo;
-  final int sipFormulMiktar;
-  final int sipSatisFiyatDovizCinsi;
-  final int sipSatisFiyatDovizKuru;
-  final String sipEticaretKanalKodu;
+  final int sipPlanlananmiktar = 0;
+  final String sipPartiKodu = "";
+  final int sipLotNo = 0;
+  final String sipProjekodu = "";
+  final int sipFiyatListeNo = 0;
+  final int sipOtvPntr = 0;
+  final int sipOtvVergi = 0;
+  final int sipOtvtutari = 0;
+  final int sipOtvVergisizFl = 0;
+  final String sipPaketKod = "";
+  final int sipHarekettipi = 0;
+  final String sipKapatmanedenkod = "";
+  final DateTime sipGecerlilikTarihi = DateTime.now();
+  final int sipOnodemeEvrakTip = 0;
+  final String sipOnodemeEvrakSeri = "";
+  final int sipOnodemeEvrakSira = 0;
+  final int sipRezervasyonMiktari = 0;
+  final int sipRezervedenTeslimEdilen = 0;
+  final String sipHareketGrupKodu1 = "";
+  final String sipHareketGrupKodu2 = "";
+  final String sipHareketGrupKodu3 = "";
+  final int sipOlcu1 = 0;
+  final int sipOlcu2 = 0;
+  final int sipOlcu3 = 0;
+  final int sipOlcu4 = 0;
+  final int sipOlcu5 = 0;
+  final int sipFormulMiktarNo = 0;
+  final int sipFormulMiktar = 0;
+  final int sipSatisFiyatDovizCinsi = 0;
+  final int sipSatisFiyatDovizKuru = 0;
+  final String sipEticaretKanalKodu = "";
 
   factory Siparisler.fromMap(Map<String, dynamic> json) => Siparisler(
-        sipDbCno: json["sip_DBCno"],
-        sipSpecReCno: json["sip_SpecRECno"],
-        sipIptal: json["sip_iptal"],
-        sipFileid: json["sip_fileid"],
-        sipHidden: json["sip_hidden"],
-        sipKilitli: json["sip_kilitli"],
-        sipDegisti: json["sip_degisti"],
-        sipChecksum: json["sip_checksum"],
         sipCreateUser: json["sip_create_user"],
-        sipCreateDate: DateTime.parse(json["sip_create_date"]),
         sipLastupUser: json["sip_lastup_user"],
-        sipLastupDate: DateTime.parse(json["sip_lastup_date"]),
-        sipSpecial1: json["sip_special1"],
-        sipSpecial2: json["sip_special2"],
-        sipSpecial3: json["sip_special3"],
-        sipFirmano: json["sip_firmano"],
-        sipSubeno: json["sip_subeno"],
-        sipTarih: DateTime.parse(json["sip_tarih"]),
-        sipTeslimTarih: DateTime.parse(json["sip_teslim_tarih"]),
         sipTip: json["sip_tip"],
-        sipCins: json["sip_cins"],
-        sipEvraknoSeri: json["sip_evrakno_seri"],
         sipEvraknoSira: json["sip_evrakno_sira"],
         sipSatirno: json["sip_satirno"],
-        sipBelgeno: json["sip_belgeno"],
-        sipBelgeTarih: DateTime.parse(json["sip_belge_tarih"]),
         sipSaticiKod: json["sip_satici_kod"],
         sipMusteriKod: json["sip_musteri_kod"],
         sipStokKod: json["sip_stok_kod"],
         sipBFiyat: json["sip_b_fiyat"].toDouble(),
         sipMiktar: json["sip_miktar"],
-        sipBirimPntr: json["sip_birim_pntr"],
+        //  sipBirimPntr: json["sip_birim_pntr"],
         sipTeslimMiktar: json["sip_teslim_miktar"],
         sipTutar: json["sip_tutar"].toDouble(),
         siparislerSipIskonto1: json["sip_iskonto_1"],
@@ -302,82 +183,12 @@ class Siparisler {
         siparislerSipMasraf2: json["sip_masraf_2"],
         siparislerSipMasraf3: json["sip_masraf_3"],
         siparislerSipMasraf4: json["sip_masraf_4"],
-        sipVergiPntr: json["sip_vergi_pntr"],
-        sipVergi: json["sip_vergi"].toDouble(),
-        sipMasvergiPntr: json["sip_masvergi_pntr"],
-        sipMasvergi: json["sip_masvergi"],
-        sipOpno: json["sip_opno"],
+        //  sipVergi: json["sip_vergi"].toDouble(),
         sipAciklama: json["sip_aciklama"],
-        sipAciklama2: json["sip_aciklama2"],
+        //  sipAciklama2: json["sip_aciklama2"],
         sipDepono: json["sip_depono"],
         sipOnaylayanKulNo: json["sip_OnaylayanKulNo"],
-        sipVergisizFl: json["sip_vergisiz_fl"],
-        sipKapatFl: json["sip_kapat_fl"],
-        sipPromosyonFl: json["sip_promosyon_fl"],
-        sipCariSormerk: json["sip_cari_sormerk"],
-        sipStokSormerk: json["sip_stok_sormerk"],
-        sipCariGrupno: json["sip_cari_grupno"],
         sipDovizCinsi: json["sip_doviz_cinsi"],
-        sipDovizKuru: json["sip_doviz_kuru"],
-        sipAltDovizKuru: json["sip_alt_doviz_kuru"].toDouble(),
-        sipAdresno: json["sip_adresno"],
-        sipTeslimturu: json["sip_teslimturu"],
-        sipCagrilabilirFl: json["sip_cagrilabilir_fl"],
-        sipIskonto1: json["sip_iskonto1"],
-        sipIskonto2: json["sip_iskonto2"],
-        sipIskonto3: json["sip_iskonto3"],
-        sipIskonto4: json["sip_iskonto4"],
-        sipIskonto5: json["sip_iskonto5"],
-        sipIskonto6: json["sip_iskonto6"],
-        sipMasraf1: json["sip_masraf1"],
-        sipMasraf2: json["sip_masraf2"],
-        sipMasraf3: json["sip_masraf3"],
-        sipMasraf4: json["sip_masraf4"],
-        sipIsk1: json["sip_isk1"],
-        sipIsk2: json["sip_isk2"],
-        sipIsk3: json["sip_isk3"],
-        sipIsk4: json["sip_isk4"],
-        sipIsk5: json["sip_isk5"],
-        sipIsk6: json["sip_isk6"],
-        sipMas1: json["sip_mas1"],
-        sipMas2: json["sip_mas2"],
-        sipMas3: json["sip_mas3"],
-        sipMas4: json["sip_mas4"],
-        sipExpImpKodu: json["sip_Exp_Imp_Kodu"],
-        sipKarOrani: json["sip_kar_orani"],
-        sipDurumu: json["sip_durumu"],
-        sipPlanlananmiktar: json["sip_planlananmiktar"],
-        sipTeklifUid: json["sip_teklif_uid"],
-        sipPartiKodu: json["sip_parti_kodu"],
-        sipLotNo: json["sip_lot_no"],
-        sipProjekodu: json["sip_projekodu"],
-        sipFiyatListeNo: json["sip_fiyat_liste_no"],
-        sipOtvPntr: json["sip_Otv_Pntr"],
-        sipOtvVergi: json["sip_Otv_Vergi"],
-        sipOtvtutari: json["sip_otvtutari"],
-        sipOtvVergisizFl: json["sip_OtvVergisiz_Fl"],
-        sipPaketKod: json["sip_paket_kod"],
-        sipHarekettipi: json["sip_harekettipi"],
-        sipKapatmanedenkod: json["sip_kapatmanedenkod"],
-        sipGecerlilikTarihi: DateTime.parse(json["sip_gecerlilik_tarihi"]),
-        sipOnodemeEvrakTip: json["sip_onodeme_evrak_tip"],
-        sipOnodemeEvrakSeri: json["sip_onodeme_evrak_seri"],
-        sipOnodemeEvrakSira: json["sip_onodeme_evrak_sira"],
-        sipRezervasyonMiktari: json["sip_rezervasyon_miktari"],
-        sipRezervedenTeslimEdilen: json["sip_rezerveden_teslim_edilen"],
-        sipHareketGrupKodu1: json["sip_HareketGrupKodu1"],
-        sipHareketGrupKodu2: json["sip_HareketGrupKodu2"],
-        sipHareketGrupKodu3: json["sip_HareketGrupKodu3"],
-        sipOlcu1: json["sip_Olcu1"],
-        sipOlcu2: json["sip_Olcu2"],
-        sipOlcu3: json["sip_Olcu3"],
-        sipOlcu4: json["sip_Olcu4"],
-        sipOlcu5: json["sip_Olcu5"],
-        sipFormulMiktarNo: json["sip_FormulMiktarNo"],
-        sipFormulMiktar: json["sip_FormulMiktar"],
-        sipSatisFiyatDovizCinsi: json["sip_satis_fiyat_doviz_cinsi"],
-        sipSatisFiyatDovizKuru: json["sip_satis_fiyat_doviz_kuru"],
-        sipEticaretKanalKodu: json["sip_eticaret_kanal_kodu"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -392,21 +203,20 @@ class Siparisler {
         "sip_create_user": sipCreateUser,
         "sip_create_date": sipCreateDate.toIso8601String(),
         "sip_lastup_user": sipLastupUser,
-        "sip_lastup_date": sipLastupDate.toIso8601String(),
+        "sip_lastup_date": sipLastupDate!.toIso8601String(),
         "sip_special1": sipSpecial1,
         "sip_special2": sipSpecial2,
         "sip_special3": sipSpecial3,
         "sip_firmano": sipFirmano,
         "sip_subeno": sipSubeno,
         "sip_tarih": sipTarih.toIso8601String(),
-        "sip_teslim_tarih": sipTeslimTarih.toIso8601String(),
+        "sip_teslim_tarih": sipTeslimTarih!.toIso8601String(),
         "sip_tip": sipTip,
         "sip_cins": sipCins,
         "sip_evrakno_seri": sipEvraknoSeri,
         "sip_evrakno_sira": sipEvraknoSira,
         "sip_satirno": sipSatirno,
         "sip_belgeno": sipBelgeno,
-        "sip_belge_tarih": sipBelgeTarih.toIso8601String(),
         "sip_satici_kod": sipSaticiKod,
         "sip_musteri_kod": sipMusteriKod,
         "sip_stok_kod": sipStokKod,
@@ -470,7 +280,6 @@ class Siparisler {
         "sip_kar_orani": sipKarOrani,
         "sip_durumu": sipDurumu,
         "sip_planlananmiktar": sipPlanlananmiktar,
-        "sip_teklif_uid": sipTeklifUid,
         "sip_parti_kodu": sipPartiKodu,
         "sip_lot_no": sipLotNo,
         "sip_projekodu": sipProjekodu,
