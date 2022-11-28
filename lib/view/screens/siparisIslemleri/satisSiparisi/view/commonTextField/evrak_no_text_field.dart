@@ -24,6 +24,7 @@ class EvrakNoTextField extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
+        key: key,
         controller: evrakNoController,
         keyboardType: TextInputType.name,
         cursorColor: Color(MyColors.bg01),

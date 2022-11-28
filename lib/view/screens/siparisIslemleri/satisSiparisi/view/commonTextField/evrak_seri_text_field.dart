@@ -8,28 +8,28 @@ import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class CommonTextField extends StatelessWidget {
+class EvrakSeriTextField extends StatelessWidget {
   final TextEditingController? controller;
   final String? field;
   final IconData? icon;
   final TextInputType? textInputType;
   final bool? isMandatory;
   String? Function(String?)? validator;
+  FocusNode? focusNode;
   final bool? readOnly;
-  void Function(String?)? onFieldSubmit;
   CariViewModel? cariViewModel;
 
-  CommonTextField(
-      {Key? key,
-      this.controller,
-      this.field,
-      this.icon,
-      this.textInputType,
-      this.readOnly,
-      required this.validator,
-      this.isMandatory,
-      this.onFieldSubmit})
-      : super(key: key);
+  EvrakSeriTextField({
+    Key? key,
+    this.controller,
+    this.field,
+    this.icon,
+    this.textInputType,
+    this.readOnly,
+    required this.validator,
+    this.focusNode,
+    this.isMandatory,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +39,10 @@ class CommonTextField extends StatelessWidget {
           vertical: context.dynamicHeight * 0.007,
         ),
         child: TextFormField(
+          key: key,
           validator: validator,
+          focusNode: focusNode,
           readOnly: readOnly ?? false,
-          onFieldSubmitted: onFieldSubmit,
           controller: controller,
           keyboardType: textInputType,
           cursorColor: Color(MyColors.bg01),

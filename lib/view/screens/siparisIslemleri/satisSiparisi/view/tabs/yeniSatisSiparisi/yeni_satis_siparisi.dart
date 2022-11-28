@@ -4,6 +4,7 @@ import 'package:dinamik_otomasyon/view/common/common_button.dart';
 import 'package:dinamik_otomasyon/view/common/common_textfield.dart';
 import 'package:dinamik_otomasyon/view/screens/authenticate/login/viewmodel/login_view_model.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_model.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/bekleyenSiparisler/view/bekleyen_siparisler.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/model/siparisler.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/service/satis_siparisi_service.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/common/iskonto_page.dart';
@@ -11,13 +12,14 @@ import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/vi
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/cari_personel_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/depo_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/evrak_no_text_field.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/evrak_seri_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/kur_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/odeme_plani_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/proje_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/siparis_tarihi_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/sorm_merkezi_text_field.dart';
-import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/stok_kod_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/teslim_turu_text_field.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/siparis_satiri.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/viewmodel/satis_siparisi_view_model.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
@@ -32,7 +34,7 @@ class YeniSatisSiparisi extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     CariViewModel cariViewModel = CariViewModel();
-    SatisSiparisiViewModel satisSiparisiViewModel = SatisSiparisiViewModel();
+    List<SiparisSatiri> siparisList = [];
 
     final evrakSeriController = useTextEditingController(text: '');
     final evrakNoController = useTextEditingController(text: '');
@@ -84,11 +86,15 @@ class YeniSatisSiparisi extends HookConsumerWidget {
       }
     }
 
-    useEffect(() {
-      focusNode.addListener(() {
-        return fillEvrakBilgileri();
-      });
+    focusNode.addListener(() {
+      fillEvrakBilgileri();
     });
+
+    // useEffect(() {
+    //   focusNode.addListener(() {
+    //     fillEvrakBilgileri();
+    //   });
+    // });
 
     return SingleChildScrollView(
       child: Form(
@@ -96,7 +102,7 @@ class YeniSatisSiparisi extends HookConsumerWidget {
         child: Column(
           children: [
             //EVRAK NO
-            CommonTextField(
+            EvrakSeriTextField(
               validator: (value) => null,
               focusNode: focusNode,
               controller: evrakSeriController,
@@ -105,9 +111,6 @@ class YeniSatisSiparisi extends HookConsumerWidget {
               isMandatory: false,
               readOnly: false,
               textInputType: TextInputType.name,
-              onFieldSubmit: (value) {
-                return fillEvrakBilgileri();
-              },
             ),
             EvrakNoTextField(
               evrakNoController: evrakNoController,
@@ -145,73 +148,49 @@ class YeniSatisSiparisi extends HookConsumerWidget {
             TeslimTuruTextField(teslimTuruController: teslimTuruController),
             SiparisTarihiTextField(
                 siparisTarihiController: siparisTarihiController),
+            Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: CommonTextField(
+                    validator: (value) => null,
+                    controller: aciklamaController,
+                    field: "Açıklama",
+                    icon: Icons.style,
+                    isMandatory: true,
+                    readOnly: true,
+                    textInputType: TextInputType.name,
+                  ),
+                ),
+              ],
+            ),
             InkWell(
-              onTap: () {},
+              onTap: () async {
+                await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SiparisSatiri(
+                              stokKoduController: stokKoduController,
+                              stokIsmiController: stokIsmiController,
+                              birimFiyatController: birimFiyatController,
+                              sipTutariController: sipTutariController,
+                              stokBirimController: stokBirimController,
+                              stokMiktariController: stokMiktariController,
+                            ))).then((value) {
+                  siparisList.add(SiparisSatiri(
+                      stokKoduController: stokKoduController,
+                      stokIsmiController: stokIsmiController,
+                      stokMiktariController: stokMiktariController,
+                      stokBirimController: stokBirimController,
+                      birimFiyatController: birimFiyatController,
+                      sipTutariController: sipTutariController));
+                });
+                print("sipariş listemin uzunluğu ==== " +
+                    siparisList.length.toString());
+              },
               child: CommonButton(
                 buttonName: "Ürün Gir",
               ),
-            ),
-            Text("Ürün Bilgisi", style: purpleBoldTxtStyle),
-            Divider(
-              color: Color(
-                MyColors.bg01,
-              ),
-              indent: 50,
-              endIndent: 50,
-              thickness: 2,
-            ),
-
-            StokKodTextField(
-              stokKoduController: stokKoduController,
-              stokIsmiController: stokIsmiController,
-              stokBirimController: stokBirimController,
-              stokFiyatController: birimFiyatController,
-            ),
-            CommonTextField(
-              validator: (value) {
-                return cariViewModel.validateIsNotEmpty(value!);
-              },
-              controller: stokIsmiController,
-              field: "Stok İsmi",
-              icon: Icons.abc,
-              isMandatory: true,
-              readOnly: true,
-              textInputType: TextInputType.name,
-            ),
-            CommonTextField(
-              validator: (value) {
-                return cariViewModel.validateIsNotEmpty(value!);
-              },
-              controller: birimFiyatController,
-              field: "Birim Fiyatı",
-              icon: Icons.price_change,
-              isMandatory: true,
-              textInputType: TextInputType.number,
-            ),
-            CommonTextField(
-              validator: (value) {
-                return cariViewModel.validateIsNotEmpty(value!);
-              },
-              controller: stokMiktariController,
-              field: "Miktarı",
-              icon: Icons.format_list_numbered,
-              isMandatory: true,
-              textInputType: TextInputType.number,
-              onFieldSubmit: (value) {
-                viewModel.calculateTotalPrice(
-                    value, birimFiyatController, sipTutariController);
-              },
-            ),
-            CommonTextField(
-              validator: (value) {
-                return cariViewModel.validateIsNotEmpty(value!);
-              },
-              controller: sipTutariController,
-              field: "Tutarı",
-              icon: Icons.price_change,
-              isMandatory: true,
-              readOnly: true,
-              textInputType: TextInputType.number,
             ),
             InkWell(
               onTap: () {
@@ -263,21 +242,134 @@ class YeniSatisSiparisi extends HookConsumerWidget {
                 ),
               ),
             ),
-            Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: CommonTextField(
-                    validator: (value) => null,
-                    controller: aciklamaController,
-                    field: "Açıklama",
-                    icon: Icons.style,
-                    isMandatory: true,
-                    readOnly: true,
-                    textInputType: TextInputType.name,
-                  ),
-                ),
-              ],
+            Text("Ürün Bilgisi", style: purpleBoldTxtStyle),
+            Divider(
+              color: Color(
+                MyColors.bg01,
+              ),
+              indent: 50,
+              endIndent: 50,
+              thickness: 2,
+            ),
+
+            SizedBox(
+              height: context.dynamicHeight * 0.07,
+              width: context.dynamicWidth * 0.9,
+              child: ListView.builder(
+                itemCount: siparisList.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: EdgeInsets.all(context.dynamicHeight * 0.02),
+                    padding: EdgeInsets.symmetric(
+                        vertical: context.dynamicHeight * 0.02,
+                        horizontal: context.dynamicHeight * 0.05),
+                    decoration: BoxDecoration(
+                      color: Color(
+                        MyColors.bg,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Ürün 1",
+                          style: purpleBoldTxtStyle,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                "Stok Kodu:",
+                                style: purpleTxtStyle,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                siparisList[index].stokKoduController.text,
+                                style: purpleTxtStyle,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            )
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                "Ürün İsmi:",
+                                style: purpleTxtStyle,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                siparisList[index].stokIsmiController.text,
+                                style: purpleTxtStyle,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            )
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                "Ürün Fiyatı:",
+                                style: purpleTxtStyle,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                "${siparisList[index].birimFiyatController.text} TL",
+                                style: purpleTxtStyle,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                "Sipariş Miktarı:",
+                                style: purpleTxtStyle,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                "${siparisList[index].stokMiktariController.text} ${siparisList[index].stokBirimController.text}",
+                                style: purpleTxtStyle,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                "Toplam Tutar:",
+                                style: purpleTxtStyle,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            Expanded(
+                              child: Text(
+                                " ${siparisList[index].sipTutariController.text} TL",
+                                style: purpleTxtStyle,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
             InkWell(
               onTap: () {
@@ -329,7 +421,13 @@ class YeniSatisSiparisi extends HookConsumerWidget {
                                 backgroundColor: MaterialStateProperty.all(
                                     Color(MyColors.bg01)),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const BekleyenSiparisler()));
+                              },
                               child: const Text(
                                 Constants.OK,
                                 style: TextStyle(color: Colors.white),
