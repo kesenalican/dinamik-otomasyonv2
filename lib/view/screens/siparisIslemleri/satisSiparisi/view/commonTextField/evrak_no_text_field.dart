@@ -97,11 +97,9 @@ class EvrakNoTextField extends ConsumerWidget {
                                       child: Row(
                                         children: [
                                           Expanded(
-                                            flex: 1,
+                                            flex: 2,
                                             child: Text(
-                                              evrakList[index]
-                                                  .siraNo
-                                                  .toString(),
+                                              evrakList[index].tipi,
                                               style: purpleTxtStyle,
                                               overflow: TextOverflow.ellipsis,
                                             ),
@@ -109,7 +107,17 @@ class EvrakNoTextField extends ConsumerWidget {
                                           Expanded(
                                             flex: 2,
                                             child: Text(
-                                              evrakList[index].tipi,
+                                              evrakList[index].seri,
+                                              style: purpleTxtStyle,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 1,
+                                            child: Text(
+                                              evrakList[index]
+                                                  .siraNo
+                                                  .toString(),
                                               style: purpleTxtStyle,
                                               overflow: TextOverflow.ellipsis,
                                             ),

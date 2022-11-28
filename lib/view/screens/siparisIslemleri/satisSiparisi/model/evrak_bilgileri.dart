@@ -2,7 +2,6 @@
 //
 //     final evrakBilgileri = evrakBilgileriFromMap(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 EvrakBilgileri evrakBilgileriFromMap(String str) =>

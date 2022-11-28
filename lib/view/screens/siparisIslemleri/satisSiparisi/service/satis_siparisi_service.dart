@@ -57,6 +57,22 @@ final satisSiparisiSaveProvider = FutureProvider.autoDispose
   return [];
 }));
 
+class SatisSiparisiService {
+  int? seriNoElemanSayisi;
+  getEvrakBilgileri(String seriNo) async {
+    final result =
+        await Dio().get("${ConstantProvider.BASE_URL}EvrakBilgileri");
+    List<Map<String, dynamic>> mapData = List.from(result.data);
+    List<EvrakBilgileri> evrakList =
+        mapData.map((e) => EvrakBilgileri.fromMap(e)).toList();
+    var seriNoList =
+        evrakList.where((element) => element.seri == seriNo).toList();
+    seriNoElemanSayisi = seriNoList.length;
+
+    return seriNoElemanSayisi;
+  }
+}
+
 //#region Cariler
 final evrakBilgileriProvider =
     FutureProvider.autoDispose<List<EvrakBilgileri>>((ref) async {

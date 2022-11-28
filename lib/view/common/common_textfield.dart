@@ -15,6 +15,7 @@ class CommonTextField extends StatelessWidget {
   final TextInputType? textInputType;
   final bool? isMandatory;
   String? Function(String?)? validator;
+  FocusNode? focusNode;
   final bool? readOnly;
   void Function(String?)? onFieldSubmit;
   CariViewModel? cariViewModel;
@@ -27,6 +28,7 @@ class CommonTextField extends StatelessWidget {
       this.textInputType,
       this.readOnly,
       required this.validator,
+      this.focusNode,
       this.isMandatory,
       this.onFieldSubmit})
       : super(key: key);
@@ -40,6 +42,7 @@ class CommonTextField extends StatelessWidget {
         ),
         child: TextFormField(
           validator: validator,
+          focusNode: focusNode,
           readOnly: readOnly ?? false,
           onFieldSubmitted: onFieldSubmit,
           controller: controller,

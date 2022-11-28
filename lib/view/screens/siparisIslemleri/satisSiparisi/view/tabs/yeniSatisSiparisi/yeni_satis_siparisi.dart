@@ -1,7 +1,6 @@
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/common/common_button.dart';
-import 'package:dinamik_otomasyon/view/common/common_input_border.dart';
 import 'package:dinamik_otomasyon/view/common/common_textfield.dart';
 import 'package:dinamik_otomasyon/view/screens/authenticate/login/viewmodel/login_view_model.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_model.dart';
@@ -33,6 +32,7 @@ class YeniSatisSiparisi extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     CariViewModel cariViewModel = CariViewModel();
+    SatisSiparisiViewModel satisSiparisiViewModel = SatisSiparisiViewModel();
 
     final evrakSeriController = useTextEditingController(text: '');
     final evrakNoController = useTextEditingController(text: '');
@@ -65,12 +65,30 @@ class YeniSatisSiparisi extends HookConsumerWidget {
     final birimFiyatController = useTextEditingController(text: '');
     final sipTutariController = useTextEditingController(text: '');
     final aciklamaController = useTextEditingController(text: '');
+    final focusNode = useFocusNode();
     var viewModel = ref.watch(satisSiparisViewModel);
     var currentUser = ref.watch(currentUserProvider);
     var evrakNo = ref.watch(evrakBilgileriProvider);
-    evrakNo.hasValue
-        ? evrakNoController.text = (evrakNo.value!.length).toString()
-        : null;
+
+    fillEvrakBilgileri() {
+      if (evrakSeriController.text != "") {
+        viewModel.seriNoControl(
+          seriNo: evrakSeriController.text,
+        );
+        var seriNoluListLength = viewModel.listLength;
+        evrakNoController.text = seriNoluListLength.toString();
+      } else {
+        evrakNo.hasValue
+            ? evrakNoController.text = (evrakNo.value!.length).toString()
+            : 0;
+      }
+    }
+
+    useEffect(() {
+      focusNode.addListener(() {
+        return fillEvrakBilgileri();
+      });
+    });
 
     return SingleChildScrollView(
       child: Form(
@@ -80,12 +98,16 @@ class YeniSatisSiparisi extends HookConsumerWidget {
             //EVRAK NO
             CommonTextField(
               validator: (value) => null,
+              focusNode: focusNode,
               controller: evrakSeriController,
               field: "Evrak Seri",
               icon: Icons.document_scanner,
               isMandatory: false,
               readOnly: false,
               textInputType: TextInputType.name,
+              onFieldSubmit: (value) {
+                return fillEvrakBilgileri();
+              },
             ),
             EvrakNoTextField(
               evrakNoController: evrakNoController,
@@ -307,9 +329,7 @@ class YeniSatisSiparisi extends HookConsumerWidget {
                                 backgroundColor: MaterialStateProperty.all(
                                     Color(MyColors.bg01)),
                               ),
-                              onPressed: () {
-                                
-                              },
+                              onPressed: () {},
                               child: const Text(
                                 Constants.OK,
                                 style: TextStyle(color: Colors.white),

@@ -1,8 +1,11 @@
 import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/service/satis_siparisi_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SatisSiparisiViewModel extends ChangeNotifier {
+  SatisSiparisiService service = SatisSiparisiService();
+  int? listLength;
   calculateTotalPrice(String? value, TextEditingController birimFiyatcontroller,
       TextEditingController sipTutariController) {
     if (value!.isNotEmpty) {
@@ -35,6 +38,12 @@ class SatisSiparisiViewModel extends ChangeNotifier {
         );
       });
     }
+  }
+
+  seriNoControl({String? seriNo}) async {
+    await service.getEvrakBilgileri(seriNo!);
+    listLength = service.seriNoElemanSayisi;
+    notifyListeners();
   }
 }
 
