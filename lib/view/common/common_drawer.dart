@@ -2,6 +2,7 @@ import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/cari_kartlar.da
 import 'package:dinamik_otomasyon/view/screens/faturaIslemleri/satisFaturasi/satis_faturasi.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/screens/authenticate/login/view/login_view.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/satis_siparisi.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/view/stok_karti.dart';
 import 'package:flutter/material.dart';
 import '../../core/constants/constant.dart';
@@ -86,7 +87,12 @@ Widget _buildList(Menu list) {
                 Navigator.pushNamed(context, "/satisFaturasi");
                 break;
               case Constants.satisSiparisi:
-                Navigator.pushNamed(context, "/satisSiparisi");
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CariKartlar(
+                              detayaGitmesin: true,
+                            )));
                 break;
               case Constants.alimSiparisi:
                 Navigator.pushNamed(context, "/alimSiparisi");

@@ -1,11 +1,20 @@
 import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
+import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cariler.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/model/siparisler.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/service/satis_siparisi_service.dart';
+import 'package:dinamik_otomasyon/view/screens/stokIslemleri/model/stoklar_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SatisSiparisiViewModel extends ChangeNotifier {
   SatisSiparisiService service = SatisSiparisiService();
+  Cariler? savedCari;
+  Stoklar? savedStok;
+  List<Siparisler> siparisler = [];
   int? listLength;
+  Siparisler? siparis;
+  int? siparisMiktari;
+  double? toplamTutar;
   calculateTotalPrice(String? value, TextEditingController birimFiyatcontroller,
       TextEditingController sipTutariController) {
     if (value!.isNotEmpty) {
@@ -44,6 +53,34 @@ class SatisSiparisiViewModel extends ChangeNotifier {
     await service.getEvrakBilgileri(seriNo!);
     listLength = service.seriNoElemanSayisi;
     notifyListeners();
+  }
+
+  saveCariForSiparis(Cariler cari) {
+    savedCari = cari;
+    notifyListeners();
+  }
+
+  saveStokForSiparis(Stoklar stok) {
+    savedStok = stok;
+    notifyListeners();
+  }
+
+  saveStokBilgileri(
+      TextEditingController miktar, TextEditingController toplam) {
+    siparisMiktari = int.parse(miktar.text);
+    toplamTutar = double.parse(toplam.text);
+    notifyListeners();
+  }
+
+  validateMiktar(String value) {
+    if (value.isNotEmpty) {
+      int myValue = int.parse(value);
+      if (myValue <= 0) {
+        return 'Miktar 0 olamaz!';
+      }
+    } else {
+      return 'Lütfen Miktar Giriniz!';
+    }
   }
 }
 

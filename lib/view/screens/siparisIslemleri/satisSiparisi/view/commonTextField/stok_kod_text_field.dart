@@ -54,27 +54,27 @@ class StokKodTextField extends StatelessWidget {
               Icons.production_quantity_limits,
               color: Color(MyColors.bg01),
             ),
-            suffix: InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => StokKartlari(
-                      detayaGitmesin: true,
-                      stokKoduController: stokKoduController,
-                      stokIsmiController: stokIsmiController,
-                      stokBirimController: stokBirimController,
-                      stokFiyatController: stokFiyatController,
-                    ),
-                  ),
-                );
-              },
-              child: Icon(Icons.question_mark,
-                  size: 20,
-                  color: Color(
-                    MyColors.bg01,
-                  )),
-            ),
+            // suffix: InkWell(
+            //   onTap: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => StokKartlari(
+            //           detayaGitmesin: true,
+            //           stokKoduController: stokKoduController,
+            //           stokIsmiController: stokIsmiController,
+            //           stokBirimController: stokBirimController,
+            //           stokFiyatController: stokFiyatController,
+            //         ),
+            //       ),
+            //     );
+            //   },
+            //   child: Icon(Icons.question_mark,
+            //       size: 20,
+            //       color: Color(
+            //         MyColors.bg01,
+            //       )),
+            // ),
             errorBorder: CommonInputBorder.errorBorder,
             enabledBorder: CommonInputBorder.border,
             focusedBorder: CommonInputBorder.border,

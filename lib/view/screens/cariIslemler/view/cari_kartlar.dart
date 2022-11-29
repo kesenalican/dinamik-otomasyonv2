@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/viewmodel/satis_siparisi_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -163,6 +164,7 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
   }
 
   ListView _buildCariKart() {
+    var satisSiparisiCarisi = ref.watch(satisSiparisViewModel);
     return ListView.builder(
         itemCount: fullList.length + 1,
         controller: scrollController,
@@ -171,15 +173,16 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
             return InkWell(
               onTap: () {
                 if (widget.detayaGitmesin == true) {
-                  widget.cariKodController!.text = fullList[index].cariKodu;
-                  widget.cariIsmiController!.text =
-                      fullList[index].cariUnvani1!;
-                  Navigator.pop(
-                    context,
+                  satisSiparisiCarisi.saveCariForSiparis(
                     Cariler(
-                      cariKodu: widget.cariKodController!.text,
-                      cariUnvani1: widget.cariIsmiController!.text,
+                      cariKodu: fullList[index].cariKodu,
+                      cariUnvani1: fullList[index].cariUnvani1,
                     ),
+                  );
+                  Navigator.pushNamed<dynamic>(
+                    context,
+                    '/stockList',
+                    arguments: true,
                   );
                 } else {
                   Navigator.pushNamed(context, '/cariDetay',

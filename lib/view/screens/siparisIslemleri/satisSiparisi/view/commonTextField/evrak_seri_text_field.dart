@@ -17,10 +17,11 @@ class EvrakSeriTextField extends StatelessWidget {
   String? Function(String?)? validator;
   FocusNode? focusNode;
   final bool? readOnly;
+  static final GlobalKey<FormFieldState<String>> searchFormKey =
+      GlobalKey<FormFieldState<String>>();
   CariViewModel? cariViewModel;
 
   EvrakSeriTextField({
-    Key? key,
     this.controller,
     this.field,
     this.icon,
@@ -28,8 +29,9 @@ class EvrakSeriTextField extends StatelessWidget {
     this.readOnly,
     required this.validator,
     this.focusNode,
+    searchFormKey,
     this.isMandatory,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,7 @@ class EvrakSeriTextField extends StatelessWidget {
           vertical: context.dynamicHeight * 0.007,
         ),
         child: TextFormField(
-          key: key,
+          key: searchFormKey,
           validator: validator,
           focusNode: focusNode,
           readOnly: readOnly ?? false,

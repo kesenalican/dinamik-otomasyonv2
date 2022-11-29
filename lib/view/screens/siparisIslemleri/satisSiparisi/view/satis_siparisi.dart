@@ -1,5 +1,4 @@
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
-import 'package:dinamik_otomasyon/view/common/common_appbar.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/bekleyenSiparisler/view/bekleyen_siparisler.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/tabs/yeniSatisSiparisi/yeni_satis_siparisi.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
@@ -48,11 +47,11 @@ class SatisSiparisi extends StatelessWidget {
         // floatingActionButton: FloatingActionButton(
         //   onPressed: () {},
         // ),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
             YeniSatisSiparisi(),
-            BekleyenSiparisler(),
-            BekleyenSiparisler(),
+            const BekleyenSiparisler(),
+            const BekleyenSiparisler(),
           ],
         ),
       ),

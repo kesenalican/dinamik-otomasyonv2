@@ -1,16 +1,27 @@
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/viewmodel/satis_siparisi_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BekleyenSiparisler extends StatelessWidget {
+class BekleyenSiparisler extends ConsumerWidget {
   const BekleyenSiparisler({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var siparisModel = ref.watch(satisSiparisViewModel);
+    var siparisList = siparisModel.siparisler;
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          Text("Bekleyen Siparişler"),
-        ],
-      ),
-    );
+        child: ListView.builder(
+      itemCount: siparisModel.siparisler.length,
+      itemBuilder: (context, index) {
+        return Column(
+          children: [
+            Text(siparisList[index].sipStokKod),
+            Text(siparisList[index].sipMusteriKod),
+            Text(siparisList[index].sipTutar.toString()),
+            Text(siparisList[index].sipBFiyat.toString()),
+          ],
+        );
+      },
+    ));
   }
 }

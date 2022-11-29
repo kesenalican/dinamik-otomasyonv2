@@ -6,6 +6,8 @@ import 'package:dinamik_otomasyon/view/common/common_drawer.dart';
 import 'package:dinamik_otomasyon/view/common/module_card_button.dart';
 import 'package:dinamik_otomasyon/view/common/search_input.dart';
 import 'package:dinamik_otomasyon/view/screens/module_card.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/satis_siparisi.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/siparis_satiri.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -60,9 +62,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ScheduleTab(
-                              cardName: Modules[2],
-                            )));
+                        builder: (context) => const SatisSiparisi()));
               },
               cardName: Modules[2],
               iconData: const Icon(Icons.info_outline_rounded),

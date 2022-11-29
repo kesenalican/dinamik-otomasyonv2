@@ -1,29 +1,30 @@
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/common/common_appbar.dart';
+import 'package:dinamik_otomasyon/view/common/common_button.dart';
+import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
+import 'package:dinamik_otomasyon/view/common/common_input_border.dart';
 import 'package:dinamik_otomasyon/view/common/common_loading.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/viewmodel/satis_siparisi_view_model.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/model/stoklar_model.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/service/stok_service.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/view/open_barcode.dart';
+import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../styles/colors.dart';
 
 // ignore: must_be_immutable
 class StokKartlari extends ConsumerStatefulWidget {
-  TextEditingController? stokKoduController;
-  TextEditingController? stokIsmiController;
-  TextEditingController? stokBirimController;
-  TextEditingController? stokFiyatController;
-
   bool? detayaGitmesin = false;
-  StokKartlari(
-      {super.key,
-      this.detayaGitmesin,
-      this.stokKoduController,
-      this.stokIsmiController,
-      this.stokBirimController,
-      this.stokFiyatController});
+  StokKartlari({
+    super.key,
+    this.detayaGitmesin,
+    // this.stokKoduController,
+    // this.stokIsmiController,
+    // this.stokBirimController,
+    // this.stokFiyatController,
+  });
 
   @override
   ConsumerState<StokKartlari> createState() => _StokKartlariState();
@@ -31,6 +32,17 @@ class StokKartlari extends ConsumerStatefulWidget {
 
 class _StokKartlariState extends ConsumerState<StokKartlari> {
   TextEditingController searchQuery = TextEditingController();
+  TextEditingController siparisMiktariController = TextEditingController();
+  TextEditingController sipTutariController = TextEditingController();
+  TextEditingController stokFiyatiController = TextEditingController();
+
+  static final GlobalKey<FormFieldState<String>> miktarKey =
+      GlobalKey<FormFieldState<String>>();
+  static final GlobalKey<FormFieldState<String>> tutarKey =
+      GlobalKey<FormFieldState<String>>();
+  static final GlobalKey<FormFieldState<String>> fiyatKey =
+      GlobalKey<FormFieldState<String>>();
+  FocusNode focusNode = FocusNode();
   int currentPage = 0;
   ScrollController? scrollController;
   bool hasMore = true;
@@ -52,6 +64,10 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
   void initState() {
     super.initState();
     scrollController = ScrollController();
+    siparisMiktariController = TextEditingController();
+    sipTutariController = TextEditingController();
+    stokFiyatiController = TextEditingController();
+    focusNode = FocusNode();
     handleNext();
   }
 
@@ -59,67 +75,35 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
   void dispose() {
     scrollController!.dispose();
     searchQuery.dispose();
+    siparisMiktariController.dispose();
+    sipTutariController.dispose();
+    stokFiyatiController.dispose();
+    focusNode.dispose();
     super.dispose();
   }
 
-  void _runFilter(String query) {
-    List<Stoklar> dummySearchList = [];
-    dummySearchList.addAll(fullList);
-    if (query.isNotEmpty) {
-      List<Stoklar> dummyListData = [];
-      for (var stok in dummySearchList) {
-        var sorgu = stok.stokKodu.toLowerCase();
-        if (sorgu.contains(query)) {
-          dummyListData.add(stok);
-        }
-      }
-      setState(() {
-        searchedEmptyList.clear();
-        searchedEmptyList.addAll(dummyListData);
-      });
-      return;
-    } else {
-      setState(() {
-        searchedEmptyList.clear();
-        searchedEmptyList.addAll(fullList);
-      });
-    }
-    print("DUMMY LİST LENGTH" + searchedEmptyList.length.toString());
-  }
-
-  // _runFilter(String searchQuery) async {
-  //   Future.delayed(
-  //     const Duration(seconds: 2),
-  //     () {
-  //       setState(() {
-  //         searchFilter == true;
-  //         searchedEmptyList = fullList;
-  //         fullList.clear();
-  //         fullList = searchedEmptyList
-  //             .where((value) => value.stokIsim
-  //                 .toLowerCase()
-  //                 .contains(searchQuery.toLowerCase()))
-  //             .toList();
-  //       });
-  //     },
-  //   );
-  //   print("aramadan sonra fulllist == " + fullList.length.toString());
-
-  //   return fullList;
-  // }
-
-  // _runFilter(String searchKeyword) {
-  //   Future.delayed(const Duration(seconds: 2), () {
+  // void _runFilter(String query) {
+  //   List<Stoklar> dummySearchList = [];
+  //   dummySearchList.addAll(fullList);
+  //   if (query.isNotEmpty) {
+  //     List<Stoklar> dummyListData = [];
+  //     for (var stok in dummySearchList) {
+  //       var sorgu = stok.stokKodu.toLowerCase();
+  //       if (sorgu.contains(query)) {
+  //         dummyListData.add(stok);
+  //       }
+  //     }
   //     setState(() {
-  //       searchedEmptyList = fullList
-  //           .where((value) => value.stokKodu
-  //               .toLowerCase()
-  //               .contains(searchKeyword.toLowerCase()))
-  //           .toList();
-  //       fullList.clear();
+  //       searchedEmptyList.clear();
+  //       searchedEmptyList.addAll(dummyListData);
   //     });
-  //   });
-  //   return searchedEmptyList;
+  //     return;
+  //   } else {
+  //     setState(() {
+  //       searchedEmptyList.clear();
+  //       searchedEmptyList.addAll(fullList);
+  //     });
+  //   }
   // }
 
   @override
@@ -179,6 +163,8 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
   }
 
   SizedBox _buildStokKarti(List<Stoklar> stokList) {
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+    var siparisStokBilgileri = ref.watch(satisSiparisViewModel);
     return SizedBox(
       height: context.dynamicHeight * 0.90,
       child: ListView.builder(
@@ -188,29 +174,267 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
             return InkWell(
               onTap: () {
                 if (widget.detayaGitmesin == true) {
-                  widget.stokKoduController!.text = stokList[index].stokKodu;
-                  widget.stokIsmiController!.text = stokList[index].stokIsim;
-                  widget.stokBirimController!.text = stokList[index].stokBirim1;
-                  widget.stokFiyatController!.text =
+                  stokFiyatiController.text =
                       stokList[index].stokFiyat.toString();
-                  Navigator.pop(
-                      context,
-                      Stoklar(
-                          stokKodu: widget.stokKoduController!.text,
-                          stokIsim: widget.stokIsmiController!.text,
-                          stokFiyat:
-                              double.parse(widget.stokFiyatController!.text),
-                          stokKur: stokList[index].stokKur,
-                          stokAnaGrup: stokList[index].stokAnaGrup,
-                          stokSektor: stokList[index].stokSektor,
-                          stokBirim1: widget.stokBirimController!.text,
-                          stokBirim3: stokList[index].stokBirim3,
-                          stokBirim3Katsayi: stokList[index].stokBirim3Katsayi,
-                          stokReyon: stokList[index].stokReyon,
-                          stokMarka: stokList[index].stokMarka,
-                          stokModel: stokList[index].stokModel,
-                          merkez: stokList[index].merkez,
-                          stokMiktar: stokList[index].stokMiktar));
+                  focusNode.addListener(() {
+                    if (siparisMiktariController.text != "") {
+                      double miktar =
+                          double.parse(siparisMiktariController.text);
+                      double fiyat = double.parse(stokFiyatiController.text);
+                      double toplam = fiyat * miktar;
+                      sipTutariController.text = toplam.toString();
+                      setState(() {});
+                    }
+                  });
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    isDismissible: true,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(20),
+                      ),
+                    ),
+                    builder: (context) {
+                      return SingleChildScrollView(
+                        child: Form(
+                          key: formKey,
+                          child: Column(
+                            children: [
+                              Text(
+                                "Stok Bilgileri",
+                                style: purpleBoldTxtStyle,
+                              ),
+                              Divider(
+                                color: Color(
+                                  MyColors.bg01,
+                                ),
+                                indent: 50,
+                                endIndent: 50,
+                                thickness: 1,
+                              ),
+                              //*Stok Kodu
+                              Padding(
+                                padding: context.paddingDefault,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 1,
+                                      child: Text(
+                                        "Stok Kodu:",
+                                        style: purpleTxtStyle,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(
+                                        fullList[index].stokKodu,
+                                        style: purpleTxtStyle,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              //*Stok Adı
+                              Padding(
+                                padding: context.paddingDefault,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 1,
+                                      child: Text(
+                                        "Stok Adı:",
+                                        style: purpleTxtStyle,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(
+                                        fullList[index].stokIsim,
+                                        style: purpleTxtStyle,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              //*Stok Fiyatı
+                              Row(
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      "Stok Fiyatı:",
+                                      style: purpleTxtStyle,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 2,
+                                    child: TextFormField(
+                                      // validator: (value) {
+                                      //   return siparisStokBilgileri
+                                      //       .validateMiktar(value!);
+                                      // },
+                                      controller: stokFiyatiController,
+                                      keyboardType: TextInputType.number,
+                                      cursorColor: Color(MyColors.bg01),
+                                      style: TextStyle(
+                                          color: Color(
+                                        MyColors.bg01,
+                                      )),
+                                      decoration: InputDecoration(
+                                        focusedBorder: CommonInputBorder.border,
+                                        errorBorder:
+                                            CommonInputBorder.errorBorder,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              //*Stok Miktarı
+                              Row(
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      "Miktar Giriniz",
+                                      style: purpleTxtStyle,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 2,
+                                    child: TextFormField(
+                                      validator: (value) {
+                                        return siparisStokBilgileri
+                                            .validateMiktar(value!);
+                                      },
+                                      focusNode: focusNode,
+                                      controller: siparisMiktariController,
+                                      keyboardType: TextInputType.number,
+                                      cursorColor: Color(MyColors.bg01),
+                                      style: TextStyle(
+                                          color: Color(
+                                        MyColors.bg01,
+                                      )),
+                                      decoration: InputDecoration(
+                                        focusedBorder: CommonInputBorder.border,
+                                        errorBorder:
+                                            CommonInputBorder.errorBorder,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: context.dynamicHeight * 0.02,
+                              ),
+                              //*Toplam Tutar
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  bottom:
+                                      MediaQuery.of(context).viewInsets.bottom,
+                                ),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 1,
+                                      child: Text(
+                                        "Toplam Tutar",
+                                        style: purpleTxtStyle,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Text(
+                                        "${fullList[index].stokFiyat} ${fullList[index].stokKur}",
+                                        style: purpleTxtStyle,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: context.dynamicHeight * 0.05,
+                              ),
+                              InkWell(
+                                  onTap: () {
+                                    if (!formKey.currentState!.validate()) {
+                                      Future.delayed(
+                                        const Duration(milliseconds: 500),
+                                        () {
+                                          return showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return AlertDialog(
+                                                content: Text(
+                                                  "Başka bir ürün eklemek istiyor musunuz?",
+                                                  style: purpleTxtStyle,
+                                                ),
+                                                actions: [
+                                                  TextButton(
+                                                    style: ButtonStyle(
+                                                      backgroundColor:
+                                                          MaterialStateProperty
+                                                              .all(Color(
+                                                                  MyColors
+                                                                      .bg01)),
+                                                    ),
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .popUntil((route) =>
+                                                              route.settings
+                                                                  .name ==
+                                                              '/cariKartlar');
+                                                    },
+                                                    child: const Text(
+                                                      "Ürün Ekle",
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                  ),
+                                                  InkWell(
+                                                    onTap: () {},
+                                                    child: Text(
+                                                      "Devam",
+                                                      style: purpleTxtStyle,
+                                                    ),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                      );
+                                    }
+                                  },
+                                  child: CommonButton(buttonName: "EKLE")),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                  siparisStokBilgileri.saveStokForSiparis(
+                    Stoklar(
+                      stokKodu: stokList[index].stokKodu,
+                      stokIsim: stokList[index].stokIsim,
+                      stokFiyat: stokList[index].stokFiyat,
+                      stokKur: stokList[index].stokKur,
+                      stokAnaGrup: stokList[index].stokAnaGrup,
+                      stokSektor: stokList[index].stokSektor,
+                      stokBirim1: stokList[index].stokBirim1,
+                      stokBirim3: stokList[index].stokBirim3,
+                      stokBirim3Katsayi: stokList[index].stokBirim3Katsayi,
+                      stokReyon: stokList[index].stokReyon,
+                      stokMarka: stokList[index].stokMarka,
+                      stokModel: stokList[index].stokModel,
+                      merkez: stokList[index].merkez,
+                      stokMiktar: stokList[index].stokMiktar,
+                    ),
+                  );
+                  // Navigator.pushNamedAndRemoveUntil(context, '/satisSiparisi',
+                  //     (route) => route.settings.name == '/home');
                 } else {
                   Navigator.pushNamed(context, '/stockDetail',
                       arguments: stokList[index]);
@@ -347,7 +571,7 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
           ),
           Expanded(
             child: TextField(
-              onChanged: (value) => _runFilter(value),
+              //onChanged: (value) => _runFilter(value),
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: Constants.ARA,

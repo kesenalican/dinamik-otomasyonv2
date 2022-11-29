@@ -2,6 +2,6 @@
 const Modules = [
   "Stok Kartları",
   "Cari Kartlar",
-  "Ürün Bilgisi",
+  "Satış Siparişi",
   "Depo Yönetimi",
 ];
