@@ -14,7 +14,7 @@ class Stoklar {
     required this.stokKodu,
     required this.stokIsim,
     required this.stokFiyat,
-    required this.stokKur,
+    this.stokKur,
     required this.stokAnaGrup,
     required this.stokSektor,
     required this.stokBirim1,

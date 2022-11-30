@@ -183,7 +183,7 @@ class _LoginState extends ConsumerState<Login> {
                           kullaniciUzunAdi: userCodeController.text,
                           kullaniciAdi: userController.text));
 
-                      Navigator.pushNamed(context, '/home',
+                      Navigator.pushReplacementNamed(context, '/home',
                           arguments: companyController.text);
                     } else if (passwordController.text != Constants.password) {
                       Future.delayed(

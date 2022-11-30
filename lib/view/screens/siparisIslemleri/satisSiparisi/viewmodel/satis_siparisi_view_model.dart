@@ -1,6 +1,7 @@
 import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cariler.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/model/siparisler.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/model/stok_cari_bilgileri.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/service/satis_siparisi_service.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/model/stoklar_model.dart';
 import 'package:flutter/material.dart';
@@ -10,11 +11,13 @@ class SatisSiparisiViewModel extends ChangeNotifier {
   SatisSiparisiService service = SatisSiparisiService();
   Cariler? savedCari;
   Stoklar? savedStok;
-  List<Siparisler> siparisler = [];
+  List<StokCariBilgileri> siparisler = [];
   int? listLength;
   Siparisler? siparis;
   int? siparisMiktari;
-  double? toplamTutar;
+  double toplamTutar = 0;
+  int satirNo = 0;
+
   calculateTotalPrice(String? value, TextEditingController birimFiyatcontroller,
       TextEditingController sipTutariController) {
     if (value!.isNotEmpty) {
@@ -82,6 +85,15 @@ class SatisSiparisiViewModel extends ChangeNotifier {
       return 'Lütfen Miktar Giriniz!';
     }
   }
+
+  addItemToSiparisList(StokCariBilgileri siparis) {
+    siparisler.add(siparis);
+    print(toplamTutar);
+    satirNo++;
+    return siparisler;
+  }
+
+  saveDocumentInfosForSiparis() {}
 }
 
 final satisSiparisViewModel =

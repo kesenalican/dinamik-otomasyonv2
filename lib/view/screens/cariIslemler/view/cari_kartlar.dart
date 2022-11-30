@@ -115,7 +115,7 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
       ),
       resizeToAvoidBottomInset: true,
       appBar: CommonAppbar(
-        whichPage: "Cariler",
+        whichPage: widget.detayaGitmesin! ? " Cari Seç" : "Cariler",
       ),
       body: SingleChildScrollView(
         child: Column(

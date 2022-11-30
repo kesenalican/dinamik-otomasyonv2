@@ -8,7 +8,6 @@ import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/bekleyenSiparisl
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/model/siparisler.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/service/satis_siparisi_service.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/common/iskonto_page.dart';
-import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/cari_kod_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/cari_personel_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/depo_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/evrak_no_text_field.dart';
@@ -27,8 +26,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class YeniSatisSiparisi extends HookConsumerWidget {
-  YeniSatisSiparisi({super.key});
+class SiparisToplam extends HookConsumerWidget {
+  SiparisToplam({super.key});
   static final GlobalKey<FormFieldState<String>> searchFormKey =
       GlobalKey<FormFieldState<String>>();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -74,6 +73,8 @@ class YeniSatisSiparisi extends HookConsumerWidget {
     var viewModel = ref.watch(satisSiparisViewModel);
     var currentUser = ref.watch(currentUserProvider);
     var evrakNo = ref.watch(evrakBilgileriProvider);
+    print(
+        "GELEN MİKTAR == ${viewModel.siparisMiktari} ,, GELEN TUTAR ==== ${viewModel.toplamTutar.toString()} GELEN STOK KODU ===  ${viewModel.savedStok!.stokKodu}");
     fillEvrakBilgileri() {
       if (evrakSeriController.text != "") {
         viewModel.seriNoControl(
@@ -128,20 +129,7 @@ class YeniSatisSiparisi extends HookConsumerWidget {
               readOnly: false,
               textInputType: TextInputType.name,
             ),
-            CariKodTextField(
-                cariKodController: cariKodController,
-                cariIsimController: cariIsimController),
-            CommonTextField(
-              validator: (value) {
-                return cariViewModel.validateIsNotEmpty(value!);
-              },
-              controller: cariIsimController,
-              field: "Cari İsmi",
-              icon: Icons.person,
-              isMandatory: true,
-              readOnly: true,
-              textInputType: TextInputType.name,
-            ),
+
             KurTextField(dovizController: dovizController),
             ProjeTextField(projeController: projeController),
             SormMerkeziTextField(sormMerkeziController: sormMerkeziController),
@@ -167,38 +155,7 @@ class YeniSatisSiparisi extends HookConsumerWidget {
                 ),
               ],
             ),
-            InkWell(
-              onTap: () async {
-                await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => SiparisSatiri(
-                              stokKoduController: stokKoduController,
-                              stokIsmiController: stokIsmiController,
-                              birimFiyatController: birimFiyatController,
-                              sipTutariController: sipTutariController,
-                              stokBirimController: stokBirimController,
-                              stokMiktariController: stokMiktariController,
-                            ))).then((value) {
-                  siparisList.add(SiparisSatiri(
-                      stokKoduController: stokKoduController,
-                      stokIsmiController: stokIsmiController,
-                      stokMiktariController: stokMiktariController,
-                      stokBirimController: stokBirimController,
-                      birimFiyatController: birimFiyatController,
-                      sipTutariController: sipTutariController));
-                });
-                satirList.addAll(siparisList);
-                print("sipariş listemin uzunluğu ==== " +
-                    satirList.length.toString());
 
-                print("sipariş tutarım ==== " +
-                    sipTutariController.text.toString());
-              },
-              child: CommonButton(
-                buttonName: "Ürün Gir",
-              ),
-            ),
             InkWell(
               onTap: () {
                 Navigator.push(
@@ -249,246 +206,6 @@ class YeniSatisSiparisi extends HookConsumerWidget {
                 ),
               ),
             ),
-            Text("Ürün Bilgisi", style: purpleBoldTxtStyle),
-            Divider(
-              color: Color(
-                MyColors.bg01,
-              ),
-              indent: 50,
-              endIndent: 50,
-              thickness: 2,
-            ),
-
-            Container(
-              margin: EdgeInsets.all(context.dynamicHeight * 0.02),
-              padding: EdgeInsets.symmetric(
-                  vertical: context.dynamicHeight * 0.02,
-                  horizontal: context.dynamicHeight * 0.05),
-              decoration: BoxDecoration(
-                color: Color(
-                  MyColors.bg,
-                ),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    "Ürün 1",
-                    style: purpleBoldTxtStyle,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          "Stok Kodu:",
-                          style: purpleTxtStyle,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          stokKoduController.text,
-                          style: purpleTxtStyle,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          "Ürün İsmi:",
-                          style: purpleTxtStyle,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          stokIsmiController.text,
-                          style: purpleTxtStyle,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      )
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          "Ürün Fiyatı:",
-                          style: purpleTxtStyle,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          "${birimFiyatController.text} TL",
-                          style: purpleTxtStyle,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          "Sipariş Miktarı:",
-                          style: purpleTxtStyle,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          "${stokMiktariController.text} ${stokBirimController.text}",
-                          style: purpleTxtStyle,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          "Toplam Tutar:",
-                          style: purpleTxtStyle,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          " ${sipTutariController.text} TL",
-                          style: purpleTxtStyle,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-
-            // SizedBox(
-            //   height: context.dynamicHeight * 0.07,
-            //   width: context.dynamicWidth * 0.9,
-            //   child: ListView.builder(
-            //     itemCount: satirList.length,
-            //     itemBuilder: (context, index) {
-            //       return Container(
-            //         margin: EdgeInsets.all(context.dynamicHeight * 0.02),
-            //         padding: EdgeInsets.symmetric(
-            //             vertical: context.dynamicHeight * 0.02,
-            //             horizontal: context.dynamicHeight * 0.05),
-            //         decoration: BoxDecoration(
-            //           color: Color(
-            //             MyColors.bg,
-            //           ),
-            //           borderRadius: BorderRadius.circular(10),
-            //         ),
-            //         child: Column(
-            //           children: [
-            //             Text(
-            //               "Ürün 1",
-            //               style: purpleBoldTxtStyle,
-            //             ),
-            //             Row(
-            //               children: [
-            //                 Expanded(
-            //                   child: Text(
-            //                     "Stok Kodu:",
-            //                     style: purpleTxtStyle,
-            //                     overflow: TextOverflow.ellipsis,
-            //                   ),
-            //                 ),
-            //                 Expanded(
-            //                   child: Text(
-            //                     satirList[index].stokKoduController.text,
-            //                     style: purpleTxtStyle,
-            //                     overflow: TextOverflow.ellipsis,
-            //                   ),
-            //                 )
-            //               ],
-            //             ),
-            //             Row(
-            //               children: [
-            //                 Expanded(
-            //                   child: Text(
-            //                     "Ürün İsmi:",
-            //                     style: purpleTxtStyle,
-            //                     overflow: TextOverflow.ellipsis,
-            //                   ),
-            //                 ),
-            //                 Expanded(
-            //                   child: Text(
-            //                     satirList[index].stokIsmiController.text,
-            //                     style: purpleTxtStyle,
-            //                     overflow: TextOverflow.ellipsis,
-            //                   ),
-            //                 )
-            //               ],
-            //             ),
-            //             Row(
-            //               children: [
-            //                 Expanded(
-            //                   child: Text(
-            //                     "Ürün Fiyatı:",
-            //                     style: purpleTxtStyle,
-            //                     overflow: TextOverflow.ellipsis,
-            //                   ),
-            //                 ),
-            //                 Expanded(
-            //                   child: Text(
-            //                     "${satirList[index].birimFiyatController.text} TL",
-            //                     style: purpleTxtStyle,
-            //                     overflow: TextOverflow.ellipsis,
-            //                   ),
-            //                 ),
-            //               ],
-            //             ),
-            //             Row(
-            //               children: [
-            //                 Expanded(
-            //                   child: Text(
-            //                     "Sipariş Miktarı:",
-            //                     style: purpleTxtStyle,
-            //                     overflow: TextOverflow.ellipsis,
-            //                   ),
-            //                 ),
-            //                 Expanded(
-            //                   child: Text(
-            //                     "${satirList[index].stokMiktariController.text} ${siparisList[index].stokBirimController.text}",
-            //                     style: purpleTxtStyle,
-            //                     overflow: TextOverflow.ellipsis,
-            //                   ),
-            //                 ),
-            //               ],
-            //             ),
-            //             Row(
-            //               children: [
-            //                 Expanded(
-            //                   child: Text(
-            //                     "Toplam Tutar:",
-            //                     style: purpleTxtStyle,
-            //                     overflow: TextOverflow.ellipsis,
-            //                   ),
-            //                 ),
-            //                 Expanded(
-            //                   child: Text(
-            //                     " ${satirList[index].sipTutariController.text} TL",
-            //                     style: purpleTxtStyle,
-            //                     overflow: TextOverflow.ellipsis,
-            //                   ),
-            //                 ),
-            //               ],
-            //             ),
-            //           ],
-            //         ),
-            //       );
-            //     },
-            //   ),
-            // ),
 
             InkWell(
               onTap: () {
