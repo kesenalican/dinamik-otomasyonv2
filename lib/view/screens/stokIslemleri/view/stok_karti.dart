@@ -254,6 +254,8 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
   }
 
   Expanded _buildAdetVeFiyat(int index, List<Stoklar> stokList) {
+    var fiyat = stokList[index].stokFiyat;
+    var truncateFiyat = fiyat.toStringAsFixed(2);
     return Expanded(
       flex: 2,
       child: Column(
@@ -271,7 +273,7 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
             ),
           ),
           Text(
-            "${stokList[index].stokFiyat.toString()} TL",
+            "$truncateFiyat TL",
             style: TextStyle(
               color: Color(MyColors.bg01),
               fontSize: 10,

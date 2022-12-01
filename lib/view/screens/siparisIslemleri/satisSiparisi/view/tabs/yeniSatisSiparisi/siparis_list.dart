@@ -1,6 +1,7 @@
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/common/common_button.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/viewmodel/satis_siparisi_view_model.dart';
+import 'package:dinamik_otomasyon/view/screens/stokIslemleri/view/stok_detay.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/view/stok_karti.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
@@ -31,60 +32,89 @@ class SiparisListesi extends ConsumerWidget {
           child: ListView.builder(
             itemCount: siparisModel.siparisler.length,
             itemBuilder: (context, index) {
-              return Container(
-                margin: EdgeInsets.symmetric(
-                    vertical: context.dynamicHeight * 0.005,
-                    horizontal: context.dynamicWidth * 0.03),
-                child: Card(
-                  elevation: 4,
-                  color: Color(MyColors.bg),
-                  margin: EdgeInsets.zero,
-                  child: Padding(
-                    padding: EdgeInsets.all(context.dynamicHeight * 0.01),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                siparisModel.siparisler[index].sipStokAd,
-                                style: TextStyle(
-                                  color: Color(MyColors.bg01),
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 12,
+              return InkWell(
+                onTap: () {
+                  Future.delayed(const Duration(milliseconds: 500), () {
+                    return showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Text(
+                              "Ne yapmak istiyorsunuz?",
+                              style: purpleTxtStyle,
+                            ),
+                            actions: [
+                              TextButton(
+                                style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Color(MyColors.bg01)),
                                 ),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
-                              ),
-                              SizedBox(
-                                height: context.dynamicHeight * 0.01,
-                              ),
-                              Text(
-                                siparisModel.siparisler[index].sipStokKod
-                                    .toString(),
-                                style: TextStyle(
-                                  color: Color(MyColors.bg01),
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w600,
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => StokDetay(
+                                              stokModel:
+                                                  siparisModel.savedStok!)));
+                                },
+                                child: Text(
+                                  "Detay",
+                                  style: whiteTxtStyle,
                                 ),
-                                overflow: TextOverflow.ellipsis,
+                              ),
+                              TextButton(
+                                style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Color(MyColors.bg01)),
+                                ),
+                                onPressed: () {
+                                  siparisModel.deleteItemToSiparisList(
+                                      siparisModel.siparisler[index]);
+                                  Navigator.pop(context);
+                                },
+                                child: Text(
+                                  "Sil",
+                                  style: whiteTxtStyle,
+                                ),
                               ),
                             ],
-                          ),
-                        ),
-
-                        //FİYAT
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.all(
-                                    context.dynamicHeight * 0.006),
-                                child: Text(
-                                  "Adet: ${siparisModel.siparisler[index].sipMiktar}",
+                          );
+                        });
+                  });
+                },
+                child: Container(
+                  margin: EdgeInsets.symmetric(
+                      vertical: context.dynamicHeight * 0.005,
+                      horizontal: context.dynamicWidth * 0.03),
+                  child: Card(
+                    elevation: 4,
+                    color: Color(MyColors.bg),
+                    margin: EdgeInsets.zero,
+                    child: Padding(
+                      padding: EdgeInsets.all(context.dynamicHeight * 0.01),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  siparisModel.siparisler[index].sipStokAd,
+                                  style: TextStyle(
+                                    color: Color(MyColors.bg01),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                ),
+                                SizedBox(
+                                  height: context.dynamicHeight * 0.01,
+                                ),
+                                Text(
+                                  siparisModel.siparisler[index].sipStokKod
+                                      .toString(),
                                   style: TextStyle(
                                     color: Color(MyColors.bg01),
                                     fontSize: 10,
@@ -92,20 +122,42 @@ class SiparisListesi extends ConsumerWidget {
                                   ),
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                              ),
-                              Text(
-                                "${siparisModel.siparisler[index].sipTutar} TL",
-                                style: TextStyle(
-                                  color: Color(MyColors.bg01),
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+
+                          //FİYAT
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.all(
+                                      context.dynamicHeight * 0.006),
+                                  child: Text(
+                                    "Adet: ${siparisModel.siparisler[index].sipMiktar}",
+                                    style: TextStyle(
+                                      color: Color(MyColors.bg01),
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                Text(
+                                  "${siparisModel.siparisler[index].sipTutar} TL",
+                                  style: TextStyle(
+                                    color: Color(MyColors.bg01),
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

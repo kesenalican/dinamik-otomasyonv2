@@ -90,7 +90,13 @@ class SatisSiparisiViewModel extends ChangeNotifier {
     siparisler.add(siparis);
     print(toplamTutar);
     satirNo++;
+    notifyListeners();
     return siparisler;
+  }
+
+  deleteItemToSiparisList(StokCariBilgileri siparis) {
+    siparisler.remove(siparis);
+    notifyListeners();
   }
 
   saveDocumentInfosForSiparis() {}

@@ -1,7 +1,6 @@
 import 'package:dinamik_otomasyon/view/common/common_appbar.dart';
 import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
 import 'package:dinamik_otomasyon/view/screens/authenticate/login/viewmodel/login_view_model.dart';
-import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/model/siparisler.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/model/stok_cari_bilgileri.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/common/iskonto_page.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/viewmodel/satis_siparisi_view_model.dart';
@@ -169,191 +168,22 @@ class UrunBilgileriGir extends HookConsumerWidget {
                 ),
                 child: InkWell(
                   onTap: () async {
-                    return showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: Text(
-                              "Ürünü kayıt etmek istiyor musunuz?",
-                              style: purpleTxtStyle,
-                            ),
-                            actions: [
-                              Row(
-                                children: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                      siparisMiktariController.clear();
-                                      sipTutariController.text = "";
-                                    },
-                                    style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all(
-                                                Color(MyColors.bg01))),
-                                    child: Text(
-                                      "Hayır",
-                                      style: whiteTxtStyle,
-                                    ),
-                                  ),
-                                  TextButton(
-                                    style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all(
-                                                Color(MyColors.bg01))),
-                                    child: Text(
-                                      "Evet",
-                                      style: whiteTxtStyle,
-                                    ),
-                                    onPressed: () {
-                                      if (!formKey.currentState!.validate()) {
-                                        Navigator.pop(context);
-                                        return;
-                                      }
-                                      if (siparisMiktariController.text == "") {
-                                        // ignore: void_checks
-                                        return showAlertDialog(
-                                            context: context,
-                                            hataBaslik: "Hata",
-                                            hataIcerik: "Önce miktar giriniz!");
-                                      }
-                                      siparisModel.saveStokBilgileri(
-                                          siparisMiktariController,
-                                          sipTutariController);
-
-                                      siparisModel.addItemToSiparisList(
-                                          StokCariBilgileri(
-                                        sipCreateUser: currentUser
-                                            .currentUser!.kullaniciNo,
-                                        sipLastupUser: currentUser
-                                            .currentUser!.kullaniciNo,
-                                        sipTip: 0,
-                                        sipSatirno: siparisModel.satirNo,
-                                        sipMusteriKod:
-                                            siparisModel.savedCari!.cariKodu,
-                                        sipStokKod:
-                                            siparisModel.savedStok!.stokKodu,
-                                        sipStokAd:
-                                            siparisModel.savedStok!.stokIsim,
-                                        sipBFiyat:
-                                            siparisModel.savedStok!.stokFiyat,
-                                        sipMiktar: int.parse(
-                                            siparisMiktariController.text),
-                                        sipTeslimMiktar: int.parse(
-                                            siparisMiktariController.text),
-                                        sipTutar: double.parse(
-                                            sipTutariController.text),
-                                        siparislerSipIskonto1:
-                                            isk1Controller.text.isNotEmpty
-                                                ? int.parse(isk1Controller.text)
-                                                : 0,
-                                        siparislerSipIskonto2: isk2Controller
-                                                .text.isEmpty
-                                            ? 0
-                                            : int.parse(isk2Controller.text),
-                                        siparislerSipIskonto3: isk3Controller
-                                                .text.isEmpty
-                                            ? 0
-                                            : int.parse(isk3Controller.text),
-                                        siparislerSipIskonto4: isk4Controller
-                                                .text.isEmpty
-                                            ? 0
-                                            : int.parse(isk4Controller.text),
-                                        siparislerSipIskonto5: isk5Controller
-                                                .text.isEmpty
-                                            ? 0
-                                            : int.parse(isk5Controller.text),
-                                        siparislerSipIskonto6: isk6Controller
-                                                .text.isEmpty
-                                            ? 0
-                                            : int.parse(isk6Controller.text),
-                                        siparislerSipMasraf1: mas1Controller
-                                                .text.isEmpty
-                                            ? 0
-                                            : int.parse(mas1Controller.text),
-                                        siparislerSipMasraf2: mas2Controller
-                                                .text.isEmpty
-                                            ? 0
-                                            : int.parse(mas2Controller.text),
-                                        siparislerSipMasraf3: mas3Controller
-                                                .text.isEmpty
-                                            ? 0
-                                            : int.parse(mas3Controller.text),
-                                        siparislerSipMasraf4: mas4Controller
-                                                .text.isEmpty
-                                            ? 0
-                                            : int.parse(mas4Controller.text),
-                                      ));
-
-                                      print("LİSTEMİN UZUNLUĞU" +
-                                          siparisModel.siparisler.length
-                                              .toString());
-                                      Future.delayed(
-                                          const Duration(milliseconds: 500),
-                                          () {
-                                        return showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return AlertDialog(
-                                                content: Text(
-                                                  "Ürün başarıyla kaydedildi! Başka bir ürün eklemek istiyor musunuz?",
-                                                  style: purpleTxtStyle,
-                                                ),
-                                                actions: [
-                                                  TextButton(
-                                                    style: ButtonStyle(
-                                                      backgroundColor:
-                                                          MaterialStateProperty
-                                                              .all(Color(
-                                                                  MyColors
-                                                                      .bg01)),
-                                                    ),
-                                                    onPressed: () {
-                                                      Navigator
-                                                          .pushNamedAndRemoveUntil(
-                                                              context,
-                                                              '/satisSiparisi',
-                                                              (route) =>
-                                                                  route.settings
-                                                                      .name ==
-                                                                  '/home');
-                                                    },
-                                                    child: Text(
-                                                      "Hayır",
-                                                      style: whiteTxtStyle,
-                                                    ),
-                                                  ),
-                                                  TextButton(
-                                                    style: ButtonStyle(
-                                                      backgroundColor:
-                                                          MaterialStateProperty
-                                                              .all(Color(
-                                                                  MyColors
-                                                                      .bg01)),
-                                                    ),
-                                                    onPressed: () {
-                                                      Navigator.pushNamed<
-                                                          dynamic>(
-                                                        context,
-                                                        '/stockList',
-                                                        arguments: true,
-                                                      );
-                                                    },
-                                                    child: Text(
-                                                      "Evet",
-                                                      style: whiteTxtStyle,
-                                                    ),
-                                                  ),
-                                                ],
-                                              );
-                                            });
-                                      });
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ],
-                          );
-                        });
+                    return buildOrderSaveDialog(
+                        context,
+                        siparisMiktariController,
+                        sipTutariController,
+                        siparisModel,
+                        currentUser,
+                        isk1Controller,
+                        isk2Controller,
+                        isk3Controller,
+                        isk4Controller,
+                        isk5Controller,
+                        isk6Controller,
+                        mas1Controller,
+                        mas2Controller,
+                        mas3Controller,
+                        mas4Controller);
                   },
                   child: CommonButton(buttonName: "EKLE"),
                 ),
@@ -363,6 +193,130 @@ class UrunBilgileriGir extends HookConsumerWidget {
         ),
       ),
     );
+  }
+
+  Future<void> buildOrderSaveDialog(
+      BuildContext context,
+      TextEditingController siparisMiktariController,
+      TextEditingController sipTutariController,
+      SatisSiparisiViewModel siparisModel,
+      LoginViewModel currentUser,
+      TextEditingController isk1Controller,
+      TextEditingController isk2Controller,
+      TextEditingController isk3Controller,
+      TextEditingController isk4Controller,
+      TextEditingController isk5Controller,
+      TextEditingController isk6Controller,
+      TextEditingController mas1Controller,
+      TextEditingController mas2Controller,
+      TextEditingController mas3Controller,
+      TextEditingController mas4Controller) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(
+              "Ürünü kayıt etmek istiyor musunuz?",
+              style: purpleTxtStyle,
+            ),
+            actions: [
+              Row(
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      siparisMiktariController.clear();
+                      sipTutariController.text = "";
+                    },
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Color(MyColors.bg01))),
+                    child: Text(
+                      "Hayır",
+                      style: whiteTxtStyle,
+                    ),
+                  ),
+                  SizedBox(
+                    width: context.dynamicWidth * 0.03,
+                  ),
+                  TextButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Color(MyColors.bg01))),
+                    child: Text(
+                      "Evet",
+                      style: whiteTxtStyle,
+                    ),
+                    onPressed: () {
+                      if (!formKey.currentState!.validate()) {
+                        Navigator.pop(context);
+                        return;
+                      }
+                      if (siparisMiktariController.text == "") {
+                        // ignore: void_checks
+                        return showAlertDialog(
+                            context: context,
+                            hataBaslik: "Hata",
+                            hataIcerik: "Önce miktar giriniz!");
+                      }
+                      siparisModel.saveStokBilgileri(
+                          siparisMiktariController, sipTutariController);
+
+                      siparisModel.addItemToSiparisList(StokCariBilgileri(
+                        sipCreateUser: currentUser.currentUser!.kullaniciNo,
+                        sipLastupUser: currentUser.currentUser!.kullaniciNo,
+                        sipTip: 0,
+                        sipSatirno: siparisModel.satirNo,
+                        sipMusteriKod: siparisModel.savedCari!.cariKodu,
+                        sipStokKod: siparisModel.savedStok!.stokKodu,
+                        sipStokAd: siparisModel.savedStok!.stokIsim,
+                        sipBFiyat: siparisModel.savedStok!.stokFiyat,
+                        sipMiktar: int.parse(siparisMiktariController.text),
+                        sipTeslimMiktar:
+                            int.parse(siparisMiktariController.text),
+                        sipTutar: double.parse(sipTutariController.text),
+                        siparislerSipIskonto1: isk1Controller.text.isNotEmpty
+                            ? int.parse(isk1Controller.text)
+                            : 0,
+                        siparislerSipIskonto2: isk2Controller.text.isEmpty
+                            ? 0
+                            : int.parse(isk2Controller.text),
+                        siparislerSipIskonto3: isk3Controller.text.isEmpty
+                            ? 0
+                            : int.parse(isk3Controller.text),
+                        siparislerSipIskonto4: isk4Controller.text.isEmpty
+                            ? 0
+                            : int.parse(isk4Controller.text),
+                        siparislerSipIskonto5: isk5Controller.text.isEmpty
+                            ? 0
+                            : int.parse(isk5Controller.text),
+                        siparislerSipIskonto6: isk6Controller.text.isEmpty
+                            ? 0
+                            : int.parse(isk6Controller.text),
+                        siparislerSipMasraf1: mas1Controller.text.isEmpty
+                            ? 0
+                            : int.parse(mas1Controller.text),
+                        siparislerSipMasraf2: mas2Controller.text.isEmpty
+                            ? 0
+                            : int.parse(mas2Controller.text),
+                        siparislerSipMasraf3: mas3Controller.text.isEmpty
+                            ? 0
+                            : int.parse(mas3Controller.text),
+                        siparislerSipMasraf4: mas4Controller.text.isEmpty
+                            ? 0
+                            : int.parse(mas4Controller.text),
+                      ));
+                      Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          '/satisSiparisi',
+                          (route) => route.settings.name == '/home');
+                    },
+                  ),
+                ],
+              ),
+            ],
+          );
+        });
   }
 
   Padding buildStokFiyati(
@@ -381,7 +335,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
           Expanded(
             flex: 2,
             child: Text(
-              siparisModel.savedStok!.stokFiyat.toString(),
+              siparisModel.savedStok!.stokFiyat.toStringAsFixed(2),
               style: purpleTxtStyle,
               overflow: TextOverflow.ellipsis,
             ),
