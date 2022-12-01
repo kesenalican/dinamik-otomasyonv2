@@ -1,20 +1,59 @@
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/model/stoklar_model.dart';
-import 'package:dinamik_otomasyon/view/screens/stokIslemleri/view/son_satis_fiyatlari.dart';
-import 'package:dinamik_otomasyon/view/screens/stokIslemleri/view/son_alis_fiyatlari.dart';
+import 'package:dinamik_otomasyon/view/screens/stokIslemleri/viewmodel/stok_view_model.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
+import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 class FiyatlarTab extends ConsumerWidget {
   Stoklar stokModel;
+  double? kdvsizFiyat;
+  // ignore: prefer_typing_uninitialized_variables
+  var netFiyat;
+  // ignore: prefer_typing_uninitialized_variables
+  var brutFiyat;
 
   FiyatlarTab({Key? key, required this.stokModel}) : super(key: key);
+  truncateDoublePrice(double n) {
+    return n.toStringAsFixed(n.truncateToDouble() == n ? 0 : 2);
+  }
+
+  kdvsizFiyatBul() {
+    brutFiyat = truncateDoublePrice(stokModel.stokFiyat);
+    if (stokModel.perakendeVergiYuzde == 1) {
+      var kdvCarpani = "1.0${stokModel.perakendeVergiYuzde.ceil()}";
+      kdvsizFiyat = stokModel.stokFiyat / double.parse(kdvCarpani);
+      netFiyat = kdvsizFiyat!.toStringAsFixed(
+          kdvsizFiyat!.truncateToDouble() == kdvsizFiyat ? 0 : 2);
+      return netFiyat;
+    } else if (stokModel.perakendeVergiYuzde == 8) {
+      var kdvCarpani = "1.0${stokModel.perakendeVergiYuzde.ceil()}";
+      kdvsizFiyat = stokModel.stokFiyat / double.parse(kdvCarpani);
+      netFiyat = kdvsizFiyat!.toStringAsFixed(
+          kdvsizFiyat!.truncateToDouble() == kdvsizFiyat ? 0 : 2);
+    } else if (stokModel.perakendeVergiYuzde == 18) {
+      var kdvCarpani = "1.${stokModel.perakendeVergiYuzde.ceil()}";
+      kdvsizFiyat = stokModel.stokFiyat / double.parse(kdvCarpani);
+      netFiyat = kdvsizFiyat!.toStringAsFixed(
+          kdvsizFiyat!.truncateToDouble() == kdvsizFiyat ? 0 : 2);
+      return netFiyat;
+    }
+    return 0;
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    kdvsizFiyatBul();
+    //TODOS: ViewModel'de bu bilgileri kaydedip çarparken getirmem lazım.
+    //  var stokViewModel = ref.watch(stokViewModelProvider);
+
+    // stokViewModel.fiyatlariKaydet(
+    //     double.parse(brutFiyat), double.parse(netFiyat));
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -93,7 +132,9 @@ class FiyatlarTab extends ConsumerWidget {
     );
   }
 
-  Container buildUrunFiyat(BuildContext context) {
+  Container buildUrunFiyat(
+    BuildContext context,
+  ) {
     return Container(
       width: double.infinity,
       margin: context.paddingTextField,
@@ -106,39 +147,64 @@ class FiyatlarTab extends ConsumerWidget {
       ),
       child: Column(
         children: [
-          Row(
+          Column(
             children: [
               Padding(
                 padding: context.paddingDefault,
-                child: const Text(
-                  "Liste No: 1",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                child: Text(Constants.SATIS_FIYATI, style: purpleBoldTxtStyle),
               ),
               Padding(
                 padding: context.paddingDefault,
-                child: const Text(
-                  Constants.SATIS_FIYATI,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                child: Text(
+                  stokModel.perakendeVergiIsim,
+                  style: purpleTxtStyle,
                 ),
               ),
             ],
           ),
-          Row(
+          Column(
             children: [
               Padding(
                 padding: EdgeInsets.all(context.dynamicHeight * 0.01),
-                child: Text(Constants.FIYAT +
-                    stokModel.stokFiyat.toString() +
-                    Constants.TURK_LIRASI),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        "Kdv'li Adet Fiyatı: ",
+                        style: purpleTxtStyle,
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        "${brutFiyat.toString()} ${stokModel.stokKur!}",
+                        style: purpleTxtStyle,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               Padding(
                 padding: context.paddingDefault,
-                child: Text("  1 Adet Fiyatı"),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            "Kdv'siz Adet Fiyatı:",
+                            style: purpleTxtStyle,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            "${netFiyat.toString()} ${stokModel.stokKur}",
+                            style: purpleTxtStyle,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

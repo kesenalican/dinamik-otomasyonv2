@@ -10,7 +10,7 @@ import 'tabs/stok_genel_tab.dart';
 class StokDetay extends StatefulWidget {
   final Stoklar stokModel;
 
-  StokDetay({Key? key, required this.stokModel}) : super(key: key);
+  const StokDetay({Key? key, required this.stokModel}) : super(key: key);
 
   @override
   State<StokDetay> createState() => _StokDetayState();

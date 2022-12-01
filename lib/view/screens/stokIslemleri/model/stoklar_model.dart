@@ -26,6 +26,10 @@ class Stoklar {
     required this.stokModel,
     required this.merkez,
     required this.stokMiktar,
+    required this.perakendeVergiIsim,
+    required this.perakendeVergiYuzde,
+    required this.toptanVergiIsim,
+    required this.toptanVergiYuzde,
   });
 
   final String stokKodu;
@@ -43,6 +47,10 @@ class Stoklar {
   final String stokModel;
   final double? merkez;
   final double stokMiktar;
+  final String perakendeVergiIsim;
+  final double perakendeVergiYuzde;
+  final String toptanVergiIsim;
+  final double toptanVergiYuzde;
 
   factory Stoklar.fromMap(Map<String, dynamic> json) => Stoklar(
         stokKodu: json["StokKodu"],
@@ -60,6 +68,10 @@ class Stoklar {
         stokModel: json["StokModel"],
         merkez: json["MERKEZ"],
         stokMiktar: json["StokMiktar"],
+        perakendeVergiIsim: json["PerakendeVergiIsim"],
+        perakendeVergiYuzde: json["PerakendeVergiYuzde"],
+        toptanVergiIsim: json["ToptanVergiIsim"],
+        toptanVergiYuzde: json["ToptanVergiYuzde"],
       );
 
   Map<String, dynamic> toMap() => {
@@ -78,5 +90,9 @@ class Stoklar {
         "StokModel": stokModel,
         "MERKEZ": merkez!.ceil(),
         "StokMiktar": stokMiktar,
+        "PerakendeVergiIsim": perakendeVergiIsim,
+        "PerakendeVergiYuzde": perakendeVergiYuzde,
+        "ToptanVergiIsim": toptanVergiIsim,
+        "ToptanVergiYuzde": toptanVergiYuzde,
       };
 }

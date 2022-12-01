@@ -7,6 +7,7 @@ import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/vi
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/model/stoklar_model.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/service/stok_service.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/view/open_barcode.dart';
+import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../styles/colors.dart';
@@ -176,6 +177,10 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
                       stokModel: fullList[index].stokModel,
                       merkez: fullList[index].merkez,
                       stokMiktar: fullList[index].stokMiktar,
+                      perakendeVergiIsim: fullList[index].perakendeVergiIsim,
+                      perakendeVergiYuzde: fullList[index].perakendeVergiYuzde,
+                      toptanVergiIsim: fullList[index].toptanVergiIsim,
+                      toptanVergiYuzde: fullList[index].toptanVergiYuzde,
                     ),
                   );
                   Navigator.push(
@@ -197,18 +202,20 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
                     padding: EdgeInsets.all(context.dynamicHeight * 0.01),
                     child: Row(
                       children: [
-                        CircleAvatar(
-                          backgroundColor: Color(MyColors.bg01),
-                        ),
+                        // CircleAvatar(
+                        //   backgroundColor: Color(MyColors.bg01),
+                        // ),
+
                         SizedBox(
                           width: context.dynamicWidth * 0.01,
                         ),
                         _buildKodVeAd(index, stokList),
-                        SizedBox(
-                          width: context.dynamicWidth * 0.10,
-                        ),
+                        _buildKDV(index),
+                        // SizedBox(
+                        //   width: context.dynamicWidth * 0.10,
+                        // ),
                         //FİYAT
-                        _buildAdetVeFiyat(index, stokList)
+                        _buildAdetVeFiyat(index, stokList),
                       ],
                     ),
                   ),
@@ -233,6 +240,19 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
     );
   }
 
+  Expanded _buildKDV(int index) {
+    return Expanded(
+        flex: 2,
+        child: Text(
+          fullList[index].perakendeVergiIsim,
+          style: purpleTxtStyle.copyWith(
+            fontSize: 12,
+            fontWeight: FontWeight.w600,
+          ),
+          overflow: TextOverflow.ellipsis,
+        ));
+  }
+
   Expanded _buildAdetVeFiyat(int index, List<Stoklar> stokList) {
     return Expanded(
       flex: 2,
@@ -241,7 +261,7 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
           Padding(
             padding: EdgeInsets.all(context.dynamicHeight * 0.006),
             child: Text(
-              "Adet: ${stokList[index].stokFiyat.ceil().toString()}",
+              "Adet: ${stokList[index].stokMiktar.ceil().toString()}",
               style: TextStyle(
                 color: Color(MyColors.bg01),
                 fontSize: 10,
@@ -266,7 +286,7 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
 
   Expanded _buildKodVeAd(int index, List<Stoklar> stokList) {
     return Expanded(
-      flex: 9,
+      flex: 7,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

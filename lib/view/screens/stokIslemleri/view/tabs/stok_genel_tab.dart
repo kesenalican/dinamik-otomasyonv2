@@ -41,7 +41,9 @@ class StokGenel extends ConsumerWidget {
             DetaySatir(
                 hangiOzellik: Constants.BIRIM_3,
                 urunBilgi: stokModel.stokBirim3),
-            DetaySatir(hangiOzellik: Constants.KDV, urunBilgi: "%18"),
+            DetaySatir(
+                hangiOzellik: Constants.KDV,
+                urunBilgi: "%${stokModel.perakendeVergiYuzde.ceil()}"),
             DetaySatir(hangiOzellik: Constants.KATEGORI, urunBilgi: "kategori"),
             DetaySatir(
                 hangiOzellik: Constants.ANA_GRUP,

@@ -78,7 +78,8 @@ Widget _buildList(Menu list) {
                 Navigator.pushNamed(context, '/login');
                 break;
               case "Stok Kart Detay":
-                Navigator.pushNamed(context, '/stockList');
+                Navigator.pushNamed<dynamic>(context, '/stockList',
+                    arguments: false);
                 break;
               case Constants.CARI_DETAY:
                 Navigator.pushNamed(context, '/cariKartlar');

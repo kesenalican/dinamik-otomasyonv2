@@ -45,7 +45,11 @@ class _HomePageState extends ConsumerState<HomePage> {
             ),
             ModuleCardButton(
               onTap: () {
-                Navigator.pushNamed(context, '/stokKartlari', arguments: {});
+                Navigator.pushNamed<dynamic>(
+                  context,
+                  '/stockList',
+                  arguments: false,
+                );
               },
               cardName: Modules[0],
               iconData: const Icon(Icons.attach_money_rounded),
