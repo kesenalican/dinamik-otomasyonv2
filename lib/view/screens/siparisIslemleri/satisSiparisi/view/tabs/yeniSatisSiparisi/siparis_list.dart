@@ -6,13 +6,24 @@ import 'package:dinamik_otomasyon/view/screens/stokIslemleri/view/stok_karti.dar
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class SiparisListesi extends ConsumerWidget {
+class SiparisListesi extends HookConsumerWidget {
   const SiparisListesi({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isk1Controller = useTextEditingController(text: '');
+    final isk2Controller = useTextEditingController(text: '');
+    final isk3Controller = useTextEditingController(text: '');
+    final isk4Controller = useTextEditingController(text: '');
+    final isk5Controller = useTextEditingController(text: '');
+    final isk6Controller = useTextEditingController(text: '');
+    final mas1Controller = useTextEditingController(text: '');
+    final mas2Controller = useTextEditingController(text: '');
+    final mas3Controller = useTextEditingController(text: '');
+    final mas4Controller = useTextEditingController(text: '');
     var siparisModel = ref.watch(satisSiparisViewModel);
     return SingleChildScrollView(
         child: Column(

@@ -12,11 +12,12 @@ import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+// ignore: must_be_immutable
 class UrunBilgileriGir extends HookConsumerWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   double? kdvsizFiyat;
   // ignore: prefer_typing_uninitialized_variables
-  var netFiyat;
+  double? netFiyat;
   // ignore: prefer_typing_uninitialized_variables
   double? brutFiyat;
   UrunBilgileriGir({super.key});
@@ -28,7 +29,6 @@ class UrunBilgileriGir extends HookConsumerWidget {
     final focusNode = useFocusNode();
     final siparisMiktariController = useTextEditingController(text: '');
     final sipTutariController = useTextEditingController(text: '');
-    final sipKdvsizTutariController = useTextEditingController(text: '');
     final isk1Controller = useTextEditingController(text: '');
     final isk2Controller = useTextEditingController(text: '');
     final isk3Controller = useTextEditingController(text: '');
@@ -39,6 +39,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
     final mas2Controller = useTextEditingController(text: '');
     final mas3Controller = useTextEditingController(text: '');
     final mas4Controller = useTextEditingController(text: '');
+    siparisModel.calculateKdv();
     focusNode.addListener(() {
       if (siparisMiktariController.text != "") {
         double miktar =
@@ -47,8 +48,9 @@ class UrunBilgileriGir extends HookConsumerWidget {
         double toplam = fiyat * miktar;
         sipTutariController.text = toplam.toString();
         //* KDVSİZ TUTARLARIDA TOPLUYORUM
-        var kdvsizFiyat = siparisModel.kdvsizNetFiyat;
-        siparisModel.kdvsizAraTutar = double.parse(kdvsizFiyat) * miktar;
+        //siparisModel.calculateKdv();
+        netFiyat = double.parse(siparisModel.kdvsizNetFiyat) * miktar;
+        print("net fiyat ==$netFiyat");
         // var kdvsizFiyat =
         //     siparisModel.calculateKdv(siparisModel);
         // siparisModel.saveKdvsizFiyat(toplamKdvsizFiyat);
@@ -286,8 +288,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
                         sipStokKod: siparisModel.savedStok!.stokKodu,
                         sipStokAd: siparisModel.savedStok!.stokIsim,
                         sipBFiyat: siparisModel.savedStok!.stokFiyat,
-                        sipKdvsizFiyat:
-                            double.parse(siparisModel.kdvsizNetFiyat),
+                        sipKdvsizFiyat: netFiyat!,
                         sipMiktar: int.parse(
                             siparisMiktariController.text.replaceAll(',', '')),
                         sipTeslimMiktar: int.parse(
@@ -339,8 +340,6 @@ class UrunBilgileriGir extends HookConsumerWidget {
 
   Padding buildBirimFiyati(
       BuildContext context, SatisSiparisiViewModel siparisModel) {
-    siparisModel.calculateKdv(siparisModel);
-
     return Padding(
       padding: context.paddingDefault,
       child: Row(
