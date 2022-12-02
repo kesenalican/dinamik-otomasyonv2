@@ -4,7 +4,7 @@ import 'package:dinamik_otomasyon/view/common/common_button.dart';
 import 'package:dinamik_otomasyon/view/common/common_textfield.dart';
 import 'package:dinamik_otomasyon/view/screens/authenticate/login/viewmodel/login_view_model.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_model.dart';
-import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/bekleyenSiparisler/view/bekleyen_siparisler.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/tabs/yeniSatisSiparisi/bekleyen_siparisler.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/model/siparisler.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/service/satis_siparisi_service.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/common/iskonto_page.dart';

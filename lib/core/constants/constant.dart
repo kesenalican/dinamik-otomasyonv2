@@ -143,12 +143,20 @@ class Constants {
   static const String sharedHataIcerik =
       "Kaynaklar getirilirken bir hata oluştu";
   static const String cariKayitBasarili = "Cari başarıyla kaydedildi";
+
+  //! SİPARİŞLER
   static const String satisSiparisi = "Satış Siparişi";
   static const String alimSiparisi = "Alım Siparişi";
   static const int lastDateinApp = 2050;
-
   static const String iskontoGiriniz = "İskonto Giriniz";
   static const String brutToplamdanYuzde = "Brüt Toplamdan Yüzde";
+  static const String siparisOzeti = "Sipariş Özeti";
+  static const String araToplam = "Ara Toplam";
+  static const String iskonto = "İskonto";
+  static const String masraf = "Masraf";
+  static const String kdv = "KDV";
+  static const String otv = "ÖTV";
+  static const String yekun = "Yekün";
 }
 
 class ConstantProvider {

@@ -15,8 +15,12 @@ class SatisSiparisiViewModel extends ChangeNotifier {
   int? listLength;
   Siparisler? siparis;
   int? siparisMiktari;
+  String kdvsizNetFiyat = "";
   double toplamTutar = 0;
   int satirNo = 0;
+  double anaToplamTutar = 0;
+  double kdvsizAraTutar = 0;
+  double toplamKDV = 0;
 
   calculateTotalPrice(String? value, TextEditingController birimFiyatcontroller,
       TextEditingController sipTutariController) {
@@ -68,9 +72,14 @@ class SatisSiparisiViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  saveKdvsizFiyat(double netFiyat) {
+    kdvsizAraTutar = kdvsizAraTutar + netFiyat;
+    return kdvsizAraTutar;
+  }
+
   saveStokBilgileri(
       TextEditingController miktar, TextEditingController toplam) {
-    siparisMiktari = int.parse(miktar.text);
+    siparisMiktari = int.parse(miktar.text.replaceAll(',', ''));
     toplamTutar = double.parse(toplam.text);
     notifyListeners();
   }
@@ -87,15 +96,43 @@ class SatisSiparisiViewModel extends ChangeNotifier {
   }
 
   addItemToSiparisList(StokCariBilgileri siparis) {
+    anaToplamTutar = anaToplamTutar + siparis.sipTutar;
+    kdvsizAraTutar = kdvsizAraTutar + siparis.sipKdvsizFiyat;
+    toplamKDV = anaToplamTutar - kdvsizAraTutar;
     siparisler.add(siparis);
-    print(toplamTutar);
     satirNo++;
     notifyListeners();
     return siparisler;
   }
 
+  calculateKdv(SatisSiparisiViewModel siparis) {
+    if (siparis.savedStok!.perakendeVergiYuzde == 1) {
+      var kdvCarpani = "1.0${siparis.savedStok!.perakendeVergiYuzde.ceil()}";
+      var kdvsizFiyat = siparis.savedStok!.stokFiyat / double.parse(kdvCarpani);
+      kdvsizNetFiyat = kdvsizFiyat.toStringAsFixed(
+          kdvsizFiyat.truncateToDouble() == kdvsizFiyat ? 0 : 2);
+    } else if (siparis.savedStok!.perakendeVergiYuzde == 8) {
+      var kdvCarpani = "1.0${siparis.savedStok!.perakendeVergiYuzde.ceil()}";
+      var kdvsizFiyat = siparis.savedStok!.stokFiyat / double.parse(kdvCarpani);
+      kdvsizNetFiyat = kdvsizFiyat.toStringAsFixed(
+          kdvsizFiyat.truncateToDouble() == kdvsizFiyat ? 0 : 2);
+      return kdvsizNetFiyat;
+    } else if (siparis.savedStok!.perakendeVergiYuzde == 18) {
+      var kdvCarpani = "1.${siparis.savedStok!.perakendeVergiYuzde.ceil()}";
+      var kdvsizFiyat = siparis.savedStok!.stokFiyat / double.parse(kdvCarpani);
+      kdvsizNetFiyat = kdvsizFiyat.toStringAsFixed(
+          kdvsizFiyat.truncateToDouble() == kdvsizFiyat ? 0 : 2);
+      return kdvsizNetFiyat;
+    }
+    return 0;
+  }
+
   deleteItemToSiparisList(StokCariBilgileri siparis) {
     siparisler.remove(siparis);
+    anaToplamTutar = 0;
+    kdvsizAraTutar = 0;
+    toplamKDV = 0;
+    satirNo = 0;
     notifyListeners();
   }
 

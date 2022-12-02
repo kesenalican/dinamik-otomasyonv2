@@ -10,6 +10,7 @@ class StokCariBilgileri {
     required this.sipStokKod,
     required this.sipStokAd,
     required this.sipBFiyat,
+    required this.sipKdvsizFiyat,
     required this.sipMiktar,
     required this.sipTeslimMiktar,
     required this.sipTutar,
@@ -34,6 +35,7 @@ class StokCariBilgileri {
   final String sipStokKod;
   final String sipStokAd;
   final double sipBFiyat;
+  final double sipKdvsizFiyat;
   final int sipMiktar;
   final int sipTeslimMiktar;
   final double sipTutar;

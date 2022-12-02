@@ -5,6 +5,7 @@ import 'package:dinamik_otomasyon/view/common/common_appbar.dart';
 import 'package:dinamik_otomasyon/view/common/common_drawer.dart';
 import 'package:dinamik_otomasyon/view/common/module_card_button.dart';
 import 'package:dinamik_otomasyon/view/common/search_input.dart';
+import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/cari_kartlar.dart';
 import 'package:dinamik_otomasyon/view/screens/module_card.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/satis_siparisi.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/siparis_satiri.dart';
@@ -56,7 +57,12 @@ class _HomePageState extends ConsumerState<HomePage> {
             ),
             ModuleCardButton(
               onTap: () {
-                Navigator.pushNamed(context, '/cariKartlar');
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CariKartlar(
+                              detayaGitmesin: false,
+                            )));
               },
               cardName: Modules[1],
               iconData: const Icon(Icons.account_tree_sharp),

@@ -1,12 +1,10 @@
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/model/stoklar_model.dart';
-import 'package:dinamik_otomasyon/view/screens/stokIslemleri/viewmodel/stok_view_model.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
-import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
 class FiyatlarTab extends ConsumerWidget {

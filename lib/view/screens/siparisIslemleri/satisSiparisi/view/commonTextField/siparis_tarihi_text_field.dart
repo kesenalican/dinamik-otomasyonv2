@@ -4,6 +4,7 @@ import 'package:dinamik_otomasyon/view/common/common_input_border.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:intl/intl.dart';
 
 class SiparisTarihiTextField extends HookWidget {
   const SiparisTarihiTextField({
@@ -15,10 +16,7 @@ class SiparisTarihiTextField extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateTime dateTimeBitis = DateTime.parse(
-        "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}");
-    final dateTimeBitiss = useState(DateTime.parse(
-        "${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}"));
+    final orderDate = useState(DateTime.now());
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: context.dynamicWidth * 0.02,
@@ -48,7 +46,7 @@ class SiparisTarihiTextField extends HookWidget {
             onTap: () async {
               await showDatePicker(
                       context: context,
-                      initialDate: dateTimeBitis,
+                      initialDate: DateTime.now(),
                       firstDate: DateTime.now(),
                       builder: (context, child) {
                         return Theme(
@@ -73,8 +71,8 @@ class SiparisTarihiTextField extends HookWidget {
                       },
                       lastDate: DateTime(Constants.lastDateinApp))
                   .then((secilenTarih) {
-                dateTimeBitiss.value = secilenTarih!;
-                siparisTarihiController.text = dateTimeBitiss.value.toString();
+                orderDate.value = secilenTarih!;
+                siparisTarihiController.text = orderDate.value.toString();
               });
             },
             child: Icon(Icons.question_mark,

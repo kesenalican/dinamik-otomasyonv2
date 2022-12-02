@@ -14,6 +14,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class UrunBilgileriGir extends HookConsumerWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  double? kdvsizFiyat;
+  // ignore: prefer_typing_uninitialized_variables
+  var netFiyat;
+  // ignore: prefer_typing_uninitialized_variables
+  double? brutFiyat;
   UrunBilgileriGir({super.key});
 
   @override
@@ -23,6 +28,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
     final focusNode = useFocusNode();
     final siparisMiktariController = useTextEditingController(text: '');
     final sipTutariController = useTextEditingController(text: '');
+    final sipKdvsizTutariController = useTextEditingController(text: '');
     final isk1Controller = useTextEditingController(text: '');
     final isk2Controller = useTextEditingController(text: '');
     final isk3Controller = useTextEditingController(text: '');
@@ -33,13 +39,19 @@ class UrunBilgileriGir extends HookConsumerWidget {
     final mas2Controller = useTextEditingController(text: '');
     final mas3Controller = useTextEditingController(text: '');
     final mas4Controller = useTextEditingController(text: '');
-
     focusNode.addListener(() {
       if (siparisMiktariController.text != "") {
-        double miktar = double.parse(siparisMiktariController.text);
+        double miktar =
+            double.parse(siparisMiktariController.text.replaceAll(',', ''));
         double fiyat = siparisModel.savedStok!.stokFiyat;
         double toplam = fiyat * miktar;
         sipTutariController.text = toplam.toString();
+        //* KDVSİZ TUTARLARIDA TOPLUYORUM
+        var kdvsizFiyat = siparisModel.kdvsizNetFiyat;
+        siparisModel.kdvsizAraTutar = double.parse(kdvsizFiyat) * miktar;
+        // var kdvsizFiyat =
+        //     siparisModel.calculateKdv(siparisModel);
+        // siparisModel.saveKdvsizFiyat(toplamKdvsizFiyat);
       }
     });
     return Scaffold(
@@ -64,9 +76,10 @@ class UrunBilgileriGir extends HookConsumerWidget {
               buildStokKodu(context, siparisModel),
               //*Stok Adı
               buildStokAdi(context, siparisModel),
-              //*Stok Fiyatı
-              buildStokFiyati(context, siparisModel),
-
+              //*Birim Fiyatı
+              buildBirimFiyati(context, siparisModel),
+              //* Kdv Oranı
+              buildKdvOrani(context, siparisModel),
               //*Stok Miktarı
               Padding(
                 padding: context.paddingDefault,
@@ -74,7 +87,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        "Miktar Giriniz",
+                        "Miktar Giriniz:",
                         style: purpleTxtStyle,
                       ),
                     ),
@@ -114,7 +127,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
                     Expanded(
                       flex: 1,
                       child: Text(
-                        "Toplam Tutar",
+                        "Brüt Tutar:",
                         style: purpleTxtStyle,
                       ),
                     ),
@@ -168,6 +181,8 @@ class UrunBilgileriGir extends HookConsumerWidget {
                 ),
                 child: InkWell(
                   onTap: () async {
+                    //TODOS:
+
                     return buildOrderSaveDialog(
                         context,
                         siparisMiktariController,
@@ -271,9 +286,12 @@ class UrunBilgileriGir extends HookConsumerWidget {
                         sipStokKod: siparisModel.savedStok!.stokKodu,
                         sipStokAd: siparisModel.savedStok!.stokIsim,
                         sipBFiyat: siparisModel.savedStok!.stokFiyat,
-                        sipMiktar: int.parse(siparisMiktariController.text),
-                        sipTeslimMiktar:
-                            int.parse(siparisMiktariController.text),
+                        sipKdvsizFiyat:
+                            double.parse(siparisModel.kdvsizNetFiyat),
+                        sipMiktar: int.parse(
+                            siparisMiktariController.text.replaceAll(',', '')),
+                        sipTeslimMiktar: int.parse(
+                            siparisMiktariController.text.replaceAll(',', '')),
                         sipTutar: double.parse(sipTutariController.text),
                         siparislerSipIskonto1: isk1Controller.text.isNotEmpty
                             ? int.parse(isk1Controller.text)
@@ -319,7 +337,35 @@ class UrunBilgileriGir extends HookConsumerWidget {
         });
   }
 
-  Padding buildStokFiyati(
+  Padding buildBirimFiyati(
+      BuildContext context, SatisSiparisiViewModel siparisModel) {
+    siparisModel.calculateKdv(siparisModel);
+
+    return Padding(
+      padding: context.paddingDefault,
+      child: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: Text(
+              "Birim Fiyatı:",
+              style: purpleTxtStyle,
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Text(
+              siparisModel.kdvsizNetFiyat,
+              style: purpleTxtStyle,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Padding buildKdvOrani(
       BuildContext context, SatisSiparisiViewModel siparisModel) {
     return Padding(
       padding: context.paddingDefault,
@@ -328,14 +374,14 @@ class UrunBilgileriGir extends HookConsumerWidget {
           Expanded(
             flex: 1,
             child: Text(
-              "Stok Fiyatı:",
+              "KDV Oranı:",
               style: purpleTxtStyle,
             ),
           ),
           Expanded(
             flex: 2,
             child: Text(
-              siparisModel.savedStok!.stokFiyat.toStringAsFixed(2),
+              siparisModel.savedStok!.perakendeVergiIsim,
               style: purpleTxtStyle,
               overflow: TextOverflow.ellipsis,
             ),

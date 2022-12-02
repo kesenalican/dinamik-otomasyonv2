@@ -27,6 +27,8 @@ class SiparisListesi extends ConsumerWidget {
                           )));
             },
             child: CommonButton(buttonName: "Ürün Ekle +")),
+        InkWell(
+            onTap: () {}, child: CommonButton(buttonName: "İskonto Ekle +")),
         SizedBox(
           height: context.dynamicHeight * 0.6,
           child: ListView.builder(
@@ -104,7 +106,7 @@ class SiparisListesi extends ConsumerWidget {
                                   style: TextStyle(
                                     color: Color(MyColors.bg01),
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 12,
+                                    fontSize: 15,
                                   ),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 2,
@@ -117,7 +119,16 @@ class SiparisListesi extends ConsumerWidget {
                                       .toString(),
                                   style: TextStyle(
                                     color: Color(MyColors.bg01),
-                                    fontSize: 10,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Text(
+                                  siparisModel.savedCari!.cariUnvani1!,
+                                  style: TextStyle(
+                                    color: Color(MyColors.bg01),
+                                    fontSize: 15,
                                     fontWeight: FontWeight.w600,
                                   ),
                                   overflow: TextOverflow.ellipsis,
@@ -138,17 +149,17 @@ class SiparisListesi extends ConsumerWidget {
                                     "Adet: ${siparisModel.siparisler[index].sipMiktar}",
                                     style: TextStyle(
                                       color: Color(MyColors.bg01),
-                                      fontSize: 10,
+                                      fontSize: 15,
                                       fontWeight: FontWeight.w600,
                                     ),
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
                                 Text(
-                                  "${siparisModel.siparisler[index].sipTutar} TL",
+                                  "${siparisModel.siparisler[index].sipTutar.toStringAsFixed(2)} ${siparisModel.savedStok!.stokKur == "Türk Lirası" ? "TL" : "${siparisModel.savedStok!.stokKur}"}",
                                   style: TextStyle(
                                     color: Color(MyColors.bg01),
-                                    fontSize: 10,
+                                    fontSize: 15,
                                     fontWeight: FontWeight.w600,
                                   ),
                                   overflow: TextOverflow.ellipsis,
@@ -165,19 +176,23 @@ class SiparisListesi extends ConsumerWidget {
             },
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text(
-              "Toplam Satır = ${siparisModel.siparisler.length}",
-              style: purpleTxtStyle,
-            ),
-            Text(
-              "Toplam Tutar = ${siparisModel.toplamTutar}",
-              style: purpleTxtStyle,
-            ),
-          ],
-        ),
+        // SizedBox(
+        //   height: context.dynamicHeight * 0.05,
+        // ),
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //   children: [
+        //     Text(
+        //       "Toplam Satır = ${siparisModel.siparisler.length}",
+        //       style: purpleTxtStyle,
+        //     ),
+        //     Text(
+        //       "Toplam Tutar = ${siparisModel.anaToplamTutar.toStringAsFixed(2)}",
+        //       style: purpleTxtStyle,
+        //       overflow: TextOverflow.ellipsis,
+        //     ),
+        //   ],
+        // ),
       ],
     ));
   }

@@ -1,27 +1,27 @@
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
-import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/bekleyenSiparisler/view/bekleyen_siparisler.dart';
-import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/tabs/siparis_toplam.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/tabs/yeniSatisSiparisi/bekleyen_siparisler.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/tabs/yeniSatisSiparisi/siparis_toplam.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/tabs/yeniSatisSiparisi/siparis_list.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/viewmodel/satis_siparisi_view_model.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SatisSiparisi extends StatelessWidget {
+class SatisSiparisi extends ConsumerWidget {
   const SatisSiparisi({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => _onBackButtonPressed(context),
-      child: DefaultTabController(
-        length: 3,
+  Widget build(BuildContext context, WidgetRef ref) {
+    var orderList = ref.watch(satisSiparisViewModel);
+    return DefaultTabController(
+      length: 3,
+      child: WillPopScope(
+        onWillPop: () => _onBackButtonPressed(context, orderList),
         child: Scaffold(
           appBar: AppBar(
-            leading: BackButton(
+            actionsIconTheme: const IconThemeData(
               color: Colors.white,
-              onPressed: () {
-                Navigator.pop(context);
-              },
             ),
             title: Text(
               Constants.satisSiparisi,
@@ -39,7 +39,7 @@ class SatisSiparisi extends StatelessWidget {
                 ),
                 Tab(
                   icon: Icon(Icons.restart_alt_outlined),
-                  text: "Bekleyen Siparişler",
+                  text: "Sipariş Özeti",
                 ),
                 Tab(
                   icon: Icon(Icons.done),
@@ -63,7 +63,8 @@ class SatisSiparisi extends StatelessWidget {
     );
   }
 
-  Future<bool> _onBackButtonPressed(BuildContext context) async {
+  Future<bool> _onBackButtonPressed(
+      BuildContext context, SatisSiparisiViewModel model) async {
     bool? exitFromSiparis = await showDialog(
         context: context,
         builder: (context) {
@@ -78,6 +79,9 @@ class SatisSiparisi extends StatelessWidget {
             ),
             actions: [
               TextButton(
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(Color(MyColors.bg01))),
                 onPressed: () {
                   Navigator.of(context).pop(false);
                 },
@@ -87,8 +91,12 @@ class SatisSiparisi extends StatelessWidget {
                 ),
               ),
               TextButton(
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(Color(MyColors.bg01))),
                 onPressed: () {
                   Navigator.of(context).pop(true);
+                  model.siparisler.clear();
                 },
                 child: Text(
                   "Evet",
