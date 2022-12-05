@@ -17,7 +17,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   double? kdvsizFiyat;
   // ignore: prefer_typing_uninitialized_variables
-  double? netFiyat;
+  double? netFiyat = 0;
   // ignore: prefer_typing_uninitialized_variables
   double? brutFiyat;
   UrunBilgileriGir({super.key});
@@ -49,11 +49,8 @@ class UrunBilgileriGir extends HookConsumerWidget {
         sipTutariController.text = toplam.toString();
         //* KDVSİZ TUTARLARIDA TOPLUYORUM
         //siparisModel.calculateKdv();
-        netFiyat = double.parse(siparisModel.kdvsizNetFiyat) * miktar;
-        print("net fiyat ==$netFiyat");
-        // var kdvsizFiyat =
-        //     siparisModel.calculateKdv(siparisModel);
-        // siparisModel.saveKdvsizFiyat(toplamKdvsizFiyat);
+        netFiyat =
+            double.parse(siparisModel.kdvsizNetFiyat).toPrecision(2) * miktar;
       }
     });
     return Scaffold(
@@ -136,7 +133,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
                     Expanded(
                       flex: 2,
                       child: Text(
-                        "${sipTutariController.text} ${siparisModel.savedStok!.stokKur}",
+                        "$netFiyat ${siparisModel.savedStok!.stokKur}",
                         style: purpleTxtStyle,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -144,36 +141,36 @@ class UrunBilgileriGir extends HookConsumerWidget {
                   ],
                 ),
               ),
-              //*İskonto Ekle
-              InkWell(
-                child: CommonButton(buttonName: "İskonto Ekle %"),
-                onTap: () {
-                  if (siparisMiktariController.text != "") {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => IskontoEkle(
-                                  isk1Controller: isk1Controller,
-                                  isk2Controller: isk2Controller,
-                                  isk3Controller: isk3Controller,
-                                  isk4Controller: isk4Controller,
-                                  isk5Controller: isk5Controller,
-                                  isk6Controller: isk6Controller,
-                                  mas1Controller: mas1Controller,
-                                  mas2Controller: mas2Controller,
-                                  mas3Controller: mas3Controller,
-                                  mas4Controller: mas4Controller,
-                                  sipTutariController: sipTutariController,
-                                ))).then((value) {});
-                  } else {
-                    // ignore: void_checks
-                    return showAlertDialog(
-                        context: context,
-                        hataBaslik: "Hata",
-                        hataIcerik: "Önce miktar giriniz!");
-                  }
-                },
-              ),
+              // //*İskonto Ekle
+              // InkWell(
+              //   child: CommonButton(buttonName: "İskonto Ekle %"),
+              //   onTap: () {
+              //     if (siparisMiktariController.text != "") {
+              //       Navigator.push(
+              //           context,
+              //           MaterialPageRoute(
+              //               builder: (context) => IskontoEkle(
+              //                     isk1Controller: isk1Controller,
+              //                     isk2Controller: isk2Controller,
+              //                     isk3Controller: isk3Controller,
+              //                     isk4Controller: isk4Controller,
+              //                     isk5Controller: isk5Controller,
+              //                     isk6Controller: isk6Controller,
+              //                     mas1Controller: mas1Controller,
+              //                     mas2Controller: mas2Controller,
+              //                     mas3Controller: mas3Controller,
+              //                     mas4Controller: mas4Controller,
+              //                     sipTutariController: sipTutariController,
+              //                   ))).then((value) {});
+              //     } else {
+              //       // ignore: void_checks
+              //       return showAlertDialog(
+              //           context: context,
+              //           hataBaslik: "Hata",
+              //           hataIcerik: "Önce miktar giriniz!");
+              //     }
+              //   },
+              // ),
               SizedBox(
                 height: context.dynamicHeight * 0.005,
               ),
@@ -280,6 +277,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
                           siparisMiktariController, sipTutariController);
 
                       siparisModel.addItemToSiparisList(StokCariBilgileri(
+                        indirimliToplamTutar: 0,
                         sipCreateUser: currentUser.currentUser!.kullaniciNo,
                         sipLastupUser: currentUser.currentUser!.kullaniciNo,
                         sipTip: 0,

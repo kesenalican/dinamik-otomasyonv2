@@ -158,61 +158,11 @@ class SiparisToplam extends HookConsumerWidget {
 
             InkWell(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => IskontoEkle(
-                              isk1Controller: isk1Controller,
-                              isk2Controller: isk2Controller,
-                              isk3Controller: isk3Controller,
-                              isk4Controller: isk4Controller,
-                              isk5Controller: isk5Controller,
-                              isk6Controller: isk6Controller,
-                              sipTutariController: sipTutariController,
-                              mas1Controller: mas1Controller,
-                              mas2Controller: mas2Controller,
-                              mas3Controller: mas3Controller,
-                              mas4Controller: mas4Controller,
-                            )));
-              },
-              child: Container(
-                margin: EdgeInsets.symmetric(
-                    vertical: context.dynamicHeight * 0.006,
-                    horizontal: context.dynamicWidth * 0.05),
-                padding: context.paddingDefault,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Color(MyColors.bg03),
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: Color(MyColors.bg01),
-                    width: 2,
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Icon(
-                      Icons.add_box_rounded,
-                      color: Color(
-                        MyColors.bg01,
-                      ),
-                    ),
-                    Text(
-                      "İskonto Ekle",
-                      style: purpleTxtStyle,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
-            InkWell(
-              onTap: () {
                 if (!formKey.currentState!.validate()) {
                   //Navigator.pop(context);
                   return;
                 }
+
                 ref
                     .watch(satisSiparisiSaveProvider(Siparisler(
                   sipCreateUser: currentUser.currentUser!.kullaniciNo,

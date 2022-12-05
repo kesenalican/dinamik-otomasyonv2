@@ -97,6 +97,10 @@ class SatisSiparisi extends ConsumerWidget {
                 onPressed: () {
                   Navigator.of(context).pop(true);
                   model.siparisler.clear();
+                  model.kdvsizAraTutar = 0;
+                  model.yekunTutar = 0;
+                  model.toplamKDV = 0;
+                  model.toplamTutar = 0;
                 },
                 child: Text(
                   "Evet",

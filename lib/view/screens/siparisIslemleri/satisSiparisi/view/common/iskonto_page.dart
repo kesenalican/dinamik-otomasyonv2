@@ -1,7 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dinamik_otomasyon/view/common/common_textfield.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/common/common_dropdown.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/common/list_of_types.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/viewmodel/satis_siparisi_view_model.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';

@@ -1,5 +1,6 @@
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/common/common_button.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/common/iskonto_page.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/viewmodel/satis_siparisi_view_model.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/view/stok_detay.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/view/stok_karti.dart';
@@ -24,6 +25,7 @@ class SiparisListesi extends HookConsumerWidget {
     final mas2Controller = useTextEditingController(text: '');
     final mas3Controller = useTextEditingController(text: '');
     final mas4Controller = useTextEditingController(text: '');
+    final sipTutariController = useTextEditingController(text: '');
     var siparisModel = ref.watch(satisSiparisViewModel);
     return SingleChildScrollView(
         child: Column(
@@ -39,7 +41,28 @@ class SiparisListesi extends HookConsumerWidget {
             },
             child: CommonButton(buttonName: "Ürün Ekle +")),
         InkWell(
-            onTap: () {}, child: CommonButton(buttonName: "İskonto Ekle +")),
+            onTap: () {
+              sipTutariController.text =
+                  siparisModel.kdvsizAraTutar.toStringAsFixed(2);
+              print("sipariş tutarı kdvsiz==" + sipTutariController.text);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => IskontoEkle(
+                            isk1Controller: isk1Controller,
+                            isk2Controller: isk2Controller,
+                            isk3Controller: isk3Controller,
+                            isk4Controller: isk4Controller,
+                            isk5Controller: isk5Controller,
+                            isk6Controller: isk6Controller,
+                            sipTutariController: sipTutariController,
+                            mas1Controller: mas1Controller,
+                            mas2Controller: mas2Controller,
+                            mas3Controller: mas3Controller,
+                            mas4Controller: mas4Controller,
+                          )));
+            },
+            child: CommonButton(buttonName: "İskonto Ekle +")),
         SizedBox(
           height: context.dynamicHeight * 0.6,
           child: ListView.builder(

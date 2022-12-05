@@ -14,6 +14,7 @@ class StokCariBilgileri {
     required this.sipMiktar,
     required this.sipTeslimMiktar,
     required this.sipTutar,
+    required this.indirimliToplamTutar,
     required this.siparislerSipIskonto1,
     required this.siparislerSipIskonto2,
     required this.siparislerSipIskonto3,
@@ -39,6 +40,7 @@ class StokCariBilgileri {
   final int sipMiktar;
   final int sipTeslimMiktar;
   final double sipTutar;
+  final double indirimliToplamTutar;
   final int siparislerSipIskonto1;
   final int siparislerSipIskonto2;
   final int siparislerSipIskonto3;

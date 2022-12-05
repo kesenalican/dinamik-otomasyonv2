@@ -12,7 +12,7 @@ class BekleyenSiparisler extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var siparisModel = ref.watch(satisSiparisViewModel);
-    var araToplam = siparisModel.anaToplamTutar *
+    var araToplam = siparisModel.yekunTutar *
         siparisModel.savedStok!.perakendeVergiYuzde;
     return SingleChildScrollView(
       child: Container(
@@ -28,7 +28,7 @@ class BekleyenSiparisler extends ConsumerWidget {
           children: [
             buildSiparisOzetiBaslik(context),
             buildAraToplam(context, siparisModel),
-            buildIskonto(context),
+            buildIskonto(context, siparisModel),
             buildMasraf(context),
             buildKdv(context, siparisModel),
             buildOtv(context),
@@ -81,7 +81,7 @@ class BekleyenSiparisler extends ConsumerWidget {
     );
   }
 
-  Padding buildIskonto(BuildContext context) {
+  Padding buildIskonto(BuildContext context, SatisSiparisiViewModel model) {
     return Padding(
       padding: context.paddingDefault,
       child: Row(
@@ -104,7 +104,7 @@ class BekleyenSiparisler extends ConsumerWidget {
           Expanded(
             flex: 5,
             child: Text(
-              "0,00 ",
+              model.toplamIsk.toStringAsFixed(2),
               style: purpleTxtStyle.copyWith(fontSize: 15),
             ),
           ),
@@ -232,7 +232,7 @@ class BekleyenSiparisler extends ConsumerWidget {
           Expanded(
             flex: 5,
             child: Text(
-              model.anaToplamTutar.toStringAsFixed(2),
+              model.yekunTutar.toStringAsFixed(2),
               style: purpleTxtStyle.copyWith(fontSize: 15),
             ),
           ),
