@@ -157,10 +157,11 @@ class Constants {
   static const String kdv = "KDV";
   static const String otv = "ÖTV";
   static const String yekun = "Yekün";
+  static const String siparisToplamSatiri = "Toplam Sipariş Satırı";
 }
 
 class ConstantProvider {
-  static const String BASE_URL = "http://192.168.5.21:5239/api/";
+  static const String BASE_URL = "http://192.168.5.23:5239/api/";
   static const String user = "User";
   static const String vergiDaireleri = "VergiDaireleri";
   static const String stoklar = "Stoklar";

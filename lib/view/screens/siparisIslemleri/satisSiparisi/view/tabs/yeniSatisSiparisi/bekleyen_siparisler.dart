@@ -12,8 +12,8 @@ class BekleyenSiparisler extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var siparisModel = ref.watch(satisSiparisViewModel);
-    var araToplam = siparisModel.yekunTutar *
-        siparisModel.savedStok!.perakendeVergiYuzde;
+    var araToplam =
+        siparisModel.yekunTutar * siparisModel.savedStok!.perakendeVergiYuzde;
     return SingleChildScrollView(
       child: Container(
         margin: EdgeInsets.all(context.dynamicHeight * 0.015),
@@ -33,6 +33,7 @@ class BekleyenSiparisler extends ConsumerWidget {
             buildKdv(context, siparisModel),
             buildOtv(context),
             buildYekun(context, siparisModel),
+            buildToplamSatir(context, siparisModel),
           ],
         ),
       ),
@@ -233,6 +234,39 @@ class BekleyenSiparisler extends ConsumerWidget {
             flex: 5,
             child: Text(
               model.yekunTutar.toStringAsFixed(2),
+              style: purpleTxtStyle.copyWith(fontSize: 15),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Padding buildToplamSatir(BuildContext context, SatisSiparisiViewModel model) {
+    return Padding(
+      padding: context.paddingDefault,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            flex: 5,
+            child: Text(
+              Constants.siparisToplamSatiri,
+              style: purpleTxtStyle,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: Text(
+              ":",
+              style: purpleTxtStyle,
+            ),
+          ),
+          Expanded(
+            flex: 5,
+            child: Text(
+              "${model.siparisler.length} Adet ",
               style: purpleTxtStyle.copyWith(fontSize: 15),
             ),
           ),

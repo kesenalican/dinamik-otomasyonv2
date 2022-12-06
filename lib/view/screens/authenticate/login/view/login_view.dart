@@ -8,6 +8,8 @@ import 'package:dinamik_otomasyon/view/screens/authenticate/login/model/user_mod
 import 'package:dinamik_otomasyon/view/screens/authenticate/login/service/login_service.dart';
 import 'package:dinamik_otomasyon/view/screens/authenticate/login/view/user_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/authenticate/login/viewmodel/login_view_model.dart';
+import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_save.model.dart';
+import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cariler.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +69,8 @@ class _LoginState extends ConsumerState<Login> {
 
   @override
   Widget build(BuildContext context) {
-    var currentUser = ref.watch(currentUserProvider);
+    var current = ref.watch(currentInfoProvider);
+
     var firmaList = ref.watch(firmaProvider);
     var userList = ref.watch(usersProvider);
     return Scaffold(
@@ -177,11 +180,13 @@ class _LoginState extends ConsumerState<Login> {
                         },
                       );
 
-                      currentUser.setCurrentUser(UserModel(
+                      current.setCurrentUser(UserModel(
                           kullaniciNo: int.parse(userCodeController.text),
                           kullaniciKisaAdi: userController.text,
                           kullaniciUzunAdi: userCodeController.text,
                           kullaniciAdi: userController.text));
+                      current.setCurrentCari(Cariler(
+                          cariKodu: "", cariUnvani1: companyController.text));
 
                       Navigator.pushReplacementNamed(context, '/home',
                           arguments: companyController.text);

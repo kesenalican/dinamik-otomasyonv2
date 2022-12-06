@@ -48,7 +48,7 @@ class YeniCariKart extends HookConsumerWidget {
     final selectedItemDropDown = useState("Hareket Tipi");
 
     var list = ref.watch(vergiDaireleriProvider);
-    var currentUser = ref.watch(currentUserProvider);
+    var currentUser = ref.watch(currentInfoProvider);
     var cariControl = ref.watch(cariKayitliMi);
     return Scaffold(
       appBar: CommonAppbar(whichPage: Constants.YENI_CARI_OLUSTUR),

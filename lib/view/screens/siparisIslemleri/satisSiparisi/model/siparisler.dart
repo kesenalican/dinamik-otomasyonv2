@@ -13,6 +13,7 @@ class Siparisler {
     required this.sipCreateUser,
     required this.sipLastupUser,
     required this.sipTip,
+    required this.sipEvraknoSeri,
     required this.sipEvraknoSira,
     required this.sipSatirno,
     required this.sipSaticiKod,
@@ -59,7 +60,7 @@ class Siparisler {
   final DateTime? sipTeslimTarih = DateTime.now();
   final int sipTip;
   final int? sipCins = 0;
-  final String? sipEvraknoSeri = "";
+  final String sipEvraknoSeri;
   final int sipEvraknoSira;
   final int sipSatirno;
   final String sipBelgeno = "";
@@ -163,6 +164,7 @@ class Siparisler {
         sipCreateUser: json["sip_create_user"],
         sipLastupUser: json["sip_lastup_user"],
         sipTip: json["sip_tip"],
+        sipEvraknoSeri: json["sip_evrakno_seri"],
         sipEvraknoSira: json["sip_evrakno_sira"],
         sipSatirno: json["sip_satirno"],
         sipSaticiKod: json["sip_satici_kod"],

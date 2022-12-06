@@ -5,7 +5,6 @@ class StokCariBilgileri {
     required this.sipCreateUser,
     required this.sipLastupUser,
     required this.sipTip,
-    required this.sipSatirno,
     required this.sipMusteriKod,
     required this.sipStokKod,
     required this.sipStokAd,
@@ -31,7 +30,6 @@ class StokCariBilgileri {
   final int sipLastupUser;
   final int sipTip;
   final int? sipCins = 0;
-  final int sipSatirno;
   final String sipMusteriKod;
   final String sipStokKod;
   final String sipStokAd;

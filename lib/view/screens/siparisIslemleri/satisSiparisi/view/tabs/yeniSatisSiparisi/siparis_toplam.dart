@@ -2,6 +2,7 @@ import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/common/common_button.dart';
 import 'package:dinamik_otomasyon/view/common/common_textfield.dart';
+import 'package:dinamik_otomasyon/view/screens/anasayfa/view/home_page.dart';
 import 'package:dinamik_otomasyon/view/screens/authenticate/login/viewmodel/login_view_model.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_model.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/tabs/yeniSatisSiparisi/bekleyen_siparisler.dart';
@@ -34,15 +35,11 @@ class SiparisToplam extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    CariViewModel cariViewModel = CariViewModel();
-    List<SiparisSatiri> siparisList = [];
-    List<SiparisSatiri> satirList = [];
     final satisSiparisi = useState(0);
     final evrakSeriController = useTextEditingController(text: '');
     final evrakNoController = useTextEditingController(text: '');
     final belgeNoController = useTextEditingController(text: '');
-    final cariKodController = useTextEditingController(text: '');
-    final cariIsimController = useTextEditingController(text: '');
+
     final dovizController = useTextEditingController(text: 'Türk Lirası');
     final projeController = useTextEditingController(text: '');
     final sormMerkeziController = useTextEditingController(text: '');
@@ -52,29 +49,11 @@ class SiparisToplam extends HookConsumerWidget {
     final teslimTuruController = useTextEditingController(text: '');
     final siparisTarihiController =
         useTextEditingController(text: DateTime.now().toString());
-    final isk1Controller = useTextEditingController(text: '');
-    final isk2Controller = useTextEditingController(text: '');
-    final isk3Controller = useTextEditingController(text: '');
-    final isk4Controller = useTextEditingController(text: '');
-    final isk5Controller = useTextEditingController(text: '');
-    final isk6Controller = useTextEditingController(text: '');
-    final mas1Controller = useTextEditingController(text: '');
-    final mas2Controller = useTextEditingController(text: '');
-    final mas3Controller = useTextEditingController(text: '');
-    final mas4Controller = useTextEditingController(text: '');
-    final stokKoduController = useTextEditingController(text: '');
-    final stokIsmiController = useTextEditingController(text: '');
-    final stokMiktariController = useTextEditingController(text: '');
-    final stokBirimController = useTextEditingController(text: '');
-    final birimFiyatController = useTextEditingController(text: '');
-    final sipTutariController = useTextEditingController(text: '');
     final aciklamaController = useTextEditingController(text: '');
     final focusNode = useFocusNode();
     var viewModel = ref.watch(satisSiparisViewModel);
-    var currentUser = ref.watch(currentUserProvider);
+    var currentUser = ref.watch(currentInfoProvider);
     var evrakNo = ref.watch(evrakBilgileriProvider);
-    print(
-        "GELEN MİKTAR == ${viewModel.siparisMiktari} ,, GELEN TUTAR ==== ${viewModel.toplamTutar.toString()} GELEN STOK KODU ===  ${viewModel.savedStok!.stokKodu}");
     fillEvrakBilgileri() {
       if (evrakSeriController.text != "") {
         viewModel.seriNoControl(
@@ -92,12 +71,6 @@ class SiparisToplam extends HookConsumerWidget {
     focusNode.addListener(() {
       fillEvrakBilgileri();
     });
-
-    // useEffect(() {
-    //   focusNode.addListener(() {
-    //     fillEvrakBilgileri();
-    //   });
-    // });
 
     return SingleChildScrollView(
       child: Form(
@@ -162,85 +135,123 @@ class SiparisToplam extends HookConsumerWidget {
                   //Navigator.pop(context);
                   return;
                 }
-
-                ref
-                    .watch(satisSiparisiSaveProvider(Siparisler(
-                  sipCreateUser: currentUser.currentUser!.kullaniciNo,
-                  sipLastupUser: currentUser.currentUser!.kullaniciNo,
-                  sipTip: satisSiparisi.value,
-                  sipEvraknoSira: int.parse(evrakNoController.text),
-                  sipSatirno: satirList.length - 1,
-                  sipSaticiKod: saticiController.text,
-                  sipMusteriKod: cariKodController.text,
-                  sipStokKod: stokKoduController.text,
-                  sipBFiyat: double.parse(birimFiyatController.text),
-                  sipMiktar: int.parse(stokMiktariController.text),
-                  sipTeslimMiktar: int.parse(stokMiktariController.text),
-                  sipTutar: double.parse(sipTutariController.text),
-                  siparislerSipIskonto1: int.parse(isk1Controller.text),
-                  siparislerSipIskonto2: isk2Controller.text != ""
-                      ? int.parse(isk2Controller.text)
-                      : 0,
-                  siparislerSipIskonto3: isk3Controller.text != ""
-                      ? int.parse(isk3Controller.text)
-                      : 0,
-                  siparislerSipIskonto4: isk4Controller.text != ""
-                      ? int.parse(isk4Controller.text)
-                      : 0,
-                  siparislerSipIskonto5: isk5Controller.text != ""
-                      ? int.parse(isk5Controller.text)
-                      : 0,
-                  siparislerSipIskonto6: isk6Controller.text != ""
-                      ? int.parse(isk6Controller.text)
-                      : 0,
-                  siparislerSipMasraf1: mas1Controller.text != ""
-                      ? int.parse(mas1Controller.text)
-                      : 0,
-                  siparislerSipMasraf2: mas2Controller.text != ""
-                      ? int.parse(mas2Controller.text)
-                      : 0,
-                  siparislerSipMasraf3: mas3Controller.text != ""
-                      ? int.parse(mas3Controller.text)
-                      : 0,
-                  siparislerSipMasraf4: mas4Controller.text != ""
-                      ? int.parse(mas4Controller.text)
-                      : 0,
-                  sipAciklama: aciklamaController.text,
-                  sipDepono: int.parse(depoController.text),
-                  sipOnaylayanKulNo: currentUser.currentUser!.kullaniciNo,
-                  sipDovizCinsi: 1,
-                )).future)
-                    .then((value) {
-                  return showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          content: Text(
-                            "Sipariş Başarıyla Kaydedildi!",
-                            style: purpleTxtStyle,
-                          ),
-                          actions: [
-                            TextButton(
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    Color(MyColors.bg01)),
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const BekleyenSiparisler()));
-                              },
-                              child: const Text(
-                                Constants.OK,
-                                style: TextStyle(color: Colors.white),
-                              ),
+                for (int i = 0; i < viewModel.siparisler.length; i++) {
+                  ref
+                      .watch(satisSiparisiSaveProvider(Siparisler(
+                    sipCreateUser: currentUser.currentUser!.kullaniciNo,
+                    sipLastupUser: currentUser.currentUser!.kullaniciNo,
+                    sipTip: satisSiparisi.value,
+                    sipEvraknoSeri: evrakSeriController.text.isNotEmpty
+                        ? evrakSeriController.text
+                        : "",
+                    sipEvraknoSira: int.parse(evrakNoController.text),
+                    sipSatirno: i,
+                    sipSaticiKod: saticiController.text,
+                    sipMusteriKod: viewModel.savedCari!.cariKodu,
+                    sipStokKod: viewModel.siparisler[i].sipStokKod,
+                    sipBFiyat: viewModel.siparisler[i].sipBFiyat,
+                    sipMiktar: viewModel.siparisler[i].sipMiktar,
+                    sipTeslimMiktar: viewModel.siparisler[i].sipMiktar,
+                    sipTutar: viewModel.siparisler[i].sipTutar,
+                    siparislerSipIskonto1: viewModel
+                            .siparisler[i].siparislerSipIskonto1
+                            .toString()
+                            .isNotEmpty
+                        ? viewModel.siparisler[i].siparislerSipIskonto1
+                        : 0,
+                    siparislerSipIskonto2: viewModel
+                            .siparisler[i].siparislerSipIskonto2
+                            .toString()
+                            .isNotEmpty
+                        ? viewModel.siparisler[i].siparislerSipIskonto2
+                        : 0,
+                    siparislerSipIskonto3: viewModel
+                            .siparisler[i].siparislerSipIskonto3
+                            .toString()
+                            .isNotEmpty
+                        ? viewModel.siparisler[i].siparislerSipIskonto3
+                        : 0,
+                    siparislerSipIskonto4: viewModel
+                            .siparisler[i].siparislerSipIskonto4
+                            .toString()
+                            .isNotEmpty
+                        ? viewModel.siparisler[i].siparislerSipIskonto4
+                        : 0,
+                    siparislerSipIskonto5: viewModel
+                            .siparisler[i].siparislerSipIskonto5
+                            .toString()
+                            .isNotEmpty
+                        ? viewModel.siparisler[i].siparislerSipIskonto5
+                        : 0,
+                    siparislerSipIskonto6: viewModel
+                            .siparisler[i].siparislerSipIskonto6
+                            .toString()
+                            .isNotEmpty
+                        ? viewModel.siparisler[i].siparislerSipIskonto6
+                        : 0,
+                    siparislerSipMasraf1: viewModel
+                            .siparisler[i].siparislerSipMasraf1
+                            .toString()
+                            .isNotEmpty
+                        ? viewModel.siparisler[i].siparislerSipMasraf1
+                        : 0,
+                    siparislerSipMasraf2: viewModel
+                            .siparisler[i].siparislerSipMasraf2
+                            .toString()
+                            .isNotEmpty
+                        ? viewModel.siparisler[i].siparislerSipMasraf2
+                        : 0,
+                    siparislerSipMasraf3: viewModel
+                            .siparisler[i].siparislerSipMasraf3
+                            .toString()
+                            .isNotEmpty
+                        ? viewModel.siparisler[i].siparislerSipMasraf3
+                        : 0,
+                    siparislerSipMasraf4: viewModel
+                            .siparisler[i].siparislerSipMasraf4
+                            .toString()
+                            .isNotEmpty
+                        ? viewModel.siparisler[i].siparislerSipMasraf4
+                        : 0,
+                    sipAciklama: aciklamaController.text,
+                    sipDepono: int.parse(depoController.text),
+                    sipOnaylayanKulNo: currentUser.currentUser!.kullaniciNo,
+                    sipDovizCinsi: 1,
+                  )).future)
+                      .then((value) {
+                    return showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Text(
+                              "Sipariş Başarıyla Kaydedildi!",
+                              style: purpleTxtStyle,
                             ),
-                          ],
-                        );
-                      });
-                });
+                            actions: [
+                              TextButton(
+                                style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Color(MyColors.bg01)),
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => HomePage(
+                                                sirketAdi: currentUser
+                                                    .currentCari!.cariUnvani1,
+                                              )));
+                                },
+                                child: const Text(
+                                  Constants.OK,
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          );
+                        });
+                  });
+                }
               },
               child: CommonButton(
                 buttonName: "Siparişi Kaydet",

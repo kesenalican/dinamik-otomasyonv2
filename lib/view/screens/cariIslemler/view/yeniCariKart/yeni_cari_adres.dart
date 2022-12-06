@@ -28,7 +28,7 @@ class YeniCariAdres extends HookConsumerWidget {
     final ulkeController = useTextEditingController(text: '');
     final ulkeKoduController = useTextEditingController(text: '90');
     final telefon1Controller = useTextEditingController(text: '');
-    var currentUser = ref.watch(currentUserProvider);
+    var currentUser = ref.watch(currentInfoProvider);
     return Scaffold(
       appBar: CommonAppbar(whichPage: Constants.YENI_CARI_ADRES_OLUSTUR),
       floatingActionButton: FloatingActionButton(

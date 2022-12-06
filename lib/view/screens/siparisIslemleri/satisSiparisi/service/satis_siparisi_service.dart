@@ -15,6 +15,7 @@ final satisSiparisiSaveProvider = FutureProvider.autoDispose
       "sip_lastup_user": siparis.sipLastupUser,
       "sip_doviz_cinsi": siparis.sipDovizCinsi,
       "sip_tip": siparis.sipTip,
+      "sip_evrakno_seri": siparis.sipEvraknoSeri,
       "sip_evrakno_sira": siparis.sipEvraknoSira,
       "sip_satirno": siparis.sipSatirno,
       "sip_satici_kod": siparis.sipSaticiKod,

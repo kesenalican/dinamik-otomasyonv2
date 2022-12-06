@@ -25,7 +25,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var siparisModel = ref.watch(satisSiparisViewModel);
-    var currentUser = ref.watch(currentUserProvider);
+    var currentUser = ref.watch(currentInfoProvider);
     final focusNode = useFocusNode();
     final siparisMiktariController = useTextEditingController(text: '');
     final sipTutariController = useTextEditingController(text: '');
@@ -49,8 +49,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
         sipTutariController.text = toplam.toString();
         //* KDVSİZ TUTARLARIDA TOPLUYORUM
         //siparisModel.calculateKdv();
-        netFiyat =
-            double.parse(siparisModel.kdvsizNetFiyat).toPrecision(2) * miktar;
+        netFiyat = siparisModel.kdvsizNetFiyat! * miktar;
       }
     });
     return Scaffold(
@@ -133,7 +132,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
                     Expanded(
                       flex: 2,
                       child: Text(
-                        "$netFiyat ${siparisModel.savedStok!.stokKur}",
+                        "${netFiyat!.toStringAsFixed(2)} ${siparisModel.savedStok!.stokKur}",
                         style: purpleTxtStyle,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -275,13 +274,11 @@ class UrunBilgileriGir extends HookConsumerWidget {
                       }
                       siparisModel.saveStokBilgileri(
                           siparisMiktariController, sipTutariController);
-
                       siparisModel.addItemToSiparisList(StokCariBilgileri(
                         indirimliToplamTutar: 0,
                         sipCreateUser: currentUser.currentUser!.kullaniciNo,
                         sipLastupUser: currentUser.currentUser!.kullaniciNo,
                         sipTip: 0,
-                        sipSatirno: siparisModel.satirNo,
                         sipMusteriKod: siparisModel.savedCari!.cariKodu,
                         sipStokKod: siparisModel.savedStok!.stokKodu,
                         sipStokAd: siparisModel.savedStok!.stokIsim,
@@ -352,7 +349,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
           Expanded(
             flex: 2,
             child: Text(
-              siparisModel.kdvsizNetFiyat,
+              siparisModel.kdvsizNetFiyat!.toStringAsFixed(2),
               style: purpleTxtStyle,
               overflow: TextOverflow.ellipsis,
             ),
