@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SatisSiparisiViewModel extends ChangeNotifier {
   SatisSiparisiService service = SatisSiparisiService();
+  bool? currentSiparis; // FALSE ise Satış TRUE ise ALIŞ
   Cariler? savedCari;
   Stoklar? savedStok;
   List<StokCariBilgileri> siparisler = [];
@@ -16,12 +17,17 @@ class SatisSiparisiViewModel extends ChangeNotifier {
   Siparisler? siparis;
   int? siparisMiktari;
   double? kdvsizNetFiyat = 0;
+  double? kdvsizBrutFiyat = 0;
   double? kdvsizIndirimliNetFiyat = 0;
   double toplamTutar = 0;
   double yekunTutar = 0;
+  double indirimliYekunTutar = 0;
   double kdvsizAraTutar = 0;
+  double kdvsizIndirimliAraTutar = 0;
   double toplamKDV = 0;
+  double toplamIndirimliKdv = 0;
   double toplamIsk = 0;
+  double? indirimliNetFiyat = 0;
 
   calculateTotalPrice(String? value, TextEditingController birimFiyatcontroller,
       TextEditingController sipTutariController) {
@@ -34,22 +40,29 @@ class SatisSiparisiViewModel extends ChangeNotifier {
     }
   }
 
-  calculateTotalPriceWithDiscount(
-      BuildContext context,
-      String? value,
-      TextEditingController isk1Controller,
-      TextEditingController sipTutariController) {
+  setCurrentSiparis(bool hangiSiparis) {
+    currentSiparis = hangiSiparis;
+  }
+
+  calculateTotalPriceWithDiscount(BuildContext context, String? value,
+      TextEditingController isk1Controller, double kdvsizTutar) {
     if (value!.isNotEmpty) {
       isk1Controller.text = value;
       double iskonto1 = double.parse(isk1Controller.text);
-      double tutar = double.parse(sipTutariController.text);
-      double indirimliFiyat = tutar - ((tutar * iskonto1) / 100);
-      sipTutariController.text = indirimliFiyat.toString();
-      kdvsizIndirimliNetFiyat = double.parse(sipTutariController.text);
-      toplamIsk = kdvsizAraTutar - kdvsizIndirimliNetFiyat!;
-      yekunTutar = yekunTutar - toplamIsk;
+      double tutar = kdvsizTutar;
+      indirimliNetFiyat = tutar - ((tutar * iskonto1) / 100);
+      kdvsizIndirimliNetFiyat = indirimliNetFiyat;
+      kdvsizIndirimliAraTutar = kdvsizIndirimliAraTutar + indirimliNetFiyat!;
+      //!hatalı
+      toplamIsk = kdvsizTutar - indirimliNetFiyat!;
+      double kdv = indirimliNetFiyat!;
       calculateKdvWithDiscount();
-      print("İNDİRİM UYGULANMIŞ FİYAT ==" + sipTutariController.text);
+      toplamIndirimliKdv = indirimliNetFiyat! - kdv;
+      //* Yekun tutarımı önce kdv ekleyip sonra toplayarak buldum.
+      indirimliYekunTutar = indirimliYekunTutar + indirimliNetFiyat!;
+      //calculateKdvWithDiscount();
+      //yekunTutar = kdvsizIndirimliNetFiyat! - toplamIsk;
+      print("İNDİRİM UYGULANMIŞ FİYAT ==" + indirimliNetFiyat.toString());
       notifyListeners();
     } else {
       Future.delayed(const Duration(milliseconds: 500), () {
@@ -102,52 +115,37 @@ class SatisSiparisiViewModel extends ChangeNotifier {
   }
 
   addItemToSiparisList(StokCariBilgileri siparis) {
-    yekunTutar = yekunTutar + siparis.sipTutar;
-    kdvsizAraTutar = kdvsizAraTutar + siparis.sipKdvsizFiyat;
-    toplamKDV = yekunTutar - kdvsizAraTutar;
-    siparisler.add(siparis);
+    if (siparisler.isNotEmpty) {
+      yekunTutar = yekunTutar + siparis.sipTutar;
+      kdvsizAraTutar = kdvsizAraTutar + siparis.sipKdvsizFiyat;
+      toplamKDV = yekunTutar - kdvsizAraTutar;
+      siparisler.add(siparis);
+      return siparisler;
+    }
+    if (siparisler.isEmpty) {
+      yekunTutar = siparis.sipTutar;
+      kdvsizAraTutar = siparis.sipKdvsizFiyat;
+      toplamKDV = yekunTutar - kdvsizAraTutar;
+      siparisler.add(siparis);
+      return siparisler;
+    }
+
     notifyListeners();
-    return siparisler;
+    //  return siparisler;
   }
 
   calculateKdvWithDiscount() {
-    if (savedStok!.perakendeVergiYuzde == 1) {
-      var kdvCarpani = "1.0${savedStok!.perakendeVergiYuzde.ceil()}";
-      var kdvsizFiyat = savedStok!.stokFiyat / double.parse(kdvCarpani);
-      kdvsizIndirimliNetFiyat = kdvsizFiyat;
-      return kdvsizIndirimliNetFiyat;
-    } else if (savedStok!.perakendeVergiYuzde == 8) {
-      var kdvCarpani = "1.0${savedStok!.perakendeVergiYuzde.ceil()}";
-      var kdvsizFiyat = savedStok!.stokFiyat / double.parse(kdvCarpani);
-      kdvsizIndirimliNetFiyat = kdvsizFiyat;
-      return kdvsizIndirimliNetFiyat;
-    } else if (savedStok!.perakendeVergiYuzde == 18) {
-      var kdvCarpani = "1.${savedStok!.perakendeVergiYuzde.ceil()}";
-      var kdvsizFiyat = savedStok!.stokFiyat / double.parse(kdvCarpani);
-      kdvsizIndirimliNetFiyat = kdvsizFiyat;
-      return kdvsizIndirimliNetFiyat;
-    }
-    return 0;
+    // x /100 +1
+
+    indirimliNetFiyat =
+        savedStok!.stokFiyat * ((savedStok!.perakendeVergiYuzde / 100) + 1);
+    return indirimliNetFiyat;
   }
 
   calculateKdv() {
-    if (savedStok!.perakendeVergiYuzde == 1) {
-      var kdvCarpani = "1.0${savedStok!.perakendeVergiYuzde.ceil()}";
-      var kdvsizFiyat = savedStok!.stokFiyat / double.parse(kdvCarpani);
-      kdvsizNetFiyat = kdvsizFiyat;
-      return kdvsizNetFiyat;
-    } else if (savedStok!.perakendeVergiYuzde == 8) {
-      var kdvCarpani = "1.0${savedStok!.perakendeVergiYuzde.ceil()}";
-      var kdvsizFiyat = savedStok!.stokFiyat / double.parse(kdvCarpani);
-      kdvsizNetFiyat = kdvsizFiyat;
-      return kdvsizNetFiyat;
-    } else if (savedStok!.perakendeVergiYuzde == 18) {
-      var kdvCarpani = "1.${savedStok!.perakendeVergiYuzde.ceil()}";
-      var kdvsizFiyat = savedStok!.stokFiyat / double.parse(kdvCarpani);
-      kdvsizNetFiyat = kdvsizFiyat;
-      return kdvsizNetFiyat;
-    }
-    return 0;
+    kdvsizNetFiyat =
+        savedStok!.stokFiyat / ((savedStok!.perakendeVergiYuzde / 100) + 1);
+    return kdvsizNetFiyat;
   }
 
   deleteItemToSiparisList(StokCariBilgileri siparis) {

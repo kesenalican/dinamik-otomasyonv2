@@ -186,7 +186,9 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => UrunBilgileriGir()));
+                          builder: (context) => UrunBilgileriGir(
+                                alisSiparisi: false,
+                              )));
                 } else {
                   Navigator.pushNamed(context, '/stockDetail',
                       arguments: stokList[index]);

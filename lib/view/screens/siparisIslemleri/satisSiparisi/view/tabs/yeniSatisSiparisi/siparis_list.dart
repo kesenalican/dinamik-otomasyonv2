@@ -42,9 +42,6 @@ class SiparisListesi extends HookConsumerWidget {
             child: CommonButton(buttonName: "Ürün Ekle +")),
         InkWell(
             onTap: () {
-              sipTutariController.text =
-                  siparisModel.kdvsizAraTutar.toStringAsFixed(2);
-              print("sipariş tutarı kdvsiz==" + sipTutariController.text);
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -55,7 +52,7 @@ class SiparisListesi extends HookConsumerWidget {
                             isk4Controller: isk4Controller,
                             isk5Controller: isk5Controller,
                             isk6Controller: isk6Controller,
-                            sipTutariController: sipTutariController,
+                            kdvsizTutar: siparisModel.kdvsizAraTutar,
                             mas1Controller: mas1Controller,
                             mas2Controller: mas2Controller,
                             mas3Controller: mas3Controller,

@@ -1,20 +1,21 @@
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/cari_kartlar.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/constants/constant.dart';
 import '../screens/module_card.dart';
 import '../styles/colors.dart';
 import '../../core/components/menu_components.dart';
 
-class DrawerMenu extends StatefulWidget {
+class DrawerMenu extends ConsumerStatefulWidget {
   final String sirketAdi;
   const DrawerMenu({Key? key, required this.sirketAdi}) : super(key: key);
 
   @override
-  State<DrawerMenu> createState() => _DrawerMenuState();
+  ConsumerState<DrawerMenu> createState() => _DrawerMenuState();
 }
 
-class _DrawerMenuState extends State<DrawerMenu> {
+class _DrawerMenuState extends ConsumerState<DrawerMenu> {
   List<Menu> data = [];
 
   @override
@@ -94,9 +95,15 @@ Widget _buildList(Menu list) {
                         builder: (context) => CariKartlar(
                               detayaGitmesin: true,
                             )));
+
                 break;
               case Constants.alimSiparisi:
-                Navigator.pushNamed(context, "/alimSiparisi");
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CariKartlar(
+                              detayaGitmesin: true,
+                            )));
                 break;
               default:
                 Navigator.push(

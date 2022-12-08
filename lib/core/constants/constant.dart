@@ -161,7 +161,7 @@ class Constants {
 }
 
 class ConstantProvider {
-  static const String BASE_URL = "http://192.168.5.23:5239/api/";
+  static const String BASE_URL = "http://192.168.5.26:5239/api/";
   static const String user = "User";
   static const String vergiDaireleri = "VergiDaireleri";
   static const String stoklar = "Stoklar";

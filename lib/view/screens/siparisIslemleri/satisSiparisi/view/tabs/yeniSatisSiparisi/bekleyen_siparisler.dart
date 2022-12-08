@@ -73,7 +73,7 @@ class BekleyenSiparisler extends ConsumerWidget {
           Expanded(
             flex: 5,
             child: Text(
-              "${model.kdvsizAraTutar.toStringAsFixed(2)} ",
+              "${model.kdvsizIndirimliAraTutar == 0 ? model.kdvsizAraTutar.toStringAsFixed(2) : model.kdvsizIndirimliAraTutar.toStringAsFixed(2)} ",
               style: purpleTxtStyle.copyWith(fontSize: 15),
             ),
           ),
@@ -169,7 +169,9 @@ class BekleyenSiparisler extends ConsumerWidget {
           Expanded(
             flex: 5,
             child: Text(
-              model.toplamKDV.toStringAsFixed(2),
+              model.toplamIndirimliKdv == 0
+                  ? model.toplamKDV.toStringAsFixed(2)
+                  : model.toplamIndirimliKdv.toStringAsFixed(2),
               style: purpleTxtStyle.copyWith(fontSize: 15),
             ),
           ),
@@ -233,7 +235,9 @@ class BekleyenSiparisler extends ConsumerWidget {
           Expanded(
             flex: 5,
             child: Text(
-              model.yekunTutar.toStringAsFixed(2),
+              model.indirimliYekunTutar == 0
+                  ? model.yekunTutar.toStringAsFixed(2)
+                  : model.indirimliYekunTutar.toStringAsFixed(2),
               style: purpleTxtStyle.copyWith(fontSize: 15),
             ),
           ),

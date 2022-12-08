@@ -17,10 +17,11 @@ class UrunBilgileriGir extends HookConsumerWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   double? kdvsizFiyat;
   // ignore: prefer_typing_uninitialized_variables
-  double? netFiyat = 0;
+
   // ignore: prefer_typing_uninitialized_variables
   double? brutFiyat;
-  UrunBilgileriGir({super.key});
+  bool? alisSiparisi;
+  UrunBilgileriGir({super.key, required this.alisSiparisi});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -39,6 +40,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
     final mas2Controller = useTextEditingController(text: '');
     final mas3Controller = useTextEditingController(text: '');
     final mas4Controller = useTextEditingController(text: '');
+    final netFiyat = useState(0.0);
     siparisModel.calculateKdv();
     focusNode.addListener(() {
       if (siparisMiktariController.text != "") {
@@ -49,7 +51,8 @@ class UrunBilgileriGir extends HookConsumerWidget {
         sipTutariController.text = toplam.toString();
         //* KDVSİZ TUTARLARIDA TOPLUYORUM
         //siparisModel.calculateKdv();
-        netFiyat = siparisModel.kdvsizNetFiyat! * miktar;
+        netFiyat.value = siparisModel.kdvsizNetFiyat! * miktar;
+        siparisModel.kdvsizBrutFiyat = netFiyat.value;
       }
     });
     return Scaffold(
@@ -132,7 +135,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
                     Expanded(
                       flex: 2,
                       child: Text(
-                        "${netFiyat!.toStringAsFixed(2)} ${siparisModel.savedStok!.stokKur}",
+                        "${netFiyat.value.toStringAsFixed(2)} ${siparisModel.savedStok!.stokKur}",
                         style: purpleTxtStyle,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -159,7 +162,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
               //                     mas2Controller: mas2Controller,
               //                     mas3Controller: mas3Controller,
               //                     mas4Controller: mas4Controller,
-              //                     sipTutariController: sipTutariController,
+              //                     kdvsizTutar: netFiyat.value,
               //                   ))).then((value) {});
               //     } else {
               //       // ignore: void_checks
@@ -196,7 +199,8 @@ class UrunBilgileriGir extends HookConsumerWidget {
                         mas1Controller,
                         mas2Controller,
                         mas3Controller,
-                        mas4Controller);
+                        mas4Controller,
+                        netFiyat.value);
                   },
                   child: CommonButton(buttonName: "EKLE"),
                 ),
@@ -223,7 +227,8 @@ class UrunBilgileriGir extends HookConsumerWidget {
       TextEditingController mas1Controller,
       TextEditingController mas2Controller,
       TextEditingController mas3Controller,
-      TextEditingController mas4Controller) {
+      TextEditingController mas4Controller,
+      double netFiyat) {
     return showDialog(
         context: context,
         builder: (context) {
@@ -283,7 +288,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
                         sipStokKod: siparisModel.savedStok!.stokKodu,
                         sipStokAd: siparisModel.savedStok!.stokIsim,
                         sipBFiyat: siparisModel.savedStok!.stokFiyat,
-                        sipKdvsizFiyat: netFiyat!,
+                        sipKdvsizFiyat: siparisModel.kdvsizBrutFiyat!,
                         sipMiktar: int.parse(
                             siparisMiktariController.text.replaceAll(',', '')),
                         sipTeslimMiktar: int.parse(
