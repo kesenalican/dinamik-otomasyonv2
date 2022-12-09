@@ -11,7 +11,7 @@ class StokCariBilgileri {
     required this.sipMiktar,
     required this.sipTeslimMiktar,
     required this.sipTutar,
-    required this.indirimliToplamTutar,
+    required this.sipKdvsizTutar,
     required this.siparislerSipIskonto1,
     required this.siparislerSipIskonto2,
     required this.siparislerSipIskonto3,
@@ -22,6 +22,9 @@ class StokCariBilgileri {
     required this.siparislerSipMasraf2,
     required this.siparislerSipMasraf3,
     required this.siparislerSipMasraf4,
+    this.siparisKdv,
+    this.siparisIskonto,
+    this.siparisYekunTutar,
   });
 
   final int sipCreateUser;
@@ -36,7 +39,11 @@ class StokCariBilgileri {
   final int sipMiktar;
   final int sipTeslimMiktar;
   final double sipTutar;
-  final double indirimliToplamTutar;
+  double sipKdvsizTutar;
+  double? siparisKdv;
+  double? siparisIskonto;
+  double? siparisYekunTutar;
+
   final int siparislerSipIskonto1;
   final int siparislerSipIskonto2;
   final int siparislerSipIskonto3;

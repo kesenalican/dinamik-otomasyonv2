@@ -15,7 +15,6 @@ class IskontoEkle extends ConsumerWidget {
   TextEditingController? isk4Controller;
   TextEditingController? isk5Controller;
   TextEditingController? isk6Controller;
-  double? kdvsizTutar;
   TextEditingController? mas1Controller;
   TextEditingController? mas2Controller;
   TextEditingController? mas3Controller;
@@ -34,7 +33,6 @@ class IskontoEkle extends ConsumerWidget {
     this.mas2Controller,
     this.mas3Controller,
     this.mas4Controller,
-    this.kdvsizTutar,
   });
 
   @override
@@ -46,7 +44,6 @@ class IskontoEkle extends ConsumerWidget {
         onPressed: () {
           Navigator.pop(
             context,
-            kdvsizTutar,
           );
         },
         backgroundColor: Color(MyColors.bg01),
@@ -159,7 +156,14 @@ class IskontoEkle extends ConsumerWidget {
             textInputType: TextInputType.number,
             onFieldSubmit: (value) {
               viewModel.calculateTotalPriceWithDiscount(
-                  context, value!, iskController, kdvsizTutar!);
+                  context,
+                  value!,
+                  isk1Controller!,
+                  isk2Controller!,
+                  isk3Controller!,
+                  isk4Controller!,
+                  isk5Controller!,
+                  isk5Controller!);
             },
           ),
         ),
@@ -184,8 +188,8 @@ class IskontoEkle extends ConsumerWidget {
             isMandatory: false,
             textInputType: TextInputType.number,
             onFieldSubmit: (value) {
-              viewModel.calculateTotalPriceWithDiscount(
-                  context, value!, masController, kdvsizTutar!);
+              // viewModel.calculateTotalPriceWithDiscount(
+              //     context, value!, masController, kdvsizTutar!);
             },
           ),
         ),

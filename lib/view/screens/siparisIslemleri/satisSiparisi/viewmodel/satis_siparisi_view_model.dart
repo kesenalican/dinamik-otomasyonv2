@@ -28,6 +28,7 @@ class SatisSiparisiViewModel extends ChangeNotifier {
   double toplamIndirimliKdv = 0;
   double toplamIsk = 0;
   double? indirimliNetFiyat = 0;
+  List<Stoklar> savedStoklar = [];
 
   calculateTotalPrice(String? value, TextEditingController birimFiyatcontroller,
       TextEditingController sipTutariController) {
@@ -44,25 +45,74 @@ class SatisSiparisiViewModel extends ChangeNotifier {
     currentSiparis = hangiSiparis;
   }
 
-  calculateTotalPriceWithDiscount(BuildContext context, String? value,
-      TextEditingController isk1Controller, double kdvsizTutar) {
+  calculateTotalPriceWithDiscount(
+    BuildContext context,
+    String? value,
+    TextEditingController isk1Controller,
+    TextEditingController isk2Controller,
+    TextEditingController isk3Controller,
+    TextEditingController isk4Controller,
+    TextEditingController isk5Controller,
+    TextEditingController isk6Controller,
+  ) {
     if (value!.isNotEmpty) {
-      isk1Controller.text = value;
-      double iskonto1 = double.parse(isk1Controller.text);
-      double tutar = kdvsizTutar;
-      indirimliNetFiyat = tutar - ((tutar * iskonto1) / 100);
-      kdvsizIndirimliNetFiyat = indirimliNetFiyat;
-      kdvsizIndirimliAraTutar = kdvsizIndirimliAraTutar + indirimliNetFiyat!;
-      //!hatalı
-      toplamIsk = kdvsizTutar - indirimliNetFiyat!;
-      double kdv = indirimliNetFiyat!;
-      calculateKdvWithDiscount();
-      toplamIndirimliKdv = indirimliNetFiyat! - kdv;
-      //* Yekun tutarımı önce kdv ekleyip sonra toplayarak buldum.
-      indirimliYekunTutar = indirimliYekunTutar + indirimliNetFiyat!;
-      //calculateKdvWithDiscount();
-      //yekunTutar = kdvsizIndirimliNetFiyat! - toplamIsk;
-      print("İNDİRİM UYGULANMIŞ FİYAT ==" + indirimliNetFiyat.toString());
+      for (int i = 0; i < siparisler.length; i++) {
+        if (isk1Controller.text.isNotEmpty) {
+          isk1Controller.text = value;
+          double iskonto1 = double.parse(isk1Controller.text);
+          double tutar = siparisler[i].sipKdvsizTutar;
+          indirimliNetFiyat = tutar - ((tutar * iskonto1) / 100);
+          siparisler[i].sipKdvsizTutar = indirimliNetFiyat!;
+          if (isk2Controller.text.isNotEmpty) {
+            isk2Controller.text = value;
+            double iskonto2 = double.parse(isk2Controller.text);
+            indirimliNetFiyat =
+                indirimliNetFiyat! - ((indirimliNetFiyat! * iskonto2) / 100);
+            siparisler[i].sipKdvsizTutar = indirimliNetFiyat!;
+            if (isk3Controller.text.isNotEmpty) {
+              double iskonto3 = double.parse(isk3Controller.text);
+              indirimliNetFiyat =
+                  indirimliNetFiyat! - ((indirimliNetFiyat! * iskonto3) / 100);
+              siparisler[i].sipKdvsizTutar = indirimliNetFiyat!;
+            }
+            if (isk4Controller.text.isNotEmpty) {
+              double iskonto4 = double.parse(isk3Controller.text);
+              indirimliNetFiyat =
+                  indirimliNetFiyat! - ((indirimliNetFiyat! * iskonto4) / 100);
+              siparisler[i].sipKdvsizTutar = indirimliNetFiyat!;
+            }
+            if (isk5Controller.text.isNotEmpty) {
+              double iskonto5 = double.parse(isk3Controller.text);
+              indirimliNetFiyat =
+                  indirimliNetFiyat! - ((indirimliNetFiyat! * iskonto5) / 100);
+              siparisler[i].sipKdvsizTutar = indirimliNetFiyat!;
+            }
+            if (isk6Controller.text.isNotEmpty) {
+              double iskonto6 = double.parse(isk3Controller.text);
+              indirimliNetFiyat =
+                  indirimliNetFiyat! - ((indirimliNetFiyat! * iskonto6) / 100);
+              siparisler[i].sipKdvsizTutar = indirimliNetFiyat!;
+            }
+          }
+          //* Siparis listemin elemanına iskontosunu ekliyorum
+          siparisler[i].siparisIskonto = tutar - indirimliNetFiyat!;
+          double kdv = indirimliNetFiyat!;
+          //* BU KISIMDA SEÇİLİ STOĞUN KDVSİNİ ÜZERİNE EKLİYORUM.
+          indirimliNetFiyat = indirimliNetFiyat! *
+              ((savedStoklar[i].perakendeVergiYuzde / 100) + 1);
+          //*----------- ------
+          siparisler[i].siparisKdv = indirimliNetFiyat! - kdv;
+          siparisler[i].siparisYekunTutar = indirimliNetFiyat!;
+          //* Burada siparis listemdeki elemanın kdvsini topluyorum.
+          toplamIndirimliKdv = toplamIndirimliKdv + siparisler[i].siparisKdv!;
+          //* Yekun tutarımı önce kdv ekleyip sonra toplayarak buldum.
+          toplamIsk = toplamIsk + siparisler[i].siparisIskonto!;
+          //* indirimli yekun tutarlarımı ayrı ayrı topluyorum.
+          indirimliYekunTutar =
+              indirimliYekunTutar + siparisler[i].siparisYekunTutar!;
+        }
+      }
+
       notifyListeners();
     } else {
       Future.delayed(const Duration(milliseconds: 500), () {
@@ -88,6 +138,7 @@ class SatisSiparisiViewModel extends ChangeNotifier {
 
   saveStokForSiparis(Stoklar stok) {
     savedStok = stok;
+    savedStoklar.add(stok);
     notifyListeners();
   }
 
@@ -117,14 +168,14 @@ class SatisSiparisiViewModel extends ChangeNotifier {
   addItemToSiparisList(StokCariBilgileri siparis) {
     if (siparisler.isNotEmpty) {
       yekunTutar = yekunTutar + siparis.sipTutar;
-      kdvsizAraTutar = kdvsizAraTutar + siparis.sipKdvsizFiyat;
+      kdvsizAraTutar = kdvsizAraTutar + siparis.sipKdvsizTutar;
       toplamKDV = yekunTutar - kdvsizAraTutar;
       siparisler.add(siparis);
       return siparisler;
     }
     if (siparisler.isEmpty) {
       yekunTutar = siparis.sipTutar;
-      kdvsizAraTutar = siparis.sipKdvsizFiyat;
+      kdvsizAraTutar = siparis.sipKdvsizTutar;
       toplamKDV = yekunTutar - kdvsizAraTutar;
       siparisler.add(siparis);
       return siparisler;
@@ -134,13 +185,13 @@ class SatisSiparisiViewModel extends ChangeNotifier {
     //  return siparisler;
   }
 
-  calculateKdvWithDiscount() {
-    // x /100 +1
+  // calculateKdvWithDiscount(Stoklar stok) {
+  //   // x /100 +1
 
-    indirimliNetFiyat =
-        savedStok!.stokFiyat * ((savedStok!.perakendeVergiYuzde / 100) + 1);
-    return indirimliNetFiyat;
-  }
+  //   indirimliNetFiyat =
+  //       indirimliNetFiyat! * ((stok.perakendeVergiYuzde / 100) + 1);
+  //   return indirimliNetFiyat;
+  // }
 
   calculateKdv() {
     kdvsizNetFiyat =

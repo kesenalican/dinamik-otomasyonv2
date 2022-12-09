@@ -52,7 +52,6 @@ class SiparisListesi extends HookConsumerWidget {
                             isk4Controller: isk4Controller,
                             isk5Controller: isk5Controller,
                             isk6Controller: isk6Controller,
-                            kdvsizTutar: siparisModel.kdvsizAraTutar,
                             mas1Controller: mas1Controller,
                             mas2Controller: mas2Controller,
                             mas3Controller: mas3Controller,
@@ -187,7 +186,7 @@ class SiparisListesi extends HookConsumerWidget {
                                   ),
                                 ),
                                 Text(
-                                  "${siparisModel.siparisler[index].sipTutar.toStringAsFixed(2)} ${siparisModel.savedStok!.stokKur == "Türk Lirası" ? "TL" : "${siparisModel.savedStok!.stokKur}"}",
+                                  "${siparisModel.siparisler[index].sipKdvsizTutar.toStringAsFixed(2)} ${siparisModel.savedStok!.stokKur == "Türk Lirası" ? "TL" : "${siparisModel.savedStok!.stokKur}"}",
                                   style: TextStyle(
                                     color: Color(MyColors.bg01),
                                     fontSize: 15,

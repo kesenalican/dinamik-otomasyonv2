@@ -94,13 +94,19 @@ class UrunBilgileriGir extends HookConsumerWidget {
                     ),
                     Expanded(
                       child: SizedBox(
-                        height: context.dynamicHeight * 0.03,
+                       // height: context.dynamicHeight * 0.05,
                         width: context.dynamicWidth * 0.05,
                         child: TextFormField(
                           controller: siparisMiktariController,
                           focusNode: focusNode,
                           keyboardType: TextInputType.number,
                           cursorColor: Color(MyColors.bg01),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Miktar boş olamaz";
+                            }
+                            return null;
+                          },
                           style: TextStyle(
                             color: Color(
                               MyColors.bg01,
@@ -270,17 +276,11 @@ class UrunBilgileriGir extends HookConsumerWidget {
                         Navigator.pop(context);
                         return;
                       }
-                      if (siparisMiktariController.text == "") {
-                        // ignore: void_checks
-                        return showAlertDialog(
-                            context: context,
-                            hataBaslik: "Hata",
-                            hataIcerik: "Önce miktar giriniz!");
-                      }
+
                       siparisModel.saveStokBilgileri(
                           siparisMiktariController, sipTutariController);
+                      siparisModel.calculateKdv();
                       siparisModel.addItemToSiparisList(StokCariBilgileri(
-                        indirimliToplamTutar: 0,
                         sipCreateUser: currentUser.currentUser!.kullaniciNo,
                         sipLastupUser: currentUser.currentUser!.kullaniciNo,
                         sipTip: 0,
@@ -288,7 +288,8 @@ class UrunBilgileriGir extends HookConsumerWidget {
                         sipStokKod: siparisModel.savedStok!.stokKodu,
                         sipStokAd: siparisModel.savedStok!.stokIsim,
                         sipBFiyat: siparisModel.savedStok!.stokFiyat,
-                        sipKdvsizFiyat: siparisModel.kdvsizBrutFiyat!,
+                        sipKdvsizFiyat: siparisModel.kdvsizNetFiyat!,
+                        sipKdvsizTutar: netFiyat,
                         sipMiktar: int.parse(
                             siparisMiktariController.text.replaceAll(',', '')),
                         sipTeslimMiktar: int.parse(

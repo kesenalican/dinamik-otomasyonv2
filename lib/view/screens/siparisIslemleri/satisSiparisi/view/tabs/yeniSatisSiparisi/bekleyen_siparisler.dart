@@ -73,7 +73,7 @@ class BekleyenSiparisler extends ConsumerWidget {
           Expanded(
             flex: 5,
             child: Text(
-              "${model.kdvsizIndirimliAraTutar == 0 ? model.kdvsizAraTutar.toStringAsFixed(2) : model.kdvsizIndirimliAraTutar.toStringAsFixed(2)} ",
+              model.kdvsizAraTutar.toStringAsFixed(2),
               style: purpleTxtStyle.copyWith(fontSize: 15),
             ),
           ),
