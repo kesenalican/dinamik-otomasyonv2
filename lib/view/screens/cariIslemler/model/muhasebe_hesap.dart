@@ -2,7 +2,6 @@
 //
 //     final muhasebeHesapModel = muhasebeHesapModelFromMap(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 MuhasebeHesapModel muhasebeHesapModelFromMap(String str) => MuhasebeHesapModel.fromMap(json.decode(str));
@@ -19,12 +18,12 @@ class MuhasebeHesapModel {
     final String muhHesapIsim;
 
     factory MuhasebeHesapModel.fromMap(Map<String, dynamic> json) => MuhasebeHesapModel(
-        muhHesapKodu: json["MuhHesapKodu"],
-        muhHesapIsim: json["MuhHesapIsim"],
+        muhHesapKodu: json['MuhHesapKodu'],
+        muhHesapIsim: json['MuhHesapIsim'],
     );
 
     Map<String, dynamic> toMap() => {
-        "MuhHesapKodu": muhHesapKodu,
-        "MuhHesapIsim": muhHesapIsim,
+        'MuhHesapKodu': muhHesapKodu,
+        'MuhHesapIsim': muhHesapIsim,
     };
 }

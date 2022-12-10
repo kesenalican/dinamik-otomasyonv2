@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 UserModel userModelFromMap(String str) => UserModel.fromMap(json.decode(str));
@@ -18,16 +17,16 @@ class UserModel {
   final String kullaniciAdi;
 
   factory UserModel.fromMap(Map<String, dynamic> json) => UserModel(
-        kullaniciNo: json["KULLANICI_NO"],
-        kullaniciKisaAdi: json["KULLANICI_KISA_ADI"],
-        kullaniciUzunAdi: json["KULLANICI_UZUN_ADI"],
-        kullaniciAdi: json["KULLANICI_ADI"],
+        kullaniciNo: json['KULLANICI_NO'],
+        kullaniciKisaAdi: json['KULLANICI_KISA_ADI'],
+        kullaniciUzunAdi: json['KULLANICI_UZUN_ADI'],
+        kullaniciAdi: json['KULLANICI_ADI'],
       );
 
   Map<String, dynamic> toMap() => {
-        "KULLANICI_NO": kullaniciNo,
-        "KULLANICI_KISA_ADI": kullaniciKisaAdi,
-        "KULLANICI_UZUN_ADI": kullaniciUzunAdi,
-        "KULLANICI_ADI": kullaniciAdi,
+        'KULLANICI_NO': kullaniciNo,
+        'KULLANICI_KISA_ADI': kullaniciKisaAdi,
+        'KULLANICI_UZUN_ADI': kullaniciUzunAdi,
+        'KULLANICI_ADI': kullaniciAdi,
       };
 }

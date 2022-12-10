@@ -8,23 +8,24 @@ class AppException implements Exception {
 
   @override
   String toString() {
+    // ignore: prefer_single_quotes
     return "$_prefix$_message";
   }
 }
 
 class FetchDataException extends AppException {
   FetchDataException([String? message])
-      : super(message, "Error During Communication: ");
+      : super(message, 'Error During Communication: ');
 }
 
 class BadRequestException extends AppException {
-  BadRequestException([message]) : super(message, "Invalid Request: ");
+  BadRequestException([message]) : super(message, 'Invalid Request: ');
 }
 
 class UnauthorisedException extends AppException {
-  UnauthorisedException([message]) : super(message, "Unauthorised Request: ");
+  UnauthorisedException([message]) : super(message, 'Unauthorised Request: ');
 }
 
 class InvalidInputException extends AppException {
-  InvalidInputException([String? message]) : super(message, "Invalid Input: ");
+  InvalidInputException([String? message]) : super(message, 'Invalid Input: ');
 }

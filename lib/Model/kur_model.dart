@@ -20,14 +20,14 @@ class Kurlar {
   final String kurOrjinalIsmi;
 
   factory Kurlar.fromMap(Map<String, dynamic> json) => Kurlar(
-        kurNumarasi: json["KUR_NUMARASI"],
-        kurSembolu: json["KUR_SEMBOLU"],
-        kurOrjinalIsmi: json["KUR_ORJINAL_ISMI"],
+        kurNumarasi: json['KUR_NUMARASI'],
+        kurSembolu: json['KUR_SEMBOLU'],
+        kurOrjinalIsmi: json['KUR_ORJINAL_ISMI'],
       );
 
   Map<String, dynamic> toMap() => {
-        "KUR_NUMARASI": kurNumarasi,
-        "KUR_SEMBOLU": kurSembolu,
-        "KUR_ORJINAL_ISMI": kurOrjinalIsmi,
+        'KUR_NUMARASI': kurNumarasi,
+        'KUR_SEMBOLU': kurSembolu,
+        'KUR_ORJINAL_ISMI': kurOrjinalIsmi,
       };
 }

@@ -23,7 +23,7 @@ Future<void> buildSaveButton(
     builder: (context) {
       return AlertDialog(
         title: Text(
-          "Cariyi kayıt etmek istiyor musunuz?",
+          'Cariyi kayıt etmek istiyor musunuz?',
           style: purpleTxtStyle,
         ),
         actions: [
@@ -35,7 +35,7 @@ Future<void> buildSaveButton(
                       MaterialStateProperty.all(Color(MyColors.bg01)),
                 ),
                 child: const Text(
-                  "Evet",
+                  'Evet',
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () {
@@ -62,7 +62,7 @@ Future<void> buildSaveButton(
                       builder: (context) {
                         return AlertDialog(
                           content: Text(
-                            "Cari Başarıyla Kaydedildi!",
+                            'Cari Başarıyla Kaydedildi!',
                             style: purpleTxtStyle,
                           ),
                           actions: [
@@ -96,7 +96,7 @@ Future<void> buildSaveButton(
                       MaterialStateProperty.all(Color(MyColors.bg01)),
                 ),
                 child: const Text(
-                  "Hayır",
+                  'Hayır',
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () {

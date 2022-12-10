@@ -38,7 +38,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class StokService {
   var data = [];
   List<Stoklar> results = [];
-  String fetchUrl = "${ConstantProvider.BASE_URL}Stoklar/search";
+  String fetchUrl = '${ConstantProvider.BASE_URL}Stoklar/search';
   Future<List<Stoklar>> getStokLList() async {
     var response = await Dio().get(fetchUrl);
     try {
@@ -49,10 +49,10 @@ class StokService {
         //     stok.stokKodu.toLowerCase().contains(stok.stokKodu.toLowerCase()));
         return results;
       } else {
-        print("api error");
+        print('api error');
       }
     } on Exception catch (e) {
-      print("api error ${e.toString()}");
+      print('api error ${e.toString()}');
     }
     return results;
   }
@@ -77,7 +77,7 @@ final stoklarProvider = FutureProvider.autoDispose
     .family<List<Stoklar>, int>((ref, pageCount) async {
   final dio = ref.watch(httpClientProvider);
   final result = await dio
-      .get("Stoklar", queryParameters: {'offset': pageCount});
+      .get('Stoklar', queryParameters: {'offset': pageCount});
   if (result.statusCode == 200) {
     List<Map<String, dynamic>> mapData = List.from(result.data);
     List<Stoklar> stoklist = mapData.map((e) => Stoklar.fromMap(e)).toList();

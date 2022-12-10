@@ -55,7 +55,7 @@ class EvrakNoTextField extends ConsumerWidget {
                       builder: (context) {
                         return SimpleDialog(
                           title: Text(
-                            "Proje",
+                            'Proje',
                             style: purpleBoldTxtStyle,
                           ),
                           children: [
@@ -133,7 +133,7 @@ class EvrakNoTextField extends ConsumerWidget {
                       });
                 },
                 error: (err, stack) => showAlertDialog(
-                    context: context, hataBaslik: "hata", hataIcerik: "hata"),
+                    context: context, hataBaslik: 'hata', hataIcerik: 'hata'),
                 loading: () => const CommonLoading(),
               );
             },

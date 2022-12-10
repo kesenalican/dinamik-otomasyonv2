@@ -5,7 +5,6 @@ import 'package:dinamik_otomasyon/view/screens/stokIslemleri/model/stoklar_model
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class UrunHangiDepoda extends HookConsumerWidget {
@@ -55,7 +54,7 @@ class UrunHangiDepoda extends HookConsumerWidget {
           ),
         ),
         Text(
-          "Görüntüle",
+          'Görüntüle',
           style: purpleTxtStyle,
         ),
       ],
@@ -72,7 +71,7 @@ class UrunHangiDepoda extends HookConsumerWidget {
           ),
         ),
         Text(
-          "E-mail",
+          'E-mail',
           style: purpleTxtStyle,
         ),
       ],
@@ -122,14 +121,14 @@ class UrunHangiDepoda extends HookConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    ":",
+                    ':',
                     style: purpleTxtStyle,
                   ),
                   SizedBox(
                     height: context.dynamicHeight * 0.04,
                   ),
                   Text(
-                    ":",
+                    ':',
                     style: purpleTxtStyle,
                   ),
                 ],

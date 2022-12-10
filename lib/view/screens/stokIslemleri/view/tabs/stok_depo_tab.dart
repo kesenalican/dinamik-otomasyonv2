@@ -40,7 +40,7 @@ class DepoTab extends ConsumerWidget {
               Padding(
                 padding: EdgeInsets.all(dynamicHeight * 0.01),
                 child: const Text(
-                  "No: 1",
+                  'No: 1',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -49,7 +49,7 @@ class DepoTab extends ConsumerWidget {
               Padding(
                 padding: EdgeInsets.all(dynamicHeight * 0.01),
                 child: const Text(
-                  "Depo Adı: Merkez depo",
+                  'Depo Adı: Merkez depo',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -61,7 +61,7 @@ class DepoTab extends ConsumerWidget {
             children: [
               Padding(
                 padding: EdgeInsets.all(dynamicHeight * 0.01),
-                child: const Text("Miktar: -461,99"),
+                child: const Text('Miktar: -461,99'),
               ),
             ],
           ),
@@ -88,7 +88,7 @@ class DepoTab extends ConsumerWidget {
               Padding(
                 padding: EdgeInsets.all(dynamicHeight * 0.01),
                 child: const Text(
-                  "No: 1",
+                  'No: 1',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -97,7 +97,7 @@ class DepoTab extends ConsumerWidget {
               Padding(
                 padding: EdgeInsets.all(dynamicHeight * 0.01),
                 child: const Text(
-                  "${Constants.DEPO_ADI} Merkez",
+                  '${Constants.DEPO_ADI} Merkez',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -111,7 +111,7 @@ class DepoTab extends ConsumerWidget {
                 padding: EdgeInsets.all(dynamicHeight * 0.01),
                 child: Text(
                     //DEPODAKİ TOPLAM ÜRÜN
-                    "${Constants.MIKTAR} {stokModel.merkez.ceil()} ${stokModel.stokBirim1}"),
+                    '${Constants.MIKTAR} {stokModel.merkez.ceil()} ${stokModel.stokBirim1}'),
               ),
             ],
           ),

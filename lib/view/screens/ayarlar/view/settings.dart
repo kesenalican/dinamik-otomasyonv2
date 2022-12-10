@@ -1,5 +1,4 @@
 import 'package:dinamik_otomasyon/View/common/common_appbar.dart';
-import 'package:dinamik_otomasyon/View/styles/styles.dart';
 import 'package:flutter/material.dart';
 
 import '../../../styles/colors.dart';
@@ -16,7 +15,7 @@ class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonAppbar(whichPage: "Ayarlar"),
+      appBar: CommonAppbar(whichPage: 'Ayarlar'),
       body: Column(
         children: [
           Padding(
@@ -24,7 +23,7 @@ class _SettingsState extends State<Settings> {
             child: Row(
               children: [
                 Text(
-                  "Görünümü Değiştir = ",
+                  'Görünümü Değiştir = ',
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

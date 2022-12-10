@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+// ignore: must_be_immutable
 class YeniCariAdres extends HookConsumerWidget {
   final TextEditingController cariKoduController;
   CariViewModel cariViewModel = CariViewModel();
@@ -56,7 +57,7 @@ class YeniCariAdres extends HookConsumerWidget {
                 builder: (context) {
                   return AlertDialog(
                     content: Text(
-                      "Cari Adres Başarıyla Kaydedildi!",
+                      'Cari Adres Başarıyla Kaydedildi!',
                       style: purpleTxtStyle,
                     ),
                     actions: [
@@ -135,7 +136,7 @@ class YeniCariAdres extends HookConsumerWidget {
             children: [
               CommonTextField(
                   controller: adresNoController,
-                  field: "Adres No",
+                  field: 'Adres No',
                   icon: Icons.map,
                   textInputType: TextInputType.number,
                   isMandatory: true,
@@ -153,7 +154,7 @@ class YeniCariAdres extends HookConsumerWidget {
               ),
               CommonTextField(
                 controller: caddeController,
-                field: "Cadde",
+                field: 'Cadde',
                 icon: Icons.map,
                 textInputType: TextInputType.name,
                 isMandatory: false,
@@ -161,7 +162,7 @@ class YeniCariAdres extends HookConsumerWidget {
               ),
               CommonTextField(
                 controller: mahalleController,
-                field: "Mahalle",
+                field: 'Mahalle',
                 icon: Icons.map,
                 textInputType: TextInputType.name,
                 isMandatory: false,
@@ -169,7 +170,7 @@ class YeniCariAdres extends HookConsumerWidget {
               ),
               CommonTextField(
                 controller: sokakController,
-                field: "Sokak",
+                field: 'Sokak',
                 icon: Icons.map,
                 textInputType: TextInputType.name,
                 isMandatory: false,

@@ -61,7 +61,7 @@ class _CommonTypesState extends State<CommonTypes> {
                 selectedItem = selectedItem;
                 widget.selectedItemIndex =
                     widget.listOfTypes.indexOf(selectedItem.toString());
-                print("SEÇİLEN İNDEX == ${widget.selectedItemIndex}");
+                print('SEÇİLEN İNDEX == ${widget.selectedItemIndex}');
               });
             },
             items: widget.listOfTypes

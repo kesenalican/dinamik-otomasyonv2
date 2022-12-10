@@ -55,7 +55,7 @@ class SormMerkeziTextField extends ConsumerWidget {
                       builder: (context) {
                         return SimpleDialog(
                           title: Text(
-                            "Sorumluluk Merkezi Seçiniz",
+                            'Sorumluluk Merkezi Seçiniz',
                             style: purpleBoldTxtStyle,
                           ),
                           children: [
@@ -109,7 +109,7 @@ class SormMerkeziTextField extends ConsumerWidget {
                       });
                 },
                 error: (err, stack) => showAlertDialog(
-                    context: context, hataBaslik: "hata", hataIcerik: "hata"),
+                    context: context, hataBaslik: 'hata', hataIcerik: 'hata'),
                 loading: () => const CommonLoading(),
               );
             },

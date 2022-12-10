@@ -2,7 +2,6 @@
 //
 //     final enCokSatilanUrunler = enCokSatilanUrunlerFromMap(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 EnCokSatilanUrunlerModel enCokSatilanUrunlerFromMap(String str) =>
@@ -24,14 +23,14 @@ class EnCokSatilanUrunlerModel {
 
   factory EnCokSatilanUrunlerModel.fromMap(Map<String, dynamic> json) =>
       EnCokSatilanUrunlerModel(
-        stokkodu: json["STOKKODU"],
-        miktar: json["MIKTAR"],
-        deger: json["DEGER"].toDouble(),
+        stokkodu: json['STOKKODU'],
+        miktar: json['MIKTAR'],
+        deger: json['DEGER'].toDouble(),
       );
 
   Map<String, dynamic> toMap() => {
-        "STOKKODU": stokkodu,
-        "MIKTAR": miktar,
-        "DEGER": deger,
+        'STOKKODU': stokkodu,
+        'MIKTAR': miktar,
+        'DEGER': deger,
       };
 }

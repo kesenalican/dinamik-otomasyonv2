@@ -4,6 +4,7 @@ import '../../Model/module_name.dart';
 import '../styles/colors.dart';
 import '../styles/styles.dart';
 
+// ignore: must_be_immutable
 class ScheduleTab extends StatefulWidget {
   String? cardName;
 
@@ -72,8 +73,6 @@ class _ScheduleTabState extends State<ScheduleTab> {
 
   @override
   Widget build(BuildContext context) {
-    double h = MediaQuery.of(context).size.height;
-    double w = MediaQuery.of(context).size.width;
     List<Map> filteredSchedules = schedules.where((var schedule) {
       return schedule['status'] == status;
     }).toList();
@@ -104,7 +103,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                               ? Modules[2]
                               : widget.cardName == Modules[3]
                                   ? Modules[3]
-                                  : "",
+                                  : '',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       color: Color(MyColors.bg01),
@@ -159,7 +158,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                   ),
                 ),
                 AnimatedAlign(
-                  duration: Duration(milliseconds: 200),
+                  duration: const Duration(milliseconds: 200),
                   alignment: _alignment,
                   child: Container(
                     width: 100,
@@ -188,21 +187,21 @@ class _ScheduleTabState extends State<ScheduleTab> {
               child: ListView.builder(
                 itemCount: filteredSchedules.length,
                 itemBuilder: (context, index) {
-                  var _schedule = filteredSchedules[index];
+                  var schedule = filteredSchedules[index];
                   bool isLastElement = filteredSchedules.length + 1 == index;
                   return Card(
                     margin: !isLastElement
-                        ? EdgeInsets.only(bottom: 20)
+                        ? const EdgeInsets.only(bottom: 20)
                         : EdgeInsets.zero,
                     child: Padding(
-                      padding: EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(15),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Row(
                             children: [
                               CircleAvatar(
-                                backgroundImage: AssetImage(_schedule['img']),
+                                backgroundImage: AssetImage(schedule['img']),
                               ),
                               const SizedBox(
                                 width: 10,
@@ -211,7 +210,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    _schedule['doctorName'],
+                                    schedule['doctorName'],
                                     style: TextStyle(
                                       color: Color(MyColors.header01),
                                       fontWeight: FontWeight.w700,
@@ -221,7 +220,7 @@ class _ScheduleTabState extends State<ScheduleTab> {
                                     height: 5,
                                   ),
                                   Text(
-                                    _schedule['doctorTitle'],
+                                    schedule['doctorTitle'],
                                     style: TextStyle(
                                       color: Color(MyColors.grey02),
                                       fontSize: 12,
@@ -293,7 +292,7 @@ class DateTimeCard extends StatelessWidget {
                 width: 5,
               ),
               Text(
-                "300 TL",
+                '300 TL',
                 style: TextStyle(
                   fontSize: 12,
                   color: Color(MyColors.primary),

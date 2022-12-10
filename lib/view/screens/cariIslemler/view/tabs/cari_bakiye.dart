@@ -1,13 +1,11 @@
 import 'package:dinamik_otomasyon/View/styles/styles.dart';
 import 'package:dinamik_otomasyon/core/base/state/base_state.dart';
-import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cariler.dart';
-import 'package:dinamik_otomasyon/view/screens/stokIslemleri/model/stoklar_model.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
-import 'package:flutter/rendering.dart';
 
+// ignore: must_be_immutable
 class CariBakiyeTab extends StatefulWidget {
   Cariler cariModel;
   CariBakiyeTab({Key? key, required this.cariModel}) : super(key: key);
@@ -75,14 +73,14 @@ class _CariBakiyeTabState extends BaseState<CariBakiyeTab> {
                 Expanded(
                   flex: 1,
                   child: Text(
-                    ":",
+                    ':',
                     style: whiteTxtStyle,
                   ),
                 ),
                 Expanded(
                   flex: 3,
                   child: Text(
-                    "10.000,00",
+                    '10.000,00',
                     style: whiteTxtStyle,
                   ),
                 ),
@@ -104,14 +102,14 @@ class _CariBakiyeTabState extends BaseState<CariBakiyeTab> {
                 Expanded(
                   flex: 1,
                   child: Text(
-                    ":",
+                    ':',
                     style: whiteTxtStyle,
                   ),
                 ),
                 Expanded(
                   flex: 3,
                   child: Text(
-                    "604.000,00",
+                    '604.000,00',
                     style: whiteTxtStyle,
                   ),
                 ),
@@ -133,14 +131,14 @@ class _CariBakiyeTabState extends BaseState<CariBakiyeTab> {
                 Expanded(
                   flex: 1,
                   child: Text(
-                    ":",
+                    ':',
                     style: whiteTxtStyle,
                   ),
                 ),
                 Expanded(
                   flex: 3,
                   child: Text(
-                    "-594.000,00",
+                    '-594.000,00',
                     style: whiteTxtStyle,
                   ),
                 ),
@@ -168,14 +166,14 @@ class _CariBakiyeTabState extends BaseState<CariBakiyeTab> {
           Expanded(
             flex: 1,
             child: Text(
-              ":",
+              ':',
               style: purpleTxtStyle,
             ),
           ),
           Expanded(
             flex: 3,
             child: Text(
-              "60.000,00",
+              '60.000,00',
               style: purpleTxtStyle,
             ),
           ),
@@ -200,14 +198,14 @@ class _CariBakiyeTabState extends BaseState<CariBakiyeTab> {
           Expanded(
             flex: 1,
             child: Text(
-              ":",
+              ':',
               style: purpleTxtStyle,
             ),
           ),
           Expanded(
             flex: 3,
             child: Text(
-              "57.541,41",
+              '57.541,41',
               style: purpleTxtStyle,
             ),
           ),
@@ -232,14 +230,14 @@ class _CariBakiyeTabState extends BaseState<CariBakiyeTab> {
           Expanded(
             flex: 1,
             child: Text(
-              ":",
+              ':',
               style: purpleTxtStyle,
             ),
           ),
           Expanded(
             flex: 3,
             child: Text(
-              "5.000,00",
+              '5.000,00',
               style: purpleTxtStyle,
             ),
           ),
@@ -264,14 +262,14 @@ class _CariBakiyeTabState extends BaseState<CariBakiyeTab> {
           Expanded(
             flex: 1,
             child: Text(
-              ":",
+              ':',
               style: purpleTxtStyle,
             ),
           ),
           Expanded(
             flex: 3,
             child: Text(
-              "410.325,00",
+              '410.325,00',
               style: purpleTxtStyle,
             ),
           ),

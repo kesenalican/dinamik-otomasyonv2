@@ -21,7 +21,7 @@ class CariAdresList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var adresList = ref.watch(cariAdresProvider(cariKoduController.text));
     return Scaffold(
-        appBar: CommonAppbar(whichPage: "Adresler"),
+        appBar: CommonAppbar(whichPage: 'Adresler'),
         floatingActionButton: FloatingActionButton(
           elevation: 3,
           backgroundColor: Color(
@@ -82,14 +82,14 @@ class CariAdresList extends ConsumerWidget {
                           }),
                     )
                   : Text(
-                      "Bu Cari Koduna Yeni Adres Eklemek İçin Sağ Alttaki Butona Tıklayın!",
+                      'Bu Cari Koduna Yeni Adres Eklemek İçin Sağ Alttaki Butona Tıklayın!',
                       style: purpleTxtStyle,
                     );
             },
             error: (err, stack) => showAlertDialog(
                 context: context,
-                hataBaslik: "Hata",
-                hataIcerik: "Hata ${err.toString()}"),
+                hataBaslik: 'Hata',
+                hataIcerik: 'Hata ${err.toString()}'),
             loading: () => const CommonLoading(),
           ),
         ));

@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../common/common_appbar.dart';
 import '../../../styles/colors.dart';
-import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 
 // ignore: must_be_immutable
 class SonSatisFiyatlari extends ConsumerWidget {
@@ -21,7 +20,7 @@ class SonSatisFiyatlari extends ConsumerWidget {
     var alisFiyatlari =
         ref.watch(stokSatisFiyatlariProvider(stokModel.stokKodu));
     return Scaffold(
-      appBar: CommonAppbar(whichPage: "Son Satış Fiyatları"),
+      appBar: CommonAppbar(whichPage: 'Son Satış Fiyatları'),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -35,7 +34,7 @@ class SonSatisFiyatlari extends ConsumerWidget {
               ),
               child: Center(
                 child: Text(
-                  "Son Satış Fiyatları",
+                  'Son Satış Fiyatları',
                   style: TextStyle(
                     color: Color(MyColors.bg01),
                     fontWeight: FontWeight.bold,
@@ -62,7 +61,7 @@ class SonSatisFiyatlari extends ConsumerWidget {
                       itemBuilder: (context, index) {
                         DateTime dateTime = DateTime.parse(liste[index].tarih);
                         var formattedDate =
-                            "${dateTime.year}/${dateTime.month}/${dateTime.day}";
+                            '${dateTime.year}/${dateTime.month}/${dateTime.day}';
                         // Fiyat kısmında noktadan sonra 2 hane alınıyor..
                         double brutFiyat = double.parse(
                             (liste[index].brutTutar).toStringAsFixed(2));
@@ -88,6 +87,7 @@ class SonSatisFiyatlari extends ConsumerWidget {
                     hataBaslik: Constants.HATA_BASLIK,
                     hataIcerik: err.toString(),
                   );
+                  return null;
                 },
                 loading: () => Center(
                   child: CircularProgressIndicator(
@@ -109,7 +109,7 @@ class SonSatisFiyatlari extends ConsumerWidget {
       double? brutFiyati,
       double? miktar}) {
     return Container(
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(10),
@@ -139,7 +139,7 @@ class SonSatisFiyatlari extends ConsumerWidget {
               Expanded(
                 flex: 1,
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(
                     tarih!,
                     style: const TextStyle(
@@ -154,11 +154,11 @@ class SonSatisFiyatlari extends ConsumerWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text("Miktar: ${(miktar! * -1).ceil()} "),
+                child: Text('Miktar: ${(miktar! * -1).ceil()} '),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(" Brüt Fiyatı: ${brutFiyati!}TL"),
+                child: Text(' Brüt Fiyatı: ${brutFiyati!}TL'),
               ),
             ],
           ),
@@ -166,7 +166,7 @@ class SonSatisFiyatlari extends ConsumerWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text("Net Fiyat: ${fiyati!}TL "),
+                child: Text('Net Fiyat: ${fiyati!}TL '),
               ),
             ],
           ),

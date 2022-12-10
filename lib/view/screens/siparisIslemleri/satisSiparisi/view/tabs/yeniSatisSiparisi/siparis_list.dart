@@ -25,7 +25,6 @@ class SiparisListesi extends HookConsumerWidget {
     final mas2Controller = useTextEditingController(text: '');
     final mas3Controller = useTextEditingController(text: '');
     final mas4Controller = useTextEditingController(text: '');
-    final sipTutariController = useTextEditingController(text: '');
     var siparisModel = ref.watch(satisSiparisViewModel);
     return SingleChildScrollView(
         child: Column(
@@ -39,7 +38,7 @@ class SiparisListesi extends HookConsumerWidget {
                             detayaGitmesin: true,
                           )));
             },
-            child: CommonButton(buttonName: "Ürün Ekle +")),
+            child: CommonButton(buttonName: 'Ürün Ekle +')),
         InkWell(
             onTap: () {
               Navigator.push(
@@ -58,7 +57,7 @@ class SiparisListesi extends HookConsumerWidget {
                             mas4Controller: mas4Controller,
                           )));
             },
-            child: CommonButton(buttonName: "İskonto Ekle +")),
+            child: CommonButton(buttonName: 'İskonto Ekle +')),
         SizedBox(
           height: context.dynamicHeight * 0.6,
           child: ListView.builder(
@@ -72,7 +71,7 @@ class SiparisListesi extends HookConsumerWidget {
                         builder: (context) {
                           return AlertDialog(
                             content: Text(
-                              "Ne yapmak istiyorsunuz?",
+                              'Ne yapmak istiyorsunuz?',
                               style: purpleTxtStyle,
                             ),
                             actions: [
@@ -90,7 +89,7 @@ class SiparisListesi extends HookConsumerWidget {
                                                   siparisModel.savedStok!)));
                                 },
                                 child: Text(
-                                  "Detay",
+                                  'Detay',
                                   style: whiteTxtStyle,
                                 ),
                               ),
@@ -105,7 +104,7 @@ class SiparisListesi extends HookConsumerWidget {
                                   Navigator.pop(context);
                                 },
                                 child: Text(
-                                  "Sil",
+                                  'Sil',
                                   style: whiteTxtStyle,
                                 ),
                               ),
@@ -176,7 +175,7 @@ class SiparisListesi extends HookConsumerWidget {
                                   padding: EdgeInsets.all(
                                       context.dynamicHeight * 0.006),
                                   child: Text(
-                                    "Adet: ${siparisModel.siparisler[index].sipMiktar}",
+                                    'Adet: ${siparisModel.siparisler[index].sipMiktar}',
                                     style: TextStyle(
                                       color: Color(MyColors.bg01),
                                       fontSize: 15,

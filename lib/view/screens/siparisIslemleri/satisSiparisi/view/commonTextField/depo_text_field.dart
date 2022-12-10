@@ -1,5 +1,4 @@
 import 'package:dinamik_otomasyon/Model/depo_model.dart';
-import 'package:dinamik_otomasyon/Model/sorm_merkezi_model.dart';
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/service/Providers/all_providers.dart';
 import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
@@ -26,7 +25,8 @@ class DepoTextField extends ConsumerWidget {
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         validator: (value) {
-          if (value!.isEmpty) return "Bu alan boş olamaz";
+          if (value!.isEmpty) return 'Bu alan boş olamaz';
+          return null;
         },
         controller: depoController,
         keyboardType: TextInputType.name,
@@ -107,7 +107,7 @@ class DepoTextField extends ConsumerWidget {
                       });
                 },
                 error: (err, stack) => showAlertDialog(
-                    context: context, hataBaslik: "hata", hataIcerik: "hata"),
+                    context: context, hataBaslik: 'hata', hataIcerik: 'hata'),
                 loading: () => const CommonLoading(),
               );
             },

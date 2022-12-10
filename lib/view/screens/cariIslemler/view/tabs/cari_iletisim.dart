@@ -3,8 +3,8 @@ import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cariler.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:url_launcher/url_launcher.dart';
 
+// ignore: must_be_immutable
 class CariIletisimTab extends ConsumerWidget {
   Cariler cariler;
 
@@ -25,7 +25,7 @@ class CariIletisimTab extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Adres No:1",
+              'Adres No:1',
               style: purpleBoldTxtStyle,
             ),
             telefonBilgi(),
@@ -51,13 +51,13 @@ class CariIletisimTab extends ConsumerWidget {
           Expanded(
               flex: 2,
               child: Text(
-                "Telefon No",
+                'Telefon No',
                 style: purpleTxtStyle,
               )),
           Expanded(
               flex: 1,
               child: Text(
-                ":",
+                ':',
                 style: purpleTxtStyle,
               )),
           Expanded(
@@ -94,13 +94,13 @@ class CariIletisimTab extends ConsumerWidget {
           Expanded(
               flex: 2,
               child: Text(
-                "Fax no",
+                'Fax no',
                 style: purpleTxtStyle,
               )),
           Expanded(
               flex: 2,
               child: Text(
-                ":",
+                ':',
                 style: purpleTxtStyle,
               )),
           const Expanded(
@@ -131,13 +131,13 @@ class CariIletisimTab extends ConsumerWidget {
           Expanded(
               flex: 2,
               child: Text(
-                "Konum",
+                'Konum',
                 style: purpleTxtStyle,
               )),
           Expanded(
               flex: 2,
               child: Text(
-                ":",
+                ':',
                 style: purpleTxtStyle,
               )),
           const Expanded(

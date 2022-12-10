@@ -2,7 +2,6 @@
 //
 //     final cariGrupModel = cariGrupModelFromMap(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 CariGrupModel cariGrupModelFromMap(String str) =>
@@ -20,12 +19,12 @@ class CariGrupModel {
   final String cariGrupIsmi;
 
   factory CariGrupModel.fromMap(Map<String, dynamic> json) => CariGrupModel(
-        cariGrupKodu: json["CariGrupKodu"],
-        cariGrupIsmi: json["CariGrupIsmi"],
+        cariGrupKodu: json['CariGrupKodu'],
+        cariGrupIsmi: json['CariGrupIsmi'],
       );
 
   Map<String, dynamic> toMap() => {
-        "CariGrupKodu": cariGrupKodu,
-        "CariGrupIsmi": cariGrupIsmi,
+        'CariGrupKodu': cariGrupKodu,
+        'CariGrupIsmi': cariGrupIsmi,
       };
 }

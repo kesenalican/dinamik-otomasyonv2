@@ -2,7 +2,6 @@
 //
 //     final stokSatisFiyatlari = stokSatisFiyatlariFromMap(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 StokSatisFiyatlari stokSatisFiyatlariFromMap(String str) =>
@@ -34,24 +33,24 @@ class StokSatisFiyatlari {
 
   factory StokSatisFiyatlari.fromMap(Map<String, dynamic> json) =>
       StokSatisFiyatlari(
-        tarih: DateTime.parse(json["Tarih"]),
-        cariKodu: json["CariKodu"],
-        cariAdi: json["CariAdi"],
-        miktar: json["Miktar"],
-        birimAdi: json["BirimAdi"],
-        brutBirimFiyati: json["BrutBirimFiyati"].toDouble(),
-        netBirimFiyati: json["NetBirimFiyati"].toDouble(),
-        brutTutar: json["BrutTutar"].toDouble(),
+        tarih: DateTime.parse(json['Tarih']),
+        cariKodu: json['CariKodu'],
+        cariAdi: json['CariAdi'],
+        miktar: json['Miktar'],
+        birimAdi: json['BirimAdi'],
+        brutBirimFiyati: json['BrutBirimFiyati'].toDouble(),
+        netBirimFiyati: json['NetBirimFiyati'].toDouble(),
+        brutTutar: json['BrutTutar'].toDouble(),
       );
 
   Map<String, dynamic> toMap() => {
-        "Tarih": tarih.toIso8601String(),
-        "CariKodu": cariKodu,
-        "CariAdi": cariAdi,
-        "Miktar": miktar,
-        "BirimAdi": birimAdi,
-        "BrutBirimFiyati": brutBirimFiyati,
-        "NetBirimFiyati": netBirimFiyati,
-        "BrutTutar": brutTutar,
+        'Tarih': tarih.toIso8601String(),
+        'CariKodu': cariKodu,
+        'CariAdi': cariAdi,
+        'Miktar': miktar,
+        'BirimAdi': birimAdi,
+        'BrutBirimFiyati': brutBirimFiyati,
+        'NetBirimFiyati': netBirimFiyati,
+        'BrutTutar': brutTutar,
       };
 }

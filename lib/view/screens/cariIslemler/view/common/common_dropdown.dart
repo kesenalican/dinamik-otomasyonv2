@@ -58,7 +58,7 @@ class _CommonDropDownState extends State<CommonDropDown> {
             widget.selectedItem = selectedItem;
             widget.selectedItemIndex =
                 widget.list.indexOf(selectedItem.toString());
-            print("SEÇİLEN İNDEX == ${widget.selectedItemIndex}");
+            print('SEÇİLEN İNDEX == ${widget.selectedItemIndex}');
           });
         },
         items: widget.list

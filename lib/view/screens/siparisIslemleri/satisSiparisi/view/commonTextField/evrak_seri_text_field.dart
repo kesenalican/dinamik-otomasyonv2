@@ -1,8 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/common/common_input_border.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_save.model.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_model.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +19,7 @@ class EvrakSeriTextField extends StatelessWidget {
       GlobalKey<FormFieldState<String>>();
   CariViewModel? cariViewModel;
 
-  EvrakSeriTextField({
+  EvrakSeriTextField({super.key, 
     this.controller,
     this.field,
     this.icon,

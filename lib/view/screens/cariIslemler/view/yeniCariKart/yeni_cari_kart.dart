@@ -28,7 +28,6 @@ class YeniCariKart extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-    final GlobalKey<FormState> dropdownKey = GlobalKey<FormState>();
     final cariKoduController = useTextEditingController(text: '');
     final cariUnvanController = useTextEditingController(text: '');
     final verginoController = useTextEditingController(text: '');
@@ -45,7 +44,7 @@ class YeniCariKart extends HookConsumerWidget {
     final stokSatisCinsiSelectedItemIndex = useState(0);
     final cariOdemeSekliSelectedItemIndex = useState(0);
     final cariFaturaCinsiTipiSelectedItemIndex = useState(0);
-    final selectedItemDropDown = useState("Hareket Tipi");
+    final selectedItemDropDown = useState('Hareket Tipi');
 
     var list = ref.watch(vergiDaireleriProvider);
     var currentUser = ref.watch(currentInfoProvider);
@@ -89,7 +88,7 @@ class YeniCariKart extends HookConsumerWidget {
                   }),
               list.when(
                   error: (err, stack) => showAlertDialog(
-                      context: context, hataBaslik: "hata", hataIcerik: "hata"),
+                      context: context, hataBaslik: 'hata', hataIcerik: 'hata'),
                   loading: () => const CommonLoading(),
                   data: (data) {
                     List<VergiDaireModel> vergiDaireleri =
@@ -228,8 +227,8 @@ class YeniCariKart extends HookConsumerWidget {
               cariKoduController.text.isEmpty
                   ? showAlertDialog(
                       context: context,
-                      hataBaslik: "Hata",
-                      hataIcerik: "Önce Cari Kodu Giriniz!",
+                      hataBaslik: 'Hata',
+                      hataIcerik: 'Önce Cari Kodu Giriniz!',
                     )
                   : Navigator.push(
                       context,
@@ -272,7 +271,7 @@ class YeniCariKart extends HookConsumerWidget {
             ),
           ),
           decoration: InputDecoration(
-            labelText: "Cari Kod",
+            labelText: 'Cari Kod',
             labelStyle: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w400,
@@ -299,7 +298,7 @@ class YeniCariKart extends HookConsumerWidget {
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         validator: (value) =>
-            value!.isEmpty ? "Vergi Dairesi Boş Olamaz!" : null,
+            value!.isEmpty ? 'Vergi Dairesi Boş Olamaz!' : null,
         controller: vergiDaireController,
         keyboardType: TextInputType.name,
         cursorColor: Color(MyColors.bg01),
@@ -347,7 +346,7 @@ class YeniCariKart extends HookConsumerWidget {
       builder: (context) {
         return SimpleDialog(
           title: Text(
-            "Vergi Dairesi Seçiniz",
+            'Vergi Dairesi Seçiniz',
             style: purpleBoldTxtStyle,
           ),
           children: [

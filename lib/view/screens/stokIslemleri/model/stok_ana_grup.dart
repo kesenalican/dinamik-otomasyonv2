@@ -2,7 +2,6 @@
 //
 //     final stokAnaGrup = stokAnaGrupFromMap(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 List<StokAnaGrup> stokAnaGrupFromMap(String str) =>
@@ -19,10 +18,10 @@ class StokAnaGrup {
   });
 
   factory StokAnaGrup.fromMap(Map<String, dynamic> json) => StokAnaGrup(
-        sanIsim: json["san_isim"],
+        sanIsim: json['san_isim'],
       );
 
   Map<String, dynamic> toMap() => {
-        "san_isim": sanIsim,
+        'san_isim': sanIsim,
       };
 }

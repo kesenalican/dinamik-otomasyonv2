@@ -2,7 +2,6 @@
 //
 //     final bankalar = bankalarFromMap(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 Bankalar bankalarFromMap(String str) => Bankalar.fromMap(json.decode(str));
@@ -19,12 +18,12 @@ class Bankalar {
   final String banIsmi;
 
   factory Bankalar.fromMap(Map<String, dynamic> json) => Bankalar(
-    banKod: json["ban_kod"],
-    banIsmi: json["ban_ismi"],
+    banKod: json['ban_kod'],
+    banIsmi: json['ban_ismi'],
   );
 
   Map<String, dynamic> toMap() => {
-    "ban_kod": banKod,
-    "ban_ismi": banIsmi,
+    'ban_kod': banKod,
+    'ban_ismi': banIsmi,
   };
 }

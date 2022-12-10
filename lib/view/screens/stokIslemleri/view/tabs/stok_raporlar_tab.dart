@@ -4,7 +4,6 @@ import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/model/stoklar_model.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/view/reports/en_cok_satilan_urunler.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/view/reports/urun_hangi_depoda.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class RaporlarTab extends StatefulWidget {

@@ -2,7 +2,6 @@ import 'package:dinamik_otomasyon/core/base/state/base_state.dart';
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/common/common_appbar.dart';
-import 'package:dinamik_otomasyon/view/common/show_date_picker.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/view/reports/en_cok_satilan_urun_list.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
@@ -19,7 +18,7 @@ class EnCokSatilanUrunler extends StatefulWidget {
 class _EnCokSatilanUrunlerState extends BaseState<EnCokSatilanUrunler> {
   bool isSelected = false;
   DateTime dateTimeBaslangic = DateTime.parse(DateTime.now().toString());
-  DateTime dateTimeBitis = DateTime.parse("${DateTime.now().year}-01-01");
+  DateTime dateTimeBitis = DateTime.parse('${DateTime.now().year}-01-01');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,20 +57,20 @@ class _EnCokSatilanUrunlerState extends BaseState<EnCokSatilanUrunler> {
                         Expanded(
                             flex: 2,
                             child: Text(
-                              "Başlangıç Tarihi",
+                              'Başlangıç Tarihi',
                               style: purpleTxtStyle,
                             )),
                         Expanded(
                             flex: 1,
                             child: Text(
-                              ":",
+                              ':',
                               style: purpleBoldTxtStyle,
                             )),
                         Expanded(
                           flex: 2,
                           child: InkWell(
                             child: Text(
-                              "${dateTimeBitis.year}-${dateTimeBitis.month}-${dateTimeBitis.day}",
+                              '${dateTimeBitis.year}-${dateTimeBitis.month}-${dateTimeBitis.day}',
                               style: purpleBoldTxtStyle.copyWith(fontSize: 14),
                             ),
                             onTap: () async {
@@ -121,20 +120,20 @@ class _EnCokSatilanUrunlerState extends BaseState<EnCokSatilanUrunler> {
                         Expanded(
                             flex: 2,
                             child: Text(
-                              "Bitiş Tarihi",
+                              'Bitiş Tarihi',
                               style: purpleTxtStyle,
                             )),
                         Expanded(
                             flex: 1,
                             child: Text(
-                              ":",
+                              ':',
                               style: purpleBoldTxtStyle,
                             )),
                         Expanded(
                           flex: 2,
                           child: InkWell(
                             child: Text(
-                              "${dateTimeBaslangic.year}-${dateTimeBaslangic.month}-${dateTimeBaslangic.day}",
+                              '${dateTimeBaslangic.year}-${dateTimeBaslangic.month}-${dateTimeBaslangic.day}',
                               style: purpleBoldTxtStyle.copyWith(fontSize: 14),
                             ),
                             onTap: () async {

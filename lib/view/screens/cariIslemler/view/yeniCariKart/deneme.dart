@@ -4,22 +4,21 @@ import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
 import 'package:dinamik_otomasyon/view/common/common_loading.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_adres_model.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/service/cari_services.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_model.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class DEneme extends ConsumerWidget {
-  DEneme({super.key});
+  const DEneme({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var list = ref.watch(cariAdresProvider("005"));
+    var list = ref.watch(cariAdresProvider('005'));
     return Scaffold(
-      appBar: CommonAppbar(whichPage: "deneme"),
+      appBar: CommonAppbar(whichPage: 'deneme'),
       body: SimpleDialog(
         title: Text(
-          "Cari Adres Kartlar",
+          'Cari Adres Kartlar',
           style: purpleTxtStyle,
         ),
         children: [
@@ -40,7 +39,7 @@ class DEneme extends ConsumerWidget {
                 );
               },
               error: (err, stack) => showAlertDialog(
-                  context: context, hataBaslik: "", hataIcerik: ""),
+                  context: context, hataBaslik: '', hataIcerik: ''),
               loading: () => const CommonLoading()),
         ],
       ),

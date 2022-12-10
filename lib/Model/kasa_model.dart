@@ -2,7 +2,6 @@
 //
 //     final kasaModel = kasaModelFromMap(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 KasaModel kasaModelFromMap(String str) => KasaModel.fromMap(json.decode(str));
@@ -25,18 +24,18 @@ class KasaModel {
   final double bakiyeHareketSayisi;
 
   factory KasaModel.fromMap(Map<String, dynamic> json) => KasaModel(
-        kasaKodu: json["kasaKodu"],
-        kasaIsmi: json["kasaIsmi"],
-        firmaNo: json["FirmaNo"],
-        kasaTipi: json["kasaTipi"],
-        bakiyeHareketSayisi: json["bakiyeHareketSayisi"].toDouble(),
+        kasaKodu: json['kasaKodu'],
+        kasaIsmi: json['kasaIsmi'],
+        firmaNo: json['FirmaNo'],
+        kasaTipi: json['kasaTipi'],
+        bakiyeHareketSayisi: json['bakiyeHareketSayisi'].toDouble(),
       );
 
   Map<String, dynamic> toMap() => {
-        "kasaKodu": kasaKodu,
-        "kasaIsmi": kasaIsmi,
-        "FirmaNo": firmaNo,
-        "kasaTipi": kasaTipi,
-        "bakiyeHareketSayisi": bakiyeHareketSayisi,
+        'kasaKodu': kasaKodu,
+        'kasaIsmi': kasaIsmi,
+        'FirmaNo': firmaNo,
+        'kasaTipi': kasaTipi,
+        'bakiyeHareketSayisi': bakiyeHareketSayisi,
       };
 }

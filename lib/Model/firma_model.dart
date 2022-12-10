@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 FirmaModel firmaModelFromMap(String str) =>
@@ -16,12 +15,12 @@ class FirmaModel {
   final String firmaUnvan;
 
   factory FirmaModel.fromMap(Map<String, dynamic> json) => FirmaModel(
-        siraNo: json["SiraNo"],
-        firmaUnvan: json["FirmaUnvan"],
+        siraNo: json['SiraNo'],
+        firmaUnvan: json['FirmaUnvan'],
       );
 
   Map<String, dynamic> toMap() => {
-        "SiraNo": siraNo,
-        "FirmaUnvan": firmaUnvan,
+        'SiraNo': siraNo,
+        'FirmaUnvan': firmaUnvan,
       };
 }

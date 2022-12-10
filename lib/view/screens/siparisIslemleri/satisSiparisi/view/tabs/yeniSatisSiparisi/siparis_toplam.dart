@@ -1,14 +1,10 @@
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
-import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/common/common_button.dart';
 import 'package:dinamik_otomasyon/view/common/common_textfield.dart';
 import 'package:dinamik_otomasyon/view/screens/anasayfa/view/home_page.dart';
 import 'package:dinamik_otomasyon/view/screens/authenticate/login/viewmodel/login_view_model.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_model.dart';
-import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/tabs/yeniSatisSiparisi/bekleyen_siparisler.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/model/siparisler.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/service/satis_siparisi_service.dart';
-import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/common/iskonto_page.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/cari_personel_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/depo_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/evrak_no_text_field.dart';
@@ -19,7 +15,6 @@ import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/vi
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/siparis_tarihi_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/sorm_merkezi_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/teslim_turu_text_field.dart';
-import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/siparis_satiri.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/viewmodel/satis_siparisi_view_model.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
@@ -44,7 +39,7 @@ class SiparisToplam extends HookConsumerWidget {
     final projeController = useTextEditingController(text: '');
     final sormMerkeziController = useTextEditingController(text: '');
     final odemePlaniController = useTextEditingController(text: 'PEŞİN');
-    final depoController = useTextEditingController(text: "1");
+    final depoController = useTextEditingController(text: '1');
     final saticiController = useTextEditingController(text: '');
     final teslimTuruController = useTextEditingController(text: '');
     final siparisTarihiController =
@@ -55,7 +50,7 @@ class SiparisToplam extends HookConsumerWidget {
     var currentUser = ref.watch(currentInfoProvider);
     var evrakNo = ref.watch(evrakBilgileriProvider);
     fillEvrakBilgileri() {
-      if (evrakSeriController.text != "") {
+      if (evrakSeriController.text != '') {
         viewModel.seriNoControl(
           seriNo: evrakSeriController.text,
         );
@@ -82,7 +77,7 @@ class SiparisToplam extends HookConsumerWidget {
               validator: (value) => null,
               focusNode: focusNode,
               controller: evrakSeriController,
-              field: "Evrak Seri",
+              field: 'Evrak Seri',
               icon: Icons.document_scanner,
               isMandatory: false,
               searchFormKey: searchFormKey,
@@ -96,7 +91,7 @@ class SiparisToplam extends HookConsumerWidget {
             CommonTextField(
               validator: (value) => null,
               controller: belgeNoController,
-              field: "Belge kodu",
+              field: 'Belge kodu',
               icon: Icons.document_scanner,
               isMandatory: false,
               readOnly: false,
@@ -119,7 +114,7 @@ class SiparisToplam extends HookConsumerWidget {
                   child: CommonTextField(
                     validator: (value) => null,
                     controller: aciklamaController,
-                    field: "Açıklama",
+                    field: 'Açıklama',
                     icon: Icons.style,
                     isMandatory: true,
                     readOnly: true,
@@ -143,7 +138,7 @@ class SiparisToplam extends HookConsumerWidget {
                     sipTip: satisSiparisi.value,
                     sipEvraknoSeri: evrakSeriController.text.isNotEmpty
                         ? evrakSeriController.text
-                        : "",
+                        : '',
                     sipEvraknoSira: int.parse(evrakNoController.text),
                     sipSatirno: i,
                     sipSaticiKod: saticiController.text,
@@ -224,7 +219,7 @@ class SiparisToplam extends HookConsumerWidget {
                         builder: (context) {
                           return AlertDialog(
                             content: Text(
-                              "Sipariş Başarıyla Kaydedildi!",
+                              'Sipariş Başarıyla Kaydedildi!',
                               style: purpleTxtStyle,
                             ),
                             actions: [
@@ -254,7 +249,7 @@ class SiparisToplam extends HookConsumerWidget {
                 }
               },
               child: CommonButton(
-                buttonName: "Siparişi Kaydet",
+                buttonName: 'Siparişi Kaydet',
               ),
             ),
           ],

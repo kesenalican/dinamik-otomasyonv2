@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 
+// ignore: must_be_immutable
 class CariGenelTab extends ConsumerWidget {
   Cariler cariList;
 
@@ -30,16 +31,16 @@ class CariGenelTab extends ConsumerWidget {
               hangiOzellik: Constants.BAKIYE,
               urunBilgi: cariList.cariBakiye == 0
                   ? cariList.cariBakiye!.ceil().toString()
-                  : cariList.cariBakiye.toString() + " TL"),
+                  : '${cariList.cariBakiye} TL'),
           DetaySatir(
-              hangiOzellik: Constants.EFATURA, urunBilgi: "cariList.efatura"),
+              hangiOzellik: Constants.EFATURA, urunBilgi: 'cariList.efatura'),
           DetaySatir(
-              hangiOzellik: Constants.TEMSILCI, urunBilgi: "cariList.temsilci"),
-          DetaySatir(hangiOzellik: Constants.GRUP, urunBilgi: "cariList.grup"),
+              hangiOzellik: Constants.TEMSILCI, urunBilgi: 'cariList.temsilci'),
+          DetaySatir(hangiOzellik: Constants.GRUP, urunBilgi: 'cariList.grup'),
           DetaySatir(
-              hangiOzellik: Constants.SEKTOR, urunBilgi: "cariList.sektor"),
+              hangiOzellik: Constants.SEKTOR, urunBilgi: 'cariList.sektor'),
           DetaySatir(
-              hangiOzellik: Constants.BOLGE, urunBilgi: "cariList.bolge"),
+              hangiOzellik: Constants.BOLGE, urunBilgi: 'cariList.bolge'),
           DetaySatir(
               hangiOzellik: Constants.EMAIL, urunBilgi: cariList.cariEmail),
         ],

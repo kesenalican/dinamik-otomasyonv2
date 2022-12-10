@@ -19,16 +19,16 @@ class CariPersonel {
   final String kasiyer;
 
   factory CariPersonel.fromMap(Map<String, dynamic> json) => CariPersonel(
-        cariPersonelKodu: json["cariPersonelKodu"],
-        cariPersonelAdi: json["cariPersonelAdi"],
-        cariPersonelSoyadi: json["cariPersonelSoyadi"],
-        kasiyer: json["kasiyer"],
+        cariPersonelKodu: json['cariPersonelKodu'],
+        cariPersonelAdi: json['cariPersonelAdi'],
+        cariPersonelSoyadi: json['cariPersonelSoyadi'],
+        kasiyer: json['kasiyer'],
       );
 
   Map<String, dynamic> toMap() => {
-        "cariPersonelKodu": cariPersonelKodu,
-        "cariPersonelAdi": cariPersonelAdi,
-        "cariPersonelSoyadi": cariPersonelSoyadi,
-        "kasiyer": kasiyer,
+        'cariPersonelKodu': cariPersonelKodu,
+        'cariPersonelAdi': cariPersonelAdi,
+        'cariPersonelSoyadi': cariPersonelSoyadi,
+        'kasiyer': kasiyer,
       };
 }

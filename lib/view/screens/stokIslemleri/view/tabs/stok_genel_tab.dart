@@ -34,23 +34,23 @@ class StokGenel extends ConsumerWidget {
             DetaySatir(
                 hangiOzellik: Constants.BIRIM,
                 urunBilgi:
-                    "${stokModel.stokBirim1} (1 ${stokModel.stokBirim1}) : ${stokModel.stokBirim3Katsayi.toInt()} adet"),
+                    '${stokModel.stokBirim1} (1 ${stokModel.stokBirim1}) : ${stokModel.stokBirim3Katsayi.toInt()} adet'),
             DetaySatir(
                 hangiOzellik: Constants.BIRIM_2,
-                urunBilgi: "stokModel.stokBirim2!"),
+                urunBilgi: 'stokModel.stokBirim2!'),
             DetaySatir(
                 hangiOzellik: Constants.BIRIM_3,
                 urunBilgi: stokModel.stokBirim3),
             DetaySatir(
                 hangiOzellik: Constants.KDV,
-                urunBilgi: "%${stokModel.perakendeVergiYuzde.ceil()}"),
-            DetaySatir(hangiOzellik: Constants.KATEGORI, urunBilgi: "kategori"),
+                urunBilgi: '%${stokModel.perakendeVergiYuzde.ceil()}'),
+            DetaySatir(hangiOzellik: Constants.KATEGORI, urunBilgi: 'kategori'),
             DetaySatir(
                 hangiOzellik: Constants.ANA_GRUP,
                 urunBilgi: stokModel.stokAnaGrup),
             DetaySatir(
               hangiOzellik: Constants.ALT_GRUP,
-              urunBilgi: "alt grup",
+              urunBilgi: 'alt grup',
             ),
             DetaySatir(
                 hangiOzellik: Constants.SEKTOR,

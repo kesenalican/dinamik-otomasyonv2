@@ -15,12 +15,12 @@ class TeslimTurleri {
   final String teslimTuruAdi;
 
   factory TeslimTurleri.fromMap(Map<String, dynamic> json) => TeslimTurleri(
-        teslimTuruKodu: json["teslimTuruKodu"],
-        teslimTuruAdi: json["teslimTuruAdi"],
+        teslimTuruKodu: json['teslimTuruKodu'],
+        teslimTuruAdi: json['teslimTuruAdi'],
       );
 
   Map<String, dynamic> toMap() => {
-        "teslimTuruKodu": teslimTuruKodu,
-        "teslimTuruAdi": teslimTuruAdi,
+        'teslimTuruKodu': teslimTuruKodu,
+        'teslimTuruAdi': teslimTuruAdi,
       };
 }

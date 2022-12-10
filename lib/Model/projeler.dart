@@ -14,12 +14,12 @@ class Projeler {
   final String projeAdi;
 
   factory Projeler.fromMap(Map<String, dynamic> json) => Projeler(
-        projeKodu: json["projeKodu"],
-        projeAdi: json["projeAdi"],
+        projeKodu: json['projeKodu'],
+        projeAdi: json['projeAdi'],
       );
 
   Map<String, dynamic> toMap() => {
-        "projeKodu": projeKodu,
-        "projeAdi": projeAdi,
+        'projeKodu': projeKodu,
+        'projeAdi': projeAdi,
       };
 }

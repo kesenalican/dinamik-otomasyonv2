@@ -2,7 +2,6 @@ import 'package:dinamik_otomasyon/View/screens/faturaIslemleri/satisFaturasi/tab
 import 'package:dinamik_otomasyon/View/screens/faturaIslemleri/satisFaturasi/tabs/urun_ara.dart';
 import 'package:flutter/material.dart';
 
-import '../../../common/common_appbar.dart';
 import '../../../styles/colors.dart';
 
 class SatisFaturasi extends StatelessWidget {
@@ -21,7 +20,7 @@ class SatisFaturasi extends StatelessWidget {
             },
           ),
           title: Text(
-            "Satış Faturası",
+            'Satış Faturası',
             style: TextStyle(
                 color: Color(MyColors.bg), fontWeight: FontWeight.w600),
           ),
@@ -32,19 +31,19 @@ class SatisFaturasi extends StatelessWidget {
             tabs: [
               Tab(
                 icon: Icon(Icons.info_outline),
-                text: "Fiş Bilgisi",
+                text: 'Fiş Bilgisi',
               ),
               Tab(
                 icon: Icon(Icons.search),
-                text: "Ürün Ara",
+                text: 'Ürün Ara',
               ),
               Tab(
                 icon: Icon(Icons.list),
-                text: "Liste",
+                text: 'Liste',
               ),
               Tab(
                 icon: Icon(Icons.discount),
-                text: "Toplam",
+                text: 'Toplam',
               ),
             ],
           ),

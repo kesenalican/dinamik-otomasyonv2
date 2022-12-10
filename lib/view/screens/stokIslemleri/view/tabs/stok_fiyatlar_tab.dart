@@ -23,18 +23,18 @@ class FiyatlarTab extends ConsumerWidget {
   kdvsizFiyatBul() {
     brutFiyat = truncateDoublePrice(stokModel.stokFiyat);
     if (stokModel.perakendeVergiYuzde == 1) {
-      var kdvCarpani = "1.0${stokModel.perakendeVergiYuzde.ceil()}";
+      var kdvCarpani = '1.0${stokModel.perakendeVergiYuzde.ceil()}';
       kdvsizFiyat = stokModel.stokFiyat / double.parse(kdvCarpani);
       netFiyat = kdvsizFiyat!.toStringAsFixed(
           kdvsizFiyat!.truncateToDouble() == kdvsizFiyat ? 0 : 2);
       return netFiyat;
     } else if (stokModel.perakendeVergiYuzde == 8) {
-      var kdvCarpani = "1.0${stokModel.perakendeVergiYuzde.ceil()}";
+      var kdvCarpani = '1.0${stokModel.perakendeVergiYuzde.ceil()}';
       kdvsizFiyat = stokModel.stokFiyat / double.parse(kdvCarpani);
       netFiyat = kdvsizFiyat!.toStringAsFixed(
           kdvsizFiyat!.truncateToDouble() == kdvsizFiyat ? 0 : 2);
     } else if (stokModel.perakendeVergiYuzde == 18) {
-      var kdvCarpani = "1.${stokModel.perakendeVergiYuzde.ceil()}";
+      var kdvCarpani = '1.${stokModel.perakendeVergiYuzde.ceil()}';
       kdvsizFiyat = stokModel.stokFiyat / double.parse(kdvCarpani);
       netFiyat = kdvsizFiyat!.toStringAsFixed(
           kdvsizFiyat!.truncateToDouble() == kdvsizFiyat ? 0 : 2);
@@ -174,7 +174,7 @@ class FiyatlarTab extends ConsumerWidget {
                     ),
                     Expanded(
                       child: Text(
-                        "${brutFiyat.toString()} ${stokModel.stokKur!}",
+                        '${brutFiyat.toString()} ${stokModel.stokKur!}',
                         style: purpleTxtStyle,
                       ),
                     ),
@@ -195,7 +195,7 @@ class FiyatlarTab extends ConsumerWidget {
                         ),
                         Expanded(
                           child: Text(
-                            "${netFiyat.toString()} ${stokModel.stokKur}",
+                            '${netFiyat.toString()} ${stokModel.stokKur}',
                             style: purpleTxtStyle,
                           ),
                         ),

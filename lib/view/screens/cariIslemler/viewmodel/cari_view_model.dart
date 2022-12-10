@@ -16,7 +16,7 @@ class CariViewModel extends ChangeNotifier {
   late List<Cariler> cariKodSorgula;
   getAndControlCari(String cariKod, context) async {
     final result =
-        await Dio().get("${ConstantProvider.BASE_URL}CariBilgiler/fullCari");
+        await Dio().get('${ConstantProvider.BASE_URL}CariBilgiler/fullCari');
     if (result.statusCode == 200) {
       List<Map<String, dynamic>> mapData = List.from(result.data);
       List<Cariler> cariList = mapData.map((e) => Cariler.fromMap(e)).toList();
@@ -27,8 +27,8 @@ class CariViewModel extends ChangeNotifier {
         return Future.delayed(const Duration(milliseconds: 500), () {
           return showAlertDialog(
               context: context,
-              hataBaslik: "Hata",
-              hataIcerik: "Bu cari kodu zaten kayıtlı");
+              hataBaslik: 'Hata',
+              hataIcerik: 'Bu cari kodu zaten kayıtlı');
         });
       }
     } else {
@@ -38,7 +38,7 @@ class CariViewModel extends ChangeNotifier {
 
   searchCari(String cariKod) async {
     final result =
-        await Dio().get("${ConstantProvider.BASE_URL}CariBilgiler/fullCari");
+        await Dio().get('${ConstantProvider.BASE_URL}CariBilgiler/fullCari');
     if (result.statusCode == 200) {
       List<Map<String, dynamic>> mapData = List.from(result.data);
       List<Cariler> cariList = mapData.map((e) => Cariler.fromMap(e)).toList();
@@ -94,7 +94,7 @@ class CariViewModel extends ChangeNotifier {
   saveCari(CariModel cari) async {
     // try {
     final result = await Dio().post(
-      "${ConstantProvider.BASE_URL}CariBilgiler",
+      '${ConstantProvider.BASE_URL}CariBilgiler',
       data: cari.toMap().toString(),
     );
     if (result.statusCode == 200) {
@@ -121,8 +121,8 @@ class OpenBarcod extends HookWidget {
 Future<void> scanBarcode() async {
   try {
     final barcode = await FlutterBarcodeScanner.scanBarcode(
-      "#ff0000",
-      "Cancel",
+      '#ff0000',
+      'Cancel',
       true,
       ScanMode.BARCODE,
     );

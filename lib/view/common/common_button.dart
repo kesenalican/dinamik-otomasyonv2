@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../styles/colors.dart';
 
+// ignore: must_be_immutable
 class CommonButton extends StatefulWidget {
   String? buttonName;
    CommonButton({Key? key, required this.buttonName}) : super(key: key);

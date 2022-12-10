@@ -8,7 +8,6 @@ import 'package:dinamik_otomasyon/view/screens/authenticate/login/model/user_mod
 import 'package:dinamik_otomasyon/view/screens/authenticate/login/service/login_service.dart';
 import 'package:dinamik_otomasyon/view/screens/authenticate/login/view/user_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/authenticate/login/viewmodel/login_view_model.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_save.model.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cariler.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
@@ -45,11 +44,11 @@ class _LoginState extends ConsumerState<Login> {
   void loadLoginInfo() async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      var company = prefs.getString("company_name") ?? "";
-      var user = prefs.getString("user_name") ?? "";
-      var password = prefs.getString("password") ?? "";
-      var userCode = prefs.getString("user_code") ?? "";
-      remember = prefs.getBool("remember_me")!;
+      var company = prefs.getString('company_name') ?? '';
+      var user = prefs.getString('user_name') ?? '';
+      var password = prefs.getString('password') ?? '';
+      var userCode = prefs.getString('user_code') ?? '';
+      remember = prefs.getBool('remember_me')!;
       setState(() {
         remember = true;
         companyController.text = company;
@@ -186,7 +185,7 @@ class _LoginState extends ConsumerState<Login> {
                           kullaniciUzunAdi: userCodeController.text,
                           kullaniciAdi: userController.text));
                       current.setCurrentCari(Cariler(
-                          cariKodu: "", cariUnvani1: companyController.text));
+                          cariKodu: '', cariUnvani1: companyController.text));
 
                       Navigator.pushReplacementNamed(context, '/home',
                           arguments: companyController.text);
@@ -241,11 +240,11 @@ class _LoginState extends ConsumerState<Login> {
 
   void buildRememberMeShared(bool? value) async {
     await SharedPreferences.getInstance().then((prefs) {
-      prefs.setBool("remember_me", value!);
-      prefs.setString("company_name", companyController.text);
-      prefs.setString("user_name", userController.text);
-      prefs.setString("user_code", userCodeController.text);
-      prefs.setString("password", passwordController.text);
+      prefs.setBool('remember_me', value!);
+      prefs.setString('company_name', companyController.text);
+      prefs.setString('user_name', userController.text);
+      prefs.setString('user_code', userCodeController.text);
+      prefs.setString('password', passwordController.text);
     });
     setState(() {
       remember = value!;

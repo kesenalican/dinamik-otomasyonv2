@@ -1,4 +1,3 @@
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 VergiDaireModel vergiDaireModelFromMap(String str) =>
@@ -18,14 +17,14 @@ class VergiDaireModel {
   final String vergiDaireIl;
 
   factory VergiDaireModel.fromMap(Map<String, dynamic> json) => VergiDaireModel(
-        vergiDaireKodu: json["VergiDaireKodu"],
-        vergiDaireAdi: json["VergiDaireAdi"],
-        vergiDaireIl: json["VergiDaireIl"],
+        vergiDaireKodu: json['VergiDaireKodu'],
+        vergiDaireAdi: json['VergiDaireAdi'],
+        vergiDaireIl: json['VergiDaireIl'],
       );
 
   Map<String, dynamic> toMap() => {
-        "VergiDaireKodu": vergiDaireKodu,
-        "VergiDaireAdi": vergiDaireAdi,
-        "VergiDaireIl": vergiDaireIl,
+        'VergiDaireKodu': vergiDaireKodu,
+        'VergiDaireAdi': vergiDaireAdi,
+        'VergiDaireIl': vergiDaireIl,
       };
 }

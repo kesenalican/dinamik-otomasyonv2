@@ -1,8 +1,6 @@
 import 'package:dinamik_otomasyon/view/common/common_appbar.dart';
-import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
 import 'package:dinamik_otomasyon/view/screens/authenticate/login/viewmodel/login_view_model.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/model/stok_cari_bilgileri.dart';
-import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/common/iskonto_page.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/viewmodel/satis_siparisi_view_model.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +41,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
     final netFiyat = useState(0.0);
     siparisModel.calculateKdv();
     focusNode.addListener(() {
-      if (siparisMiktariController.text != "") {
+      if (siparisMiktariController.text != '') {
         double miktar =
             double.parse(siparisMiktariController.text.replaceAll(',', ''));
         double fiyat = siparisModel.savedStok!.stokFiyat;
@@ -58,7 +56,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: CommonAppbar(
-        whichPage: "Ürün Ekle",
+        whichPage: 'Ürün Ekle',
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -88,13 +86,13 @@ class UrunBilgileriGir extends HookConsumerWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        "Miktar Giriniz:",
+                        'Miktar Giriniz:',
                         style: purpleTxtStyle,
                       ),
                     ),
                     Expanded(
                       child: SizedBox(
-                       // height: context.dynamicHeight * 0.05,
+                        // height: context.dynamicHeight * 0.05,
                         width: context.dynamicWidth * 0.05,
                         child: TextFormField(
                           controller: siparisMiktariController,
@@ -103,7 +101,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
                           cursorColor: Color(MyColors.bg01),
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Miktar boş olamaz";
+                              return 'Miktar boş olamaz';
                             }
                             return null;
                           },
@@ -134,14 +132,14 @@ class UrunBilgileriGir extends HookConsumerWidget {
                     Expanded(
                       flex: 1,
                       child: Text(
-                        "Brüt Tutar:",
+                        'Brüt Tutar:',
                         style: purpleTxtStyle,
                       ),
                     ),
                     Expanded(
                       flex: 2,
                       child: Text(
-                        "${netFiyat.value.toStringAsFixed(2)} ${siparisModel.savedStok!.stokKur}",
+                        '${netFiyat.value.toStringAsFixed(2)} ${siparisModel.savedStok!.stokKur}',
                         style: purpleTxtStyle,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -208,7 +206,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
                         mas4Controller,
                         netFiyat.value);
                   },
-                  child: CommonButton(buttonName: "EKLE"),
+                  child: CommonButton(buttonName: 'EKLE'),
                 ),
               ),
             ],
@@ -240,7 +238,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
         builder: (context) {
           return AlertDialog(
             title: Text(
-              "Ürünü kayıt etmek istiyor musunuz?",
+              'Ürünü kayıt etmek istiyor musunuz?',
               style: purpleTxtStyle,
             ),
             actions: [
@@ -250,13 +248,13 @@ class UrunBilgileriGir extends HookConsumerWidget {
                     onPressed: () {
                       Navigator.pop(context);
                       siparisMiktariController.clear();
-                      sipTutariController.text = "";
+                      sipTutariController.text = '';
                     },
                     style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Color(MyColors.bg01))),
                     child: Text(
-                      "Hayır",
+                      'Hayır',
                       style: whiteTxtStyle,
                     ),
                   ),
@@ -268,7 +266,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
                         backgroundColor:
                             MaterialStateProperty.all(Color(MyColors.bg01))),
                     child: Text(
-                      "Evet",
+                      'Evet',
                       style: whiteTxtStyle,
                     ),
                     onPressed: () {
@@ -348,7 +346,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
           Expanded(
             flex: 1,
             child: Text(
-              "Birim Fiyatı:",
+              'Birim Fiyatı:',
               style: purpleTxtStyle,
             ),
           ),
@@ -374,7 +372,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
           Expanded(
             flex: 1,
             child: Text(
-              "KDV Oranı:",
+              'KDV Oranı:',
               style: purpleTxtStyle,
             ),
           ),
@@ -400,7 +398,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
           Expanded(
             flex: 1,
             child: Text(
-              "Stok Adı:",
+              'Stok Adı:',
               style: purpleTxtStyle,
             ),
           ),
@@ -426,7 +424,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
           Expanded(
             flex: 1,
             child: Text(
-              "Stok Kodu:",
+              'Stok Kodu:',
               style: purpleTxtStyle,
             ),
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../core/base/state/base_state.dart';
 import '../styles/colors.dart';
 
+// ignore: must_be_immutable
 class DetaySatir extends StatefulWidget {
   String? hangiOzellik;
   String? urunBilgi;
@@ -42,7 +43,7 @@ class _DetaySatirState extends BaseState<DetaySatir> {
             child: Row(
               children: [
                 Expanded(flex: 1, child: Text(widget.hangiOzellik!)),
-                const Expanded(flex: 1, child: Text(":")),
+                const Expanded(flex: 1, child: Text(':')),
                 Expanded(
                   flex: 3,
                   child: Text(

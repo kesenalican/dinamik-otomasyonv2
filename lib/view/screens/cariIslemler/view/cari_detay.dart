@@ -69,7 +69,7 @@ class CariDetay extends StatelessWidget {
             ),
             //Icon(Icons.directions_bike),
             //Islemler Tab
-            CariIslemlerTab(),
+            const CariIslemlerTab(),
             //Bakiye İslemleri
             CariBakiyeTab(
               cariModel: cariList,
@@ -77,8 +77,8 @@ class CariDetay extends StatelessWidget {
             CariIletisimTab(
               cariler: cariList,
             ),
-            CariRaporlarTab(),
-            Icon(Icons.directions_bike),
+            const CariRaporlarTab(),
+            const Icon(Icons.directions_bike),
           ],
         ),
       ),

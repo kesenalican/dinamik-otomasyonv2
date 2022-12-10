@@ -19,7 +19,7 @@ class SonAlisFiyatlari extends ConsumerWidget {
     var alisFiyatlari =
         ref.watch(stokAlisFiyatlariProvider(stokModel.stokKodu));
     return Scaffold(
-      appBar: CommonAppbar(whichPage: "Son Alış Fiyatları"),
+      appBar: CommonAppbar(whichPage: 'Son Alış Fiyatları'),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -33,7 +33,7 @@ class SonAlisFiyatlari extends ConsumerWidget {
               ),
               child: Center(
                 child: Text(
-                  "Son Alış Fiyatları",
+                  'Son Alış Fiyatları',
                   style: TextStyle(
                     color: Color(MyColors.bg01),
                     fontWeight: FontWeight.bold,
@@ -64,7 +64,7 @@ class SonAlisFiyatlari extends ConsumerWidget {
                         double netFiyat = double.parse(
                             (liste[index].netBirimFiyati).toStringAsFixed(2));
                         var formattedDate =
-                            "${dateTime.year}/${dateTime.month}/${dateTime.day}";
+                            '${dateTime.year}/${dateTime.month}/${dateTime.day}';
                         return Column(
                           children: [
                             fiyatList(
@@ -155,11 +155,11 @@ class SonAlisFiyatlari extends ConsumerWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text("Miktar: ${(miktar!).ceil()} "),
+                child: Text('Miktar: ${(miktar!).ceil()} '),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(" Brüt Fiyatı: ${brutFiyati!} TL"),
+                child: Text(' Brüt Fiyatı: ${brutFiyati!} TL'),
               ),
             ],
           ),
@@ -167,7 +167,7 @@ class SonAlisFiyatlari extends ConsumerWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text("Net Fiyat: ${miktar * fiyati!} TL "),
+                child: Text('Net Fiyat: ${miktar * fiyati!} TL '),
               ),
             ],
           ),

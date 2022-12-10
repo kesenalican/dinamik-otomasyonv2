@@ -5,6 +5,7 @@ import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// ignore: must_be_immutable
 class EnCokSatilanList extends ConsumerWidget {
   String? tarih;
   EnCokSatilanList({super.key, required this.tarih});
@@ -52,7 +53,7 @@ class EnCokSatilanList extends ConsumerWidget {
                               height: context.dynamicHeight * 0.01,
                             ),
                             Text(
-                              "liste[index].stokKodu",
+                              'liste[index].stokKodu',
                               style: TextStyle(
                                 color: Color(MyColors.bg01),
                                 fontSize: 10,
@@ -75,7 +76,7 @@ class EnCokSatilanList extends ConsumerWidget {
                               padding:
                                   EdgeInsets.all(context.dynamicHeight * 0.006),
                               child: Text(
-                                "Adet: ",
+                                'Adet: ',
                                 style: TextStyle(
                                   color: Color(MyColors.bg01),
                                   fontSize: 10,
@@ -85,7 +86,7 @@ class EnCokSatilanList extends ConsumerWidget {
                               ),
                             ),
                             Text(
-                              "10 TL",
+                              '10 TL',
                               style: TextStyle(
                                 color: Color(MyColors.bg01),
                                 fontSize: 10,
@@ -105,9 +106,9 @@ class EnCokSatilanList extends ConsumerWidget {
         );
       },
       error: (err, stack) {
-        return showAlertDialog(hataBaslik: "HATA", hataIcerik: "HATA");
+        return showAlertDialog(hataBaslik: 'HATA', hataIcerik: 'HATA');
       },
-      loading: () => CircularProgressIndicator(),
+      loading: () => const CircularProgressIndicator(),
     );
   }
 }

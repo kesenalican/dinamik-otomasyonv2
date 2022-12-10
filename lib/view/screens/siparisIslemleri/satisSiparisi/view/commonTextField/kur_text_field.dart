@@ -61,7 +61,7 @@ class KurTextField extends ConsumerWidget {
                       builder: (context) {
                         return SimpleDialog(
                           title: Text(
-                            "Döviz Kuru Seçiniz",
+                            'Döviz Kuru Seçiniz',
                             style: purpleBoldTxtStyle,
                           ),
                           children: [
@@ -116,7 +116,7 @@ class KurTextField extends ConsumerWidget {
                       });
                 },
                 error: (err, stack) => showAlertDialog(
-                    context: context, hataBaslik: "hata", hataIcerik: "hata"),
+                    context: context, hataBaslik: 'hata', hataIcerik: 'hata'),
                 loading: () => const CommonLoading(),
               );
             },

@@ -3,216 +3,216 @@ import '../constants/constant.dart';
 
 List dataList = [
   {
-    "name": Constants.FATURA_ISLEMLERI,
-    "icon": Icons.payment,
-    "subMenu": [
+    'name': Constants.FATURA_ISLEMLERI,
+    'icon': Icons.payment,
+    'subMenu': [
       {
-        "name": "Alış Faturası",
+        'name': 'Alış Faturası',
       },
       {
-        "name": "Satış Faturaları",
+        'name': 'Satış Faturaları',
       },
       {
-        "name": "Bekleyen Faturalar",
+        'name': 'Bekleyen Faturalar',
       },
       {
-        "name": "Transfer Edilmeyenler",
+        'name': 'Transfer Edilmeyenler',
       },
       {
-        "name": "Transfer Edilenler",
-      },
-    ]
-  },
-  {
-    "name": Constants.IRSALIYE_ISLEMLERI,
-    "icon": Icons.payment,
-    "subMenu": [
-      {
-        "name": "Alış İrsaliyesi",
-      },
-      {
-        "name": "Satış İrsaliyesi",
-      },
-      {
-        "name": "Bekleyen İrsaliyeler",
-      },
-      {
-        "name": "Transfer Edilmeyenler",
-      },
-      {
-        "name": "Transfer Edilenler",
+        'name': 'Transfer Edilenler',
       },
     ]
   },
   {
-    "name": Constants.SIPARIS_ISLEMLERI,
-    "icon": Icons.reorder,
-    "subMenu": [
+    'name': Constants.IRSALIYE_ISLEMLERI,
+    'icon': Icons.payment,
+    'subMenu': [
       {
-        "name": "Satış Siparişi",
+        'name': 'Alış İrsaliyesi',
       },
       {
-        "name": "Alım Siparişi",
+        'name': 'Satış İrsaliyesi',
       },
       {
-        "name": "Sipariş Onaylama",
+        'name': 'Bekleyen İrsaliyeler',
       },
       {
-        "name": "Bekleyen Siparişler",
+        'name': 'Transfer Edilmeyenler',
       },
       {
-        "name": "Sipariş Takibi",
-      },
-      {
-        "name": "Transfer Edilenler",
-      },
-      {
-        "name": "Transfer Edilmeyenler",
+        'name': 'Transfer Edilenler',
       },
     ]
   },
   {
-    "name": Constants.SIPARIS_TESLIMATI,
-    "icon": Icons.delivery_dining,
-    "subMenu": [
+    'name': Constants.SIPARIS_ISLEMLERI,
+    'icon': Icons.reorder,
+    'subMenu': [
       {
-        "name": "Sipariş Teslimatı",
+        'name': 'Satış Siparişi',
       },
       {
-        "name": "Beklemeye Alınanlar",
+        'name': 'Alım Siparişi',
       },
       {
-        "name": "Transfer Edilmeyenler",
-      },
-    ]
-  },
-  {
-    "name": Constants.ZIYARET_ISLEMLERI,
-    "icon": Icons.visibility_outlined,
-    "subMenu": [
-      {
-        "name": "Mevcut Cari Hesap",
+        'name': 'Sipariş Onaylama',
       },
       {
-        "name": "Yeni Cari Hesap",
+        'name': 'Bekleyen Siparişler',
       },
       {
-        "name": "Transfer Edilenler",
+        'name': 'Sipariş Takibi',
       },
       {
-        "name": "Transfer Edilmeyenler",
+        'name': 'Transfer Edilenler',
+      },
+      {
+        'name': 'Transfer Edilmeyenler',
       },
     ]
   },
   {
-    "name": Constants.FINANS_ISLEMLERI,
-    "icon": Icons.attach_money_outlined,
-    "subMenu": [
+    'name': Constants.SIPARIS_TESLIMATI,
+    'icon': Icons.delivery_dining,
+    'subMenu': [
       {
-        "name": "Tahsilat",
+        'name': 'Sipariş Teslimatı',
       },
       {
-        "name": "Ödeme",
+        'name': 'Beklemeye Alınanlar',
       },
       {
-        "name": "Transfer Edilenler",
-      },
-      {
-        "name": "Transfer Edilmeyenler",
+        'name': 'Transfer Edilmeyenler',
       },
     ]
   },
   {
-    "name": Constants.CARI_ISLEMLER,
-    "icon": Icons.account_circle,
-    "subMenu": [
+    'name': Constants.ZIYARET_ISLEMLERI,
+    'icon': Icons.visibility_outlined,
+    'subMenu': [
       {
-        "name": "Cari Detay",
+        'name': 'Mevcut Cari Hesap',
       },
       {
-        "name": "Cari Tanıtım Kartı",
+        'name': 'Yeni Cari Hesap',
       },
       {
-        "name": "Cari Grup Tanıtım Kartı",
+        'name': 'Transfer Edilenler',
       },
       {
-        "name": "Cari Sektör Tanıtım Kartı",
+        'name': 'Transfer Edilmeyenler',
+      },
+    ]
+  },
+  {
+    'name': Constants.FINANS_ISLEMLERI,
+    'icon': Icons.attach_money_outlined,
+    'subMenu': [
+      {
+        'name': 'Tahsilat',
+      },
+      {
+        'name': 'Ödeme',
+      },
+      {
+        'name': 'Transfer Edilenler',
+      },
+      {
+        'name': 'Transfer Edilmeyenler',
+      },
+    ]
+  },
+  {
+    'name': Constants.CARI_ISLEMLER,
+    'icon': Icons.account_circle,
+    'subMenu': [
+      {
+        'name': 'Cari Detay',
+      },
+      {
+        'name': 'Cari Tanıtım Kartı',
+      },
+      {
+        'name': 'Cari Grup Tanıtım Kartı',
+      },
+      {
+        'name': 'Cari Sektör Tanıtım Kartı',
       },
     ],
   },
   {
-    "name": Constants.STOK_ISLEMLERI,
-    "icon": Icons.production_quantity_limits,
-    "subMenu": [
+    'name': Constants.STOK_ISLEMLERI,
+    'icon': Icons.production_quantity_limits,
+    'subMenu': [
       {
-        "name": "Stok Kart Detay",
+        'name': 'Stok Kart Detay',
       },
       {
-        "name": "Barkod Ekle",
+        'name': 'Barkod Ekle',
       },
       {
-        "name": "Sayım Fişi",
+        'name': 'Sayım Fişi',
       },
       {
-        "name": "Depo Fişi",
+        'name': 'Depo Fişi',
       },
       {
-        "name": "Transfer Edilmeyen Fişler",
+        'name': 'Transfer Edilmeyen Fişler',
       },
       {
-        "name": "Fiş Listesi",
-      },
-    ]
-  },
-  {
-    "name": Constants.RAPORLAR,
-    "icon": Icons.report,
-    "subMenu": [
-      {
-        "name": "Cari Raporları",
-      },
-      {
-        "name": "Stok Raporları",
-      },
-      {
-        "name": "Sipariş Raporları",
-      },
-      {
-        "name": "Fatura Raporları",
-      },
-      {
-        "name": "İrsaliye Raporları",
-      },
-      {
-        "name": "Gün Sonu",
-      },
-      {
-        "name": "Diğer",
-      },
-      {
-        "name": "Rapor Yedekle/İndir",
+        'name': 'Fiş Listesi',
       },
     ]
   },
   {
-    "name": Constants.DOVIZ_KURLARI,
-    "icon": Icons.money,
+    'name': Constants.RAPORLAR,
+    'icon': Icons.report,
+    'subMenu': [
+      {
+        'name': 'Cari Raporları',
+      },
+      {
+        'name': 'Stok Raporları',
+      },
+      {
+        'name': 'Sipariş Raporları',
+      },
+      {
+        'name': 'Fatura Raporları',
+      },
+      {
+        'name': 'İrsaliye Raporları',
+      },
+      {
+        'name': 'Gün Sonu',
+      },
+      {
+        'name': 'Diğer',
+      },
+      {
+        'name': 'Rapor Yedekle/İndir',
+      },
+    ]
   },
   {
-    "name": Constants.SIRKET_DEGISTIR,
-    "icon": Icons.change_circle,
+    'name': Constants.DOVIZ_KURLARI,
+    'icon': Icons.money,
   },
   {
-    "name": Constants.VERI_GUNCELLEME,
-    "icon": Icons.update,
+    'name': Constants.SIRKET_DEGISTIR,
+    'icon': Icons.change_circle,
   },
   {
-    "name": Constants.AYARLAR,
-    "icon": Icons.settings,
+    'name': Constants.VERI_GUNCELLEME,
+    'icon': Icons.update,
   },
   {
-    "name": Constants.CIKIS,
-    "icon": Icons.settings,
+    'name': Constants.AYARLAR,
+    'icon': Icons.settings,
+  },
+  {
+    'name': Constants.CIKIS,
+    'icon': Icons.settings,
   },
 ];
 

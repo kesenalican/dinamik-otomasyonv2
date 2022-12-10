@@ -54,7 +54,7 @@ class OdemePlaniTextField extends ConsumerWidget {
                       builder: (context) {
                         return SimpleDialog(
                           title: Text(
-                            "Ödeme Planı Seçiniz",
+                            'Ödeme Planı Seçiniz',
                             style: purpleBoldTxtStyle,
                           ),
                           children: [
@@ -122,7 +122,7 @@ class OdemePlaniTextField extends ConsumerWidget {
                       });
                 },
                 error: (err, stack) => showAlertDialog(
-                    context: context, hataBaslik: "hata", hataIcerik: "hata"),
+                    context: context, hataBaslik: 'hata', hataIcerik: 'hata'),
                 loading: () => const CommonLoading(),
               );
             },

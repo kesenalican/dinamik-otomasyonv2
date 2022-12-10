@@ -15,12 +15,12 @@ class StokDepoDetay {
   final int sdpDepoNo;
 
   factory StokDepoDetay.fromMap(Map<String, dynamic> json) => StokDepoDetay(
-        sdpDepoKod: json["sdp_depo_kod"],
-        sdpDepoNo: json["sdp_depo_no"],
+        sdpDepoKod: json['sdp_depo_kod'],
+        sdpDepoNo: json['sdp_depo_no'],
       );
 
   Map<String, dynamic> toMap() => {
-        "sdp_depo_kod": sdpDepoKod,
-        "sdp_depo_no": sdpDepoNo,
+        'sdp_depo_kod': sdpDepoKod,
+        'sdp_depo_no': sdpDepoNo,
       };
 }

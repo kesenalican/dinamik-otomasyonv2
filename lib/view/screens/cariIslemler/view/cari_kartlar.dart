@@ -12,6 +12,7 @@ import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_
 
 import '../../../styles/colors.dart';
 
+// ignore: must_be_immutable
 class CariKartlar extends ConsumerStatefulWidget {
   TextEditingController? cariKodController;
   TextEditingController? cariIsmiController;
@@ -86,7 +87,7 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
           .toList();
       setState(() {});
     });
-    print("Full listim kaç elemanlı === ${fullList.length}");
+    print('Full listim kaç elemanlı === ${fullList.length}');
     return fullList;
   }
 
@@ -106,7 +107,7 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
     var cariSearch = ref.watch(cariKayitliMi);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.pushNamed(context, "/yeniCariKart"),
+        onPressed: () => Navigator.pushNamed(context, '/yeniCariKart'),
         backgroundColor: Color(MyColors.bg01),
         child: const Icon(
           Icons.add,
@@ -115,7 +116,7 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
       ),
       resizeToAvoidBottomInset: true,
       appBar: CommonAppbar(
-        whichPage: widget.detayaGitmesin! ? " Cari Seç" : "Cariler",
+        whichPage: widget.detayaGitmesin! ? ' Cari Seç' : 'Cariler',
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -148,7 +149,7 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
               },
               error: (err, stack) {
                 return Center(
-                  child: Text("Hata çıktı ${err.toString()}"),
+                  child: Text('Hata çıktı ${err.toString()}'),
                 );
               },
               loading: () => Center(

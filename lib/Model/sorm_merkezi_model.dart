@@ -15,12 +15,12 @@ class SormMerkezi {
   final String merkezAdi;
 
   factory SormMerkezi.fromMap(Map<String, dynamic> json) => SormMerkezi(
-        merkezKodu: json["MerkezKodu"],
-        merkezAdi: json["MerkezAdi"],
+        merkezKodu: json['MerkezKodu'],
+        merkezAdi: json['MerkezAdi'],
       );
 
   Map<String, dynamic> toMap() => {
-        "MerkezKodu": merkezKodu,
-        "MerkezAdi": merkezAdi,
+        'MerkezKodu': merkezKodu,
+        'MerkezAdi': merkezAdi,
       };
 }

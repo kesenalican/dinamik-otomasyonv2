@@ -9,60 +9,60 @@ class FisBilgisiTab extends StatelessWidget {
   Widget build(BuildContext context) {
     double h = MediaQuery.of(context).size.height;
     return SingleChildScrollView(
-      child: Container(
+      child: SizedBox(
         height: h * 0.8,
         width: double.infinity,
         child: ListView(
           children: [
             fisBilgiSatir(
               context,
-              bilgiAdi: "Cari Kodu",
-              cariBilgi: "000333",
+              bilgiAdi: 'Cari Kodu',
+              cariBilgi: '000333',
             ),
             fisBilgiSatir(
               context,
-              bilgiAdi: "Ünvan",
-              cariBilgi: "Dinamik",
+              bilgiAdi: 'Ünvan',
+              cariBilgi: 'Dinamik',
             ),
             fisBilgiSatir(
               context,
-              bilgiAdi: "Adres 1",
-              cariBilgi: "Şehitkamil",
+              bilgiAdi: 'Adres 1',
+              cariBilgi: 'Şehitkamil',
             ),
             fisBilgiSatir(
               context,
-              bilgiAdi: "Adres 2",
-              cariBilgi: "Gaziantep",
+              bilgiAdi: 'Adres 2',
+              cariBilgi: 'Gaziantep',
             ),
             fisBilgiSatir(
               context,
-              bilgiAdi: "İlçe",
-              cariBilgi: "Şehitkamil",
+              bilgiAdi: 'İlçe',
+              cariBilgi: 'Şehitkamil',
             ),
             fisBilgiSatir(
               context,
-              bilgiAdi: "İl",
-              cariBilgi: "Gaziantep",
+              bilgiAdi: 'İl',
+              cariBilgi: 'Gaziantep',
             ),
             fisBilgiSatir(
               context,
-              bilgiAdi: "Ülke",
-              cariBilgi: "Türkiye",
+              bilgiAdi: 'Ülke',
+              cariBilgi: 'Türkiye',
             ),
             fisBilgiSatir(
               context,
-              bilgiAdi: "Vergi Dairesi",
-              cariBilgi: "Kozanlı",
+              bilgiAdi: 'Vergi Dairesi',
+              cariBilgi: 'Kozanlı',
             ),
             fisBilgiSatir(
               context,
-              bilgiAdi: "Vergi/TCK No",
-              cariBilgi: "11111111111",
+              bilgiAdi: 'Vergi/TCK No',
+              cariBilgi: '11111111111',
             ),
             fisBilgiSatir(
               context,
-              bilgiAdi: "E-mail",
-              cariBilgi: "dinamik@dinamikotomasyon.com",
+              bilgiAdi: 'E-mail',
+              cariBilgi: 'dinamik@dinamikotomasyon.com',
             ),
           ],
         ),
@@ -72,7 +72,6 @@ class FisBilgisiTab extends StatelessWidget {
 
   Widget fisBilgiSatir(context, {String? bilgiAdi, String? cariBilgi}) {
     double h = MediaQuery.of(context).size.height;
-    double w = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
       child: Container(
@@ -94,12 +93,12 @@ class FisBilgisiTab extends StatelessWidget {
             color: Color(MyColors.bg01),
           ),
         ),
-        child: Container(
+        child: SizedBox(
           height: h * 0.05,
           child: Row(
             children:  [
               Expanded(flex: 1, child: Text(bilgiAdi!)),
-              const Expanded(flex: 1, child: Text(":")),
+              const Expanded(flex: 1, child: Text(':')),
               Expanded(
                 flex: 3,
                 child: Text(

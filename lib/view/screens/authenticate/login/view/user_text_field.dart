@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:dinamik_otomasyon/view/screens/authenticate/login/model/user_model.dart';
 
+// ignore: must_be_immutable
 class UserTextField extends ConsumerStatefulWidget {
   List<UserModel> userList;
   TextEditingController userController;

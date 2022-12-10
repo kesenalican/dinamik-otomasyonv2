@@ -73,7 +73,7 @@ Widget _buildList(Menu list) {
               case Constants.CIKIS:
                 Navigator.pushNamed(context, '/login');
                 break;
-              case "Stok Kart Detay":
+              case 'Stok Kart Detay':
                 Navigator.pushNamed<dynamic>(context, '/stockList',
                     arguments: false);
                 break;
@@ -85,8 +85,8 @@ Widget _buildList(Menu list) {
                               detayaGitmesin: false,
                             )));
                 break;
-              case "Satış Faturaları":
-                Navigator.pushNamed(context, "/satisFaturasi");
+              case 'Satış Faturaları':
+                Navigator.pushNamed(context, '/satisFaturasi');
                 break;
               case Constants.satisSiparisi:
                 Navigator.push(

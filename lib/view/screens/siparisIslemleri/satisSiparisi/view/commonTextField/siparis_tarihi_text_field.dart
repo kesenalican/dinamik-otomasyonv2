@@ -4,7 +4,6 @@ import 'package:dinamik_otomasyon/view/common/common_input_border.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:intl/intl.dart';
 
 class SiparisTarihiTextField extends HookWidget {
   const SiparisTarihiTextField({
@@ -34,7 +33,7 @@ class SiparisTarihiTextField extends HookWidget {
           ),
         ),
         decoration: InputDecoration(
-          labelText: "Sipariş Tarihi",
+          labelText: 'Sipariş Tarihi',
           labelStyle: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w400,

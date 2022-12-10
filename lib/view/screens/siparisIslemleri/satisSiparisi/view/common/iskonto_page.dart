@@ -39,7 +39,7 @@ class IskontoEkle extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var viewModel = ref.watch(satisSiparisViewModel);
     return Scaffold(
-      appBar: CommonAppbar(whichPage: "İskonto ve Masraflar"),
+      appBar: CommonAppbar(whichPage: 'İskonto ve Masraflar'),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pop(
@@ -59,43 +59,43 @@ class IskontoEkle extends ConsumerWidget {
             children: [
               buildIskontoLine(
                 context,
-                isk: "İskonto 1",
+                isk: 'İskonto 1',
                 viewModel: viewModel,
                 iskController: isk1Controller!,
               ),
               buildIskontoLine(
                 context,
-                isk: "İskonto 2",
+                isk: 'İskonto 2',
                 viewModel: viewModel,
                 iskController: isk2Controller!,
               ),
               buildIskontoLine(
                 context,
-                isk: "İskonto 3",
+                isk: 'İskonto 3',
                 viewModel: viewModel,
                 iskController: isk3Controller!,
               ),
               buildIskontoLine(
                 context,
-                isk: "İskonto 4",
+                isk: 'İskonto 4',
                 viewModel: viewModel,
                 iskController: isk4Controller!,
               ),
               buildIskontoLine(
                 context,
-                isk: "İskonto 5",
+                isk: 'İskonto 5',
                 viewModel: viewModel,
                 iskController: isk5Controller!,
               ),
               buildIskontoLine(
                 context,
-                isk: "İskonto 6",
+                isk: 'İskonto 6',
                 viewModel: viewModel,
                 iskController: isk6Controller!,
               ),
               Center(
                 child: Text(
-                  "Masraflar",
+                  'Masraflar',
                   style: purpleBoldTxtStyle,
                 ),
               ),
@@ -110,25 +110,25 @@ class IskontoEkle extends ConsumerWidget {
               buildMasLine(
                 context,
                 viewModel: viewModel,
-                mas: "Masraf 1",
+                mas: 'Masraf 1',
                 masController: mas1Controller!,
               ),
               buildMasLine(
                 context,
                 viewModel: viewModel,
-                mas: "Masraf 2",
+                mas: 'Masraf 2',
                 masController: mas2Controller!,
               ),
               buildMasLine(
                 context,
                 viewModel: viewModel,
-                mas: "Masraf 3",
+                mas: 'Masraf 3',
                 masController: mas3Controller!,
               ),
               buildMasLine(
                 context,
                 viewModel: viewModel,
-                mas: "Masraf 4",
+                mas: 'Masraf 4',
                 masController: mas4Controller!,
               ),
             ],

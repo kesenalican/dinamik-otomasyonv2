@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../styles/colors.dart';
 
+// ignore: must_be_immutable
 class ModuleCardButton extends StatefulWidget {
   final void Function() onTap;
   String? cardName;

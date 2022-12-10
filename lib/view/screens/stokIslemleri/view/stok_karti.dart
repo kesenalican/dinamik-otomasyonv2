@@ -110,7 +110,7 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: CommonAppbar(
-        whichPage: widget.detayaGitmesin! ? "Ürün Seç" : "Stoklar",
+        whichPage: widget.detayaGitmesin! ? 'Ürün Seç' : 'Stoklar',
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -140,7 +140,7 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
                 },
                 error: (err, stack) {
                   return Center(
-                    child: Text("Hata çıktı ${err.toString()}"),
+                    child: Text('Hata çıktı ${err.toString()}'),
                   );
                 },
                 loading: () => const CommonLoading()),
@@ -265,7 +265,7 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
           Padding(
             padding: EdgeInsets.all(context.dynamicHeight * 0.006),
             child: Text(
-              "Adet: ${stokList[index].stokMiktar.ceil().toString()}",
+              'Adet: ${stokList[index].stokMiktar.ceil().toString()}',
               style: TextStyle(
                 color: Color(MyColors.bg01),
                 fontSize: 10,
@@ -275,7 +275,7 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
             ),
           ),
           Text(
-            "$truncateFiyat TL",
+            '$truncateFiyat TL',
             style: TextStyle(
               color: Color(MyColors.bg01),
               fontSize: 10,

@@ -15,7 +15,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //#region DEPO
 final depolarProvider = FutureProvider<List<Depo>>((ref) async {
   final dio = ref.watch(httpClientProvider);
-  final result = await dio.get("Depo");
+  final result = await dio.get('Depo');
   List<Map<String, dynamic>> mapData = List.from(result.data);
   List<Depo> cariList = mapData.map((e) => Depo.fromMap(e)).toList();
   return cariList;
@@ -25,7 +25,7 @@ final depolarProvider = FutureProvider<List<Depo>>((ref) async {
 //#region KASA
 final kasalarProvider = FutureProvider<List<KasaModel>>((ref) async {
   final dio = ref.watch(httpClientProvider);
-  final result = await dio.get("Kasalar");
+  final result = await dio.get('Kasalar');
   List<Map<String, dynamic>> mapData = List.from(result.data);
   List<KasaModel> kasaList = mapData.map((e) => KasaModel.fromMap(e)).toList();
   return kasaList;
@@ -35,7 +35,7 @@ final kasalarProvider = FutureProvider<List<KasaModel>>((ref) async {
 //#region KURLAR
 final kurlarProvider = FutureProvider<List<Kurlar>>((ref) async {
   final dio = ref.watch(httpClientProvider);
-  final result = await dio.get("Kurlar");
+  final result = await dio.get('Kurlar');
   List<Map<String, dynamic>> mapData = List.from(result.data);
   List<Kurlar> kasaList = mapData.map((e) => Kurlar.fromMap(e)).toList();
   return kasaList;
@@ -57,7 +57,7 @@ final vergiDaireleriProvider =
 //#region FIRMALAR
 final firmaProvider = FutureProvider<List<FirmaModel>>((ref) async {
   final dio = ref.watch(httpClientProvider);
-  final result = await dio.get("Firma");
+  final result = await dio.get('Firma');
   List<Map<String, dynamic>> mapData = List.from(result.data);
   List<FirmaModel> firmaList =
       mapData.map((e) => FirmaModel.fromMap(e)).toList();
@@ -68,7 +68,7 @@ final firmaProvider = FutureProvider<List<FirmaModel>>((ref) async {
 //#region PROJELER
 final projeProvider = FutureProvider<List<Projeler>>((ref) async {
   final dio = ref.watch(httpClientProvider);
-  final result = await dio.get("Projeler");
+  final result = await dio.get('Projeler');
   List<Map<String, dynamic>> mapData = List.from(result.data);
   List<Projeler> firmaList = mapData.map((e) => Projeler.fromMap(e)).toList();
   return firmaList;
@@ -78,7 +78,7 @@ final projeProvider = FutureProvider<List<Projeler>>((ref) async {
 //#region SORUMLULUK MERKEZİ
 final sormMerkeziProvider = FutureProvider<List<SormMerkezi>>((ref) async {
   final dio = ref.watch(httpClientProvider);
-  final result = await dio.get("SormMerkezi");
+  final result = await dio.get('SormMerkezi');
   List<Map<String, dynamic>> mapData = List.from(result.data);
   List<SormMerkezi> firmaList =
       mapData.map((e) => SormMerkezi.fromMap(e)).toList();
@@ -89,7 +89,7 @@ final sormMerkeziProvider = FutureProvider<List<SormMerkezi>>((ref) async {
 //#region ODEME PLANI
 final odemePlaniProvider = FutureProvider<List<OdemePlani>>((ref) async {
   final dio = ref.watch(httpClientProvider);
-  final result = await dio.get("OdemePlani");
+  final result = await dio.get('OdemePlani');
   List<Map<String, dynamic>> mapData = List.from(result.data);
   List<OdemePlani> firmaList =
       mapData.map((e) => OdemePlani.fromMap(e)).toList();
@@ -100,7 +100,7 @@ final odemePlaniProvider = FutureProvider<List<OdemePlani>>((ref) async {
 //#region CARI PERSONEL
 final cariPersonelProvider = FutureProvider<List<CariPersonel>>((ref) async {
   final dio = ref.watch(httpClientProvider);
-  final result = await dio.get("CariPersonel");
+  final result = await dio.get('CariPersonel');
   List<Map<String, dynamic>> mapData = List.from(result.data);
   List<CariPersonel> firmaList =
       mapData.map((e) => CariPersonel.fromMap(e)).toList();
@@ -111,7 +111,7 @@ final cariPersonelProvider = FutureProvider<List<CariPersonel>>((ref) async {
 //#region TESLIM TURU
 final teslimTuruProvider = FutureProvider<List<TeslimTurleri>>((ref) async {
   final dio = ref.watch(httpClientProvider);
-  final result = await dio.get("TeslimTurleri");
+  final result = await dio.get('TeslimTurleri');
   List<Map<String, dynamic>> mapData = List.from(result.data);
   List<TeslimTurleri> firmaList =
       mapData.map((e) => TeslimTurleri.fromMap(e)).toList();

@@ -7,7 +7,7 @@ class NotFoundNavigationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text("This page not found."),
+        child: Text('This page not found.'),
       ),
     );
   }

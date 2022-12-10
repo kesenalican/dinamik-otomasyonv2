@@ -2,7 +2,6 @@
 //
 //     final cariSektorModel = cariSektorModelFromMap(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 CariSektorModel cariSektorModelFromMap(String str) =>
@@ -20,12 +19,12 @@ class CariSektorModel {
   final String sektorIsmi;
 
   factory CariSektorModel.fromMap(Map<String, dynamic> json) => CariSektorModel(
-        sektorKodu: json["SektorKodu"],
-        sektorIsmi: json["SektorIsmi"],
+        sektorKodu: json['SektorKodu'],
+        sektorIsmi: json['SektorIsmi'],
       );
 
   Map<String, dynamic> toMap() => {
-        "SektorKodu": sektorKodu,
-        "SektorIsmi": sektorIsmi,
+        'SektorKodu': sektorKodu,
+        'SektorIsmi': sektorIsmi,
       };
 }

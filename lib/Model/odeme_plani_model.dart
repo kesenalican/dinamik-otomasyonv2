@@ -17,14 +17,14 @@ class OdemePlani {
   final String odemePlanAdi;
 
   factory OdemePlani.fromMap(Map<String, dynamic> json) => OdemePlani(
-        odemePlanNo: json["OdemePlanNo"],
-        odemePlanKod: json["OdemePlanKod"],
-        odemePlanAdi: json["OdemePlanAdi"],
+        odemePlanNo: json['OdemePlanNo'],
+        odemePlanKod: json['OdemePlanKod'],
+        odemePlanAdi: json['OdemePlanAdi'],
       );
 
   Map<String, dynamic> toMap() => {
-        "OdemePlanNo": odemePlanNo,
-        "OdemePlanKod": odemePlanKod,
-        "OdemePlanAdi": odemePlanAdi,
+        'OdemePlanNo': odemePlanNo,
+        'OdemePlanKod': odemePlanKod,
+        'OdemePlanAdi': odemePlanAdi,
       };
 }

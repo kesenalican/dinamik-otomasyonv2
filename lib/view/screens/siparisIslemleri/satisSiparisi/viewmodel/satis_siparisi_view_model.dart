@@ -118,8 +118,8 @@ class SatisSiparisiViewModel extends ChangeNotifier {
       Future.delayed(const Duration(milliseconds: 500), () {
         return showAlertDialog(
           context: context,
-          hataBaslik: "Uyarı",
-          hataIcerik: "Önce Stok Seçiniz!",
+          hataBaslik: 'Uyarı',
+          hataIcerik: 'Önce Stok Seçiniz!',
         );
       });
     }

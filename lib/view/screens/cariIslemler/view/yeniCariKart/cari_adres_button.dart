@@ -3,7 +3,6 @@ import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
 import 'package:dinamik_otomasyon/view/common/common_loading.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_adres_model.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/service/cari_services.dart';
-import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/yeniCariKart/yeni_cari_adres.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
@@ -21,11 +20,11 @@ class CariNewAdressButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
       onTap: () {
-        if (cariKoduController.text == "") {
+        if (cariKoduController.text == '') {
           showAlertDialog(
             context: context,
-            hataBaslik: "Hata",
-            hataIcerik: "Önce Cari Kodu Giriniz!",
+            hataBaslik: 'Hata',
+            hataIcerik: 'Önce Cari Kodu Giriniz!',
           );
           return;
         }
@@ -36,7 +35,7 @@ class CariNewAdressButton extends ConsumerWidget {
             builder: (context) {
               return SimpleDialog(
                 title: Text(
-                  "Adres Kartları",
+                  'Adres Kartları',
                   style: purpleBoldTxtStyle,
                 ),
                 children: [
@@ -96,8 +95,8 @@ class CariNewAdressButton extends ConsumerWidget {
                       },
                       error: (err, stack) => showAlertDialog(
                         context: context,
-                        hataBaslik: "hata",
-                        hataIcerik: "hata",
+                        hataBaslik: 'hata',
+                        hataIcerik: 'hata',
                       ),
                       loading: () => const CommonLoading(),
                     ),
