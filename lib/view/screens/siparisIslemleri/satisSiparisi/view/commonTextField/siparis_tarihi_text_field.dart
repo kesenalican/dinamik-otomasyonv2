@@ -6,16 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class SiparisTarihiTextField extends HookWidget {
-  const SiparisTarihiTextField({
+  SiparisTarihiTextField({
     super.key,
     required this.siparisTarihiController,
+    required this.orderDate,
   });
 
   final TextEditingController siparisTarihiController;
+  DateTime orderDate;
 
   @override
   Widget build(BuildContext context) {
-    final orderDate = useState(DateTime.now());
     return Padding(
       padding: EdgeInsets.symmetric(
         horizontal: context.dynamicWidth * 0.02,
@@ -70,8 +71,10 @@ class SiparisTarihiTextField extends HookWidget {
                       },
                       lastDate: DateTime(Constants.lastDateinApp))
                   .then((secilenTarih) {
-                orderDate.value = secilenTarih!;
-                siparisTarihiController.text = orderDate.value.toString();
+                orderDate = secilenTarih!;
+                print('SEÇTİĞİM TARİH == $secilenTarih');
+                siparisTarihiController.text =
+                    '${secilenTarih.year}-${secilenTarih.month}-${secilenTarih.day}';
               });
             },
             child: Icon(Icons.question_mark,

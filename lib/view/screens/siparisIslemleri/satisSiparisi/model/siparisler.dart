@@ -37,6 +37,7 @@ class Siparisler {
     required this.sipDepono,
     required this.sipOnaylayanKulNo,
     required this.sipDovizCinsi,
+    required this.sipTeslimTarih,
   });
 
   final int? sipDbCno = 0;
@@ -57,7 +58,7 @@ class Siparisler {
   final int? sipFirmano = 0;
   final int? sipSubeno = 0;
   final DateTime sipTarih = DateTime.now();
-  final DateTime? sipTeslimTarih = DateTime.now();
+  final DateTime sipTeslimTarih;
   final int sipTip;
   final int? sipCins = 0;
   final String sipEvraknoSeri;
@@ -191,6 +192,7 @@ class Siparisler {
         sipDepono: json['sip_depono'],
         sipOnaylayanKulNo: json['sip_OnaylayanKulNo'],
         sipDovizCinsi: json['sip_doviz_cinsi'],
+        sipTeslimTarih: json['sip_teslim_tarih'],
       );
 
   Map<String, dynamic> toMap() => {
@@ -212,7 +214,7 @@ class Siparisler {
         'sip_firmano': sipFirmano,
         'sip_subeno': sipSubeno,
         'sip_tarih': sipTarih.toIso8601String(),
-        'sip_teslim_tarih': sipTeslimTarih!.toIso8601String(),
+        'sip_teslim_tarih': sipTeslimTarih,
         'sip_tip': sipTip,
         'sip_cins': sipCins,
         'sip_evrakno_seri': sipEvraknoSeri,

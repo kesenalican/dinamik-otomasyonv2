@@ -45,6 +45,7 @@ class SiparisToplam extends HookConsumerWidget {
     final siparisTarihiController =
         useTextEditingController(text: DateTime.now().toString());
     final aciklamaController = useTextEditingController(text: '');
+    final orderDate = useState(DateTime.now());
     final focusNode = useFocusNode();
     var viewModel = ref.watch(satisSiparisViewModel);
     var currentUser = ref.watch(currentInfoProvider);
@@ -106,7 +107,9 @@ class SiparisToplam extends HookConsumerWidget {
             CariPersonelTextField(cariPersonelController: saticiController),
             TeslimTuruTextField(teslimTuruController: teslimTuruController),
             SiparisTarihiTextField(
-                siparisTarihiController: siparisTarihiController),
+              siparisTarihiController: siparisTarihiController,
+              orderDate: orderDate.value,
+            ),
             Row(
               children: [
                 Expanded(
@@ -212,6 +215,7 @@ class SiparisToplam extends HookConsumerWidget {
                     sipDepono: int.parse(depoController.text),
                     sipOnaylayanKulNo: currentUser.currentUser!.kullaniciNo,
                     sipDovizCinsi: 1,
+                    sipTeslimTarih: orderDate.value,
                   )).future)
                       .then((value) {
                     return showDialog(
