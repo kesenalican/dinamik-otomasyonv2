@@ -13,7 +13,7 @@ class SiparisTarihiTextField extends HookWidget {
   });
 
   final TextEditingController siparisTarihiController;
-  DateTime orderDate;
+  ValueNotifier<DateTime> orderDate;
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +71,7 @@ class SiparisTarihiTextField extends HookWidget {
                       },
                       lastDate: DateTime(Constants.lastDateinApp))
                   .then((secilenTarih) {
-                orderDate = secilenTarih!;
+                orderDate.value = secilenTarih!;
                 print('SEÇTİĞİM TARİH == $secilenTarih');
                 siparisTarihiController.text =
                     '${secilenTarih.year}-${secilenTarih.month}-${secilenTarih.day}';

@@ -42,8 +42,9 @@ class SiparisToplam extends HookConsumerWidget {
     final depoController = useTextEditingController(text: '1');
     final saticiController = useTextEditingController(text: '');
     final teslimTuruController = useTextEditingController(text: '');
-    final siparisTarihiController =
-        useTextEditingController(text: DateTime.now().toString());
+    final siparisTarihiController = useTextEditingController(
+        text:
+            '${DateTime.now().year}-${DateTime.now().month}-${DateTime.now().day}');
     final aciklamaController = useTextEditingController(text: '');
     final orderDate = useState(DateTime.now());
     final focusNode = useFocusNode();
@@ -108,7 +109,7 @@ class SiparisToplam extends HookConsumerWidget {
             TeslimTuruTextField(teslimTuruController: teslimTuruController),
             SiparisTarihiTextField(
               siparisTarihiController: siparisTarihiController,
-              orderDate: orderDate.value,
+              orderDate: orderDate,
             ),
             Row(
               children: [
@@ -218,6 +219,8 @@ class SiparisToplam extends HookConsumerWidget {
                     sipTeslimTarih: orderDate.value,
                   )).future)
                       .then((value) {
+                    viewModel
+                        .deleteItemToSiparisListAfterSave(viewModel.siparisler);
                     return showDialog(
                         context: context,
                         builder: (context) {

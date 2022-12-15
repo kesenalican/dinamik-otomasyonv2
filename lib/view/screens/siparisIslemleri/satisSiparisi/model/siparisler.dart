@@ -192,7 +192,7 @@ class Siparisler {
         sipDepono: json['sip_depono'],
         sipOnaylayanKulNo: json['sip_OnaylayanKulNo'],
         sipDovizCinsi: json['sip_doviz_cinsi'],
-        sipTeslimTarih: json['sip_teslim_tarih'],
+        sipTeslimTarih: DateTime.parse(json['sip_teslim_tarih']),
       );
 
   Map<String, dynamic> toMap() => {
@@ -214,7 +214,7 @@ class Siparisler {
         'sip_firmano': sipFirmano,
         'sip_subeno': sipSubeno,
         'sip_tarih': sipTarih.toIso8601String(),
-        'sip_teslim_tarih': sipTeslimTarih,
+        'sip_teslim_tarih': sipTeslimTarih.toIso8601String(),
         'sip_tip': sipTip,
         'sip_cins': sipCins,
         'sip_evrakno_seri': sipEvraknoSeri,

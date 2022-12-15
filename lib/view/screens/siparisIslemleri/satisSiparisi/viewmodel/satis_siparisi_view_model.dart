@@ -106,6 +106,7 @@ class SatisSiparisiViewModel extends ChangeNotifier {
           //* Burada siparis listemdeki elemanın kdvsini topluyorum.
           toplamIndirimliKdv = toplamIndirimliKdv + siparisler[i].siparisKdv!;
           //* Yekun tutarımı önce kdv ekleyip sonra toplayarak buldum.
+
           toplamIsk = toplamIsk + siparisler[i].siparisIskonto!;
           //* indirimli yekun tutarlarımı ayrı ayrı topluyorum.
           indirimliYekunTutar =
@@ -171,7 +172,7 @@ class SatisSiparisiViewModel extends ChangeNotifier {
       kdvsizAraTutar = kdvsizAraTutar + siparis.sipKdvsizTutar;
       toplamKDV = yekunTutar - kdvsizAraTutar;
       siparisler.add(siparis);
-      return siparisler;
+      return  siparisler;
     }
     if (siparisler.isEmpty) {
       yekunTutar = siparis.sipTutar;
@@ -199,11 +200,25 @@ class SatisSiparisiViewModel extends ChangeNotifier {
     return kdvsizNetFiyat;
   }
 
-  deleteItemToSiparisList(StokCariBilgileri siparis) {
-    siparisler.remove(siparis);
+  deleteItemToSiparisListAfterSave(List<StokCariBilgileri> siparis) {
+    for (int i = 0; i < siparis.length; i++) {
+      siparisler.remove(siparis[i]);
+    }
     kdvsizAraTutar = 0;
     kdvsizNetFiyat = 0;
     toplamKDV = 0;
+    toplamIsk = 0;
+    yekunTutar = 0;
+    notifyListeners();
+  }
+
+  deleteItemToSiparisList(StokCariBilgileri siparis) {
+    siparisler.remove(siparis);
+
+    kdvsizAraTutar = 0;
+    kdvsizNetFiyat = 0;
+    toplamKDV = 0;
+    toplamIsk = 0;
     yekunTutar = 0;
     notifyListeners();
   }

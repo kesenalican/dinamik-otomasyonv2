@@ -38,7 +38,7 @@ final satisSiparisiSaveProvider = FutureProvider.autoDispose
       'sip_aciklama': siparis.sipAciklama,
       'sip_OnaylayanKulNo': siparis.sipOnaylayanKulNo,
       'sip_depono': siparis.sipDepono,
-      'sip_teslim_tarih': siparis.sipTeslimTarih,
+      'sip_teslim_tarih': siparis.sipTeslimTarih.toIso8601String(),
     });
     if (result.statusCode == 200) {
       List<Map<String, dynamic>> mapData = List.from(result.data);
