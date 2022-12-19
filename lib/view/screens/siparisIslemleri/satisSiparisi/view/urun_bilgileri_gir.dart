@@ -1,4 +1,9 @@
+import 'package:dinamik_otomasyon/Model/stok_satis_fiyat_tanimlari.dart';
+import 'package:dinamik_otomasyon/service/Providers/all_providers.dart';
 import 'package:dinamik_otomasyon/view/common/common_appbar.dart';
+import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
+import 'package:dinamik_otomasyon/view/common/common_input_border.dart';
+import 'package:dinamik_otomasyon/view/common/common_loading.dart';
 import 'package:dinamik_otomasyon/view/screens/authenticate/login/viewmodel/login_view_model.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/model/stok_cari_bilgileri.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/viewmodel/satis_siparisi_view_model.dart';
@@ -25,9 +30,13 @@ class UrunBilgileriGir extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var siparisModel = ref.watch(satisSiparisViewModel);
     var currentUser = ref.watch(currentInfoProvider);
+    var fiyatTurleri = ref.watch(stokSatisFiyatiListeleri);
+    var selectedCariSatisTuru = siparisModel.savedCari!.cariBagliStok;
+
     final focusNode = useFocusNode();
     final siparisMiktariController = useTextEditingController(text: '');
     final sipTutariController = useTextEditingController(text: '');
+
     final isk1Controller = useTextEditingController(text: '');
     final isk2Controller = useTextEditingController(text: '');
     final isk3Controller = useTextEditingController(text: '');
@@ -38,6 +47,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
     final mas2Controller = useTextEditingController(text: '');
     final mas3Controller = useTextEditingController(text: '');
     final mas4Controller = useTextEditingController(text: '');
+    final fiyatTuruController = useTextEditingController(text: '');
     final netFiyat = useState(0.0);
     siparisModel.calculateKdv();
     focusNode.addListener(() {
@@ -71,6 +81,60 @@ class UrunBilgileriGir extends HookConsumerWidget {
                 endIndent: 50,
                 thickness: 1,
               ),
+
+              //* Fiyat Türü
+              fiyatTurleri.when(
+                error: (err, stack) => showAlertDialog(
+                    context: context, hataBaslik: 'hata', hataIcerik: 'hata'),
+                loading: () => const CommonLoading(),
+                data: (data) {
+                  List<StokSatisFiyatListeleri> fiyatTurleri =
+                      data.map((e) => e).toList();
+                  List<StokSatisFiyatListeleri> a = fiyatTurleri
+                      .where(
+                          (element) => element.siraNo == selectedCariSatisTuru)
+                      .toList();
+                  fiyatTuruController.text = a.first.aciklama;
+                  return Padding(
+                    padding: context.paddingDefault,
+                    child: TextFormField(
+                        validator: (value) =>
+                            value!.isEmpty ? 'Fiyat Türü Boş Olamaz!' : null,
+                        controller: fiyatTuruController,
+                        keyboardType: TextInputType.name,
+                        cursorColor: Color(MyColors.bg01),
+                        readOnly: true,
+                        style: TextStyle(
+                            color: Color(
+                          MyColors.bg01,
+                        )),
+                        decoration: InputDecoration(
+                          labelText: 'Fiyat Türü',
+                          labelStyle: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w400,
+                              color: Color(
+                                MyColors.bg01,
+                              )),
+                          prefixIcon: Icon(
+                            Icons.account_balance,
+                            color: Color(MyColors.bg01),
+                          ),
+                          suffix: InkWell(
+                            onTap: () {
+                              showFiyatTurleri(context, a, fiyatTuruController);
+                            },
+                            child: Icon(Icons.question_mark,
+                                color: Color(
+                                  MyColors.bg01,
+                                )),
+                          ),
+                          enabledBorder: CommonInputBorder.border,
+                          focusedBorder: CommonInputBorder.border,
+                        )),
+                  );
+                },
+              ),
               //*Stok Kodu
               buildStokKodu(context, siparisModel),
               //*Stok Adı
@@ -79,6 +143,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
               buildBirimFiyati(context, siparisModel),
               //* Kdv Oranı
               buildKdvOrani(context, siparisModel),
+
               //*Stok Miktarı
               Padding(
                 padding: context.paddingDefault,
@@ -216,6 +281,56 @@ class UrunBilgileriGir extends HookConsumerWidget {
     );
   }
 
+  showFiyatTurleri(context, List<StokSatisFiyatListeleri> list,
+      TextEditingController fiyatTuruController) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          title: Text(
+            'Fiyat Turu Seçiniz',
+            style: purpleBoldTxtStyle,
+          ),
+          children: [
+            SizedBox(
+              height: context.dynamicHeight * 0.4,
+              width: context.dynamicWidth * 0.5,
+              child: ListView.builder(
+                itemCount: list.length,
+                itemBuilder: (context, index) {
+                  return SimpleDialogOption(
+                    onPressed: () {
+                      fiyatTuruController.text = list[index].aciklama;
+                      Navigator.of(context).pop(StokSatisFiyatListeleri(
+                          siraNo: list[index].siraNo,
+                          aciklama: list[index].aciklama));
+                    },
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            list[index].siraNo.toString(),
+                            style: purpleTxtStyle,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            list[index].aciklama,
+                            style: purpleTxtStyle,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Future<void> buildOrderSaveDialog(
       BuildContext context,
       TextEditingController siparisMiktariController,
@@ -274,7 +389,6 @@ class UrunBilgileriGir extends HookConsumerWidget {
                         Navigator.pop(context);
                         return;
                       }
-
                       siparisModel.saveStokBilgileri(
                           siparisMiktariController, sipTutariController);
                       siparisModel.calculateKdv();

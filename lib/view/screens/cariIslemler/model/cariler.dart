@@ -14,9 +14,9 @@ class Cariler {
     this.cariEmail,
     this.cariCepTel,
     this.cariBakiye,
+    this.cariBagliStok,
   });
 
-  
   final String cariKodu;
   final String? cariUnvani1;
   final String? cariUnvani2;
@@ -25,7 +25,7 @@ class Cariler {
   final String? cariEmail;
   final String? cariCepTel;
   final double? cariBakiye;
-
+  final int? cariBagliStok;
 
   factory Cariler.fromMap(Map<String, dynamic> json) => Cariler(
         cariKodu: json['CariKodu'],
@@ -36,6 +36,7 @@ class Cariler {
         cariEmail: json['CariEmail'],
         cariCepTel: json['CariCepTel'],
         cariBakiye: json['CariBakiye'],
+        cariBagliStok: json['cariBagliStok'],
       );
 
   Map<String, dynamic> toMap() => {
@@ -47,5 +48,6 @@ class Cariler {
         'CariEmail': cariEmail,
         'CariCepTel': cariCepTel,
         'CariBakiye': cariBakiye,
+        'cariBagliStok': cariBagliStok,
       };
 }

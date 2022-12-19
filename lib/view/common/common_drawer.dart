@@ -103,6 +103,7 @@ Widget _buildList(Menu list) {
                     MaterialPageRoute(
                         builder: (context) => CariKartlar(
                               detayaGitmesin: true,
+                              alisMi: true,
                             )));
                 break;
               default:

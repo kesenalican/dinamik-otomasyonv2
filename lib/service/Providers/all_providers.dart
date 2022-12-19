@@ -6,6 +6,7 @@ import 'package:dinamik_otomasyon/Model/kur_model.dart';
 import 'package:dinamik_otomasyon/Model/odeme_plani_model.dart';
 import 'package:dinamik_otomasyon/Model/projeler.dart';
 import 'package:dinamik_otomasyon/Model/sorm_merkezi_model.dart';
+import 'package:dinamik_otomasyon/Model/stok_satis_fiyat_tanimlari.dart';
 import 'package:dinamik_otomasyon/Model/teslim_turleri_model.dart';
 import 'package:dinamik_otomasyon/Model/vergi_daire_model.dart';
 import 'package:dinamik_otomasyon/core/base/service/base_provider.dart';
@@ -116,5 +117,17 @@ final teslimTuruProvider = FutureProvider<List<TeslimTurleri>>((ref) async {
   List<TeslimTurleri> firmaList =
       mapData.map((e) => TeslimTurleri.fromMap(e)).toList();
   return firmaList;
+});
+//#endregion
+
+//#region TESLIM TURU
+final stokSatisFiyatiListeleri =
+    FutureProvider<List<StokSatisFiyatListeleri>>((ref) async {
+  final dio = ref.watch(httpClientProvider);
+  final result = await dio.get('StokSatisFiyatListeleri');
+  List<Map<String, dynamic>> mapData = List.from(result.data);
+  List<StokSatisFiyatListeleri> satisList =
+      mapData.map((e) => StokSatisFiyatListeleri.fromMap(e)).toList();
+  return satisList;
 });
 //#endregion

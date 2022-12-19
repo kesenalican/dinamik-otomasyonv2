@@ -17,11 +17,13 @@ class CariKartlar extends ConsumerStatefulWidget {
   TextEditingController? cariKodController;
   TextEditingController? cariIsmiController;
   bool? detayaGitmesin = false;
+  bool? alisMi = false;
   CariKartlar({
     super.key,
     this.detayaGitmesin,
     this.cariKodController,
     this.cariIsmiController,
+    this.alisMi,
   });
 
   @override
@@ -178,8 +180,10 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
                     Cariler(
                       cariKodu: fullList[index].cariKodu,
                       cariUnvani1: fullList[index].cariUnvani1,
+                      cariBagliStok: fullList[index].cariBagliStok,
                     ),
                   );
+                  
                   Navigator.pushNamed<dynamic>(
                     context,
                     '/stockList',

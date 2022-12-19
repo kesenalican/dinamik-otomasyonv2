@@ -223,6 +223,10 @@ class SatisSiparisiViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  getSavedOrder(){
+    
+  }
+
   saveDocumentInfosForSiparis() {}
 }
 
