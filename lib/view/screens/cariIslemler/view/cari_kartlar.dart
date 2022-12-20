@@ -76,20 +76,20 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
   // }
 
   _runFilter(String searchKeyword, CariViewModel cariSearch) {
-    // print("YAZILAN DEĞER $searchKeyword");
-    // Future<dynamic> a = cariSearch.searchCari(searchKeyword);
-    // print("list uzunluğu===" + a.toString());
-    Future.delayed(const Duration(seconds: 2), () {
-      searchedList = fullList;
-      fullList.clear();
-      fullList = searchedList
-          .where((value) => value.cariKodu
-              .toLowerCase()
-              .contains(searchKeyword.toLowerCase()))
-          .toList();
-      setState(() {});
-    });
-    print('Full listim kaç elemanlı === ${fullList.length}');
+    print("YAZILAN DEĞER $searchKeyword");
+    Future<dynamic> a = cariSearch.searchCari(searchKeyword);
+
+    // Future.delayed(const Duration(seconds: 2), () {
+    //   searchedList = fullList;
+    //   fullList.clear();
+    //   fullList = searchedList
+    //       .where((value) => value.cariKodu
+    //           .toLowerCase()
+    //           .contains(searchKeyword.toLowerCase()))
+    //       .toList();
+    //   setState(() {});
+    // });
+    // print('Full listim kaç elemanlı === ${fullList.length}');
     return fullList;
   }
 
@@ -99,6 +99,7 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
       return await Future.delayed(
         const Duration(seconds: 2),
         () {
+          // ignore: unused_result
           ref.refresh(carilerProvider(currentPage));
           refresh = true;
         },
@@ -183,7 +184,10 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
                       cariBagliStok: fullList[index].cariBagliStok,
                     ),
                   );
-                  
+                  if (widget.alisMi! || widget.alisMi != null) {
+                    satisSiparisiCarisi.alisMi = true;
+                  }
+
                   Navigator.pushNamed<dynamic>(
                     context,
                     '/stockList',
@@ -287,7 +291,14 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
           Expanded(
             child: TextField(
               onTap: () {},
-              onChanged: (value) => _runFilter(value, cariSearch),
+              onChanged: (value) {
+                Future.delayed(
+                  const Duration(seconds: 2),
+                  () {
+                    _runFilter(value, cariSearch);
+                  },
+                );
+              },
               // onSubmitted: (value) => _runFilter(value),
               decoration: InputDecoration(
                 border: InputBorder.none,

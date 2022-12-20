@@ -1,4 +1,5 @@
 import 'package:dinamik_otomasyon/Model/cari_personel.dart';
+import 'package:dinamik_otomasyon/Model/cari_personel_tanimlari.dart';
 import 'package:dinamik_otomasyon/Model/depo_model.dart';
 import 'package:dinamik_otomasyon/Model/firma_model.dart';
 import 'package:dinamik_otomasyon/Model/kasa_model.dart';
@@ -98,16 +99,16 @@ final odemePlaniProvider = FutureProvider<List<OdemePlani>>((ref) async {
 });
 //#endregion
 
-//#region CARI PERSONEL
-final cariPersonelProvider = FutureProvider<List<CariPersonel>>((ref) async {
-  final dio = ref.watch(httpClientProvider);
-  final result = await dio.get('CariPersonel');
-  List<Map<String, dynamic>> mapData = List.from(result.data);
-  List<CariPersonel> firmaList =
-      mapData.map((e) => CariPersonel.fromMap(e)).toList();
-  return firmaList;
-});
-//#endregion
+// //#region CARI PERSONEL
+// final cariPersonelProvider = FutureProvider<List<CariPersonel>>((ref) async {
+//   final dio = ref.watch(httpClientProvider);
+//   final result = await dio.get('CariPersonel');
+//   List<Map<String, dynamic>> mapData = List.from(result.data);
+//   List<CariPersonel> firmaList =
+//       mapData.map((e) => CariPersonel.fromMap(e)).toList();
+//   return firmaList;
+// });
+// //#endregion
 
 //#region TESLIM TURU
 final teslimTuruProvider = FutureProvider<List<TeslimTurleri>>((ref) async {
@@ -129,5 +130,22 @@ final stokSatisFiyatiListeleri =
   List<StokSatisFiyatListeleri> satisList =
       mapData.map((e) => StokSatisFiyatListeleri.fromMap(e)).toList();
   return satisList;
+});
+//#endregion
+
+//#region Stoklar koda göre sıralama
+final cariPersonelProvider = FutureProvider.autoDispose
+    .family<List<CariPersonelTanimlari>, int>((ref, type) async {
+  final dio = ref.watch(httpClientProvider);
+  final result =
+      await dio.get('CariPersonelTanimlari', queryParameters: {'tipi': type});
+  if (result.statusCode == 200) {
+    List<Map<String, dynamic>> mapData = List.from(result.data);
+    List<CariPersonelTanimlari> personelList =
+        mapData.map((e) => CariPersonelTanimlari.fromMap(e)).toList();
+    return personelList;
+  } else {
+    return Future.delayed(const Duration(seconds: 1));
+  }
 });
 //#endregion

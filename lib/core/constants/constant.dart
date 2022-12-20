@@ -66,6 +66,7 @@ class Constants {
   static const String FIYATLAR = 'Fiyatlar';
   static const String DEPO = 'Depo';
   static const String satici = 'Satıcı';
+  static const String satinAlmaci = 'Satın Almacı';
   static const String teslimTuru = 'Teslim Türü';
 
   static const String URUN_KODU = 'Ürün Kodu';
@@ -136,6 +137,9 @@ class Constants {
   static const String evrakNo = 'Evrak No';
   static const String sorumlulukMerkezi = 'Sorumluluk Merkezi';
   static const String depoSeciniz = 'Depo Seçiniz';
+  static const String saticiSeciniz = 'Satıcı Seçiniz';
+  static const String satinAlmaciSeciniz = 'Satın Almacı Seçiniz';
+
   static const String teslimTuruSeciniz = 'Teslim Türü Seçiniz';
 
   static const String odemePlani = 'Ödeme Planı';
@@ -146,7 +150,7 @@ class Constants {
 
   //! SİPARİŞLER
   static const String satisSiparisi = 'Satış Siparişi';
-  static const String alimSiparisi = 'Alım Siparişi';
+  static const String alimSiparisi = 'Alış Siparişi';
   static const int lastDateinApp = 2050;
   static const String iskontoGiriniz = 'İskonto Giriniz';
   static const String brutToplamdanYuzde = 'Brüt Toplamdan Yüzde';
@@ -161,7 +165,7 @@ class Constants {
 }
 
 class ConstantProvider {
-  static const String BASE_URL = 'http://192.168.5.20:5239/api/';
+  static const String BASE_URL = 'http://192.168.43.224:5239/api/';
   static const String user = 'User';
   static const String vergiDaireleri = 'VergiDaireleri';
   static const String stoklar = 'Stoklar';

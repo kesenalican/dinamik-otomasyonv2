@@ -24,7 +24,9 @@ class SatisSiparisi extends ConsumerWidget {
               color: Colors.white,
             ),
             title: Text(
-              Constants.satisSiparisi,
+              orderList.alisMi
+                  ? Constants.alimSiparisi
+                  : Constants.satisSiparisi,
               style: TextStyle(
                   color: Color(MyColors.bg), fontWeight: FontWeight.w600),
             ),

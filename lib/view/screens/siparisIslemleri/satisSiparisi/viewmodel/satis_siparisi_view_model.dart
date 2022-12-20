@@ -29,6 +29,7 @@ class SatisSiparisiViewModel extends ChangeNotifier {
   double toplamIsk = 0;
   double? indirimliNetFiyat = 0;
   List<Stoklar> savedStoklar = [];
+  bool alisMi = false;
 
   calculateTotalPrice(String? value, TextEditingController birimFiyatcontroller,
       TextEditingController sipTutariController) {
@@ -172,7 +173,7 @@ class SatisSiparisiViewModel extends ChangeNotifier {
       kdvsizAraTutar = kdvsizAraTutar + siparis.sipKdvsizTutar;
       toplamKDV = yekunTutar - kdvsizAraTutar;
       siparisler.add(siparis);
-      return  siparisler;
+      return siparisler;
     }
     if (siparisler.isEmpty) {
       yekunTutar = siparis.sipTutar;
@@ -186,13 +187,13 @@ class SatisSiparisiViewModel extends ChangeNotifier {
     //  return siparisler;
   }
 
-  // calculateKdvWithDiscount(Stoklar stok) {
-  //   // x /100 +1
+  calculateKdvWithDiscount(Stoklar stok) {
+    // x /100 +1
 
-  //   indirimliNetFiyat =
-  //       indirimliNetFiyat! * ((stok.perakendeVergiYuzde / 100) + 1);
-  //   return indirimliNetFiyat;
-  // }
+    indirimliNetFiyat =
+        indirimliNetFiyat! * ((stok.perakendeVergiYuzde / 100) + 1);
+    return indirimliNetFiyat;
+  }
 
   calculateKdv() {
     kdvsizNetFiyat =
@@ -223,9 +224,7 @@ class SatisSiparisiViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  getSavedOrder(){
-    
-  }
+  getSavedOrder() {}
 
   saveDocumentInfosForSiparis() {}
 }

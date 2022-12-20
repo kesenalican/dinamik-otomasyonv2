@@ -1,9 +1,11 @@
 import 'package:dinamik_otomasyon/Model/cari_personel.dart';
+import 'package:dinamik_otomasyon/Model/cari_personel_tanimlari.dart';
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/service/Providers/all_providers.dart';
 import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
 import 'package:dinamik_otomasyon/view/common/common_input_border.dart';
 import 'package:dinamik_otomasyon/view/common/common_loading.dart';
+import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/viewmodel/satis_siparisi_view_model.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,10 @@ class CariPersonelTextField extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var cariPersoneller = ref.watch(cariPersonelProvider);
+    var viewmodel = ref.watch(satisSiparisViewModel);
+
+    var cariPersoneller =
+        ref.watch(cariPersonelProvider(viewmodel.alisMi ? 1 : 0));
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
@@ -33,7 +38,8 @@ class CariPersonelTextField extends ConsumerWidget {
           MyColors.bg01,
         )),
         decoration: InputDecoration(
-          labelText: Constants.satici,
+          labelText:
+              viewmodel.alisMi ? Constants.satinAlmaci : Constants.satici,
           labelStyle: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w400,
@@ -48,14 +54,16 @@ class CariPersonelTextField extends ConsumerWidget {
             onTap: () {
               cariPersoneller.when(
                 data: (data) {
-                  List<CariPersonel> cariPersonellerList =
+                  List<CariPersonelTanimlari> cariPersonellerList =
                       data.map((e) => e).toList();
                   return showDialog(
                       context: context,
                       builder: (context) {
                         return SimpleDialog(
                           title: Text(
-                            Constants.depoSeciniz,
+                            viewmodel.alisMi
+                                ? Constants.satinAlmaciSeciniz
+                                : Constants.saticiSeciniz,
                             style: purpleBoldTxtStyle,
                           ),
                           children: [

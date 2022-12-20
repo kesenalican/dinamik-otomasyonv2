@@ -1,8 +1,8 @@
 import 'package:dinamik_otomasyon/Model/stok_satis_fiyat_tanimlari.dart';
+import 'package:dinamik_otomasyon/core/components/dialog_utils.dart';
 import 'package:dinamik_otomasyon/service/Providers/all_providers.dart';
 import 'package:dinamik_otomasyon/view/common/common_appbar.dart';
 import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
-import 'package:dinamik_otomasyon/view/common/common_input_border.dart';
 import 'package:dinamik_otomasyon/view/common/common_loading.dart';
 import 'package:dinamik_otomasyon/view/screens/authenticate/login/viewmodel/login_view_model.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/model/stok_cari_bilgileri.dart';
@@ -47,7 +47,6 @@ class UrunBilgileriGir extends HookConsumerWidget {
     final mas2Controller = useTextEditingController(text: '');
     final mas3Controller = useTextEditingController(text: '');
     final mas4Controller = useTextEditingController(text: '');
-    final fiyatTuruController = useTextEditingController(text: '');
     final netFiyat = useState(0.0);
     siparisModel.calculateKdv();
     focusNode.addListener(() {
@@ -82,7 +81,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
                 thickness: 1,
               ),
 
-              //* Fiyat Türü
+              // //* Fiyat Türü
               fiyatTurleri.when(
                 error: (err, stack) => showAlertDialog(
                     context: context, hataBaslik: 'hata', hataIcerik: 'hata'),
@@ -90,48 +89,31 @@ class UrunBilgileriGir extends HookConsumerWidget {
                 data: (data) {
                   List<StokSatisFiyatListeleri> fiyatTurleri =
                       data.map((e) => e).toList();
-                  List<StokSatisFiyatListeleri> a = fiyatTurleri
+                  List<StokSatisFiyatListeleri> fiyati = fiyatTurleri
                       .where(
                           (element) => element.siraNo == selectedCariSatisTuru)
                       .toList();
-                  fiyatTuruController.text = a.first.aciklama;
                   return Padding(
                     padding: context.paddingDefault,
-                    child: TextFormField(
-                        validator: (value) =>
-                            value!.isEmpty ? 'Fiyat Türü Boş Olamaz!' : null,
-                        controller: fiyatTuruController,
-                        keyboardType: TextInputType.name,
-                        cursorColor: Color(MyColors.bg01),
-                        readOnly: true,
-                        style: TextStyle(
-                            color: Color(
-                          MyColors.bg01,
-                        )),
-                        decoration: InputDecoration(
-                          labelText: 'Fiyat Türü',
-                          labelStyle: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w400,
-                              color: Color(
-                                MyColors.bg01,
-                              )),
-                          prefixIcon: Icon(
-                            Icons.account_balance,
-                            color: Color(MyColors.bg01),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Text(
+                            'Fiyat :',
+                            style: purpleTxtStyle,
                           ),
-                          suffix: InkWell(
-                            onTap: () {
-                              showFiyatTurleri(context, a, fiyatTuruController);
-                            },
-                            child: Icon(Icons.question_mark,
-                                color: Color(
-                                  MyColors.bg01,
-                                )),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Text(
+                            fiyati.first.aciklama,
+                            style: purpleTxtStyle,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                          enabledBorder: CommonInputBorder.border,
-                          focusedBorder: CommonInputBorder.border,
-                        )),
+                        ),
+                      ],
+                    ),
                   );
                 },
               ),
@@ -389,9 +371,11 @@ class UrunBilgileriGir extends HookConsumerWidget {
                         Navigator.pop(context);
                         return;
                       }
+                      showProgressDialog(context);
                       siparisModel.saveStokBilgileri(
                           siparisMiktariController, sipTutariController);
-                      siparisModel.calculateKdv();
+                      // siparisModel.calculateKdv();
+
                       siparisModel.addItemToSiparisList(StokCariBilgileri(
                         sipCreateUser: currentUser.currentUser!.kullaniciNo,
                         sipLastupUser: currentUser.currentUser!.kullaniciNo,
@@ -438,6 +422,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
                             ? 0
                             : int.parse(mas4Controller.text),
                       ));
+                      dismissDialog(context);
                       Navigator.pushNamedAndRemoveUntil(
                           context,
                           '/satisSiparisi',

@@ -70,29 +70,29 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
     super.dispose();
   }
 
-  // void _runFilter(String query) {
-  //   List<Stoklar> dummySearchList = [];
-  //   dummySearchList.addAll(fullList);
-  //   if (query.isNotEmpty) {
-  //     List<Stoklar> dummyListData = [];
-  //     for (var stok in dummySearchList) {
-  //       var sorgu = stok.stokKodu.toLowerCase();
-  //       if (sorgu.contains(query)) {
-  //         dummyListData.add(stok);
-  //       }
-  //     }
-  //     setState(() {
-  //       searchedEmptyList.clear();
-  //       searchedEmptyList.addAll(dummyListData);
-  //     });
-  //     return;
-  //   } else {
-  //     setState(() {
-  //       searchedEmptyList.clear();
-  //       searchedEmptyList.addAll(fullList);
-  //     });
-  //   }
-  // }
+  void _runFilter(String query) {
+    List<Stoklar> dummySearchList = [];
+    dummySearchList.addAll(fullList);
+    if (query.isNotEmpty) {
+      List<Stoklar> dummyListData = [];
+      for (var stok in dummySearchList) {
+        var sorgu = stok.stokKodu.toLowerCase();
+        if (sorgu.contains(query)) {
+          dummyListData.add(stok);
+        }
+      }
+      setState(() {
+        searchedEmptyList.clear();
+        searchedEmptyList.addAll(dummyListData);
+      });
+      return;
+    } else {
+      setState(() {
+        searchedEmptyList.clear();
+        searchedEmptyList.addAll(fullList);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -204,19 +204,12 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
                     padding: EdgeInsets.all(context.dynamicHeight * 0.01),
                     child: Row(
                       children: [
-                        // CircleAvatar(
-                        //   backgroundColor: Color(MyColors.bg01),
-                        // ),
-
                         SizedBox(
                           width: context.dynamicWidth * 0.01,
                         ),
                         _buildKodVeAd(index, stokList),
                         _buildKDV(index),
-                        // SizedBox(
-                        //   width: context.dynamicWidth * 0.10,
-                        // ),
-                        //FİYAT
+                        //*FİYAT
                         _buildAdetVeFiyat(index, stokList),
                       ],
                     ),
@@ -342,7 +335,14 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
           ),
           Expanded(
             child: TextField(
-              //onChanged: (value) => _runFilter(value),
+              onChanged: (value) {
+                Future.delayed(
+                  const Duration(milliseconds: 500),
+                  () {
+                    _runFilter(value);
+                  },
+                );
+              },
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: Constants.ARA,

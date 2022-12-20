@@ -1,3 +1,4 @@
+import 'package:dinamik_otomasyon/core/components/dialog_utils.dart';
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/view/common/common_button.dart';
 import 'package:dinamik_otomasyon/view/common/common_textfield.dart';
@@ -31,6 +32,7 @@ class SiparisToplam extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final satisSiparisi = useState(0);
+    final alisSiparisi = useState(1);
     final evrakSeriController = useTextEditingController(text: '');
     final evrakNoController = useTextEditingController(text: '');
     final belgeNoController = useTextEditingController(text: '');
@@ -121,7 +123,7 @@ class SiparisToplam extends HookConsumerWidget {
                     field: 'Açıklama',
                     icon: Icons.style,
                     isMandatory: true,
-                    readOnly: true,
+                    readOnly: false,
                     textInputType: TextInputType.name,
                   ),
                 ),
@@ -134,12 +136,15 @@ class SiparisToplam extends HookConsumerWidget {
                   //Navigator.pop(context);
                   return;
                 }
+                showProgressDialog(context);
                 for (int i = 0; i < viewModel.siparisler.length; i++) {
                   ref
                       .watch(satisSiparisiSaveProvider(Siparisler(
                     sipCreateUser: currentUser.currentUser!.kullaniciNo,
                     sipLastupUser: currentUser.currentUser!.kullaniciNo,
-                    sipTip: satisSiparisi.value,
+                    sipTip: viewModel.alisMi
+                        ? alisSiparisi.value
+                        : satisSiparisi.value,
                     sipEvraknoSeri: evrakSeriController.text.isNotEmpty
                         ? evrakSeriController.text
                         : '',
@@ -253,6 +258,7 @@ class SiparisToplam extends HookConsumerWidget {
                           );
                         });
                   });
+                  dismissDialog(context);
                 }
               },
               child: CommonButton(

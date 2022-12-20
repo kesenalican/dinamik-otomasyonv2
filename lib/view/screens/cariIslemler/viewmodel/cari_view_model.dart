@@ -36,16 +36,18 @@ class CariViewModel extends ChangeNotifier {
     }
   }
 
-  searchCari(String cariKod) async {
+  searchCari(String cariUnvan) async {
     final result =
         await Dio().get('${ConstantProvider.BASE_URL}CariBilgiler/fullCari');
     if (result.statusCode == 200) {
       List<Map<String, dynamic>> mapData = List.from(result.data);
       List<Cariler> cariList = mapData.map((e) => Cariler.fromMap(e)).toList();
       cariKodSorgula = cariList
-          .where((element) => element.cariKodu.contains(cariKod))
+          .where((element) => element.cariUnvani1!
+              .toLowerCase()
+              .contains(cariUnvan.toLowerCase()))
           .toList();
-
+      print('liste uzunluğu' + cariKodSorgula.length.toString());
       notifyListeners();
       return cariKodSorgula;
     }
