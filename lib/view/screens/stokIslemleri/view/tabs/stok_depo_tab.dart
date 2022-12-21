@@ -97,7 +97,7 @@ class DepoTab extends ConsumerWidget {
               Padding(
                 padding: EdgeInsets.all(dynamicHeight * 0.01),
                 child: const Text(
-                  '${Constants.DEPO_ADI} Merkez',
+                  '${Constants.depo} Merkez',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -111,7 +111,7 @@ class DepoTab extends ConsumerWidget {
                 padding: EdgeInsets.all(dynamicHeight * 0.01),
                 child: Text(
                     //DEPODAKİ TOPLAM ÜRÜN
-                    '${Constants.MIKTAR} {stokModel.merkez.ceil()} ${stokModel.stokBirim1}'),
+                    '${Constants.miktar} {stokModel.merkez.ceil()} ${stokModel.stokBirim1}'),
               ),
             ],
           ),
@@ -131,7 +131,7 @@ class DepoTab extends ConsumerWidget {
       ),
       child: Center(
         child: Text(
-          Constants.STOK_DEPO_DAGILIMLARI,
+          Constants.stokDepoDagilimlari,
           style: TextStyle(
             color: Color(MyColors.bg01),
             fontWeight: FontWeight.bold,

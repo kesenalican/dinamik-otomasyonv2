@@ -66,7 +66,7 @@ class _CariBakiyeTabState extends BaseState<CariBakiyeTab> {
                 Expanded(
                   flex: 7,
                   child: Text(
-                    Constants.TEMINATI,
+                    Constants.teminati,
                     style: whiteTxtStyle,
                   ),
                 ),
@@ -95,7 +95,7 @@ class _CariBakiyeTabState extends BaseState<CariBakiyeTab> {
                 Expanded(
                   flex: 7,
                   child: Text(
-                    Constants.RISK_LIMITI,
+                    Constants.riskLimiti,
                     style: whiteTxtStyle,
                   ),
                 ),
@@ -124,7 +124,7 @@ class _CariBakiyeTabState extends BaseState<CariBakiyeTab> {
                 Expanded(
                   flex: 7,
                   child: Text(
-                    Constants.TOPLAM_RISKI,
+                    Constants.toplamRiski,
                     style: whiteTxtStyle,
                   ),
                 ),
@@ -159,7 +159,7 @@ class _CariBakiyeTabState extends BaseState<CariBakiyeTab> {
           Expanded(
             flex: 7,
             child: Text(
-              Constants.SIPARIS_BAKIYESI,
+              Constants.siparisBakiyesi,
               style: purpleTxtStyle,
             ),
           ),
@@ -191,7 +191,7 @@ class _CariBakiyeTabState extends BaseState<CariBakiyeTab> {
           Expanded(
             flex: 7,
             child: Text(
-              Constants.FATURALASMAMIS_IRSALIYE_BAKIYESI,
+              Constants.faturalasmamisIrsaliyeBakiyesi,
               style: purpleTxtStyle,
             ),
           ),
@@ -223,7 +223,7 @@ class _CariBakiyeTabState extends BaseState<CariBakiyeTab> {
           Expanded(
             flex: 7,
             child: Text(
-              Constants.MUSTERI_CEKI,
+              Constants.musteriCeki,
               style: purpleTxtStyle,
             ),
           ),
@@ -255,7 +255,7 @@ class _CariBakiyeTabState extends BaseState<CariBakiyeTab> {
           Expanded(
             flex: 7,
             child: Text(
-              Constants.ACIK_HESAP_BAKIYE,
+              Constants.acikHesapBakiye,
               style: purpleTxtStyle,
             ),
           ),
@@ -282,7 +282,7 @@ class _CariBakiyeTabState extends BaseState<CariBakiyeTab> {
     return Padding(
       padding: paddingDefault,
       child: Text(
-        Constants.TEMINAT_RISK_BILGILERI,
+        Constants.teminatRiskBilgileri,
         style: purpleBoldTxtStyle,
       ),
     );

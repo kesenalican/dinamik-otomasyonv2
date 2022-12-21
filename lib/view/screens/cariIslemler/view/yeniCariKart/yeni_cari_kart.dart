@@ -50,7 +50,7 @@ class YeniCariKart extends HookConsumerWidget {
     var currentUser = ref.watch(currentInfoProvider);
     var cariControl = ref.watch(cariKayitliMi);
     return Scaffold(
-      appBar: CommonAppbar(whichPage: Constants.YENI_CARI_OLUSTUR),
+      appBar: CommonAppbar(whichPage: Constants.yeniCariOlustur),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           return buildSaveButton(
@@ -79,7 +79,7 @@ class YeniCariKart extends HookConsumerWidget {
               cariKoduTextField(cariControl, context, cariKoduController),
               CommonTextField(
                   controller: cariUnvanController,
-                  field: Constants.CARI_UNVANI,
+                  field: Constants.cariUnvani,
                   icon: Icons.person,
                   textInputType: TextInputType.name,
                   isMandatory: false,
@@ -98,7 +98,7 @@ class YeniCariKart extends HookConsumerWidget {
                   }),
               CommonTextField(
                 controller: vergiDaireKoduController,
-                field: Constants.VERGI_DAIRE_KODU,
+                field: Constants.vergiDaireKodu,
                 icon: Icons.account_balance,
                 readOnly: true,
                 textInputType: TextInputType.number,
@@ -107,7 +107,7 @@ class YeniCariKart extends HookConsumerWidget {
               ),
               CommonTextField(
                   controller: verginoController,
-                  field: Constants.VERGINO,
+                  field: Constants.vergiNo,
                   icon: Icons.account_balance,
                   textInputType: TextInputType.number,
                   isMandatory: true,
@@ -116,7 +116,7 @@ class YeniCariKart extends HookConsumerWidget {
                   }),
               CommonTextField(
                   controller: yetkiliAdiController,
-                  field: Constants.YETKILI_ADI,
+                  field: Constants.yetkiliAdi,
                   icon: Icons.person,
                   textInputType: TextInputType.name,
                   isMandatory: false,
@@ -125,7 +125,7 @@ class YeniCariKart extends HookConsumerWidget {
                   }),
               CommonTextField(
                   controller: yetkiliSoyAdiController,
-                  field: Constants.YETKILI_SOYADI,
+                  field: Constants.yetkiliSoyadi,
                   icon: Icons.person,
                   textInputType: TextInputType.name,
                   isMandatory: false,
@@ -136,7 +136,7 @@ class YeniCariKart extends HookConsumerWidget {
                   adres1Controller, cariKoduController, context),
               CommonTextField(
                   controller: faxController,
-                  field: Constants.FAX,
+                  field: Constants.fax,
                   icon: Icons.fax,
                   textInputType: TextInputType.name,
                   isMandatory: false,
@@ -145,7 +145,7 @@ class YeniCariKart extends HookConsumerWidget {
                   }),
               CommonTextField(
                   controller: mailController,
-                  field: Constants.EMAIL,
+                  field: Constants.eMail,
                   icon: Icons.mail,
                   textInputType: TextInputType.emailAddress,
                   isMandatory: false,
@@ -153,7 +153,7 @@ class YeniCariKart extends HookConsumerWidget {
                     return cariViewModel.validateEmail(value!);
                   }),
               CommonTypes(
-                hareketTipi: Constants.HAREKET_TIPI,
+                hareketTipi: Constants.hareketTipi,
                 listOfTypes: ListOfTypes.hareketTipi,
                 selectedItemIndex: hareketTipiSelectedItemIndex.value,
               ),
@@ -207,7 +207,7 @@ class YeniCariKart extends HookConsumerWidget {
           MyColors.bg01,
         )),
         decoration: InputDecoration(
-          labelText: Constants.ADRES,
+          labelText: Constants.adres,
           labelStyle: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w400,
@@ -308,7 +308,7 @@ class YeniCariKart extends HookConsumerWidget {
           MyColors.bg01,
         )),
         decoration: InputDecoration(
-          labelText: Constants.VERGI_DAIRESI_SECINIZ,
+          labelText: Constants.vergiDairesiSeciniz,
           labelStyle: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w400,

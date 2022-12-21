@@ -63,7 +63,7 @@ class SatisSiparisiService {
   int? seriNoElemanSayisi;
   getEvrakBilgileri(String seriNo) async {
     final result =
-        await Dio().get('${ConstantProvider.BASE_URL}EvrakBilgileri');
+        await Dio().get('${ConstantProvider.baseUrl}EvrakBilgileri');
     List<Map<String, dynamic>> mapData = List.from(result.data);
     List<EvrakBilgileri> evrakList =
         mapData.map((e) => EvrakBilgileri.fromMap(e)).toList();

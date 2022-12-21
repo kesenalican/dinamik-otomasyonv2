@@ -67,17 +67,17 @@ Widget _buildList(Menu list) {
           textColor: Color(MyColors.bg01),
           onTap: () {
             switch (list.name) {
-              case Constants.AYARLAR:
+              case Constants.ayarlar:
                 Navigator.pushNamed(context, '/settings');
                 break;
-              case Constants.CIKIS:
+              case Constants.cikis:
                 Navigator.pushNamed(context, '/login');
                 break;
               case 'Stok Kart Detay':
                 Navigator.pushNamed<dynamic>(context, '/stockList',
                     arguments: false);
                 break;
-              case Constants.CARI_DETAY:
+              case Constants.cariDetay:
                 Navigator.push(
                     context,
                     MaterialPageRoute(

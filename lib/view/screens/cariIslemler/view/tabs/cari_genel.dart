@@ -17,32 +17,32 @@ class CariGenelTab extends ConsumerWidget {
       child: Column(
         children: [
           DetaySatir(
-              hangiOzellik: Constants.CARI_KODU, urunBilgi: cariList.cariKodu),
+              hangiOzellik: Constants.cariKodu, urunBilgi: cariList.cariKodu),
           DetaySatir(
-              hangiOzellik: Constants.CARI_UNVANI,
+              hangiOzellik: Constants.cariUnvani,
               urunBilgi: cariList.cariUnvani1),
           DetaySatir(
-              hangiOzellik: Constants.VERGI_DAIRE,
+              hangiOzellik: Constants.vergiDairesi,
               urunBilgi: cariList.cariVDaireAdi),
           DetaySatir(
-              hangiOzellik: Constants.VERGINO,
+              hangiOzellik: Constants.vergiNo,
               urunBilgi: cariList.cariVDaireNo),
           DetaySatir(
-              hangiOzellik: Constants.BAKIYE,
+              hangiOzellik: Constants.bakiye,
               urunBilgi: cariList.cariBakiye == 0
                   ? cariList.cariBakiye!.ceil().toString()
                   : '${cariList.cariBakiye} TL'),
           DetaySatir(
-              hangiOzellik: Constants.EFATURA, urunBilgi: 'cariList.efatura'),
+              hangiOzellik: Constants.eFatura, urunBilgi: 'cariList.efatura'),
           DetaySatir(
-              hangiOzellik: Constants.TEMSILCI, urunBilgi: 'cariList.temsilci'),
-          DetaySatir(hangiOzellik: Constants.GRUP, urunBilgi: 'cariList.grup'),
+              hangiOzellik: Constants.temsilci, urunBilgi: 'cariList.temsilci'),
+          DetaySatir(hangiOzellik: Constants.grup, urunBilgi: 'cariList.grup'),
           DetaySatir(
-              hangiOzellik: Constants.SEKTOR, urunBilgi: 'cariList.sektor'),
+              hangiOzellik: Constants.sektor, urunBilgi: 'cariList.sektor'),
           DetaySatir(
-              hangiOzellik: Constants.BOLGE, urunBilgi: 'cariList.bolge'),
+              hangiOzellik: Constants.bolge, urunBilgi: 'cariList.bolge'),
           DetaySatir(
-              hangiOzellik: Constants.EMAIL, urunBilgi: cariList.cariEmail),
+              hangiOzellik: Constants.eMail, urunBilgi: cariList.cariEmail),
         ],
       ),
     );

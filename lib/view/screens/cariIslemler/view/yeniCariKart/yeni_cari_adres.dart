@@ -31,7 +31,7 @@ class YeniCariAdres extends HookConsumerWidget {
     final telefon1Controller = useTextEditingController(text: '');
     var currentUser = ref.watch(currentInfoProvider);
     return Scaffold(
-      appBar: CommonAppbar(whichPage: Constants.YENI_CARI_ADRES_OLUSTUR),
+      appBar: CommonAppbar(whichPage: Constants.yeniCariAdresOlustur),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           if (!formKey.currentState!.validate()) {
@@ -115,7 +115,7 @@ class YeniCariAdres extends HookConsumerWidget {
                           );
                         },
                         child: const Text(
-                          Constants.OK,
+                          Constants.ok,
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
@@ -145,7 +145,7 @@ class YeniCariAdres extends HookConsumerWidget {
                   }),
               CommonTextField(
                 controller: cariKoduController,
-                field: Constants.CARI_KODU,
+                field: Constants.cariKodu,
                 icon: Icons.map,
                 textInputType: TextInputType.name,
                 isMandatory: true,
@@ -180,7 +180,7 @@ class YeniCariAdres extends HookConsumerWidget {
                 onTap: () async {},
                 child: CommonTextField(
                     controller: ilController,
-                    field: Constants.IL,
+                    field: Constants.il,
                     icon: Icons.map,
                     textInputType: TextInputType.name,
                     isMandatory: true,
@@ -190,7 +190,7 @@ class YeniCariAdres extends HookConsumerWidget {
               ),
               CommonTextField(
                   controller: ilceController,
-                  field: Constants.ILCE,
+                  field: Constants.ilce,
                   icon: Icons.maps_home_work,
                   textInputType: TextInputType.name,
                   isMandatory: true,
@@ -199,7 +199,7 @@ class YeniCariAdres extends HookConsumerWidget {
                   }),
               CommonTextField(
                   controller: ulkeController,
-                  field: Constants.ULKE,
+                  field: Constants.ulke,
                   icon: Icons.maps_home_work_sharp,
                   textInputType: TextInputType.name,
                   isMandatory: true,
@@ -208,7 +208,7 @@ class YeniCariAdres extends HookConsumerWidget {
                   }),
               CommonTextField(
                 controller: ulkeKoduController,
-                field: Constants.ULKE_KODU,
+                field: Constants.ulkeKodu,
                 icon: Icons.maps_home_work_sharp,
                 textInputType: TextInputType.number,
                 isMandatory: false,
@@ -216,7 +216,7 @@ class YeniCariAdres extends HookConsumerWidget {
               ),
               CommonTextField(
                   controller: telefon1Controller,
-                  field: Constants.TELEFON,
+                  field: Constants.telefon,
                   icon: Icons.phone,
                   textInputType: TextInputType.phone,
                   isMandatory: false,

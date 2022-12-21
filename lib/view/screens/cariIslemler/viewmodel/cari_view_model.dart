@@ -16,7 +16,7 @@ class CariViewModel extends ChangeNotifier {
   late List<Cariler> cariKodSorgula;
   getAndControlCari(String cariKod, context) async {
     final result =
-        await Dio().get('${ConstantProvider.BASE_URL}CariBilgiler/fullCari');
+        await Dio().get('${ConstantProvider.baseUrl}CariBilgiler/fullCari');
     if (result.statusCode == 200) {
       List<Map<String, dynamic>> mapData = List.from(result.data);
       List<Cariler> cariList = mapData.map((e) => Cariler.fromMap(e)).toList();
@@ -38,7 +38,7 @@ class CariViewModel extends ChangeNotifier {
 
   searchCari(String cariUnvan) async {
     final result =
-        await Dio().get('${ConstantProvider.BASE_URL}CariBilgiler/fullCari');
+        await Dio().get('${ConstantProvider.baseUrl}CariBilgiler/fullCari');
     if (result.statusCode == 200) {
       List<Map<String, dynamic>> mapData = List.from(result.data);
       List<Cariler> cariList = mapData.map((e) => Cariler.fromMap(e)).toList();
@@ -96,7 +96,7 @@ class CariViewModel extends ChangeNotifier {
   saveCari(CariModel cari) async {
     // try {
     final result = await Dio().post(
-      '${ConstantProvider.BASE_URL}CariBilgiler',
+      '${ConstantProvider.baseUrl}CariBilgiler',
       data: cari.toMap().toString(),
     );
     if (result.statusCode == 200) {

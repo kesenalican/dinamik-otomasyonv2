@@ -37,7 +37,7 @@ class _SearchInputState extends BaseState<SearchInput> {
             child: TextField(
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: Constants.ARA,
+                hintText: Constants.ara,
                 hintStyle: TextStyle(
                     fontSize: 13,
                     color: Color(MyColors.purple01),

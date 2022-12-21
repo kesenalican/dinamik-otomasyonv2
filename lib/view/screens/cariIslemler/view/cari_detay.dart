@@ -25,7 +25,7 @@ class CariDetay extends StatelessWidget {
             },
           ),
           title: Text(
-            Constants.CARI_DETAY,
+            Constants.cariDetay,
             style: TextStyle(
                 color: Color(MyColors.bg), fontWeight: FontWeight.w600),
           ),
@@ -36,27 +36,27 @@ class CariDetay extends StatelessWidget {
             tabs: [
               Tab(
                 icon: Icon(Icons.info_outline),
-                text: Constants.GENEL,
+                text: Constants.genel,
               ),
               Tab(
                 icon: Icon(Icons.price_change_rounded),
-                text: Constants.ISLEMLER,
+                text: Constants.islemler,
               ),
               Tab(
                 icon: Icon(Icons.currency_exchange),
-                text: Constants.BAKIYE,
+                text: Constants.bakiye,
               ),
               Tab(
                 icon: Icon(Icons.call),
-                text: Constants.ILETISIM,
+                text: Constants.iletisim,
               ),
               Tab(
                 icon: Icon(Icons.report_gmailerrorred),
-                text: Constants.RAPORLAR,
+                text: Constants.raporlar,
               ),
               Tab(
                 icon: Icon(Icons.auto_graph),
-                text: Constants.GRAFIKLER,
+                text: Constants.grafikler,
               ),
             ],
           ),

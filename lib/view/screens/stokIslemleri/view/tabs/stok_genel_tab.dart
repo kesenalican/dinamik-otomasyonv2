@@ -22,45 +22,44 @@ class StokGenel extends ConsumerWidget {
         child: Column(
           children: [
             DetaySatir(
-                hangiOzellik: Constants.URUN_KODU,
+                hangiOzellik: Constants.urunKodu,
                 urunBilgi: stokModel.stokKodu),
             DetaySatir(
-                hangiOzellik: Constants.URUN_ADI,
-                urunBilgi: stokModel.stokIsim),
+                hangiOzellik: Constants.urunAdi, urunBilgi: stokModel.stokIsim),
             DetaySatir(
-                hangiOzellik: Constants.BAKIYE,
+                hangiOzellik: Constants.bakiye,
                 //Eldeki toplam Miktar
                 urunBilgi: stokModel.stokMiktar.ceil().toString()),
             DetaySatir(
-                hangiOzellik: Constants.BIRIM,
+                hangiOzellik: Constants.birim,
                 urunBilgi:
                     '${stokModel.stokBirim1} (1 ${stokModel.stokBirim1}) : ${stokModel.stokBirim3Katsayi.toInt()} adet'),
             DetaySatir(
-                hangiOzellik: Constants.BIRIM_2,
+                hangiOzellik: Constants.birim2,
                 urunBilgi: 'stokModel.stokBirim2!'),
             DetaySatir(
-                hangiOzellik: Constants.BIRIM_3,
+                hangiOzellik: Constants.birim3,
                 urunBilgi: stokModel.stokBirim3),
             DetaySatir(
-                hangiOzellik: Constants.KDV,
+                hangiOzellik: Constants.kdv,
                 urunBilgi: '%${stokModel.perakendeVergiYuzde.ceil()}'),
-            DetaySatir(hangiOzellik: Constants.KATEGORI, urunBilgi: 'kategori'),
+            DetaySatir(hangiOzellik: Constants.kategori, urunBilgi: 'kategori'),
             DetaySatir(
-                hangiOzellik: Constants.ANA_GRUP,
+                hangiOzellik: Constants.anaGrup,
                 urunBilgi: stokModel.stokAnaGrup),
             DetaySatir(
-              hangiOzellik: Constants.ALT_GRUP,
+              hangiOzellik: Constants.altGrup,
               urunBilgi: 'alt grup',
             ),
             DetaySatir(
-                hangiOzellik: Constants.SEKTOR,
+                hangiOzellik: Constants.sektor,
                 urunBilgi: stokModel.stokSektor),
             DetaySatir(
-                hangiOzellik: Constants.REYON, urunBilgi: stokModel.stokReyon),
+                hangiOzellik: Constants.reyon, urunBilgi: stokModel.stokReyon),
             DetaySatir(
-                hangiOzellik: Constants.MARKA, urunBilgi: stokModel.stokMarka),
+                hangiOzellik: Constants.marka, urunBilgi: stokModel.stokMarka),
             DetaySatir(
-                hangiOzellik: Constants.MODEL, urunBilgi: stokModel.stokModel),
+                hangiOzellik: Constants.model, urunBilgi: stokModel.stokModel),
           ],
         ),
       ),

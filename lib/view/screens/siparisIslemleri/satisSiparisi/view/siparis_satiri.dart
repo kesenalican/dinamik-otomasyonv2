@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/view/common/common_button.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -40,7 +41,7 @@ class SiparisSatiri extends HookConsumerWidget {
     var viewModel = ref.watch(satisSiparisViewModel);
     return Scaffold(
       appBar: CommonAppbar(
-        whichPage: 'Sipariş Oluştur',
+        whichPage: Constants.siparisOlustur,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -56,7 +57,7 @@ class SiparisSatiri extends HookConsumerWidget {
                 return cariViewModel.validateIsNotEmpty(value!);
               },
               controller: stokIsmiController,
-              field: 'Stok İsmi',
+              field: Constants.stokIsim,
               icon: Icons.abc,
               isMandatory: true,
               readOnly: true,
@@ -67,7 +68,7 @@ class SiparisSatiri extends HookConsumerWidget {
                 return cariViewModel.validateIsNotEmpty(value!);
               },
               controller: birimFiyatController,
-              field: 'Birim Fiyatı',
+              field: Constants.birimFiyati,
               icon: Icons.price_change,
               isMandatory: true,
               textInputType: TextInputType.number,
@@ -77,7 +78,7 @@ class SiparisSatiri extends HookConsumerWidget {
                 return cariViewModel.validateIsNotEmpty(value!);
               },
               controller: stokMiktariController,
-              field: 'Miktarı',
+              field: Constants.miktar,
               icon: Icons.format_list_numbered,
               isMandatory: true,
               textInputType: TextInputType.number,
@@ -91,13 +92,13 @@ class SiparisSatiri extends HookConsumerWidget {
                 return cariViewModel.validateIsNotEmpty(value!);
               },
               controller: sipTutariController,
-              field: 'Tutarı',
+              field: Constants.tutari,
               icon: Icons.price_change,
               isMandatory: true,
               readOnly: true,
               textInputType: TextInputType.number,
             ),
-            CommonButton(buttonName: 'Kaydet ve Yeni Ürün Gir'),
+            CommonButton(buttonName: Constants.kaydetVeYeniUrunGir),
             InkWell(
               onTap: () {
                 Navigator.of(context).pop(SiparisSatiri(
@@ -110,7 +111,7 @@ class SiparisSatiri extends HookConsumerWidget {
                 siparisTemizle();
               },
               child: CommonButton(
-                buttonName: 'Kaydet ve Çık',
+                buttonName: Constants.kaydetVeCik,
               ),
             ),
           ],

@@ -1,4 +1,3 @@
-import 'package:dinamik_otomasyon/Model/cari_personel.dart';
 import 'package:dinamik_otomasyon/Model/cari_personel_tanimlari.dart';
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/service/Providers/all_providers.dart';
@@ -123,7 +122,9 @@ class CariPersonelTextField extends ConsumerWidget {
                       });
                 },
                 error: (err, stack) => showAlertDialog(
-                    context: context, hataBaslik: 'hata', hataIcerik: 'hata'),
+                    context: context,
+                    hataBaslik: 'Hata',
+                    hataIcerik: err.toString()),
                 loading: () => const CommonLoading(),
               );
             },

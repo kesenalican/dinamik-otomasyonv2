@@ -1,5 +1,6 @@
 import 'package:dinamik_otomasyon/Model/stok_satis_fiyat_tanimlari.dart';
 import 'package:dinamik_otomasyon/core/components/dialog_utils.dart';
+import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/service/Providers/all_providers.dart';
 import 'package:dinamik_otomasyon/view/common/common_appbar.dart';
 import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
@@ -65,7 +66,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: CommonAppbar(
-        whichPage: 'Ürün Ekle',
+        whichPage: Constants.urunEkle,
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -84,7 +85,9 @@ class UrunBilgileriGir extends HookConsumerWidget {
               // //* Fiyat Türü
               fiyatTurleri.when(
                 error: (err, stack) => showAlertDialog(
-                    context: context, hataBaslik: 'hata', hataIcerik: 'hata'),
+                    context: context,
+                    hataBaslik: Constants.hataBaslik,
+                    hataIcerik: Constants.hataIcerik),
                 loading: () => const CommonLoading(),
                 data: (data) {
                   List<StokSatisFiyatListeleri> fiyatTurleri =
@@ -100,7 +103,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
                         Expanded(
                           flex: 1,
                           child: Text(
-                            'Fiyat :',
+                            '${Constants.fiyat} :',
                             style: purpleTxtStyle,
                           ),
                         ),
@@ -133,7 +136,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        'Miktar Giriniz:',
+                        Constants.miktarGiriniz,
                         style: purpleTxtStyle,
                       ),
                     ),
@@ -148,7 +151,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
                           cursorColor: Color(MyColors.bg01),
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Miktar boş olamaz';
+                              return Constants.miktarBosOlamaz;
                             }
                             return null;
                           },
@@ -179,7 +182,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
                     Expanded(
                       flex: 1,
                       child: Text(
-                        'Brüt Tutar:',
+                        Constants.brutTutar,
                         style: purpleTxtStyle,
                       ),
                     ),
@@ -253,7 +256,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
                         mas4Controller,
                         netFiyat.value);
                   },
-                  child: CommonButton(buttonName: 'EKLE'),
+                  child: CommonButton(buttonName: Constants.ekle),
                 ),
               ),
             ],
@@ -270,7 +273,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
       builder: (context) {
         return SimpleDialog(
           title: Text(
-            'Fiyat Turu Seçiniz',
+            Constants.fiyatTuruSeciniz,
             style: purpleBoldTxtStyle,
           ),
           children: [
@@ -335,7 +338,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
         builder: (context) {
           return AlertDialog(
             title: Text(
-              'Ürünü kayıt etmek istiyor musunuz?',
+              Constants.kayitMesaji,
               style: purpleTxtStyle,
             ),
             actions: [
@@ -351,7 +354,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
                         backgroundColor:
                             MaterialStateProperty.all(Color(MyColors.bg01))),
                     child: Text(
-                      'Hayır',
+                      Constants.hayir,
                       style: whiteTxtStyle,
                     ),
                   ),
@@ -363,7 +366,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
                         backgroundColor:
                             MaterialStateProperty.all(Color(MyColors.bg01))),
                     child: Text(
-                      'Evet',
+                      Constants.evet,
                       style: whiteTxtStyle,
                     ),
                     onPressed: () {
@@ -445,7 +448,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
           Expanded(
             flex: 1,
             child: Text(
-              'Birim Fiyatı:',
+              '${Constants.birimFiyati}:',
               style: purpleTxtStyle,
             ),
           ),
@@ -471,7 +474,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
           Expanded(
             flex: 1,
             child: Text(
-              'KDV Oranı:',
+              Constants.kdvOrani,
               style: purpleTxtStyle,
             ),
           ),
@@ -497,7 +500,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
           Expanded(
             flex: 1,
             child: Text(
-              'Stok Adı:',
+              Constants.stokAdi,
               style: purpleTxtStyle,
             ),
           ),
@@ -523,7 +526,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
           Expanded(
             flex: 1,
             child: Text(
-              'Stok Kodu:',
+              '${Constants.stokKodu}:',
               style: purpleTxtStyle,
             ),
           ),

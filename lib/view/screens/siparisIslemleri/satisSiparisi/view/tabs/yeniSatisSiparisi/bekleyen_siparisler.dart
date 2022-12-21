@@ -268,7 +268,7 @@ class BekleyenSiparisler extends ConsumerWidget {
           Expanded(
             flex: 5,
             child: Text(
-              '${model.siparisler.length} Satır ',
+              '${model.siparisler.length} ${Constants.satir} ',
               style: purpleTxtStyle.copyWith(fontSize: 15),
             ),
           ),

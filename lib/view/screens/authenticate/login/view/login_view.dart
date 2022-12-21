@@ -96,8 +96,8 @@ class _LoginState extends ConsumerState<Login> {
                   loading: () => const CommonLoading(),
                   error: (error, stackTrace) => showAlertDialog(
                       context: context,
-                      hataBaslik: Constants.HATA_BASLIK,
-                      hataIcerik: Constants.HATA_ICERIK),
+                      hataBaslik: Constants.hataBaslik,
+                      hataIcerik: Constants.hataIcerik),
                   data: (data) {
                     List<FirmaModel> firmaList = data.map((e) => e).toList();
                     return _buildFirmaField(
@@ -106,7 +106,7 @@ class _LoginState extends ConsumerState<Login> {
                       context: context,
                       dynamicHeight: context.dynamicHeight,
                       dynamicWidth: context.dynamicWidth,
-                      hint: Constants.SIRKET_ADI,
+                      hint: Constants.sirketAdi,
                       prefixIcon: Icons.account_balance,
                       suffixIcon: Icons.replay_rounded,
                     );
@@ -119,8 +119,8 @@ class _LoginState extends ConsumerState<Login> {
                   loading: () => const CommonLoading(),
                   error: (error, stackTrace) => showAlertDialog(
                       context: context,
-                      hataBaslik: Constants.HATA_BASLIK,
-                      hataIcerik: Constants.HATA_ICERIK),
+                      hataBaslik: Constants.hataBaslik,
+                      hataIcerik: Constants.hataIcerik),
                   data: (data) {
                     List<UserModel> userList = data.map((e) => e).toList();
                     return UserTextField(
@@ -128,7 +128,7 @@ class _LoginState extends ConsumerState<Login> {
                       userCodeController: userCodeController,
                       userNameController: userController,
                       userList: userList,
-                      hint: Constants.KULLANICI_ADI,
+                      hint: Constants.kullaniciAdi,
                       prefixIcon: Icons.person,
                       suffixIcon: Icons.replay_rounded,
                     );
@@ -141,7 +141,7 @@ class _LoginState extends ConsumerState<Login> {
                   context: context,
                   dynamicHeight: context.dynamicHeight,
                   dynamicWidth: context.dynamicWidth,
-                  hint: Constants.SIFRE,
+                  hint: Constants.sifre,
                   passwordController: passwordController,
                   prefixIcon: Icons.password,
                 ),
@@ -155,7 +155,7 @@ class _LoginState extends ConsumerState<Login> {
                   value: remember,
                   onChanged: buildRememberMeShared,
                   title: const Text(
-                    Constants.BENI_HATIRLA,
+                    Constants.beniHatirla,
                     style: TextStyle(color: Colors.white),
                   ),
                   controlAffinity: ListTileControlAffinity.leading,
@@ -221,7 +221,7 @@ class _LoginState extends ConsumerState<Login> {
                     shadowColor: Colors.black87,
                   ),
                   child: const Text(
-                    Constants.GIRIS_YAP,
+                    Constants.girisYap,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -422,7 +422,7 @@ showFirmalar(
 
 _buildLogo(context, double dynamicHeight, double dynamicWidth) {
   return Image(
-    image: const AssetImage(Constants.LOGO),
+    image: const AssetImage(Constants.logo),
     width: dynamicHeight * 0.3,
     height: dynamicWidth * 0.8,
   );

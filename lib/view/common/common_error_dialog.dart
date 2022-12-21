@@ -11,7 +11,7 @@ showAlertDialog(
       backgroundColor: MaterialStateProperty.all(Color(MyColors.bg01)),
     ),
     child: const Text(
-      Constants.OK,
+      Constants.ok,
       style: TextStyle(color: Colors.white),
     ),
     onPressed: () {

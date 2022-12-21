@@ -38,7 +38,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class StokService {
   var data = [];
   List<Stoklar> results = [];
-  String fetchUrl = '${ConstantProvider.BASE_URL}Stoklar/search';
+  String fetchUrl = '${ConstantProvider.baseUrl}Stoklar/search';
   Future<List<Stoklar>> getStokLList() async {
     var response = await Dio().get(fetchUrl);
     try {

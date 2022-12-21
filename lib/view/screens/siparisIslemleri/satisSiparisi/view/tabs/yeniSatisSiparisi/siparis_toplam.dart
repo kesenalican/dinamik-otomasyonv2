@@ -37,10 +37,10 @@ class SiparisToplam extends HookConsumerWidget {
     final evrakNoController = useTextEditingController(text: '');
     final belgeNoController = useTextEditingController(text: '');
 
-    final dovizController = useTextEditingController(text: 'Türk Lirası');
+    final dovizController = useTextEditingController(text: Constants.turkLirasi);
     final projeController = useTextEditingController(text: '');
     final sormMerkeziController = useTextEditingController(text: '');
-    final odemePlaniController = useTextEditingController(text: 'PEŞİN');
+    final odemePlaniController = useTextEditingController(text: Constants.pesin);
     final depoController = useTextEditingController(text: '1');
     final saticiController = useTextEditingController(text: '');
     final teslimTuruController = useTextEditingController(text: '');
@@ -81,7 +81,7 @@ class SiparisToplam extends HookConsumerWidget {
               validator: (value) => null,
               focusNode: focusNode,
               controller: evrakSeriController,
-              field: 'Evrak Seri',
+              field: Constants.evrakSeri,
               icon: Icons.document_scanner,
               isMandatory: false,
               searchFormKey: searchFormKey,
@@ -95,7 +95,7 @@ class SiparisToplam extends HookConsumerWidget {
             CommonTextField(
               validator: (value) => null,
               controller: belgeNoController,
-              field: 'Belge kodu',
+              field:Constants.belgeKodu,
               icon: Icons.document_scanner,
               isMandatory: false,
               readOnly: false,
@@ -120,7 +120,7 @@ class SiparisToplam extends HookConsumerWidget {
                   child: CommonTextField(
                     validator: (value) => null,
                     controller: aciklamaController,
-                    field: 'Açıklama',
+                    field:Constants.aciklama ,
                     icon: Icons.style,
                     isMandatory: true,
                     readOnly: false,
@@ -231,7 +231,7 @@ class SiparisToplam extends HookConsumerWidget {
                         builder: (context) {
                           return AlertDialog(
                             content: Text(
-                              'Sipariş Başarıyla Kaydedildi!',
+                              Constants.siparisBasariylaKaydedildi,
                               style: purpleTxtStyle,
                             ),
                             actions: [
@@ -250,7 +250,7 @@ class SiparisToplam extends HookConsumerWidget {
                                               )));
                                 },
                                 child: const Text(
-                                  Constants.OK,
+                                  Constants.ok,
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),

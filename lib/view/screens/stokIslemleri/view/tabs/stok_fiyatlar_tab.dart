@@ -90,7 +90,7 @@ class FiyatlarTab extends ConsumerWidget {
         ),
         child: const Center(
           child: Text(
-            Constants.SON_ALIS_FIYATLARI,
+            Constants.sonAlisFiyatlari,
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -118,7 +118,7 @@ class FiyatlarTab extends ConsumerWidget {
         ),
         child: const Center(
           child: Text(
-            Constants.SON_SATIS_FIYATLARI,
+            Constants.sonSatisFiyatlari,
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -149,7 +149,7 @@ class FiyatlarTab extends ConsumerWidget {
             children: [
               Padding(
                 padding: context.paddingDefault,
-                child: Text(Constants.SATIS_FIYATI, style: purpleBoldTxtStyle),
+                child: Text(Constants.satisFiyati, style: purpleBoldTxtStyle),
               ),
               Padding(
                 padding: context.paddingDefault,
@@ -222,7 +222,7 @@ class FiyatlarTab extends ConsumerWidget {
       ),
       child: Center(
         child: Text(
-          Constants.TANIMLI_FIYATLAR,
+          Constants.tanimliFiyatlar,
           style: TextStyle(
             color: Color(MyColors.bg01),
             fontWeight: FontWeight.bold,

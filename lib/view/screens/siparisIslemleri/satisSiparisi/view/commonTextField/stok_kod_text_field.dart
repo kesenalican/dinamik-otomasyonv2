@@ -41,7 +41,7 @@ class StokKodTextField extends StatelessWidget {
             ),
           ),
           decoration: InputDecoration(
-            labelText: Constants.STOK_KODU,
+            labelText: Constants.stokKodu,
             labelStyle: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w400,

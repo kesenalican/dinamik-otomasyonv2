@@ -37,7 +37,7 @@ class DepoTextField extends ConsumerWidget {
           MyColors.bg01,
         )),
         decoration: InputDecoration(
-          labelText: Constants.DEPO,
+          labelText: Constants.depo,
           labelStyle: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w400,

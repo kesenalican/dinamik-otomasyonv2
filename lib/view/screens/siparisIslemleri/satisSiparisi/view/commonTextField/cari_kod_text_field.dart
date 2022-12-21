@@ -38,7 +38,7 @@ class CariKodTextField extends StatelessWidget {
             ),
           ),
           decoration: InputDecoration(
-            labelText: Constants.CARI_KODU,
+            labelText: Constants.cariKodu,
             labelStyle: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w400,

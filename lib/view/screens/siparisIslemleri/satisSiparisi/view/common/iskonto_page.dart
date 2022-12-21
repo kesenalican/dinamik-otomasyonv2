@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/view/common/common_textfield.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/viewmodel/satis_siparisi_view_model.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
@@ -39,7 +40,7 @@ class IskontoEkle extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var viewModel = ref.watch(satisSiparisViewModel);
     return Scaffold(
-      appBar: CommonAppbar(whichPage: 'İskonto ve Masraflar'),
+      appBar: CommonAppbar(whichPage: Constants.iskontoVeMasraflar),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.pop(
@@ -59,43 +60,43 @@ class IskontoEkle extends ConsumerWidget {
             children: [
               buildIskontoLine(
                 context,
-                isk: 'İskonto 1',
+                isk: Constants.iskonto1,
                 viewModel: viewModel,
                 iskController: isk1Controller!,
               ),
               buildIskontoLine(
                 context,
-                isk: 'İskonto 2',
+                isk: Constants.iskonto2,
                 viewModel: viewModel,
                 iskController: isk2Controller!,
               ),
               buildIskontoLine(
                 context,
-                isk: 'İskonto 3',
+                isk: Constants.iskonto3,
                 viewModel: viewModel,
                 iskController: isk3Controller!,
               ),
               buildIskontoLine(
                 context,
-                isk: 'İskonto 4',
+                isk: Constants.iskonto4,
                 viewModel: viewModel,
                 iskController: isk4Controller!,
               ),
               buildIskontoLine(
                 context,
-                isk: 'İskonto 5',
+                isk: Constants.iskonto5,
                 viewModel: viewModel,
                 iskController: isk5Controller!,
               ),
               buildIskontoLine(
                 context,
-                isk: 'İskonto 6',
+                isk: Constants.iskonto6,
                 viewModel: viewModel,
                 iskController: isk6Controller!,
               ),
               Center(
                 child: Text(
-                  'Masraflar',
+                  Constants.masraflar,
                   style: purpleBoldTxtStyle,
                 ),
               ),
@@ -110,25 +111,25 @@ class IskontoEkle extends ConsumerWidget {
               buildMasLine(
                 context,
                 viewModel: viewModel,
-                mas: 'Masraf 1',
+                mas: Constants.masraf1,
                 masController: mas1Controller!,
               ),
               buildMasLine(
                 context,
                 viewModel: viewModel,
-                mas: 'Masraf 2',
+                mas: Constants.masraf2,
                 masController: mas2Controller!,
               ),
               buildMasLine(
                 context,
                 viewModel: viewModel,
-                mas: 'Masraf 3',
+                mas: Constants.masraf3,
                 masController: mas3Controller!,
               ),
               buildMasLine(
                 context,
                 viewModel: viewModel,
-                mas: 'Masraf 4',
+                mas: Constants.masraf4,
                 masController: mas4Controller!,
               ),
             ],

@@ -1,5 +1,6 @@
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
+import 'package:dinamik_otomasyon/core/routing/route_constants.dart';
 import 'package:dinamik_otomasyon/view/common/common_appbar.dart';
 import 'package:dinamik_otomasyon/view/common/common_loading.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/urun_bilgileri_gir.dart';
@@ -110,7 +111,8 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: CommonAppbar(
-        whichPage: widget.detayaGitmesin! ? 'Ürün Seç' : 'Stoklar',
+        whichPage:
+            widget.detayaGitmesin! ? Constants.urunSec : Constants.stoklar,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -140,7 +142,7 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
                 },
                 error: (err, stack) {
                   return Center(
-                    child: Text('Hata çıktı ${err.toString()}'),
+                    child: Text('${Constants.hataCikti} ${err.toString()}'),
                   );
                 },
                 loading: () => const CommonLoading()),
@@ -190,7 +192,7 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
                                 alisSiparisi: false,
                               )));
                 } else {
-                  Navigator.pushNamed(context, '/stockDetail',
+                  Navigator.pushNamed(context, RouteConstants.stockDetail,
                       arguments: stokList[index]);
                 }
               },
@@ -225,7 +227,7 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
                     ? CircularProgressIndicator(
                         color: Color(MyColors.bg01),
                       )
-                    : const Text('Listenin sonuna ulaştınız.'),
+                    : const Text(Constants.listeSonunaUlastiniz),
               ),
             );
           }
@@ -268,7 +270,7 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
             ),
           ),
           Text(
-            '$truncateFiyat TL',
+            '$truncateFiyat ${CurrencyConstants.tl}',
             style: TextStyle(
               color: Color(MyColors.bg01),
               fontSize: 10,
@@ -345,7 +347,7 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
               },
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: Constants.ARA,
+                hintText: Constants.ara,
                 hintStyle: TextStyle(
                     fontSize: 13,
                     color: Color(MyColors.purple01),

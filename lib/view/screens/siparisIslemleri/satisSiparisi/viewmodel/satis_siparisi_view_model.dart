@@ -1,3 +1,4 @@
+import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cariler.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/model/siparisler.dart';
@@ -120,8 +121,8 @@ class SatisSiparisiViewModel extends ChangeNotifier {
       Future.delayed(const Duration(milliseconds: 500), () {
         return showAlertDialog(
           context: context,
-          hataBaslik: 'Uyarı',
-          hataIcerik: 'Önce Stok Seçiniz!',
+          hataBaslik: Constants.uyari,
+          hataIcerik: Constants.onceStokSeciniz,
         );
       });
     }
@@ -160,10 +161,10 @@ class SatisSiparisiViewModel extends ChangeNotifier {
     if (value.isNotEmpty) {
       int myValue = int.parse(value);
       if (myValue <= 0) {
-        return 'Miktar 0 olamaz!';
+        return Constants.miktarSifirHatasi;
       }
     } else {
-      return 'Lütfen Miktar Giriniz!';
+      return Constants.miktarHatasi;
     }
   }
 

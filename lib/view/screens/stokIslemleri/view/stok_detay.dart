@@ -30,7 +30,7 @@ class _StokDetayState extends State<StokDetay> {
             },
           ),
           title: Text(
-            Constants.STOK_DETAY,
+            Constants.stokDetay,
             style: TextStyle(
                 color: Color(MyColors.bg), fontWeight: FontWeight.w600),
           ),
@@ -41,23 +41,23 @@ class _StokDetayState extends State<StokDetay> {
             tabs: [
               Tab(
                 icon: Icon(Icons.info_outline),
-                text: Constants.GENEL,
+                text: Constants.genel,
               ),
               Tab(
                 icon: Icon(Icons.price_change_rounded),
-                text: Constants.FIYATLAR,
+                text: Constants.fiyatlar,
               ),
               Tab(
                 icon: Icon(Icons.warehouse),
-                text: Constants.DEPO,
+                text: Constants.depo,
               ),
               Tab(
                 icon: Icon(Icons.report_gmailerrorred),
-                text: Constants.RAPORLAR,
+                text: Constants.raporlar,
               ),
               Tab(
                 icon: Icon(Icons.auto_graph),
-                text: Constants.GRAFIKLER,
+                text: Constants.grafikler,
               ),
             ],
           ),

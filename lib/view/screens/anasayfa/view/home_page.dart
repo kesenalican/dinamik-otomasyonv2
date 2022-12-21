@@ -28,7 +28,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonAppbar(whichPage: Constants.ANASAYFA),
+      appBar: CommonAppbar(whichPage: Constants.anaSayfa),
       drawer: DrawerMenu(sirketAdi: widget.sirketAdi!),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: context.dynamicWidth * 0.02),
@@ -101,7 +101,7 @@ class _HomePageState extends ConsumerState<HomePage> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          Constants.KARTLAR,
+          Constants.kartlar,
           style: context.theme.textTheme.headline6,
         ),
       ],

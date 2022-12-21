@@ -1,3 +1,4 @@
+import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/common/common_button.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/common/iskonto_page.dart';
@@ -38,7 +39,7 @@ class SiparisListesi extends HookConsumerWidget {
                             detayaGitmesin: true,
                           )));
             },
-            child: CommonButton(buttonName: 'Ürün Ekle +')),
+            child: CommonButton(buttonName: '${Constants.urunEkle} +')),
         InkWell(
             onTap: () {
               Navigator.push(
@@ -57,7 +58,7 @@ class SiparisListesi extends HookConsumerWidget {
                             mas4Controller: mas4Controller,
                           )));
             },
-            child: CommonButton(buttonName: 'İskonto Ekle +')),
+            child: CommonButton(buttonName: Constants.iskontoEkle)),
         SizedBox(
           height: context.dynamicHeight * 0.6,
           child: ListView.builder(
@@ -71,7 +72,7 @@ class SiparisListesi extends HookConsumerWidget {
                         builder: (context) {
                           return AlertDialog(
                             content: Text(
-                              'Ne yapmak istiyorsunuz?',
+                              Constants.neYapmakIstiyorSunuz,
                               style: purpleTxtStyle,
                             ),
                             actions: [
@@ -89,7 +90,7 @@ class SiparisListesi extends HookConsumerWidget {
                                                   siparisModel.savedStok!)));
                                 },
                                 child: Text(
-                                  'Detay',
+                                  Constants.detay,
                                   style: whiteTxtStyle,
                                 ),
                               ),
@@ -104,7 +105,7 @@ class SiparisListesi extends HookConsumerWidget {
                                   Navigator.pop(context);
                                 },
                                 child: Text(
-                                  'Sil',
+                                  Constants.sil,
                                   style: whiteTxtStyle,
                                 ),
                               ),
@@ -175,7 +176,7 @@ class SiparisListesi extends HookConsumerWidget {
                                   padding: EdgeInsets.all(
                                       context.dynamicHeight * 0.006),
                                   child: Text(
-                                    'Adet: ${siparisModel.siparisler[index].sipMiktar}',
+                                    '${Constants.adet}: ${siparisModel.siparisler[index].sipMiktar}',
                                     style: TextStyle(
                                       color: Color(MyColors.bg01),
                                       fontSize: 15,

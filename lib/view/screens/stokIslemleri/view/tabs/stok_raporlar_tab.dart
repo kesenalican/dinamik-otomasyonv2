@@ -27,26 +27,26 @@ class _RaporlarTabState extends BaseState<RaporlarTab> {
             Expanded(
                 flex: 1,
                 child: raporListe(
-                    raporAdi: Constants.DEPODA_HANGI_URUNLER_MEVCUT)),
+                    raporAdi: Constants.depodaHangiUrunlerMevcut)),
             Expanded(
                 flex: 1,
                 child: raporListe(
-                    raporAdi: Constants.URUN_HANGI_DEPODA,
+                    raporAdi: Constants.urunHangiDepoda,
                     hangiSayfa: UrunHangiDepoda(
                       stokModel: widget.stokModel,
                     ))),
             Expanded(
                 flex: 1,
                 child:
-                    raporListe(raporAdi: Constants.SATISI_YAPILMAYAN_URUNLER)),
+                    raporListe(raporAdi: Constants.satisiYapilmayanUrunler)),
             Expanded(
                 flex: 1,
                 child: raporListe(
-                    raporAdi: Constants.EN_COK_SATILAN_URUNLER,
+                    raporAdi: Constants.enCokSatilanUrunler,
                     hangiSayfa: const EnCokSatilanUrunler())),
             Expanded(
                 flex: 1,
-                child: raporListe(raporAdi: Constants.EN_COK_ALINAN_URUNLER)),
+                child: raporListe(raporAdi: Constants.enCokAlinanUrunler)),
           ],
         ),
       ),

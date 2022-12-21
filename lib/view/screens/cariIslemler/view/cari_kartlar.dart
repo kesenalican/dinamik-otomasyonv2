@@ -302,7 +302,7 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
               // onSubmitted: (value) => _runFilter(value),
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: Constants.ARA,
+                hintText: Constants.ara,
                 hintStyle: TextStyle(
                     fontSize: 13,
                     color: Color(MyColors.purple01),

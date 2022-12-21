@@ -37,15 +37,15 @@ class SatisSiparisi extends ConsumerWidget {
               tabs: [
                 Tab(
                   icon: Icon(Icons.add),
-                  text: 'Sipariş Listesi',
+                  text: Constants.siparisListesi,
                 ),
                 Tab(
                   icon: Icon(Icons.restart_alt_outlined),
-                  text: 'Sipariş Özeti',
+                  text: Constants.siparisOzeti,
                 ),
                 Tab(
                   icon: Icon(Icons.done),
-                  text: 'Toplam',
+                  text: Constants.toplam,
                 ),
               ],
             ),
@@ -72,11 +72,11 @@ class SatisSiparisi extends ConsumerWidget {
         builder: (context) {
           return AlertDialog(
             title: Text(
-              'Dikkat!',
+              Constants.dikkat,
               style: purpleBoldTxtStyle,
             ),
             content: Text(
-              'Sipariş işlemleri iptal edilecektir. Çıkmak istiyor musunuz?',
+              Constants.iptalMesaji,
               style: purpleTxtStyle,
             ),
             actions: [
@@ -88,7 +88,7 @@ class SatisSiparisi extends ConsumerWidget {
                   Navigator.of(context).pop(false);
                 },
                 child: Text(
-                  'İptal',
+                  Constants.iptal,
                   style: whiteTxtStyle,
                 ),
               ),
@@ -105,7 +105,7 @@ class SatisSiparisi extends ConsumerWidget {
                   model.toplamTutar = 0;
                 },
                 child: Text(
-                  'Evet',
+                  Constants.evet,
                   style: whiteTxtStyle,
                 ),
               ),

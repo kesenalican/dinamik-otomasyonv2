@@ -3,7 +3,7 @@ import '../constants/constant.dart';
 
 List dataList = [
   {
-    'name': Constants.FATURA_ISLEMLERI,
+    'name': Constants.faturaIslemleri,
     'icon': Icons.payment,
     'subMenu': [
       {
@@ -24,7 +24,7 @@ List dataList = [
     ]
   },
   {
-    'name': Constants.IRSALIYE_ISLEMLERI,
+    'name': Constants.irsaliyeIslemleri,
     'icon': Icons.payment,
     'subMenu': [
       {
@@ -45,7 +45,7 @@ List dataList = [
     ]
   },
   {
-    'name': Constants.SIPARIS_ISLEMLERI,
+    'name': Constants.siparisIslemleri,
     'icon': Icons.reorder,
     'subMenu': [
       {
@@ -72,7 +72,7 @@ List dataList = [
     ]
   },
   {
-    'name': Constants.SIPARIS_TESLIMATI,
+    'name': Constants.siparisTeslimati,
     'icon': Icons.delivery_dining,
     'subMenu': [
       {
@@ -87,7 +87,7 @@ List dataList = [
     ]
   },
   {
-    'name': Constants.ZIYARET_ISLEMLERI,
+    'name': Constants.ziyaretIslemleri,
     'icon': Icons.visibility_outlined,
     'subMenu': [
       {
@@ -105,7 +105,7 @@ List dataList = [
     ]
   },
   {
-    'name': Constants.FINANS_ISLEMLERI,
+    'name': Constants.finansIslemleri,
     'icon': Icons.attach_money_outlined,
     'subMenu': [
       {
@@ -123,7 +123,7 @@ List dataList = [
     ]
   },
   {
-    'name': Constants.CARI_ISLEMLER,
+    'name': Constants.cariIslemler,
     'icon': Icons.account_circle,
     'subMenu': [
       {
@@ -141,7 +141,7 @@ List dataList = [
     ],
   },
   {
-    'name': Constants.STOK_ISLEMLERI,
+    'name': Constants.stokIslemleri,
     'icon': Icons.production_quantity_limits,
     'subMenu': [
       {
@@ -165,7 +165,7 @@ List dataList = [
     ]
   },
   {
-    'name': Constants.RAPORLAR,
+    'name': Constants.raporlar,
     'icon': Icons.report,
     'subMenu': [
       {
@@ -195,23 +195,23 @@ List dataList = [
     ]
   },
   {
-    'name': Constants.DOVIZ_KURLARI,
+    'name': Constants.dovizKurlari,
     'icon': Icons.money,
   },
   {
-    'name': Constants.SIRKET_DEGISTIR,
+    'name': Constants.sirketDegistir,
     'icon': Icons.change_circle,
   },
   {
-    'name': Constants.VERI_GUNCELLEME,
+    'name': Constants.veriGuncelleme,
     'icon': Icons.update,
   },
   {
-    'name': Constants.AYARLAR,
+    'name': Constants.ayarlar,
     'icon': Icons.settings,
   },
   {
-    'name': Constants.CIKIS,
+    'name': Constants.cikis,
     'icon': Icons.settings,
   },
 ];

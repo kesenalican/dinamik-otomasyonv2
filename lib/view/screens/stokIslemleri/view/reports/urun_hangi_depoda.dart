@@ -102,14 +102,14 @@ class UrunHangiDepoda extends HookConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    Constants.STOK_KODU,
+                    Constants.stokKodu,
                     style: purpleTxtStyle,
                   ),
                   SizedBox(
                     height: context.dynamicHeight * 0.04,
                   ),
                   Text(
-                    Constants.STOK_ISIM,
+                    Constants.stokIsim,
                     style: purpleTxtStyle,
                   ),
                 ],

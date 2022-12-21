@@ -45,12 +45,12 @@ class _UrunAraState extends BaseState<UrunAra> {
                   children: [
                     Padding(
                       padding: paddingDefault,
-                      child: const Text(Constants.STOK_KARTLARI),
+                      child: const Text(Constants.stokKartlari),
                     ),
                     Padding(
                       padding: paddingDefault,
                       child: const Text(
-                        Constants.HIZMET_KARTI,
+                        Constants.hizmetKarti,
                       ),
                     ),
                   ],
@@ -58,7 +58,7 @@ class _UrunAraState extends BaseState<UrunAra> {
 
                 const SearchInput(),
                 CommonButton(
-                  buttonName: Constants.URUN_ARA,
+                  buttonName: Constants.urunAra,
                 ),
               ],
             ),

@@ -52,7 +52,7 @@ class SonSatisFiyatlari extends ConsumerWidget {
                   if (liste.isEmpty) {
                     return Center(
                         child: Text(
-                      Constants.SATIS_FATURASI_BULUNAMADI,
+                      Constants.satisFaturasiBulunamadi,
                       style: purpleBoldTxtStyle,
                     ));
                   } else {
@@ -84,7 +84,7 @@ class SonSatisFiyatlari extends ConsumerWidget {
                 error: (err, stack) {
                   showAlertDialog(
                     context: context,
-                    hataBaslik: Constants.HATA_BASLIK,
+                    hataBaslik: Constants.hataBaslik,
                     hataIcerik: err.toString(),
                   );
                   return null;

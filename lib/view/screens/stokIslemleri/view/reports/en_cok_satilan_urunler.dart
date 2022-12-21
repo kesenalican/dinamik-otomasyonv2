@@ -209,7 +209,7 @@ class _EnCokSatilanUrunlerState extends BaseState<EnCokSatilanUrunler> {
         ),
         child: const Center(
           child: Text(
-            Constants.HEPSINI_LISTELE,
+            Constants.hepsiniListele,
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
