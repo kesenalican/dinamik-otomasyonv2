@@ -1,4 +1,3 @@
-import 'package:dinamik_otomasyon/Model/cari_personel.dart';
 import 'package:dinamik_otomasyon/Model/cari_personel_tanimlari.dart';
 import 'package:dinamik_otomasyon/Model/depo_model.dart';
 import 'package:dinamik_otomasyon/Model/firma_model.dart';

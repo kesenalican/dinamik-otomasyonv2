@@ -1,6 +1,7 @@
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
+import 'package:dinamik_otomasyon/view/common/common_loading.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/model/stoklar_model.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/service/stok_service.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
@@ -9,11 +10,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../common/common_appbar.dart';
 import '../../../styles/colors.dart';
 
-// ignore: must_be_immutable
 class SonSatisFiyatlari extends ConsumerWidget {
-  Stoklar stokModel;
+  final Stoklar stokModel;
 
-  SonSatisFiyatlari({Key? key, required this.stokModel}) : super(key: key);
+  const SonSatisFiyatlari({Key? key, required this.stokModel})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -47,54 +48,50 @@ class SonSatisFiyatlari extends ConsumerWidget {
               height: context.dynamicHeight * 0.80,
               width: double.infinity,
               child: alisFiyatlari.when(
-                data: (data) {
-                  List liste = data.map((e) => e).toList();
-                  if (liste.isEmpty) {
-                    return Center(
-                        child: Text(
-                      Constants.satisFaturasiBulunamadi,
-                      style: purpleBoldTxtStyle,
-                    ));
-                  } else {
-                    return ListView.builder(
-                      itemCount: liste.length,
-                      itemBuilder: (context, index) {
-                        DateTime dateTime = DateTime.parse(liste[index].tarih);
-                        var formattedDate =
-                            '${dateTime.year}/${dateTime.month}/${dateTime.day}';
-                        // Fiyat kısmında noktadan sonra 2 hane alınıyor..
-                        double brutFiyat = double.parse(
-                            (liste[index].brutTutar).toStringAsFixed(2));
-                        double netFiyat = double.parse(
-                            (liste[index].netBirimFiyati).toStringAsFixed(2));
-                        return Column(
-                          children: [
-                            fiyatList(context,
-                                sirketAdi: liste[index].cariAdi,
-                                brutFiyati: brutFiyat,
-                                fiyati: netFiyat,
-                                miktar: liste[index].miktar,
-                                tarih: formattedDate),
-                          ],
-                        );
-                      },
+                  data: (data) {
+                    List liste = data.map((e) => e).toList();
+                    if (liste.isEmpty) {
+                      return Center(
+                          child: Text(
+                        Constants.satisFaturasiBulunamadi,
+                        style: purpleBoldTxtStyle,
+                      ));
+                    } else {
+                      return ListView.builder(
+                        itemCount: liste.length,
+                        itemBuilder: (context, index) {
+                          DateTime dateTime =
+                              DateTime.parse(liste[index].tarih);
+                          var formattedDate =
+                              '${dateTime.year}/${dateTime.month}/${dateTime.day}';
+                          // Fiyat kısmında noktadan sonra 2 hane alınıyor..
+                          double brutFiyat = double.parse(
+                              (liste[index].brutTutar).toStringAsFixed(2));
+                          double netFiyat = double.parse(
+                              (liste[index].netBirimFiyati).toStringAsFixed(2));
+                          return Column(
+                            children: [
+                              fiyatList(context,
+                                  sirketAdi: liste[index].cariAdi,
+                                  brutFiyati: brutFiyat,
+                                  fiyati: netFiyat,
+                                  miktar: liste[index].miktar,
+                                  tarih: formattedDate),
+                            ],
+                          );
+                        },
+                      );
+                    }
+                  },
+                  error: (err, stack) {
+                    showAlertDialog(
+                      context: context,
+                      hataBaslik: Constants.hataBaslik,
+                      hataIcerik: err.toString(),
                     );
-                  }
-                },
-                error: (err, stack) {
-                  showAlertDialog(
-                    context: context,
-                    hataBaslik: Constants.hataBaslik,
-                    hataIcerik: err.toString(),
-                  );
-                  return null;
-                },
-                loading: () => Center(
-                  child: CircularProgressIndicator(
-                    color: Color(MyColors.bg01),
-                  ),
-                ),
-              ),
+                    return null;
+                  },
+                  loading: () => const CommonLoading()),
             ),
           ],
         ),

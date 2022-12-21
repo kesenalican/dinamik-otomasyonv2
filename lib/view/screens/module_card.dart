@@ -4,17 +4,16 @@ import '../../Model/module_name.dart';
 import '../styles/colors.dart';
 import '../styles/styles.dart';
 
-// ignore: must_be_immutable
 class ScheduleTab extends StatefulWidget {
-  String? cardName;
+  final String? cardName;
 
-  ScheduleTab({Key? key, required this.cardName}) : super(key: key);
+  const ScheduleTab({Key? key, required this.cardName}) : super(key: key);
 
   @override
   State<ScheduleTab> createState() => _ScheduleTabState();
 }
 
-enum FilterStatus { Upcoming, Complete, Cancel }
+enum FilterStatus { upComing, complete, cancel }
 
 List<Map> schedules = [
   {
@@ -23,7 +22,7 @@ List<Map> schedules = [
     'doctorTitle': 'Dondurma Grubu',
     'reservedDate': '08.10.2022',
     'reservedTime': '130',
-    'status': FilterStatus.Upcoming
+    'status': FilterStatus.upComing
   },
   {
     'img': 'assets/doctor02.png',
@@ -31,7 +30,7 @@ List<Map> schedules = [
     'doctorTitle': 'Skin Specialist',
     'reservedDate': 'Monday, Sep 29',
     'reservedTime': '11:00 - 12:00',
-    'status': FilterStatus.Upcoming
+    'status': FilterStatus.upComing
   },
   {
     'img': 'assets/doctor03.jpeg',
@@ -39,7 +38,7 @@ List<Map> schedules = [
     'doctorTitle': 'General Specialist',
     'reservedDate': 'Monday, Jul 29',
     'reservedTime': '11:00 - 12:00',
-    'status': FilterStatus.Upcoming
+    'status': FilterStatus.upComing
   },
   {
     'img': 'assets/doctor04.jpeg',
@@ -47,7 +46,7 @@ List<Map> schedules = [
     'doctorTitle': 'Something Specialist',
     'reservedDate': 'Monday, Jul 29',
     'reservedTime': '11:00 - 12:00',
-    'status': FilterStatus.Complete
+    'status': FilterStatus.complete
   },
   {
     'img': 'assets/doctor05.jpeg',
@@ -55,7 +54,7 @@ List<Map> schedules = [
     'doctorTitle': 'Other Specialist',
     'reservedDate': 'Monday, Jul 29',
     'reservedTime': '11:00 - 12:00',
-    'status': FilterStatus.Cancel
+    'status': FilterStatus.cancel
   },
   {
     'img': 'assets/doctor05.jpeg',
@@ -63,12 +62,12 @@ List<Map> schedules = [
     'doctorTitle': 'Other Specialist',
     'reservedDate': 'Monday, Jul 29',
     'reservedTime': '11:00 - 12:00',
-    'status': FilterStatus.Cancel
+    'status': FilterStatus.cancel
   },
 ];
 
 class _ScheduleTabState extends State<ScheduleTab> {
-  FilterStatus status = FilterStatus.Upcoming;
+  FilterStatus status = FilterStatus.upComing;
   Alignment _alignment = Alignment.centerLeft;
 
   @override
@@ -95,14 +94,14 @@ class _ScheduleTabState extends State<ScheduleTab> {
                   width: 60,
                 ),
                 Text(
-                  widget.cardName == Modules[0]
-                      ? Modules[0]
-                      : widget.cardName == Modules[1]
-                          ? Modules[1]
-                          : widget.cardName == Modules[2]
-                              ? Modules[2]
-                              : widget.cardName == Modules[3]
-                                  ? Modules[3]
+                  widget.cardName == modules[0]
+                      ? modules[0]
+                      : widget.cardName == modules[1]
+                          ? modules[1]
+                          : widget.cardName == modules[2]
+                              ? modules[2]
+                              : widget.cardName == modules[3]
+                                  ? modules[3]
                                   : '',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -132,16 +131,16 @@ class _ScheduleTabState extends State<ScheduleTab> {
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
-                                if (filterStatus == FilterStatus.Upcoming) {
-                                  status = FilterStatus.Upcoming;
+                                if (filterStatus == FilterStatus.upComing) {
+                                  status = FilterStatus.upComing;
                                   _alignment = Alignment.centerLeft;
                                 } else if (filterStatus ==
-                                    FilterStatus.Complete) {
-                                  status = FilterStatus.Complete;
+                                    FilterStatus.complete) {
+                                  status = FilterStatus.complete;
                                   _alignment = Alignment.center;
                                 } else if (filterStatus ==
-                                    FilterStatus.Cancel) {
-                                  status = FilterStatus.Cancel;
+                                    FilterStatus.cancel) {
+                                  status = FilterStatus.cancel;
                                   _alignment = Alignment.centerRight;
                                 }
                               });

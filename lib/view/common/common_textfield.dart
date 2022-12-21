@@ -1,21 +1,19 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/common/common_input_border.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_model.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class CommonTextField extends StatelessWidget {
   final TextEditingController? controller;
   final String? field;
   final IconData? icon;
   final TextInputType? textInputType;
   final bool? isMandatory;
-  String? Function(String?)? validator;
+  final String? Function(String?)? validator;
   final bool? readOnly;
-  void Function(String?)? onFieldSubmit;
-  CariViewModel? cariViewModel;
+  final void Function(String?)? onFieldSubmit;
+  final CariViewModel cariViewModel = CariViewModel();
 
   CommonTextField(
       {Key? key,
@@ -38,6 +36,7 @@ class CommonTextField extends StatelessWidget {
         ),
         child: TextFormField(
           validator: validator,
+          textInputAction: TextInputAction.next,
           readOnly: readOnly ?? false,
           onFieldSubmitted: onFieldSubmit,
           controller: controller,

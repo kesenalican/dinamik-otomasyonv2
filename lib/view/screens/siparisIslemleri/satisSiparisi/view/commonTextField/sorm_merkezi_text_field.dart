@@ -10,10 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// ignore: must_be_immutable
 class SormMerkeziTextField extends ConsumerWidget {
-  TextEditingController sormMerkeziController;
-  SormMerkeziTextField({
+  final TextEditingController sormMerkeziController;
+  const SormMerkeziTextField({
     super.key,
     required this.sormMerkeziController,
   });
@@ -27,6 +26,7 @@ class SormMerkeziTextField extends ConsumerWidget {
         controller: sormMerkeziController,
         keyboardType: TextInputType.name,
         cursorColor: Color(MyColors.bg01),
+        textInputAction: TextInputAction.next,
         readOnly: true,
         style: TextStyle(
             color: Color(

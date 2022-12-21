@@ -10,10 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// ignore: must_be_immutable
 class DepoTextField extends ConsumerWidget {
-  TextEditingController depoController;
-  DepoTextField({
+  final TextEditingController depoController;
+  const DepoTextField({
     super.key,
     required this.depoController,
   });
@@ -28,6 +27,7 @@ class DepoTextField extends ConsumerWidget {
           if (value!.isEmpty) return 'Bu alan boş olamaz';
           return null;
         },
+        textInputAction: TextInputAction.next,
         controller: depoController,
         keyboardType: TextInputType.name,
         cursorColor: Color(MyColors.bg01),

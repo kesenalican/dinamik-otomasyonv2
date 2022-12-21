@@ -1,5 +1,4 @@
-// ignore: constant_identifier_names
-const Modules = [
+const modules = [
   'Stok Kartları',
   'Cari Kartlar',
   'Satış Siparişi',

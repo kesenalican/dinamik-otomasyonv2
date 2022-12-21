@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import '../../core/base/state/base_state.dart';
 import '../styles/colors.dart';
 
-// ignore: must_be_immutable
 class DetaySatir extends StatefulWidget {
-  String? hangiOzellik;
-  String? urunBilgi;
+  final String? hangiOzellik;
+  final String? urunBilgi;
 
-  DetaySatir({Key? key, required this.hangiOzellik, required this.urunBilgi})
+  const DetaySatir(
+      {Key? key, required this.hangiOzellik, required this.urunBilgi})
       : super(key: key);
 
   @override

@@ -13,12 +13,11 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../styles/colors.dart';
 
-// ignore: must_be_immutable
 class StokKartlari extends ConsumerStatefulWidget {
-  bool? detayaGitmesin = false;
-  StokKartlari({
+  final bool? detayaGitmesin;
+  const StokKartlari({
     super.key,
-    this.detayaGitmesin,
+    this.detayaGitmesin = false,
   });
 
   @override
@@ -224,9 +223,7 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
               padding: context.paddingDefault,
               child: Center(
                 child: hasMore
-                    ? CircularProgressIndicator(
-                        color: Color(MyColors.bg01),
-                      )
+                    ? const CommonLoading()
                     : const Text(Constants.listeSonunaUlastiniz),
               ),
             );
@@ -260,7 +257,7 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
           Padding(
             padding: EdgeInsets.all(context.dynamicHeight * 0.006),
             child: Text(
-              'Adet: ${stokList[index].stokMiktar.ceil().toString()}',
+              '${Constants.adet}: ${stokList[index].stokMiktar.ceil().toString()}',
               style: TextStyle(
                 color: Color(MyColors.bg01),
                 fontSize: 10,

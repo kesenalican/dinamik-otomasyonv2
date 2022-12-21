@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
@@ -8,16 +7,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:dinamik_otomasyon/view/screens/authenticate/login/model/user_model.dart';
 
-// ignore: must_be_immutable
 class UserTextField extends ConsumerStatefulWidget {
-  List<UserModel> userList;
-  TextEditingController userController;
-  TextEditingController userCodeController;
-  TextEditingController userNameController;
-  String hint;
-  IconData prefixIcon;
-  IconData suffixIcon;
-  UserTextField({
+  final List<UserModel> userList;
+  final TextEditingController userController;
+  final TextEditingController userCodeController;
+  final TextEditingController userNameController;
+  final String hint;
+  final IconData prefixIcon;
+  final IconData suffixIcon;
+  const UserTextField({
     super.key,
     required this.userList,
     required this.userController,
@@ -48,6 +46,7 @@ class _UserTextFieldState extends ConsumerState<UserTextField> {
             child: TextFormField(
               controller: widget.userController,
               readOnly: true,
+              textInputAction: TextInputAction.next,
               textAlignVertical: TextAlignVertical.bottom,
               cursorColor: Color(MyColors.bg01),
               style: TextStyle(

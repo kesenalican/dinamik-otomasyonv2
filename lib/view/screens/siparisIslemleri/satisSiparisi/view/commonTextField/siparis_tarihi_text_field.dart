@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class SiparisTarihiTextField extends HookWidget {
-  SiparisTarihiTextField({
+  const SiparisTarihiTextField({
     super.key,
     required this.siparisTarihiController,
     required this.orderDate,
   });
 
   final TextEditingController siparisTarihiController;
-  ValueNotifier<DateTime> orderDate;
+  final ValueNotifier<DateTime> orderDate;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +26,7 @@ class SiparisTarihiTextField extends HookWidget {
         validator: (value) => null,
         controller: siparisTarihiController,
         keyboardType: TextInputType.datetime,
+        textInputAction: TextInputAction.next,
         cursorColor: Color(MyColors.bg01),
         readOnly: true,
         style: TextStyle(

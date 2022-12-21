@@ -1,25 +1,24 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/common/common_input_border.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_model.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class EvrakSeriTextField extends StatelessWidget {
   final TextEditingController? controller;
   final String? field;
   final IconData? icon;
   final TextInputType? textInputType;
   final bool? isMandatory;
-  String? Function(String?)? validator;
-  FocusNode? focusNode;
+  final String? Function(String?)? validator;
+  final FocusNode? focusNode;
   final bool? readOnly;
   static final GlobalKey<FormFieldState<String>> searchFormKey =
       GlobalKey<FormFieldState<String>>();
-  CariViewModel? cariViewModel;
+  final CariViewModel? cariViewModel = CariViewModel();
 
-  EvrakSeriTextField({super.key, 
+  EvrakSeriTextField({
+    super.key,
     this.controller,
     this.field,
     this.icon,
@@ -40,6 +39,7 @@ class EvrakSeriTextField extends StatelessWidget {
         ),
         child: TextFormField(
           key: searchFormKey,
+          textInputAction: TextInputAction.next,
           validator: validator,
           focusNode: focusNode,
           readOnly: readOnly ?? false,

@@ -16,15 +16,11 @@ import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-// ignore: must_be_immutable
 class UrunBilgileriGir extends HookConsumerWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  double? kdvsizFiyat;
-  // ignore: prefer_typing_uninitialized_variables
-
-  // ignore: prefer_typing_uninitialized_variables
-  double? brutFiyat;
-  bool? alisSiparisi;
+  final double? kdvsizFiyat = 0;
+  final double? brutFiyat = 0;
+  final bool? alisSiparisi;
   UrunBilgileriGir({super.key, required this.alisSiparisi});
 
   @override
@@ -147,6 +143,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
                         child: TextFormField(
                           controller: siparisMiktariController,
                           focusNode: focusNode,
+                          textInputAction: TextInputAction.next,
                           keyboardType: TextInputType.number,
                           cursorColor: Color(MyColors.bg01),
                           validator: (value) {

@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/common/common_input_border.dart';
@@ -6,13 +5,12 @@ import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class StokKodTextField extends StatelessWidget {
-  CariViewModel cariViewModel = CariViewModel();
-  TextEditingController stokKoduController;
-  TextEditingController stokIsmiController;
-  TextEditingController stokBirimController;
-  TextEditingController stokFiyatController;
+  final CariViewModel cariViewModel = CariViewModel();
+  final TextEditingController stokKoduController;
+  final TextEditingController stokIsmiController;
+  final TextEditingController stokBirimController;
+  final TextEditingController stokFiyatController;
   StokKodTextField({
     super.key,
     required this.stokKoduController,
@@ -34,6 +32,7 @@ class StokKodTextField extends StatelessWidget {
           },
           readOnly: true,
           controller: stokKoduController,
+          textInputAction: TextInputAction.next,
           cursorColor: Color(MyColors.bg01),
           style: TextStyle(
             color: Color(

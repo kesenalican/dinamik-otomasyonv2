@@ -4,11 +4,9 @@
 
 import 'dart:convert';
 
-// ignore: non_constant_identifier_names
-CariModel CariModelFromMap(String str) => CariModel.fromMap(json.decode(str));
+CariModel cariModelFromMap(String str) => CariModel.fromMap(json.decode(str));
 
-// ignore: non_constant_identifier_names
-String CariModelToMap(CariModel data) => json.encode(data.toMap());
+String cariModelToMap(CariModel data) => json.encode(data.toMap());
 
 class CariModel {
   CariModel({

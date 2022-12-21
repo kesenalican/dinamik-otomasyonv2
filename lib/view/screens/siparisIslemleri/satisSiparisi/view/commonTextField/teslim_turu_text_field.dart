@@ -10,10 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// ignore: must_be_immutable
 class TeslimTuruTextField extends ConsumerWidget {
-  TextEditingController teslimTuruController;
-  TeslimTuruTextField({
+  final TextEditingController teslimTuruController;
+  const TeslimTuruTextField({
     super.key,
     required this.teslimTuruController,
   });
@@ -27,6 +26,7 @@ class TeslimTuruTextField extends ConsumerWidget {
         controller: teslimTuruController,
         keyboardType: TextInputType.name,
         cursorColor: Color(MyColors.bg01),
+        textInputAction: TextInputAction.next,
         readOnly: true,
         style: TextStyle(
             color: Color(

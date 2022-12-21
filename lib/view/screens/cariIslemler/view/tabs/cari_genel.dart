@@ -5,11 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 
-// ignore: must_be_immutable
 class CariGenelTab extends ConsumerWidget {
-  Cariler cariList;
+  final Cariler cariList;
 
-  CariGenelTab({Key? key, required this.cariList}) : super(key: key);
+  const CariGenelTab({Key? key, required this.cariList}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

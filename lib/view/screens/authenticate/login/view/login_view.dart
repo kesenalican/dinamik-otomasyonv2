@@ -15,7 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// ignore: must_be_immutable
 class Login extends ConsumerStatefulWidget {
   const Login({super.key});
 
@@ -252,8 +251,6 @@ class _LoginState extends ConsumerState<Login> {
   }
 }
 
-// ignore: must_be_immutable
-
 _buildFirmaField({
   List<FirmaModel>? firmalist,
   TextEditingController? companyController,
@@ -274,6 +271,7 @@ _buildFirmaField({
           color: Colors.transparent,
           child: TextFormField(
             readOnly: true,
+            textInputAction: TextInputAction.next,
             controller: companyController,
             textAlignVertical: TextAlignVertical.bottom,
             cursorColor: Color(MyColors.bg01),
@@ -340,6 +338,7 @@ _buildPasswordField({
       borderRadius: BorderRadius.circular(10),
       child: TextFormField(
           obscureText: true,
+          textInputAction: TextInputAction.next,
           enableSuggestions: false,
           autocorrect: false,
           controller: passwordController,

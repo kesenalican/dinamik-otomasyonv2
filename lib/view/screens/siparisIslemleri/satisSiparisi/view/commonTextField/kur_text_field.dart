@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dinamik_otomasyon/Model/kur_model.dart';
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/service/Providers/all_providers.dart';
@@ -13,10 +12,9 @@ import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// ignore: must_be_immutable
 class KurTextField extends ConsumerWidget {
-  TextEditingController dovizController;
-  KurTextField({
+  final TextEditingController dovizController;
+  const KurTextField({
     super.key,
     required this.dovizController,
   });
@@ -32,6 +30,7 @@ class KurTextField extends ConsumerWidget {
           return cariViewModel.validateIsNotEmpty(value!);
         },
         controller: dovizController,
+        textInputAction: TextInputAction.next,
         keyboardType: TextInputType.name,
         cursorColor: Color(MyColors.bg01),
         readOnly: true,

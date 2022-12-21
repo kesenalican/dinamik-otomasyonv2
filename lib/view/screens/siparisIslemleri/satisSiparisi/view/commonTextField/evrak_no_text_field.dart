@@ -10,10 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// ignore: must_be_immutable
 class EvrakNoTextField extends ConsumerWidget {
-  TextEditingController evrakNoController;
-  EvrakNoTextField({
+  final TextEditingController evrakNoController;
+  const EvrakNoTextField({
     super.key,
     required this.evrakNoController,
   });
@@ -28,6 +27,7 @@ class EvrakNoTextField extends ConsumerWidget {
         controller: evrakNoController,
         keyboardType: TextInputType.name,
         cursorColor: Color(MyColors.bg01),
+        textInputAction: TextInputAction.next,
         readOnly: false,
         style: TextStyle(
             color: Color(

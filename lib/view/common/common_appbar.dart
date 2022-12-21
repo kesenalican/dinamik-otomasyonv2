@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../styles/colors.dart';
 
-// ignore: must_be_immutable
 class CommonAppbar extends StatefulWidget implements PreferredSizeWidget {
-  String? whichPage;
+  final String? whichPage;
 
-  CommonAppbar({Key? key, required this.whichPage}) : super(key: key);
+  const CommonAppbar({Key? key, required this.whichPage}) : super(key: key);
 
   @override
   State<CommonAppbar> createState() => _CommonAppbarState();
@@ -20,6 +20,8 @@ class _CommonAppbarState extends State<CommonAppbar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      //TELEFONUN WIFI CUBUGU&SARJ IKONLARININ RENKLERI
+      systemOverlayStyle: SystemUiOverlayStyle.light,
       title: Text(
         widget.whichPage!,
         style:

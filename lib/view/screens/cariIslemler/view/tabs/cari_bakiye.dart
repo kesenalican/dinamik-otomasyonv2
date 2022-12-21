@@ -5,10 +5,9 @@ import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 
-// ignore: must_be_immutable
 class CariBakiyeTab extends StatefulWidget {
-  Cariler cariModel;
-  CariBakiyeTab({Key? key, required this.cariModel}) : super(key: key);
+  final Cariler cariModel;
+  const CariBakiyeTab({Key? key, required this.cariModel}) : super(key: key);
 
   @override
   State<CariBakiyeTab> createState() => _CariBakiyeTabState();

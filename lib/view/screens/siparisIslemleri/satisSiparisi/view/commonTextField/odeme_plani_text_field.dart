@@ -10,10 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// ignore: must_be_immutable
 class OdemePlaniTextField extends ConsumerWidget {
-  TextEditingController odemePlaniController;
-  OdemePlaniTextField({
+  final TextEditingController odemePlaniController;
+  const OdemePlaniTextField({
     super.key,
     required this.odemePlaniController,
   });
@@ -27,6 +26,7 @@ class OdemePlaniTextField extends ConsumerWidget {
         controller: odemePlaniController,
         keyboardType: TextInputType.name,
         cursorColor: Color(MyColors.bg01),
+        textInputAction: TextInputAction.next,
         readOnly: true,
         style: TextStyle(
             color: Color(

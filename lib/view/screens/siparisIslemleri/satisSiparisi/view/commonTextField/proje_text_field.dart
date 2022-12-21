@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dinamik_otomasyon/Model/projeler.dart';
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/service/Providers/all_providers.dart';
@@ -11,10 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// ignore: must_be_immutable
 class ProjeTextField extends ConsumerWidget {
-  TextEditingController projeController;
-  ProjeTextField({
+  final TextEditingController projeController;
+  const ProjeTextField({
     super.key,
     required this.projeController,
   });
@@ -27,6 +25,7 @@ class ProjeTextField extends ConsumerWidget {
       child: TextFormField(
         controller: projeController,
         keyboardType: TextInputType.name,
+        textInputAction: TextInputAction.next,
         cursorColor: Color(MyColors.bg01),
         readOnly: true,
         style: TextStyle(

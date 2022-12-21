@@ -11,10 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// ignore: must_be_immutable
 class CariPersonelTextField extends ConsumerWidget {
-  TextEditingController cariPersonelController;
-  CariPersonelTextField({
+  final TextEditingController cariPersonelController;
+  const CariPersonelTextField({
     super.key,
     required this.cariPersonelController,
   });
@@ -31,6 +30,7 @@ class CariPersonelTextField extends ConsumerWidget {
         controller: cariPersonelController,
         keyboardType: TextInputType.name,
         cursorColor: Color(MyColors.bg01),
+        textInputAction: TextInputAction.next,
         readOnly: true,
         style: TextStyle(
             color: Color(

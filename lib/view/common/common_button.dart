@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../styles/colors.dart';
 
-// ignore: must_be_immutable
 class CommonButton extends StatefulWidget {
-  String? buttonName;
-   CommonButton({Key? key, required this.buttonName}) : super(key: key);
+  final String? buttonName;
+  const CommonButton({Key? key, required this.buttonName}) : super(key: key);
+  final EdgeInsets edgeInsets = const EdgeInsets.all(10);
 
   @override
   State<CommonButton> createState() => _CommonButtonState();
@@ -16,7 +16,7 @@ class _CommonButtonState extends State<CommonButton> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-      padding: const EdgeInsets.all(10),
+      padding: widget.edgeInsets,
       width: double.infinity,
       decoration: BoxDecoration(
         color: Color(MyColors.bg01),
@@ -25,10 +25,11 @@ class _CommonButtonState extends State<CommonButton> {
           color: Color(MyColors.bg01),
         ),
       ),
-      child:  Center(
+      child: Center(
         child: Text(
-         widget.buttonName!,
-          style:const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          widget.buttonName!,
+          style:
+              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
     );

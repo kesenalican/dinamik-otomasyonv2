@@ -11,11 +11,10 @@ import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/vi
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// ignore: must_be_immutable
 class HomePage extends ConsumerStatefulWidget {
-  String? sirketAdi;
+  final String? sirketAdi;
 
-  HomePage({
+  const HomePage({
     Key? key,
     required this.sirketAdi,
   }) : super(key: key);
@@ -51,7 +50,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   arguments: false,
                 );
               },
-              cardName: Modules[0],
+              cardName: modules[0],
               iconData: const Icon(Icons.attach_money_rounded),
             ),
             ModuleCardButton(
@@ -63,7 +62,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                               detayaGitmesin: false,
                             )));
               },
-              cardName: Modules[1],
+              cardName: modules[1],
               iconData: const Icon(Icons.account_tree_sharp),
             ),
             ModuleCardButton(
@@ -73,7 +72,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                     MaterialPageRoute(
                         builder: (context) => const SatisSiparisi()));
               },
-              cardName: Modules[2],
+              cardName: modules[2],
               iconData: const Icon(Icons.info_outline_rounded),
             ),
             ModuleCardButton(
@@ -82,10 +81,10 @@ class _HomePageState extends ConsumerState<HomePage> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => ScheduleTab(
-                              cardName: Modules[3],
+                              cardName: modules[3],
                             )));
               },
-              cardName: Modules[3],
+              cardName: modules[3],
               iconData: const Icon(Icons.warehouse),
             ),
 

@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/view/common/common_button.dart';
 import 'package:flutter/material.dart';
@@ -9,15 +8,14 @@ import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/commonTextField/stok_kod_text_field.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/viewmodel/satis_siparisi_view_model.dart';
 
-// ignore: must_be_immutable
 class SiparisSatiri extends HookConsumerWidget {
-  TextEditingController stokKoduController;
-  TextEditingController stokIsmiController;
-  TextEditingController stokMiktariController;
-  TextEditingController stokBirimController;
-  TextEditingController birimFiyatController;
-  TextEditingController sipTutariController;
-  SiparisSatiri({
+  final TextEditingController stokKoduController;
+  final TextEditingController stokIsmiController;
+  final TextEditingController stokMiktariController;
+  final TextEditingController stokBirimController;
+  final TextEditingController birimFiyatController;
+  final TextEditingController sipTutariController;
+ const  SiparisSatiri({
     super.key,
     required this.stokKoduController,
     required this.stokIsmiController,

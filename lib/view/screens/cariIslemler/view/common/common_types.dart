@@ -1,13 +1,11 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
 
-// ignore: must_be_immutable
 class CommonTypes extends StatefulWidget {
-  String hareketTipi;
-  List<String> listOfTypes;
+  final String hareketTipi;
+  final List<String> listOfTypes;
   int selectedItemIndex;
   String? selectedItem;
   CommonTypes({

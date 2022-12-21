@@ -1,3 +1,4 @@
+import 'package:dinamik_otomasyon/view/common/common_loading.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -80,11 +81,7 @@ void showProgressDialog(BuildContext context) {
                   height: 100,
                   width: 100,
                   alignment: Alignment.center,
-                  child: CircularProgressIndicator(
-                    color: Color(
-                      MyColors.bg01,
-                    ),
-                  ),
+                  child: const CommonLoading()
                 );
               },
             ),

@@ -6,14 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 
-// ignore: must_be_immutable
 class FiyatlarTab extends ConsumerWidget {
   Stoklar stokModel;
   double? kdvsizFiyat;
-  // ignore: prefer_typing_uninitialized_variables
-  var netFiyat;
-  // ignore: prefer_typing_uninitialized_variables
-  var brutFiyat;
+  String? netFiyat;
+  double? brutFiyat;
 
   FiyatlarTab({Key? key, required this.stokModel}) : super(key: key);
   truncateDoublePrice(double n) {

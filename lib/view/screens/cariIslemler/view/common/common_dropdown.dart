@@ -1,5 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/common/common_input_border.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
@@ -11,8 +9,8 @@ import 'package:dinamik_otomasyon/view/styles/colors.dart';
 class CommonDropDown extends StatefulWidget {
   String? selectedItem;
   int selectedItemIndex;
-  List<String> list;
-  String listName;
+  final List<String> list;
+  final String listName;
   CommonDropDown({
     Key? key,
     required this.list,

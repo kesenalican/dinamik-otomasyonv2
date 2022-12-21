@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:dinamik_otomasyon/view/common/common_loading.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/viewmodel/satis_siparisi_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -12,18 +12,17 @@ import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_
 
 import '../../../styles/colors.dart';
 
-// ignore: must_be_immutable
 class CariKartlar extends ConsumerStatefulWidget {
-  TextEditingController? cariKodController;
-  TextEditingController? cariIsmiController;
-  bool? detayaGitmesin = false;
-  bool? alisMi = false;
-  CariKartlar({
+  final TextEditingController? cariKodController;
+  final TextEditingController? cariIsmiController;
+  final bool? detayaGitmesin;
+  final bool? alisMi;
+  const CariKartlar({
     super.key,
-    this.detayaGitmesin,
+    this.detayaGitmesin = false,
     this.cariKodController,
     this.cariIsmiController,
-    this.alisMi,
+    this.alisMi = false,
   });
 
   @override
@@ -75,8 +74,8 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
   //   return searchedList;
   // }
 
-  _runFilter(String searchKeyword, CariViewModel cariSearch) {
-    print("YAZILAN DEĞER $searchKeyword");
+  dynamic _runFilter(String searchKeyword, CariViewModel cariSearch) {
+    print('YAZILAN DEĞER $searchKeyword');
     Future<dynamic> a = cariSearch.searchCari(searchKeyword);
 
     // Future.delayed(const Duration(seconds: 2), () {
@@ -99,7 +98,6 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
       return await Future.delayed(
         const Duration(seconds: 2),
         () {
-          // ignore: unused_result
           ref.refresh(carilerProvider(currentPage));
           refresh = true;
         },
@@ -155,11 +153,7 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
                   child: Text('Hata çıktı ${err.toString()}'),
                 );
               },
-              loading: () => Center(
-                child: CircularProgressIndicator(
-                  color: Color(MyColors.bg01),
-                ),
-              ),
+              loading: () => const CommonLoading(),
             ),
           ],
         ),
@@ -229,9 +223,7 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
               padding: context.paddingDefault,
               child: Center(
                 child: hasMore
-                    ? CircularProgressIndicator(
-                        color: Color(MyColors.bg01),
-                      )
+                    ? const CommonLoading()
                     : const Text('Listenin sonuna ulaştınız.'),
               ),
             );
@@ -269,7 +261,7 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
     );
   }
 
-  _buildSearchInput(CariViewModel cariSearch) {
+ dynamic _buildSearchInput(CariViewModel cariSearch) {
     return Container(
       decoration: BoxDecoration(
         color: Color(MyColors.bg),

@@ -1,14 +1,11 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-
 import 'package:flutter/material.dart';
 
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 
-// ignore: must_be_immutable
 class CommonInputBorder extends StatelessWidget {
-  String labelText;
-  IconData icon;
-  CommonInputBorder({
+  final String labelText;
+  final IconData icon;
+  const CommonInputBorder({
     super.key,
     required this.labelText,
     required this.icon,
@@ -29,6 +26,7 @@ class CommonInputBorder extends StatelessWidget {
     return TextFormField(
       autofocus: true,
       cursorColor: Color(MyColors.bg01),
+      textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: TextStyle(

@@ -20,9 +20,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-// ignore: must_be_immutable
 class YeniCariKart extends HookConsumerWidget {
-  CariViewModel cariViewModel = CariViewModel();
+  final CariViewModel cariViewModel = CariViewModel();
   YeniCariKart({super.key});
 
   @override
@@ -39,12 +38,12 @@ class YeniCariKart extends HookConsumerWidget {
     final faxController = useTextEditingController(text: '');
     final mailController = useTextEditingController(text: '');
     final hareketTipiSelectedItemIndex = useState(0);
-    final baglantiTipiSelectedItemIndex = useState(0);
-    final stokAlimCinsiSelectedItemIndex = useState(0);
-    final stokSatisCinsiSelectedItemIndex = useState(0);
-    final cariOdemeSekliSelectedItemIndex = useState(0);
-    final cariFaturaCinsiTipiSelectedItemIndex = useState(0);
-    final selectedItemDropDown = useState('Hareket Tipi');
+    // final baglantiTipiSelectedItemIndex = useState(0);
+    // final stokAlimCinsiSelectedItemIndex = useState(0);
+    // final stokSatisCinsiSelectedItemIndex = useState(0);
+    // final cariOdemeSekliSelectedItemIndex = useState(0);
+    // final cariFaturaCinsiTipiSelectedItemIndex = useState(0);
+    // final selectedItemDropDown = useState('Hareket Tipi');
 
     var list = ref.watch(vergiDaireleriProvider);
     var currentUser = ref.watch(currentInfoProvider);
@@ -199,6 +198,7 @@ class YeniCariKart extends HookConsumerWidget {
       padding: const EdgeInsets.all(8.0),
       child: TextFormField(
         controller: adres1Controller,
+        textInputAction: TextInputAction.next,
         keyboardType: TextInputType.name,
         cursorColor: Color(MyColors.bg01),
         readOnly: true,
@@ -262,6 +262,7 @@ class YeniCariKart extends HookConsumerWidget {
             return cariViewModel.validateString(value!);
           },
           readOnly: false,
+          textInputAction: TextInputAction.next,
           controller: cariKoduController,
           keyboardType: TextInputType.text,
           cursorColor: Color(MyColors.bg01),
@@ -300,6 +301,7 @@ class YeniCariKart extends HookConsumerWidget {
         validator: (value) =>
             value!.isEmpty ? 'Vergi Dairesi Boş Olamaz!' : null,
         controller: vergiDaireController,
+        textInputAction: TextInputAction.next,
         keyboardType: TextInputType.name,
         cursorColor: Color(MyColors.bg01),
         readOnly: true,

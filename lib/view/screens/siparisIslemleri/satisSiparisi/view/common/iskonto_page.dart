@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/view/common/common_textfield.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/viewmodel/satis_siparisi_view_model.dart';
@@ -8,18 +7,17 @@ import 'package:flutter/material.dart';
 import 'package:dinamik_otomasyon/view/common/common_appbar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// ignore: must_be_immutable
 class IskontoEkle extends ConsumerWidget {
-  TextEditingController? isk1Controller;
-  TextEditingController? isk2Controller;
-  TextEditingController? isk3Controller;
-  TextEditingController? isk4Controller;
-  TextEditingController? isk5Controller;
-  TextEditingController? isk6Controller;
-  TextEditingController? mas1Controller;
-  TextEditingController? mas2Controller;
-  TextEditingController? mas3Controller;
-  TextEditingController? mas4Controller;
+  final TextEditingController? isk1Controller;
+  final TextEditingController? isk2Controller;
+  final TextEditingController? isk3Controller;
+  final TextEditingController? isk4Controller;
+  final TextEditingController? isk5Controller;
+  final TextEditingController? isk6Controller;
+  final TextEditingController? mas1Controller;
+  final TextEditingController? mas2Controller;
+  final TextEditingController? mas3Controller;
+  final TextEditingController? mas4Controller;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   IskontoEkle({

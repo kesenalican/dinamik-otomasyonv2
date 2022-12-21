@@ -1,14 +1,14 @@
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
+import 'package:dinamik_otomasyon/view/common/common_loading.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/service/stok_service.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// ignore: must_be_immutable
 class EnCokSatilanList extends ConsumerWidget {
-  String? tarih;
-  EnCokSatilanList({super.key, required this.tarih});
+  final String? tarih;
+  const EnCokSatilanList({super.key, required this.tarih});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -108,7 +108,7 @@ class EnCokSatilanList extends ConsumerWidget {
       error: (err, stack) {
         return showAlertDialog(hataBaslik: 'HATA', hataIcerik: 'HATA');
       },
-      loading: () => const CircularProgressIndicator(),
+      loading: () => const CommonLoading(),
     );
   }
 }
