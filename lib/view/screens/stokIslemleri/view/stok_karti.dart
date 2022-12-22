@@ -7,9 +7,10 @@ import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/vi
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/viewmodel/satis_siparisi_view_model.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/model/stoklar_model.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/service/stok_service.dart';
-import 'package:dinamik_otomasyon/view/screens/stokIslemleri/view/open_barcode.dart';
+import 'package:dinamik_otomasyon/view/screens/stokIslemleri/viewmodel/stok_view_model.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../styles/colors.dart';
 
@@ -38,7 +39,8 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
   List<Stoklar> fullList = [];
   List<Stoklar> searchedEmptyList = [];
   bool searchFilter = false;
-
+  String _barcodeData = '';
+  AsyncValue<List<Stoklar>>? barcodeScanner;
   void handleNext() {
     scrollController!.addListener(() async {
       if (scrollController!.position.maxScrollExtent ==
@@ -94,6 +96,14 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
     }
   }
 
+  _scanBarcode() async {
+    return await FlutterBarcodeScanner.scanBarcode(
+            '#000000', 'Geri', true, ScanMode.BARCODE)
+        .then((value) => setState(() {
+              _barcodeData = value;
+            }));
+  }
+
   @override
   Widget build(BuildContext context) {
     Future<void> handleRefresh() async {
@@ -106,6 +116,7 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
     }
 
     var liste = ref.watch(stoklarProvider(currentPage));
+    var stokViewModel = ref.watch(stokViewModelProvider);
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -122,12 +133,30 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
                   width: context.dynamicWidth * 0.03,
                 ),
                 Expanded(flex: 6, child: _buildSearchInput()),
-                const Expanded(
+                Expanded(
                   flex: 1,
-                  child: OpenBarcod(),
+                  child: IconButton(
+                      onPressed: () async {
+                        await FlutterBarcodeScanner.scanBarcode(
+                                '#000000', 'Geri', true, ScanMode.BARCODE)
+                            .then((value) => setState(() {
+                                  _barcodeData = value;
+                                  stokViewModel
+                                      .getStockWithBarcode(_barcodeData)
+                                      .then((value) {
+                                    Navigator.pushNamed(
+                                      context,
+                                      RouteConstants.stockDetail,
+                                      arguments: stokViewModel.stokModel![0],
+                                    );
+                                  });
+                                }));
+                      },
+                      icon: const Icon(Icons.qr_code)),
                 ),
               ],
             ),
+            Text('gelen barkod değeri ==$_barcodeData'),
             // _buildListeleButton(),
             liste.when(
                 data: (data) {

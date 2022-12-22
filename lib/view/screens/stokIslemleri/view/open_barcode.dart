@@ -20,12 +20,12 @@ class OpenBarcod extends HookWidget {
 
 Future<void> scanBarcode() async {
   try {
-    // final barcode = await FlutterBarcodeScanner.scanBarcode(
-    //   '#ff0000',
-    //   'Cancel',
-    //   true,
-    //   ScanMode.BARCODE,
-    // );
+    final barcode = await FlutterBarcodeScanner.scanBarcode(
+      '#ff0000',
+      'Cancel',
+      true,
+      ScanMode.BARCODE,
+    );
   } catch (e) {
     return;
   }

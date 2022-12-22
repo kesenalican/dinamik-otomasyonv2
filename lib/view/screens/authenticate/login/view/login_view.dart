@@ -279,7 +279,7 @@ _buildFirmaField({
               color: Color(
                 MyColors.bg01,
               ),
-              fontSize: 12,
+              fontSize: 10,
             ),
             decoration: InputDecoration(
               hintStyle: TextStyle(

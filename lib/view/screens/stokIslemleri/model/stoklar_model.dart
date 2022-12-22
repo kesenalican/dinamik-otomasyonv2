@@ -10,6 +10,7 @@ String stoklarToMap(Stoklar data) => json.encode(data.toMap());
 
 class Stoklar {
   Stoklar({
+    this.barkodu,
     required this.stokKodu,
     required this.stokIsim,
     required this.stokFiyat,
@@ -31,6 +32,7 @@ class Stoklar {
     required this.toptanVergiYuzde,
   });
 
+  final String? barkodu;
   final String stokKodu;
   final String stokIsim;
   final double stokFiyat;
@@ -52,6 +54,7 @@ class Stoklar {
   final double toptanVergiYuzde;
 
   factory Stoklar.fromMap(Map<String, dynamic> json) => Stoklar(
+        barkodu: json['barkodu'],
         stokKodu: json['StokKodu'],
         stokIsim: json['StokIsim'],
         stokFiyat: json['StokFiyat'],
@@ -67,13 +70,14 @@ class Stoklar {
         stokModel: json['StokModel'],
         merkez: json['MERKEZ'],
         stokMiktar: json['StokMiktar'],
-        perakendeVergiIsim: json['PerakendeVergiIsim'],
-        perakendeVergiYuzde: json['PerakendeVergiYuzde'],
-        toptanVergiIsim: json['ToptanVergiIsim'],
-        toptanVergiYuzde: json['ToptanVergiYuzde'],
+        perakendeVergiIsim: json['PerakendeVergiIsim'] ?? '',
+        perakendeVergiYuzde: json['PerakendeVergiYuzde'] ?? 0.0,
+        toptanVergiIsim: json['ToptanVergiIsim'] ?? '',
+        toptanVergiYuzde: json['ToptanVergiYuzde'] ?? 0.0,
       );
 
   Map<String, dynamic> toMap() => {
+        'barkodu': barkodu,
         'StokKodu': stokKodu,
         'StokIsim': stokIsim,
         'StokFiyat': stokFiyat,

@@ -12,7 +12,7 @@ final cariKayitliMi = ChangeNotifierProvider((ref) => CariViewModel());
 
 class CariViewModel extends ChangeNotifier {
   late List<Cariler> cariKoduVarmi;
-  late List<Cariler> cariKodSorgula;
+  late List<Cariler> cariKodSorgula = [];
   getAndControlCari(String cariKod, context) async {
     final result =
         await Dio().get('${ConstantProvider.baseUrl}CariBilgiler/fullCari');
@@ -35,17 +35,20 @@ class CariViewModel extends ChangeNotifier {
     }
   }
 
-  searchCari(String cariUnvan) async {
+  searchCari(String cariUnvan, String cariKodu) async {
     final result =
-        await Dio().get('${ConstantProvider.baseUrl}CariBilgiler/fullCari');
+        await Dio().get('${ConstantProvider.baseUrl}CariBilgiler/search');
     if (result.statusCode == 200) {
       List<Map<String, dynamic>> mapData = List.from(result.data);
       List<Cariler> cariList = mapData.map((e) => Cariler.fromMap(e)).toList();
       cariKodSorgula = cariList
-          .where((element) => element.cariUnvani1!
-              .toLowerCase()
-              .contains(cariUnvan.toLowerCase()))
+          .where((element) =>
+              element.cariUnvani1!
+                  .toLowerCase()
+                  .contains(cariUnvan.toLowerCase()) ||
+              element.cariKodu.toLowerCase().contains(cariKodu.toLowerCase()))
           .toList();
+
       print('liste uzunluğu${cariKodSorgula.length}');
       notifyListeners();
       return cariKodSorgula;

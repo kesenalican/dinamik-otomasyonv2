@@ -1,5 +1,6 @@
 import 'package:dinamik_otomasyon/view/common/common_loading.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/viewmodel/satis_siparisi_view_model.dart';
+import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -12,12 +13,14 @@ import 'package:dinamik_otomasyon/view/screens/cariIslemler/viewmodel/cari_view_
 
 import '../../../styles/colors.dart';
 
+// ignore: must_be_immutable
 class CariKartlar extends ConsumerStatefulWidget {
   final TextEditingController? cariKodController;
   final TextEditingController? cariIsmiController;
   final bool? detayaGitmesin;
   final bool? alisMi;
-  const CariKartlar({
+  bool aramaListesiMi = false;
+  CariKartlar({
     super.key,
     this.detayaGitmesin = false,
     this.cariKodController,
@@ -43,7 +46,13 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
     scrollController.addListener(() async {
       if (scrollController.position.maxScrollExtent ==
           scrollController.position.pixels) {
-        ref.watch(carilerProvider(currentPage = currentPage + 20));
+        if (emptyList.isNotEmpty) {
+          ref.watch(carilerProvider(currentPage = currentPage + 20));
+        } else {
+          setState(() {
+            hasMore = false;
+          });
+        }
       }
     });
   }
@@ -60,36 +69,12 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
     super.dispose();
   }
 
-  // _runFilter(String searchKeyword) {
-  //   Future.delayed(const Duration(seconds: 2), () {
-  //     setState(() {
-  //       fullList = fullList
-  //           .where((value) => value.cariKodu
-  //               .toLowerCase()
-  //               .contains(searchKeyword.toLowerCase()))
-  //           .toList();
-  //       searchedList = fullList;
-  //     });
-  //   });
-  //   return searchedList;
-  // }
-
-  dynamic _runFilter(String searchKeyword, CariViewModel cariSearch) {
+  dynamic _runFilter(
+      int offset, String searchKeyword, CariViewModel cariSearch) {
     print('YAZILAN DEĞER $searchKeyword');
-    Future<dynamic> a = cariSearch.searchCari(searchKeyword);
-
-    // Future.delayed(const Duration(seconds: 2), () {
-    //   searchedList = fullList;
-    //   fullList.clear();
-    //   fullList = searchedList
-    //       .where((value) => value.cariKodu
-    //           .toLowerCase()
-    //           .contains(searchKeyword.toLowerCase()))
-    //       .toList();
-    //   setState(() {});
-    // });
-    // print('Full listim kaç elemanlı === ${fullList.length}');
-    return fullList;
+    Future<dynamic> searchedCari =
+        cariSearch.searchCari(searchKeyword, searchKeyword);
+    return searchedCari;
   }
 
   @override
@@ -163,11 +148,15 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
 
   ListView _buildCariKart() {
     var satisSiparisiCarisi = ref.watch(satisSiparisViewModel);
+    var cariViewModel = ref.watch(cariKayitliMi);
     return ListView.builder(
         itemCount: fullList.length + 1,
         controller: scrollController,
         itemBuilder: (context, index) {
-          if (index < fullList.length) {
+          if (index <
+              (widget.aramaListesiMi
+                  ? cariViewModel.cariKodSorgula.length
+                  : fullList.length)) {
             return InkWell(
               onTap: () {
                 if (widget.detayaGitmesin == true) {
@@ -210,7 +199,7 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
                         ),
                         Expanded(
                           flex: 3,
-                          child: _buildAdVeKod(index, context),
+                          child: _buildAdVeKod(index, context, cariViewModel),
                         ),
                       ],
                     ),
@@ -231,12 +220,15 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
         });
   }
 
-  Column _buildAdVeKod(int index, BuildContext context) {
+  Column _buildAdVeKod(
+      int index, BuildContext context, CariViewModel cariViewModel) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          fullList[index].cariUnvani1!,
+          widget.aramaListesiMi
+              ? cariViewModel.cariKodSorgula[index].cariUnvani1!
+              : fullList[index].cariUnvani1!,
           style: TextStyle(
             color: Color(MyColors.bg01),
             fontWeight: FontWeight.w600,
@@ -249,7 +241,9 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
           height: context.dynamicHeight * 0.01,
         ),
         Text(
-          fullList[index].cariKodu,
+          widget.aramaListesiMi
+              ? cariViewModel.cariKodSorgula[index].cariKodu
+              : fullList[index].cariKodu,
           style: TextStyle(
             color: Color(MyColors.bg01),
             fontSize: 12,
@@ -261,7 +255,7 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
     );
   }
 
- dynamic _buildSearchInput(CariViewModel cariSearch) {
+  dynamic _buildSearchInput(CariViewModel cariSearch) {
     return Container(
       decoration: BoxDecoration(
         color: Color(MyColors.bg),
@@ -282,12 +276,15 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
           ),
           Expanded(
             child: TextField(
-              onTap: () {},
-              onChanged: (value) {
+              onSubmitted: (value) {
                 Future.delayed(
-                  const Duration(seconds: 2),
+                  const Duration(seconds: 1),
                   () {
-                    _runFilter(value, cariSearch);
+                    widget.aramaListesiMi = true;
+                    _runFilter(currentPage, value, cariSearch);
+                    if (value.isEmpty) {
+                      widget.aramaListesiMi = false;
+                    }
                   },
                 );
               },
@@ -300,6 +297,7 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
                     color: Color(MyColors.purple01),
                     fontWeight: FontWeight.w700),
               ),
+              style: purpleTxtStyle,
             ),
           ),
         ],

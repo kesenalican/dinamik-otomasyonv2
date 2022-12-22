@@ -32,7 +32,7 @@ class _DrawerMenuState extends ConsumerState<DrawerMenu> {
       child: Column(
         children: [
           SizedBox(
-            height: context.dynamicHeight * 0.15,
+            height: context.dynamicHeight * 0.20,
             child: UserAccountsDrawerHeader(
               accountName: Text(widget.sirketAdi),
               accountEmail: null,

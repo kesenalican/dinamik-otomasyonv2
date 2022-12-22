@@ -27,7 +27,7 @@ class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonAppbar(whichPage: Constants.anaSayfa),
+      appBar: const CommonAppbar(whichPage: Constants.anaSayfa),
       drawer: DrawerMenu(sirketAdi: widget.sirketAdi!),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: context.dynamicWidth * 0.02),

@@ -76,8 +76,24 @@ class StokService {
 final stoklarProvider = FutureProvider.autoDispose
     .family<List<Stoklar>, int>((ref, pageCount) async {
   final dio = ref.watch(httpClientProvider);
-  final result = await dio
-      .get('Stoklar', queryParameters: {'offset': pageCount});
+  final result =
+      await dio.get('Stoklar', queryParameters: {'offset': pageCount});
+  if (result.statusCode == 200) {
+    List<Map<String, dynamic>> mapData = List.from(result.data);
+    List<Stoklar> stoklist = mapData.map((e) => Stoklar.fromMap(e)).toList();
+    return stoklist;
+  } else {
+    return Future.delayed(const Duration(seconds: 1));
+  }
+});
+//#endregion
+
+//#region Stoklar koda göre sıralama
+final barcodeScannerProvider = FutureProvider.autoDispose
+    .family<List<Stoklar>, String>((ref, barcode) async {
+  final dio = ref.watch(httpClientProvider);
+  final result =
+      await dio.get('Stoklar/barcode', queryParameters: {'barcode': barcode});
   if (result.statusCode == 200) {
     List<Map<String, dynamic>> mapData = List.from(result.data);
     List<Stoklar> stoklist = mapData.map((e) => Stoklar.fromMap(e)).toList();

@@ -14,6 +14,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class CariService extends ChangeNotifier {
   CariModel? cariModel;
   BuildContext? context;
+  late List<Cariler> cariKodSorgula;
 
   // getCari() async {
   //   final result = await Dio().get("${ConstantProvider.BASE_URL}CariBilgiler");
@@ -21,6 +22,29 @@ class CariService extends ChangeNotifier {
   //   List<Cariler> cariList = mapData.map((e) => Cariler.fromMap(e)).toList();
   //   notifyListeners();
   //   return cariList;
+  // }
+
+  // searchCari(int offset, String cariUnvan, String cariKodu) async {
+  //   final result =
+  //       await Dio().get('${ConstantProvider.baseUrl}CariBilgiler/search');
+  //   if (result.statusCode == 200) {
+  //     List<Map<String, dynamic>> mapData = List.from(result.data);
+  //     List<Cariler> cariList = mapData.map((e) => Cariler.fromMap(e)).toList();
+  //     cariKodSorgula = cariList
+  //         .where((element) =>
+  //             element.cariUnvani1!
+  //                 .toLowerCase()
+  //                 .contains(cariUnvan.toLowerCase()) ||
+  //             element.cariKodu.toLowerCase().contains(cariKodu.toLowerCase()))
+  //         .toList();
+
+  //     print('liste uzunluğu${cariKodSorgula.length}');
+  //     print(cariKodSorgula.first.cariUnvani1.toString());
+  //     notifyListeners();
+  //     return cariKodSorgula;
+  //   } else {
+  //     print('bir hata oluştu :${result.data}');
+  //   }
   // }
 }
 
