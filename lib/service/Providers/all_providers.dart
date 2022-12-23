@@ -10,7 +10,8 @@ import 'package:dinamik_otomasyon/Model/stok_satis_fiyat_tanimlari.dart';
 import 'package:dinamik_otomasyon/Model/teslim_turleri_model.dart';
 import 'package:dinamik_otomasyon/Model/vergi_daire_model.dart';
 import 'package:dinamik_otomasyon/core/base/service/base_provider.dart';
-import 'package:dinamik_otomasyon/core/constants/constant.dart';
+import 'package:dinamik_otomasyon/core/components/dialog_utils.dart';
+import 'package:dinamik_otomasyon/core/constants/api_constant.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 //#region DEPO
@@ -58,10 +59,15 @@ final vergiDaireleriProvider =
 //#region FIRMALAR
 final firmaProvider = FutureProvider<List<FirmaModel>>((ref) async {
   final dio = ref.watch(httpClientProvider);
+  List<FirmaModel> firmaList = [];
   final result = await dio.get('Firma');
-  List<Map<String, dynamic>> mapData = List.from(result.data);
-  List<FirmaModel> firmaList =
-      mapData.map((e) => FirmaModel.fromMap(e)).toList();
+  if (result.statusCode == 200) {
+    List<Map<String, dynamic>> mapData = List.from(result.data);
+    firmaList = mapData.map((e) => FirmaModel.fromMap(e)).toList();
+  } else {
+    return showToast('Veriler getirilirken bir hata oluştu!');
+  }
+
   return firmaList;
 });
 //#endregion

@@ -1,4 +1,5 @@
 import 'package:dinamik_otomasyon/core/base/service/base_provider.dart';
+import 'package:dinamik_otomasyon/core/constants/api_constant.dart';
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_adres_model.dart';
@@ -83,13 +84,12 @@ final cariSaveProvider = FutureProvider.autoDispose
     } else if (result.statusCode == 500) {
       BuildContext? context;
       return showAlertDialog(
-          context: context!,
-          hataBaslik: 'Kayıt Hatası',
-          hataIcerik: 'Bu cari zaten kayıtlı!');
+        context: context!,
+        hataBaslik: Constants.kayitHatasi,
+        hataIcerik: Constants.cariZatenKayitli,
+      );
     } else if (result.statusCode == 400) {
-    } else {
-      print('bilinmeyen bir hata oluştu');
-    }
+    } else {}
   } catch (e) {
     print(e.toString());
   }
@@ -144,7 +144,7 @@ final cariAdresProvider = FutureProvider.autoDispose
 final muhHesapProvider =
     FutureProvider.autoDispose<List<MuhasebeHesapModel>>((ref) async {
   final dio = ref.watch(httpClientProvider);
-  final result = await dio.get('MuhasebeHesapKodu');
+  final result = await dio.get(ConstantProvider.muhasebeHesapKodu);
   List<Map<String, dynamic>> mapData = List.from(result.data);
   List<MuhasebeHesapModel> muhHesapKodList =
       mapData.map((e) => MuhasebeHesapModel.fromMap(e)).toList();
@@ -156,7 +156,7 @@ final muhHesapProvider =
 final cariGrupProvider =
     FutureProvider.autoDispose<List<CariGrupModel>>((ref) async {
   final dio = ref.watch(httpClientProvider);
-  final result = await dio.get('CariGrupKodu');
+  final result = await dio.get(ConstantProvider.cariGrupKodu);
   List<Map<String, dynamic>> mapData = List.from(result.data);
   List<CariGrupModel> cariGrupKodList =
       mapData.map((e) => CariGrupModel.fromMap(e)).toList();
@@ -168,7 +168,7 @@ final cariGrupProvider =
 final cariSektorProvider =
     FutureProvider.autoDispose<List<CariSektorModel>>((ref) async {
   final dio = ref.watch(httpClientProvider);
-  final result = await dio.get('CariGrupKodu');
+  final result = await dio.get(ConstantProvider.cariSektorKodu);
   List<Map<String, dynamic>> mapData = List.from(result.data);
   List<CariSektorModel> cariSektorKodList =
       mapData.map((e) => CariSektorModel.fromMap(e)).toList();

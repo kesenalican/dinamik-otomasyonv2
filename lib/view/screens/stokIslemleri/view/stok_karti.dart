@@ -2,6 +2,7 @@ import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/core/routing/route_constants.dart';
 import 'package:dinamik_otomasyon/view/common/common_appbar.dart';
+import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
 import 'package:dinamik_otomasyon/view/common/common_loading.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/urun_bilgileri_gir.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/viewmodel/satis_siparisi_view_model.dart';
@@ -27,9 +28,6 @@ class StokKartlari extends ConsumerStatefulWidget {
 
 class _StokKartlariState extends ConsumerState<StokKartlari> {
   TextEditingController searchQuery = TextEditingController();
-  TextEditingController siparisMiktariController = TextEditingController();
-  TextEditingController sipTutariController = TextEditingController();
-  TextEditingController stokFiyatiController = TextEditingController();
 
   FocusNode focusNode = FocusNode();
   int currentPage = 0;
@@ -41,11 +39,16 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
   bool searchFilter = false;
   String _barcodeData = '';
   AsyncValue<List<Stoklar>>? barcodeScanner;
+  bool aramaListesiMi = false;
   void handleNext() {
     scrollController!.addListener(() async {
       if (scrollController!.position.maxScrollExtent ==
           scrollController!.position.pixels) {
         ref.watch(stoklarProvider(currentPage = currentPage + 20));
+      } else {
+        setState(() {
+          hasMore = false;
+        });
       }
     });
   }
@@ -54,9 +57,6 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
   void initState() {
     super.initState();
     scrollController = ScrollController();
-    siparisMiktariController = TextEditingController();
-    sipTutariController = TextEditingController();
-    stokFiyatiController = TextEditingController();
     focusNode = FocusNode();
     handleNext();
   }
@@ -65,43 +65,15 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
   void dispose() {
     scrollController!.dispose();
     searchQuery.dispose();
-    siparisMiktariController.dispose();
-    sipTutariController.dispose();
-    stokFiyatiController.dispose();
     focusNode.dispose();
     super.dispose();
   }
 
-  void _runFilter(String query) {
-    List<Stoklar> dummySearchList = [];
-    dummySearchList.addAll(fullList);
-    if (query.isNotEmpty) {
-      List<Stoklar> dummyListData = [];
-      for (var stok in dummySearchList) {
-        var sorgu = stok.stokKodu.toLowerCase();
-        if (sorgu.contains(query)) {
-          dummyListData.add(stok);
-        }
-      }
-      setState(() {
-        searchedEmptyList.clear();
-        searchedEmptyList.addAll(dummyListData);
-      });
-      return;
-    } else {
-      setState(() {
-        searchedEmptyList.clear();
-        searchedEmptyList.addAll(fullList);
-      });
-    }
-  }
-
-  _scanBarcode() async {
-    return await FlutterBarcodeScanner.scanBarcode(
-            '#000000', 'Geri', true, ScanMode.BARCODE)
-        .then((value) => setState(() {
-              _barcodeData = value;
-            }));
+  dynamic _runFilter(
+      int offset, String searchKeyword, StokViewModel stokViewModel) {
+    Future<dynamic> searchStok =
+        stokViewModel.searchStok(currentPage, searchKeyword, searchKeyword);
+    return searchStok;
   }
 
   @override
@@ -132,7 +104,7 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
                 SizedBox(
                   width: context.dynamicWidth * 0.03,
                 ),
-                Expanded(flex: 6, child: _buildSearchInput()),
+                Expanded(flex: 6, child: _buildSearchInput(stokViewModel)),
                 Expanded(
                   flex: 1,
                   child: IconButton(
@@ -142,21 +114,33 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
                             .then((value) => setState(() {
                                   _barcodeData = value;
                                   stokViewModel
-                                      .getStockWithBarcode(_barcodeData)
+                                      .getStockWithBarcode(
+                                          _barcodeData, context)
                                       .then((value) {
-                                    Navigator.pushNamed(
-                                      context,
-                                      RouteConstants.stockDetail,
-                                      arguments: stokViewModel.stokModel![0],
-                                    );
+                                    if (stokViewModel.stokModel!.isEmpty) {
+                                      return showAlertDialog(
+                                        context: context,
+                                        hataBaslik: Constants.hataliBarkod,
+                                        hataIcerik:
+                                            Constants.boyleBirBarkodBulunamadi,
+                                      );
+                                    } else {
+                                      Navigator.pushNamed(
+                                        context,
+                                        RouteConstants.stockDetail,
+                                        arguments: stokViewModel.stokModel![0],
+                                      );
+                                    }
                                   });
                                 }));
                       },
-                      icon: const Icon(Icons.qr_code)),
+                      icon: Icon(
+                        Icons.qr_code,
+                        color: Color(MyColors.bg01),
+                      )),
                 ),
               ],
             ),
-            Text('gelen barkod değeri ==$_barcodeData'),
             // _buildListeleButton(),
             liste.when(
                 data: (data) {
@@ -182,12 +166,19 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
 
   SizedBox _buildStokKarti(List<Stoklar> stokList) {
     var siparisModel = ref.watch(satisSiparisViewModel);
+    var stokViewModel = ref.watch(stokViewModelProvider);
     return SizedBox(
       height: context.dynamicHeight * 0.90,
       child: ListView.builder(
+        itemCount: aramaListesiMi
+            ? stokViewModel.searchedStok.length + 1
+            : fullList.length + 1,
         controller: scrollController,
         itemBuilder: (context, index) {
-          if (index < stokList.length) {
+          if (index <
+              (aramaListesiMi
+                  ? stokViewModel.searchedStok.length
+                  : stokList.length)) {
             return InkWell(
               onTap: () {
                 if (widget.detayaGitmesin == true) {
@@ -237,10 +228,10 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
                         SizedBox(
                           width: context.dynamicWidth * 0.01,
                         ),
-                        _buildKodVeAd(index, stokList),
+                        _buildKodVeAd(index, stokList, stokViewModel),
                         _buildKDV(index),
                         //*FİYAT
-                        _buildAdetVeFiyat(index, stokList),
+                        _buildAdetVeFiyat(index, stokList, stokViewModel),
                       ],
                     ),
                   ),
@@ -258,7 +249,6 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
             );
           }
         },
-        itemCount: fullList.length + 1,
       ),
     );
   }
@@ -276,7 +266,8 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
         ));
   }
 
-  Expanded _buildAdetVeFiyat(int index, List<Stoklar> stokList) {
+  Expanded _buildAdetVeFiyat(
+      int index, List<Stoklar> stokList, StokViewModel stokViewModel) {
     var fiyat = stokList[index].stokFiyat;
     var truncateFiyat = fiyat.toStringAsFixed(2);
     return Expanded(
@@ -286,7 +277,9 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
           Padding(
             padding: EdgeInsets.all(context.dynamicHeight * 0.006),
             child: Text(
-              '${Constants.adet}: ${stokList[index].stokMiktar.ceil().toString()}',
+              aramaListesiMi
+                  ? '${Constants.adet}: ${stokViewModel.searchedStok[index].stokMiktar.ceil().toString()}'
+                  : '${Constants.adet}: ${stokList[index].stokMiktar.ceil().toString()}',
               style: TextStyle(
                 color: Color(MyColors.bg01),
                 fontSize: 10,
@@ -296,7 +289,9 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
             ),
           ),
           Text(
-            '$truncateFiyat ${CurrencyConstants.tl}',
+            aramaListesiMi
+                ? '${stokViewModel.searchedStok[index].stokFiyat.toStringAsFixed(2)} ${CurrencyConstants.tl}'
+                : '$truncateFiyat ${CurrencyConstants.tl}',
             style: TextStyle(
               color: Color(MyColors.bg01),
               fontSize: 10,
@@ -309,14 +304,17 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
     );
   }
 
-  Expanded _buildKodVeAd(int index, List<Stoklar> stokList) {
+  Expanded _buildKodVeAd(
+      int index, List<Stoklar> stokList, StokViewModel stokViewModel) {
     return Expanded(
       flex: 7,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            stokList[index].stokIsim,
+            aramaListesiMi
+                ? stokViewModel.searchedStok[index].stokIsim
+                : stokList[index].stokIsim,
             style: TextStyle(
               color: Color(MyColors.bg01),
               fontWeight: FontWeight.w600,
@@ -329,7 +327,9 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
             height: context.dynamicHeight * 0.01,
           ),
           Text(
-            stokList[index].stokKodu,
+            aramaListesiMi
+                ? stokViewModel.searchedStok[index].stokKodu
+                : stokList[index].stokKodu,
             style: TextStyle(
               color: Color(MyColors.bg01),
               fontSize: 10,
@@ -342,7 +342,7 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
     );
   }
 
-  _buildSearchInput() {
+  _buildSearchInput(StokViewModel stokViewModel) {
     return Container(
       decoration: BoxDecoration(
         color: Color(MyColors.bg),
@@ -362,12 +362,16 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
             width: context.dynamicWidth * 0.02,
           ),
           Expanded(
-            child: TextField(
+            child: TextFormField(
               onChanged: (value) {
                 Future.delayed(
                   const Duration(milliseconds: 500),
                   () {
-                    _runFilter(value);
+                    aramaListesiMi = true;
+                    _runFilter(currentPage, value, stokViewModel);
+                    if (value.isEmpty) {
+                      aramaListesiMi = false;
+                    }
                   },
                 );
               },
@@ -379,6 +383,7 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
                     color: Color(MyColors.purple01),
                     fontWeight: FontWeight.w700),
               ),
+              style: purpleTxtStyle,
             ),
           ),
         ],

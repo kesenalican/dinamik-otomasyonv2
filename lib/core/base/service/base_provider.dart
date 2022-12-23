@@ -1,4 +1,4 @@
-import 'package:dinamik_otomasyon/core/constants/constant.dart';
+import 'package:dinamik_otomasyon/core/constants/api_constant.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dio/dio.dart';
 

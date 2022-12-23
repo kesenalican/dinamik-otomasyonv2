@@ -50,11 +50,6 @@ dependencies:
   pull_to_refresh: ^2.0.0
   shared_preferences: any
   url_launcher: ^6.1.6
-  google_ml_vision: ^0.0.7
-  image_picker: ^0.8.6
-  google_ml_kit: ^0.13.0
-  camera: ^0.10.0+4
-
 dev_dependencies:
   build_runner: ^2.3.2
   flutter_lints: ^2.0.0
@@ -64,6 +59,8 @@ dev_dependencies:
   http: ^0.13.5
   json_serializable: ^6.5.3
   sql_conn: ^0.0.3
+  flutter_launcher_icons: ^0.11.0
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -101,3 +98,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_icons:
+  image_path: "assets/logo.png"
+  android: true
+  ios: true
+  remove_alpha_ios: true

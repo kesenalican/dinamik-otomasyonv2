@@ -108,6 +108,7 @@ class Constants {
   static const String ok = 'Ok';
   static const String hataBaslik = 'Haberleşme Hatası';
   static const String hataIcerik = 'Sunucuya bağlanırken bir hata oluştu';
+  static const String cariKodKayitli = 'Bu cari kodu zaten kayıtlı';
   static const String hataCikti = 'Hata Çıktı';
   static const String satisFaturasiBulunamadi =
       'Son 6 aya ait satış faturası bulunamadı...';
@@ -213,19 +214,10 @@ class Constants {
   static const String miktarHatasi = 'Lütfen Miktar Giriniz!';
   static const String siparisBasariylaKaydedildi =
       'Sipariş Başarıyla Kaydedildi!';
-}
-
-class ConstantProvider {
-  static const String baseUrl = 'http://192.168.5.25:5239/api/';
-  static const String user = 'User';
-  static const String vergiDaireleri = 'VergiDaireleri';
-  static const String stoklar = 'Stoklar';
-  static const String stokAlisFiyatlari = 'StokAlisFiyatlari';
-  static const String stokSatisFiyatlari = 'StokSatisFiyatlari';
-  static const String enCokAlinanUrunler = 'EnCokSatilanUrunler';
-  static const String cariBilgiler = 'CariBilgiler';
-  static const String cariAdres = 'CariAdres';
-  static const String satisSiparisi = 'SatisSiparisi';
+  static const String kayitHatasi = 'Kaydetme Hatası';
+  static const String cariZatenKayitli = 'Bu cari zaten kayıtlı!';
+  static const String hataliBarkod = 'Hatalı Barkod';
+  static const String boyleBirBarkodBulunamadi = 'Böyle bir barkod bulunamadı!';
 }
 
 class CurrencyConstants {

@@ -68,7 +68,6 @@ class _LoginState extends ConsumerState<Login> {
   @override
   Widget build(BuildContext context) {
     var current = ref.watch(currentInfoProvider);
-
     var firmaList = ref.watch(firmaProvider);
     var userList = ref.watch(usersProvider);
     return Scaffold(
@@ -99,6 +98,14 @@ class _LoginState extends ConsumerState<Login> {
                       hataIcerik: Constants.hataIcerik),
                   data: (data) {
                     List<FirmaModel> firmaList = data.map((e) => e).toList();
+                    if (firmaList.isEmpty) {
+                      return showAlertDialog(
+                        context: context,
+                        hataBaslik: 'Firma Hatası',
+                        hataIcerik:
+                            'Veriler getirilirken bir hata oluştu ya da herhangi bir firma bulunamadı',
+                      );
+                    }
                     return _buildFirmaField(
                       firmalist: firmaList,
                       companyController: companyController,
@@ -122,6 +129,14 @@ class _LoginState extends ConsumerState<Login> {
                       hataIcerik: Constants.hataIcerik),
                   data: (data) {
                     List<UserModel> userList = data.map((e) => e).toList();
+                    if (userList.isEmpty) {
+                      return showAlertDialog(
+                        context: context,
+                        hataBaslik: 'Kullanıcı Hatası',
+                        hataIcerik:
+                            'Kullanıcılar getirilirken bir hata oluştu ya da herhangi bir kullanıcı bulunamadı',
+                      );
+                    }
                     return UserTextField(
                       userController: userController,
                       userCodeController: userCodeController,
@@ -283,7 +298,7 @@ _buildFirmaField({
             ),
             decoration: InputDecoration(
               hintStyle: TextStyle(
-                fontSize: 15,
+                fontSize: 14,
                 color: Color(
                   MyColors.bg01,
                 ),

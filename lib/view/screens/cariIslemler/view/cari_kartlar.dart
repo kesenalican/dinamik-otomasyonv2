@@ -19,7 +19,6 @@ class CariKartlar extends ConsumerStatefulWidget {
   final TextEditingController? cariIsmiController;
   final bool? detayaGitmesin;
   final bool? alisMi;
-  bool aramaListesiMi = false;
   CariKartlar({
     super.key,
     this.detayaGitmesin = false,
@@ -35,24 +34,23 @@ class CariKartlar extends ConsumerStatefulWidget {
 class _CariKartlarState extends ConsumerState<CariKartlar> {
   TextEditingController searchQuery = TextEditingController();
   int currentPage = 0;
-  ScrollController scrollController = ScrollController();
+  ScrollController? scrollController;
   bool hasMore = true;
   bool refresh = false;
   List<Cariler> emptyList = [];
   List<Cariler> fullList = [];
   List<Cariler> searchedList = [];
+  bool aramaListesiMi = false;
 
   void handleNext() {
-    scrollController.addListener(() async {
-      if (scrollController.position.maxScrollExtent ==
-          scrollController.position.pixels) {
-        if (emptyList.isNotEmpty) {
-          ref.watch(carilerProvider(currentPage = currentPage + 20));
-        } else {
-          setState(() {
-            hasMore = false;
-          });
-        }
+    scrollController!.addListener(() async {
+      if (scrollController!.position.maxScrollExtent ==
+          scrollController!.position.pixels) {
+        ref.watch(carilerProvider(currentPage = currentPage + 20));
+      } else {
+        setState(() {
+          hasMore = false;
+        });
       }
     });
   }
@@ -60,12 +58,13 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
   @override
   void initState() {
     super.initState();
+    scrollController = ScrollController();
     handleNext();
   }
 
   @override
   void dispose() {
-    scrollController.dispose();
+    scrollController!.dispose();
     super.dispose();
   }
 
@@ -150,11 +149,13 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
     var satisSiparisiCarisi = ref.watch(satisSiparisViewModel);
     var cariViewModel = ref.watch(cariKayitliMi);
     return ListView.builder(
-        itemCount: fullList.length + 1,
+        itemCount: aramaListesiMi
+            ? cariViewModel.cariKodSorgula.length + 1
+            : fullList.length + 1,
         controller: scrollController,
         itemBuilder: (context, index) {
           if (index <
-              (widget.aramaListesiMi
+              (aramaListesiMi
                   ? cariViewModel.cariKodSorgula.length
                   : fullList.length)) {
             return InkWell(
@@ -167,9 +168,9 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
                       cariBagliStok: fullList[index].cariBagliStok,
                     ),
                   );
-                  if (widget.alisMi! || widget.alisMi != null) {
-                    satisSiparisiCarisi.alisMi = true;
-                  }
+                  widget.alisMi!
+                      ? satisSiparisiCarisi.alisMi = true
+                      : const SizedBox();
 
                   Navigator.pushNamed<dynamic>(
                     context,
@@ -226,7 +227,7 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          widget.aramaListesiMi
+          aramaListesiMi
               ? cariViewModel.cariKodSorgula[index].cariUnvani1!
               : fullList[index].cariUnvani1!,
           style: TextStyle(
@@ -241,7 +242,7 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
           height: context.dynamicHeight * 0.01,
         ),
         Text(
-          widget.aramaListesiMi
+          aramaListesiMi
               ? cariViewModel.cariKodSorgula[index].cariKodu
               : fullList[index].cariKodu,
           style: TextStyle(
@@ -276,19 +277,18 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
           ),
           Expanded(
             child: TextField(
-              onSubmitted: (value) {
+              onChanged: (value) {
                 Future.delayed(
                   const Duration(seconds: 1),
                   () {
-                    widget.aramaListesiMi = true;
+                    aramaListesiMi = true;
                     _runFilter(currentPage, value, cariSearch);
                     if (value.isEmpty) {
-                      widget.aramaListesiMi = false;
+                      aramaListesiMi = false;
                     }
                   },
                 );
               },
-              // onSubmitted: (value) => _runFilter(value),
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: Constants.ara,

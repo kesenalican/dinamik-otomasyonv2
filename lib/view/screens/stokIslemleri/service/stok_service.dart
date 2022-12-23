@@ -1,4 +1,5 @@
 import 'package:dinamik_otomasyon/core/base/service/base_provider.dart';
+import 'package:dinamik_otomasyon/core/constants/api_constant.dart';
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/model/en_cok_satilan_urunler.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/model/stok_alis_fiyatlari.dart';

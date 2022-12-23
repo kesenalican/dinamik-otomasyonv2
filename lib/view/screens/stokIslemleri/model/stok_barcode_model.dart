@@ -4,12 +4,13 @@
 
 import 'dart:convert';
 
-Stoklar stoklarFromMap(String str) => Stoklar.fromMap(json.decode(str));
+StokBarkodModel stoklarFromMap(String str) =>
+    StokBarkodModel.fromMap(json.decode(str));
 
-String stoklarToMap(Stoklar data) => json.encode(data.toMap());
+String stoklarToMap(StokBarkodModel data) => json.encode(data.toMap());
 
-class Stoklar {
-  Stoklar({
+class StokBarkodModel {
+  StokBarkodModel({
     this.barkodu,
     required this.stokKodu,
     required this.stokIsim,
@@ -31,7 +32,6 @@ class Stoklar {
     required this.toptanVergiIsim,
     required this.toptanVergiYuzde,
   });
-
   final String? barkodu;
   final String stokKodu;
   final String stokIsim;
@@ -53,8 +53,8 @@ class Stoklar {
   final String toptanVergiIsim;
   final double toptanVergiYuzde;
 
-  factory Stoklar.fromMap(Map<String, dynamic> json) => Stoklar(
-        barkodu: json['bar_kodu'],
+  factory StokBarkodModel.fromMap(Map<String, dynamic> json) => StokBarkodModel(
+        barkodu: json['barkodu'],
         stokKodu: json['StokKodu'],
         stokIsim: json['StokIsim'],
         stokFiyat: json['StokFiyat'],

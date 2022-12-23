@@ -1,4 +1,5 @@
 import 'package:dinamik_otomasyon/View/styles/colors.dart';
+import 'package:dinamik_otomasyon/core/constants/api_constant.dart';
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_save.model.dart';
@@ -14,8 +15,8 @@ class CariViewModel extends ChangeNotifier {
   late List<Cariler> cariKoduVarmi;
   late List<Cariler> cariKodSorgula = [];
   getAndControlCari(String cariKod, context) async {
-    final result =
-        await Dio().get('${ConstantProvider.baseUrl}CariBilgiler/fullCari');
+    final result = await Dio()
+        .get('${ConstantProvider.baseUrl}${ConstantProvider.fullCari}');
     if (result.statusCode == 200) {
       List<Map<String, dynamic>> mapData = List.from(result.data);
       List<Cariler> cariList = mapData.map((e) => Cariler.fromMap(e)).toList();
@@ -25,9 +26,10 @@ class CariViewModel extends ChangeNotifier {
       if (cariKoduVarmi.isNotEmpty) {
         return Future.delayed(const Duration(milliseconds: 500), () {
           return showAlertDialog(
-              context: context,
-              hataBaslik: 'Hata',
-              hataIcerik: 'Bu cari kodu zaten kayıtlı');
+            context: context,
+            hataBaslik: Constants.hataBaslik,
+            hataIcerik: Constants.cariKodKayitli,
+          );
         });
       }
     } else {
@@ -36,8 +38,13 @@ class CariViewModel extends ChangeNotifier {
   }
 
   searchCari(String cariUnvan, String cariKodu) async {
-    final result =
-        await Dio().get('${ConstantProvider.baseUrl}CariBilgiler/search');
+    final map = {
+      'CariKodu': cariKodu,
+      'cariUnvani': cariUnvan,
+    };
+    final result = await Dio().get(
+        '${ConstantProvider.baseUrl}${ConstantProvider.searchCari}',
+        queryParameters: map);
     if (result.statusCode == 200) {
       List<Map<String, dynamic>> mapData = List.from(result.data);
       List<Cariler> cariList = mapData.map((e) => Cariler.fromMap(e)).toList();
@@ -48,8 +55,6 @@ class CariViewModel extends ChangeNotifier {
                   .contains(cariUnvan.toLowerCase()) ||
               element.cariKodu.toLowerCase().contains(cariKodu.toLowerCase()))
           .toList();
-
-      print('liste uzunluğu${cariKodSorgula.length}');
       notifyListeners();
       return cariKodSorgula;
     }

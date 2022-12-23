@@ -52,7 +52,7 @@ List dataList = [
         'name': 'Satış Siparişi',
       },
       {
-        'name': 'Alım Siparişi',
+        'name': 'Alış Siparişi',
       },
       {
         'name': 'Sipariş Onaylama',
