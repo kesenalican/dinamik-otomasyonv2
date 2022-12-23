@@ -61,7 +61,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
     });
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: CommonAppbar(
+      appBar: const CommonAppbar(
         whichPage: Constants.urunEkle,
       ),
       body: SingleChildScrollView(

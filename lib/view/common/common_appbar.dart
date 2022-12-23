@@ -21,7 +21,7 @@ class _CommonAppbarState extends State<CommonAppbar> {
   Widget build(BuildContext context) {
     return AppBar(
       //TELEFONUN WIFI CUBUGU&SARJ IKONLARININ RENKLERI
-      systemOverlayStyle: SystemUiOverlayStyle.light,
+      systemOverlayStyle: SystemUiOverlayStyle.dark,
       title: Text(
         widget.whichPage!,
         style:

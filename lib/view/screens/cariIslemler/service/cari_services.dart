@@ -16,6 +16,7 @@ class CariService extends ChangeNotifier {
   CariModel? cariModel;
   BuildContext? context;
   late List<Cariler> cariKodSorgula;
+  bool? success = true;
 
   // getCari() async {
   //   final result = await Dio().get("${ConstantProvider.BASE_URL}CariBilgiler");
@@ -64,25 +65,27 @@ final carilerProvider = FutureProvider.autoDispose
 //#region Cariler
 final cariSaveProvider = FutureProvider.autoDispose
     .family<List<CariModel>, CariModel>((ref, cari) async {
+  BuildContext? context;
+
   final dio = ref.watch(httpClientProvider);
+  final map = {
+    'cari_kod': cari.cariKod,
+    'cari_unvan1': cari.cariUnvan1,
+    'cari_unvan2': cari.cariUnvan2,
+    'cari_vdaire_adi': cari.cariVdaireAdi,
+    'cari_vdaire_no': cari.cariVergidairekodu,
+    'cari_create_user': cari.cariCreateUser,
+    'cari_lastup_user': cari.cariLastupUser,
+  };
   late final Response result;
   try {
-    result = await dio.post(ConstantProvider.cariBilgiler, data: {
-      'cari_kod': cari.cariKod,
-      'cari_unvan1': cari.cariUnvan1,
-      'cari_unvan2': cari.cariUnvan2,
-      'cari_vdaire_adi': cari.cariVdaireAdi,
-      'cari_vdaire_no': cari.cariVergidairekodu,
-      'cari_create_user': cari.cariCreateUser,
-      'cari_lastup_user': cari.cariLastupUser,
-    });
+    result = await dio.post(ConstantProvider.cariBilgiler, data: map);
     if (result.statusCode == 200) {
       List<Map<String, dynamic>> mapData = List.from(result.data);
       List<CariModel> cariList =
           mapData.map((e) => CariModel.fromMap(e)).toList();
       return cariList;
     } else if (result.statusCode == 500) {
-      BuildContext? context;
       return showAlertDialog(
         context: context!,
         hataBaslik: Constants.kayitHatasi,
@@ -92,6 +95,16 @@ final cariSaveProvider = FutureProvider.autoDispose
     } else {}
   } catch (e) {
     print(e.toString());
+
+    Builder(
+      builder: (context) {
+        return showAlertDialog(
+          context: context,
+          hataBaslik: Constants.kayitHatasi,
+          hataIcerik: Constants.cariZatenKayitli,
+        );
+      },
+    );
   }
   return [];
 });

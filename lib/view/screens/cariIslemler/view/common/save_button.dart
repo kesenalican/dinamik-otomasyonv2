@@ -1,7 +1,9 @@
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
+import 'package:dinamik_otomasyon/view/common/common_error_dialog.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/model/cari_save.model.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/service/cari_services.dart';
+import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/cari_kartlar.dart';
 import 'package:dinamik_otomasyon/view/styles/colors.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
@@ -72,8 +74,14 @@ Future<void> buildSaveButton(
                                     Color(MyColors.bg01)),
                               ),
                               onPressed: () {
-                                Navigator.of(context).popUntil((route) =>
-                                    route.settings.name == '/cariKartlar');
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => CariKartlar(
+                                              alisMi: false,
+                                              detayaGitmesin: false,
+                                            )),
+                                    (route) => false);
                               },
                               child: const Text(
                                 Constants.ok,
