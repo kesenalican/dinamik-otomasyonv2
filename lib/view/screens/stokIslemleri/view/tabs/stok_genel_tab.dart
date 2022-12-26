@@ -22,6 +22,9 @@ class StokGenel extends ConsumerWidget {
         child: Column(
           children: [
             DetaySatir(
+                hangiOzellik: Constants.barkodu,
+                urunBilgi: stokModel.barkodu ?? ''),
+            DetaySatir(
                 hangiOzellik: Constants.urunKodu,
                 urunBilgi: stokModel.stokKodu),
             DetaySatir(
@@ -34,20 +37,25 @@ class StokGenel extends ConsumerWidget {
                 hangiOzellik: Constants.birim,
                 urunBilgi:
                     '${stokModel.stokBirim1} (1 ${stokModel.stokBirim1}) : ${stokModel.stokBirim3Katsayi.toInt()} adet'),
-            DetaySatir(
-                hangiOzellik: Constants.birim2,
-                urunBilgi: 'stokModel.stokBirim2!'),
-            DetaySatir(
-                hangiOzellik: Constants.birim3,
-                urunBilgi: stokModel.stokBirim3),
+            stokModel.stokBirim2 != null
+                ? DetaySatir(
+                    hangiOzellik: Constants.birim2,
+                    urunBilgi: stokModel.stokBirim2!)
+                : const SizedBox(),
+            stokModel.stokBirim3.isNotEmpty
+                ? DetaySatir(
+                    hangiOzellik: Constants.birim3,
+                    urunBilgi: stokModel.stokBirim3)
+                : const SizedBox(),
             DetaySatir(
                 hangiOzellik: Constants.kdv,
                 urunBilgi: '%${stokModel.perakendeVergiYuzde.ceil()}'),
-            DetaySatir(hangiOzellik: Constants.kategori, urunBilgi: 'kategori'),
+            const DetaySatir(
+                hangiOzellik: Constants.kategori, urunBilgi: 'kategori'),
             DetaySatir(
                 hangiOzellik: Constants.anaGrup,
                 urunBilgi: stokModel.stokAnaGrup),
-            DetaySatir(
+            const DetaySatir(
               hangiOzellik: Constants.altGrup,
               urunBilgi: 'alt grup',
             ),

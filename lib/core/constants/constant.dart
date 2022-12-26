@@ -33,6 +33,7 @@ class Constants {
   static const String sunucuAyarlari = 'Sunucu Ayarları';
   static const String ayarlar = 'Ayarlar';
   static const String cikis = 'Çıkış';
+  static const String barkodu = 'Barkodu';
   static const String stokKartlari = 'Stok Kartları';
   static const String hepsiniListele = 'Hepsini Listele';
   static const String ara = 'Ara';

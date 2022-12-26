@@ -184,6 +184,7 @@ class _StokKartlariState extends ConsumerState<StokKartlari> {
                 if (widget.detayaGitmesin == true) {
                   siparisModel.saveStokForSiparis(
                     Stoklar(
+                      barkodu: fullList[index].barkodu,
                       stokKodu: fullList[index].stokKodu,
                       stokIsim: fullList[index].stokIsim,
                       stokFiyat: fullList[index].stokFiyat,

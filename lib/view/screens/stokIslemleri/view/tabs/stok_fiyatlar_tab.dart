@@ -10,7 +10,7 @@ class FiyatlarTab extends ConsumerWidget {
   Stoklar stokModel;
   double? kdvsizFiyat;
   String? netFiyat;
-  double? brutFiyat;
+  String? brutFiyat;
 
   FiyatlarTab({Key? key, required this.stokModel}) : super(key: key);
   truncateDoublePrice(double n) {

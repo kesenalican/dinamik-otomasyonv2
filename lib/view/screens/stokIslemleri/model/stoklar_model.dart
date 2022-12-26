@@ -54,7 +54,7 @@ class Stoklar {
   final double toptanVergiYuzde;
 
   factory Stoklar.fromMap(Map<String, dynamic> json) => Stoklar(
-        barkodu: json['bar_kodu'],
+        barkodu: json['barkodu'],
         stokKodu: json['StokKodu'],
         stokIsim: json['StokIsim'],
         stokFiyat: json['StokFiyat'],
