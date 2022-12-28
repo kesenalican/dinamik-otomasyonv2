@@ -9,7 +9,6 @@ import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/yeniCariKart/ca
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/yeniCariKart/yeni_cari_adres.dart';
 import 'package:dinamik_otomasyon/view/screens/cariIslemler/view/yeniCariKart/yeni_cari_kart.dart';
 import 'package:dinamik_otomasyon/view/screens/faturaIslemleri/satisFaturasi/satis_faturasi.dart';
-import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/alisSiparisi/view/alim_siparisi.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/view/satis_siparisi.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/model/stoklar_model.dart';
 import 'package:dinamik_otomasyon/view/screens/stokIslemleri/view/son_alis_fiyatlari.dart';
@@ -82,8 +81,6 @@ class RouteGenerator {
             settings);
       case RouteConstants.satisSiparisi:
         return _createRoute(const SatisSiparisi(), settings);
-      case RouteConstants.alisSiparisi:
-        return _createRoute(const AlisSiparisi(), settings);
       case RouteConstants.satisFaturasi:
         return _createRoute(const SatisFaturasi(), settings);
 

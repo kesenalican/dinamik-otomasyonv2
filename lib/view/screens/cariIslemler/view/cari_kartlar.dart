@@ -19,12 +19,14 @@ class CariKartlar extends ConsumerStatefulWidget {
   final TextEditingController? cariIsmiController;
   final bool? detayaGitmesin;
   final bool? alisMi;
-  CariKartlar({
+  final bool? irsaliyeMi;
+  const CariKartlar({
     super.key,
     this.detayaGitmesin = false,
     this.cariKodController,
     this.cariIsmiController,
     this.alisMi = false,
+    this.irsaliyeMi = false,
   });
 
   @override
@@ -168,9 +170,14 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
                       cariBagliStok: fullList[index].cariBagliStok,
                     ),
                   );
-                  widget.alisMi!
-                      ? satisSiparisiCarisi.alisMi = true
-                      : const SizedBox();
+
+                  if (widget.alisMi! || !widget.irsaliyeMi!) {
+                    satisSiparisiCarisi.alisMi = true;
+                  } else if (!widget.alisMi! || widget.irsaliyeMi!) {
+                    //! SATIŞ İRSALİYESİ
+                  } else if (widget.alisMi! || widget.irsaliyeMi!) {
+                    //! ALIŞ İRSALİYESİ
+                  }
 
                   Navigator.pushNamed<dynamic>(
                     context,

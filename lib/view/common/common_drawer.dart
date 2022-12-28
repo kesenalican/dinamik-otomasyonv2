@@ -81,7 +81,7 @@ Widget _buildList(Menu list) {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => CariKartlar(
+                        builder: (context) => const CariKartlar(
                               detayaGitmesin: false,
                             )));
                 break;
@@ -92,7 +92,7 @@ Widget _buildList(Menu list) {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => CariKartlar(
+                        builder: (context) => const CariKartlar(
                               detayaGitmesin: true,
                               alisMi: false,
                             )));
@@ -102,9 +102,29 @@ Widget _buildList(Menu list) {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => CariKartlar(
+                        builder: (context) => const CariKartlar(
                               detayaGitmesin: true,
                               alisMi: true,
+                            )));
+                break;
+              case Constants.alisIrsaliyesi:
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CariKartlar(
+                              detayaGitmesin: true,
+                              alisMi: true,
+                              irsaliyeMi: true,
+                            )));
+                break;
+              case Constants.satisIrsaliyesi:
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CariKartlar(
+                              detayaGitmesin: true,
+                              alisMi: false,
+                              irsaliyeMi: true,
                             )));
                 break;
               default:

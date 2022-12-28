@@ -153,6 +153,8 @@ class Constants {
   static const String dikkat = 'Dikkat!';
   static const String satisSiparisi = 'Satış Siparişi';
   static const String alimSiparisi = 'Alış Siparişi';
+  static const String alisIrsaliyesi = 'Alış İrsaliyesi';
+  static const String satisIrsaliyesi = 'Satış İrsaliyesi';
   static const int lastDateinApp = 2050;
   static const String iskontoGiriniz = 'İskonto Giriniz';
   static const String brutToplamdanYuzde = 'Brüt Toplamdan Yüzde';

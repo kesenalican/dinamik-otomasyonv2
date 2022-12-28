@@ -58,7 +58,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => CariKartlar(
+                        builder: (context) => const CariKartlar(
                               detayaGitmesin: false,
                             )));
               },
@@ -70,7 +70,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const SatisSiparisi()));
+                        builder: (context) => const CariKartlar(
+                            alisMi: false, detayaGitmesin: true)));
               },
               cardName: modules[2],
               iconData: const Icon(Icons.info_outline_rounded),
@@ -80,14 +81,42 @@ class _HomePageState extends ConsumerState<HomePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ScheduleTab(
-                              cardName: modules[3],
+                        builder: (context) => const CariKartlar(
+                              alisMi: true,
+                              detayaGitmesin: true,
                             )));
               },
               cardName: modules[3],
               iconData: const Icon(Icons.warehouse),
             ),
-
+            ModuleCardButton(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CariKartlar(
+                              alisMi: false,
+                              detayaGitmesin: true,
+                              irsaliyeMi: true,
+                            )));
+              },
+              cardName: modules[4],
+              iconData: const Icon(Icons.warehouse),
+            ),
+            ModuleCardButton(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CariKartlar(
+                              alisMi: true,
+                              detayaGitmesin: true,
+                              irsaliyeMi: true,
+                            )));
+              },
+              cardName: modules[5],
+              iconData: const Icon(Icons.warehouse),
+            ),
             //Text(ref.read(userCodeValue).toString()),
           ],
         ),

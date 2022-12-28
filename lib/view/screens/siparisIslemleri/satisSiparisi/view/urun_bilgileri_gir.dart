@@ -106,7 +106,9 @@ class UrunBilgileriGir extends HookConsumerWidget {
                         Expanded(
                           flex: 2,
                           child: Text(
-                            fiyati.first.aciklama,
+                            fiyati.isNotEmpty
+                                ? fiyati.first.aciklama
+                                : 'Satış Fiyatı Tanımlanmamış',
                             style: purpleTxtStyle,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -253,7 +255,7 @@ class UrunBilgileriGir extends HookConsumerWidget {
                         mas4Controller,
                         netFiyat.value);
                   },
-                  child: CommonButton(buttonName: Constants.ekle),
+                  child: const CommonButton(buttonName: Constants.ekle),
                 ),
               ),
             ],
@@ -333,6 +335,17 @@ class UrunBilgileriGir extends HookConsumerWidget {
     return showDialog(
         context: context,
         builder: (context) {
+          if (siparisMiktariController.text != '') {
+            double miktar =
+                double.parse(siparisMiktariController.text.replaceAll(',', ''));
+            double fiyat = siparisModel.savedStok!.stokFiyat;
+            double toplam = fiyat * miktar;
+            sipTutariController.text = toplam.toString();
+            //* KDVSİZ TUTARLARIDA TOPLUYORUM
+            //siparisModel.calculateKdv();
+            netFiyat = siparisModel.kdvsizNetFiyat! * miktar;
+            siparisModel.kdvsizBrutFiyat = netFiyat;
+          }
           return AlertDialog(
             title: Text(
               Constants.kayitMesaji,

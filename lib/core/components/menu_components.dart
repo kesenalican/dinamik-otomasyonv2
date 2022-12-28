@@ -57,18 +57,18 @@ List dataList = [
       {
         'name': 'Sipariş Onaylama',
       },
-      {
-        'name': 'Bekleyen Siparişler',
-      },
-      {
-        'name': 'Sipariş Takibi',
-      },
-      {
-        'name': 'Transfer Edilenler',
-      },
-      {
-        'name': 'Transfer Edilmeyenler',
-      },
+      // {
+      //   'name': 'Bekleyen Siparişler',
+      // },
+      // {
+      //   'name': 'Sipariş Takibi',
+      // },
+      // {
+      //   'name': 'Transfer Edilenler',
+      // },
+      // {
+      //   'name': 'Transfer Edilmeyenler',
+      // },
     ]
   },
   {

@@ -2,5 +2,7 @@ const modules = [
   'Stok Kartları',
   'Cari Kartlar',
   'Satış Siparişi',
-  'Depo Yönetimi',
+  'Alış Siparişi',
+  'Satış İrsaliyesi',
+  'Alış İrsaliyesi',
 ];
