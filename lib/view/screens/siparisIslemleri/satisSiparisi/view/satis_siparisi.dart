@@ -20,9 +20,6 @@ class SatisSiparisi extends ConsumerWidget {
         onWillPop: () => _onBackButtonPressed(context, orderList),
         child: Scaffold(
           appBar: AppBar(
-            actionsIconTheme: const IconThemeData(
-              color: Colors.white,
-            ),
             title: Text(
               orderList.alisMi
                   ? Constants.alimSiparisi
@@ -30,7 +27,7 @@ class SatisSiparisi extends ConsumerWidget {
               style: TextStyle(
                   color: Color(MyColors.bg), fontWeight: FontWeight.w600),
             ),
-            iconTheme: IconThemeData(color: Color(MyColors.bg01)),
+            iconTheme: const IconThemeData(color: Colors.white),
             backgroundColor: Color(MyColors.bg01),
             elevation: 0,
             bottom: const TabBar(

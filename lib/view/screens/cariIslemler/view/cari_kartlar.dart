@@ -1,4 +1,6 @@
 import 'package:dinamik_otomasyon/view/common/common_loading.dart';
+import 'package:dinamik_otomasyon/view/screens/irsaliyeIslemleri/service/irsaliye_service.dart';
+import 'package:dinamik_otomasyon/view/screens/irsaliyeIslemleri/viewmodel/irsaliye_view_model.dart';
 import 'package:dinamik_otomasyon/view/screens/siparisIslemleri/satisSiparisi/viewmodel/satis_siparisi_view_model.dart';
 import 'package:dinamik_otomasyon/view/styles/styles.dart';
 import 'package:flutter/material.dart';
@@ -170,11 +172,18 @@ class _CariKartlarState extends ConsumerState<CariKartlar> {
                       cariBagliStok: fullList[index].cariBagliStok,
                     ),
                   );
-
-                  if (widget.alisMi! || !widget.irsaliyeMi!) {
+                  if (!widget.alisMi!) {
+                    satisSiparisiCarisi.alisMi = false;
+                  } else if (widget.alisMi! || !widget.irsaliyeMi!) {
                     satisSiparisiCarisi.alisMi = true;
                   } else if (!widget.alisMi! || widget.irsaliyeMi!) {
                     //! SATIŞ İRSALİYESİ
+                    var viewModel = ref.watch(irsaliyeViewModel);
+                    var siparisKontrol =
+                        ref.watch(siparisVarmi(fullList[index].cariKodu));
+                    siparisKontrol.hasValue
+                        ? viewModel.siparisVarmi = true
+                        : false;
                   } else if (widget.alisMi! || widget.irsaliyeMi!) {
                     //! ALIŞ İRSALİYESİ
                   }

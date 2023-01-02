@@ -1,5 +1,5 @@
 class ConstantProvider {
-  static const String baseUrl = 'http://192.168.5.25:5239/api/';
+  static const String baseUrl = 'http://192.168.5.22:5239/api/';
   static const String user = 'User';
   static const String vergiDaireleri = 'VergiDaireleri';
   static const String stoklar = 'Stoklar';
