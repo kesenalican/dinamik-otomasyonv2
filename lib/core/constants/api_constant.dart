@@ -16,4 +16,5 @@ class ConstantProvider {
   static const String muhasebeHesapKodu = 'MuhasebeHesapKodu';
   static const String cariGrupKodu = 'CariGrupKodu';
   static const String cariSektorKodu = 'CariGrupKodu';
+  static const String irsaliyeEvrakKontrol = 'IrsaliyeEvrakKontrol';
 }

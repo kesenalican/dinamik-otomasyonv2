@@ -159,6 +159,7 @@ class Constants {
   static const String iskontoGiriniz = 'İskonto Giriniz';
   static const String brutToplamdanYuzde = 'Brüt Toplamdan Yüzde';
   static const String siparisOzeti = 'Sipariş Özeti';
+  static const String irsaliyeOzeti = 'İrsaliye Özeti';
   static const String araToplam = 'Ara Toplam';
   static const String iskonto = 'İskonto';
   static const String masraf = 'Masraf';
@@ -167,6 +168,7 @@ class Constants {
   static const String siparisToplamSatiri = 'Toplam Sipariş Satırı';
   static const String listeSonunaUlastiniz = 'Listenin sonuna ulaştınız.';
   static const String siparisListesi = 'Sipariş Listesi';
+  static const String urunListesi = 'Ürün Listesi';
   static const String toplam = 'Toplam';
   static const String iptal = 'İptal';
   static const String evet = 'Evet';

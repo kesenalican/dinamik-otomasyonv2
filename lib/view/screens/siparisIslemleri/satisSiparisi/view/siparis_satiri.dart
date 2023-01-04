@@ -15,7 +15,7 @@ class SiparisSatiri extends HookConsumerWidget {
   final TextEditingController stokBirimController;
   final TextEditingController birimFiyatController;
   final TextEditingController sipTutariController;
- const  SiparisSatiri({
+  const SiparisSatiri({
     super.key,
     required this.stokKoduController,
     required this.stokIsmiController,
@@ -38,7 +38,7 @@ class SiparisSatiri extends HookConsumerWidget {
     CariViewModel cariViewModel = CariViewModel();
     var viewModel = ref.watch(satisSiparisViewModel);
     return Scaffold(
-      appBar: CommonAppbar(
+      appBar: const CommonAppbar(
         whichPage: Constants.siparisOlustur,
       ),
       body: SingleChildScrollView(
@@ -96,7 +96,7 @@ class SiparisSatiri extends HookConsumerWidget {
               readOnly: true,
               textInputType: TextInputType.number,
             ),
-            CommonButton(buttonName: Constants.kaydetVeYeniUrunGir),
+            const CommonButton(buttonName: Constants.kaydetVeYeniUrunGir),
             InkWell(
               onTap: () {
                 Navigator.of(context).pop(SiparisSatiri(
@@ -108,7 +108,7 @@ class SiparisSatiri extends HookConsumerWidget {
                     sipTutariController: sipTutariController));
                 siparisTemizle();
               },
-              child: CommonButton(
+              child: const CommonButton(
                 buttonName: Constants.kaydetVeCik,
               ),
             ),
