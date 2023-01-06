@@ -1,4 +1,5 @@
 import 'package:dinamik_otomasyon/Model/firma_model.dart';
+import 'package:dinamik_otomasyon/core/components/dialog_utils.dart';
 import 'package:dinamik_otomasyon/core/constants/constant.dart';
 import 'package:dinamik_otomasyon/core/extensions/extensions.dart';
 import 'package:dinamik_otomasyon/service/Providers/all_providers.dart';
@@ -55,12 +56,24 @@ class _LoginState extends ConsumerState<Login> {
         passwordController.text = password;
         userCodeController.text = userCode;
       });
+      if (company.isEmpty ||
+          user.isEmpty ||
+          password.isEmpty ||
+          userCode.isEmpty) {
+        Future.delayed(
+          const Duration(milliseconds: 500),
+          () {
+            return showAlertDialog(
+              context: context,
+              hataBaslik: 'Uygulamaya Hoşgeldiniz',
+              hataIcerik: '',
+            );
+          },
+        );
+      }
     } catch (e) {
       Future.delayed(const Duration(milliseconds: 500), () {
-        return showAlertDialog(
-            context: context,
-            hataBaslik: Constants.sharedHatasi,
-            hataIcerik: Constants.sharedHataIcerik + e.toString());
+        return showToast(Constants.sharedHatasi);
       });
     }
   }
@@ -192,7 +205,7 @@ class _LoginState extends ConsumerState<Login> {
                           //     hataIcerik: Constants.hosGeldiniz);
                         },
                       );
-
+                      
                       current.setCurrentUser(UserModel(
                           kullaniciNo: int.parse(userCodeController.text),
                           kullaniciKisaAdi: userController.text,
@@ -203,6 +216,7 @@ class _LoginState extends ConsumerState<Login> {
 
                       Navigator.pushReplacementNamed(context, '/home',
                           arguments: companyController.text);
+                      showToast(Constants.hosGeldiniz);
                     } else if (passwordController.text != Constants.password) {
                       Future.delayed(
                         const Duration(seconds: 1),

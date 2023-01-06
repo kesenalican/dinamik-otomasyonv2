@@ -108,24 +108,24 @@ Widget _buildList(Menu list) {
                             )));
                 break;
               case Constants.alisIrsaliyesi:
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const CariKartlar(
-                              detayaGitmesin: true,
-                              alisMi: true,
-                              irsaliyeMi: true,
-                            )));
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => const CariKartlar(
+                //               detayaGitmesin: true,
+                //               alisMi: true,
+                //               irsaliyeMi: true,
+                //             )));
                 break;
               case Constants.satisIrsaliyesi:
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const CariKartlar(
-                              detayaGitmesin: true,
-                              alisMi: false,
-                              irsaliyeMi: true,
-                            )));
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => const CariKartlar(
+                //               detayaGitmesin: true,
+                //               alisMi: false,
+                //               irsaliyeMi: true,
+                //             )));
                 break;
               default:
                 Navigator.push(

@@ -1,3 +1,4 @@
+import 'package:dinamik_otomasyon/Model/cari_bakiye.dart';
 import 'package:dinamik_otomasyon/Model/cari_personel_tanimlari.dart';
 import 'package:dinamik_otomasyon/Model/depo_model.dart';
 import 'package:dinamik_otomasyon/Model/firma_model.dart';
@@ -149,6 +150,22 @@ final cariPersonelProvider = FutureProvider.autoDispose
     List<CariPersonelTanimlari> personelList =
         mapData.map((e) => CariPersonelTanimlari.fromMap(e)).toList();
     return personelList;
+  } else {
+    return Future.delayed(const Duration(seconds: 1));
+  }
+});
+//#endregion
+//#region Stoklar koda göre sıralama
+final cariBakiyeProvider = FutureProvider.autoDispose
+    .family<List<CariBakiye>, String>((ref, cariKodu) async {
+  final dio = ref.watch(httpClientProvider);
+  final result = await dio
+      .get('CariBakiyeRaporu', queryParameters: {'cariKodu': cariKodu});
+  if (result.statusCode == 200) {
+    List<Map<String, dynamic>> mapData = List.from(result.data);
+    List<CariBakiye> cariBakiye =
+        mapData.map((e) => CariBakiye.fromMap(e)).toList();
+    return cariBakiye;
   } else {
     return Future.delayed(const Duration(seconds: 1));
   }

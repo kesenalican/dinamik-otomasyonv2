@@ -107,6 +107,7 @@ class Constants {
   static const String stokIsim = 'Stok İsim';
 // ERROR TEXTS
   static const String ok = 'Ok';
+
   static const String hataBaslik = 'Haberleşme Hatası';
   static const String hataIcerik = 'Sunucuya bağlanırken bir hata oluştu';
   static const String cariKodKayitli = 'Bu cari kodu zaten kayıtlı';
@@ -140,7 +141,7 @@ class Constants {
   static const String satinAlmaciSeciniz = 'Satın Almacı Seçiniz';
   static const String teslimTuruSeciniz = 'Teslim Türü Seçiniz';
   static const String odemePlani = 'Ödeme Planı';
-  static const String sharedHatasi = 'Shared Hatası';
+  static const String sharedHatasi = 'Kayıtlı bilgiler bulunamadı.';
   static const String sharedHataIcerik =
       'Kaynaklar getirilirken bir hata oluştu';
   static const String cariKayitBasarili = 'Cari başarıyla kaydedildi';

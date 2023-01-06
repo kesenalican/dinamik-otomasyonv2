@@ -50,9 +50,12 @@ class _ModuleCardButtonState extends State<ModuleCardButton> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(widget.cardName!,
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 30)),
+                            Text(
+                              widget.cardName!,
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 25),
+                              overflow: TextOverflow.ellipsis,
+                            ),
                             const SizedBox(
                               height: 2,
                             ),

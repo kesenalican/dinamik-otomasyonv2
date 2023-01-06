@@ -3,6 +3,6 @@ const modules = [
   'Cari Kartlar',
   'Satış Siparişi',
   'Alış Siparişi',
-  'Satış İrsaliyesi',
-  'Alış İrsaliyesi',
+  'Satış İrsaliyesi (Yakında)',
+  'Alış İrsaliyesi (Yakında)',
 ];
