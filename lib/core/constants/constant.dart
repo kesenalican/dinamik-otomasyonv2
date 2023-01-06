@@ -224,6 +224,16 @@ class Constants {
   static const String cariZatenKayitli = 'Bu cari zaten kayıtlı!';
   static const String hataliBarkod = 'Hatalı Barkod';
   static const String boyleBirBarkodBulunamadi = 'Böyle bir barkod bulunamadı!';
+
+  //* CARİ BAKİYE TAB
+  static const String cariBakiyeHatasi =
+      'Cari bakiyesi getirilirken bir hata oluştu.';
+  static const String anaDovizBorc = 'Ana Döviz Borç';
+  static const String anaDovizAlacak = 'Ana Döviz Alacak';
+  static const String altDovizBorc = 'Alt Döviz Borç';
+  static const String altDovizAlacak = 'Alt Döviz Alacak';
+  static const String orjDovizBorc = 'Orjinal Döviz Borç';
+  static const String orjDovizAlacak = 'Orjinal Döviz Alacak';
 }
 
 class CurrencyConstants {

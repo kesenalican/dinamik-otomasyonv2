@@ -33,12 +33,11 @@ class CariBakiyeTab extends ConsumerWidget {
             cariBakiye.when(
               error: (error, stackTrace) => showAlertDialog(
                   context: context,
-                  hataBaslik: 'Hata',
-                  hataIcerik: 'Cari bakiyesi getirilirken bir hata oluştu.'),
+                  hataBaslik: Constants.hataCikti,
+                  hataIcerik: Constants.cariBakiyeHatasi),
               loading: () => const CommonLoading(),
               data: (data) {
                 List<CariBakiye> cariBakiye = data.map((e) => e).toList();
-
                 return Column(
                   children: [
                     Padding(
@@ -53,7 +52,7 @@ class CariBakiyeTab extends ConsumerWidget {
                       child: BakiyeSatiri(
                         cariBakiye:
                             cariBakiye[0].anaDovizBorc!.toStringAsFixed(2),
-                        hangiBorc: 'Ana Döviz Borç',
+                        hangiBorc: Constants.anaDovizBorc,
                       ),
                     ),
                     Padding(
@@ -61,7 +60,7 @@ class CariBakiyeTab extends ConsumerWidget {
                       child: BakiyeSatiri(
                         cariBakiye:
                             cariBakiye[0].anaDovizAlacak!.toStringAsFixed(2),
-                        hangiBorc: 'Ana Döviz Alacak',
+                        hangiBorc: Constants.anaDovizAlacak,
                       ),
                     ),
                     Padding(
@@ -69,7 +68,7 @@ class CariBakiyeTab extends ConsumerWidget {
                       child: BakiyeSatiri(
                         cariBakiye:
                             cariBakiye[0].altDovizBorc!.toStringAsFixed(2),
-                        hangiBorc: 'Alt Döviz Borç',
+                        hangiBorc: Constants.altDovizBorc,
                       ),
                     ),
                     Padding(
@@ -77,7 +76,7 @@ class CariBakiyeTab extends ConsumerWidget {
                       child: BakiyeSatiri(
                         cariBakiye:
                             cariBakiye[0].altDovizAlacak!.toStringAsFixed(2),
-                        hangiBorc: 'Alt Döviz Alacak',
+                        hangiBorc: Constants.altDovizAlacak,
                       ),
                     ),
                     Padding(
@@ -85,7 +84,7 @@ class CariBakiyeTab extends ConsumerWidget {
                       child: BakiyeSatiri(
                         cariBakiye:
                             cariBakiye[0].orjDovizBorc!.toStringAsFixed(2),
-                        hangiBorc: 'Orjinal Döviz Borç',
+                        hangiBorc: Constants.orjDovizBorc,
                       ),
                     ),
                     Padding(
@@ -93,7 +92,7 @@ class CariBakiyeTab extends ConsumerWidget {
                       child: BakiyeSatiri(
                         cariBakiye:
                             cariBakiye[0].orjDovizAlacak!.toStringAsFixed(2),
-                        hangiBorc: 'Orjinal Döviz Alacak',
+                        hangiBorc: Constants.orjDovizAlacak,
                       ),
                     ),
                   ],
