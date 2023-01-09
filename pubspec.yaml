@@ -60,7 +60,7 @@ dev_dependencies:
   json_serializable: ^6.5.3
   sql_conn: ^0.0.3
   flutter_launcher_icons: ^0.11.0
-  test: ^1.22.1
+  #test: ^1.22.1
 
 
 # For information on the generic Dart part of this file, see the

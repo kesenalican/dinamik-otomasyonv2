@@ -29,7 +29,7 @@ class CariBakiyeTab extends ConsumerWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
-          children: [
+          children: [ 
             cariBakiye.when(
               error: (error, stackTrace) => showAlertDialog(
                   context: context,

@@ -54,7 +54,7 @@ class CariService extends ChangeNotifier {
 final carilerProvider = FutureProvider.autoDispose
     .family<List<Cariler>, int>((ref, pageCount) async {
   final dio = ref.watch(httpClientProvider);
-  final result = await dio.get(ConstantProvider.cariBilgiler,
+  final result = await dio.get(      ConstantProvider.cariBilgiler,
       queryParameters: {'offset': pageCount});
   List<Map<String, dynamic>> mapData = List.from(result.data);
   List<Cariler> cariList = mapData.map((e) => Cariler.fromMap(e)).toList();
